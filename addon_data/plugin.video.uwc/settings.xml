@@ -1,0 +1,18 @@
+<settings>
+    <setting id="changelog_seen_version" value="1.1.64" />
+    <setting id="chatcouple" value="true" />
+    <setting id="chatfemale" value="true" />
+    <setting id="chatmale" value="true" />
+    <setting id="chatplay" value="0" />
+    <setting id="chatslow" value="0" />
+    <setting id="chattrans" value="true" />
+    <setting id="chaturbate" value="false" />
+    <setting id="dontask" value="false" />
+    <setting id="download_path" value="" />
+    <setting id="paradisehill" value="false" />
+    <setting id="posterfanart" value="false" />
+    <setting id="sortwxf" value="0" />
+    <setting id="sortxt" value="0" />
+    <setting id="universal_resolvers" value="true" />
+    <setting id="uwcage" value="true" />
+</settings>

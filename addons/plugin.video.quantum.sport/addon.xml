@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.quantum.sport" name="Quantum Sport" version="2.0.1" provider-name="GalAnonim">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="service.cronxbmc" optional="true"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>video</provides>
+    </extension>
+  <extension point="xbmc.addon.metadata">
+<summary lang="en_GB">Quantum Live Sport</summary>
+<description lang="en_GB">[I]What do you need more?[/I][CR][CR][B]Quantum Live Sport[/B][CR][CR]This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels.[CR][CR]The author does not host any of the content in this addon and takes no responsibility for content found.</description>
+<disclaimer lang="en_GB">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This is a private addon and simply searches websites for content. Use at your own risk!.</disclaimer>
+<platform>all</platform>
+<news>
+v2.0.1 (SEPTEMBER-2018)
+First new release
+</news>
+</extension>
+</addon>
