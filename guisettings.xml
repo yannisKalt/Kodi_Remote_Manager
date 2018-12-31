@@ -19,7 +19,8 @@
         <ac3passthrough default="true">true</ac3passthrough>
         <ac3transcode default="true">false</ac3transcode>
         <atempothreshold default="true">2</atempothreshold>
-        <audiodevice default="true">PULSE:Default</audiodevice>
+        <audiodevice default="true">PI:HDMI</audiodevice>
+        <boostcenter default="true">0</boostcenter>
         <channels default="true">1</channels>
         <config default="true">2</config>
         <dspaddonsenabled default="true">false</dspaddonsenabled>
@@ -29,14 +30,15 @@
         <guisoundmode default="true">1</guisoundmode>
         <maintainoriginalvolume default="true">true</maintainoriginalvolume>
         <passthrough default="true">false</passthrough>
-        <passthroughdevice default="true">default</passthroughdevice>
+        <passthroughdevice default="true">PI:HDMI</passthroughdevice>
+        <plladjust default="true">0</plladjust>
         <processquality default="true">30</processquality>
         <samplerate default="true">48000</samplerate>
         <stereoupmix default="true">false</stereoupmix>
         <streamnoise default="true">true</streamnoise>
         <streamsilence default="true">1</streamsilence>
         <truehdpassthrough default="true">false</truehdpassthrough>
-        <volumesteps default="true">90</volumesteps>
+        <volumesteps default="true">20</volumesteps>
     </audiooutput>
     <bluray>
         <playerregion default="true">1</playerregion>
@@ -62,9 +64,9 @@
         <lan default="true">2048</lan>
     </cachevideo>
     <debug>
-        <extralogging default="true">true</extralogging>
-        <screenshotpath default="true"></screenshotpath>
-        <setextraloglevel default="true">32768</setextraloglevel>
+        <extralogging default="true">false</extralogging>
+        <screenshotpath>/storage/screenshots/</screenshotpath>
+        <setextraloglevel default="true"></setextraloglevel>
         <showloginfo default="true">false</showloginfo>
     </debug>
     <disc>
@@ -79,8 +81,8 @@
         <daystodisplay default="true">3</daystodisplay>
         <epgupdate default="true">120</epgupdate>
         <hidenoinfoavailable default="true">true</hidenoinfoavailable>
-        <ignoredbforclient default="true">false</ignoredbforclient>
-        <preventupdateswhileplayingtv default="true">false</preventupdateswhileplayingtv>
+        <ignoredbforclient default="true">true</ignoredbforclient>
+        <preventupdateswhileplayingtv default="true">true</preventupdateswhileplayingtv>
         <selectaction default="true">2</selectaction>
     </epg>
     <eventlog>
@@ -89,6 +91,7 @@
     </eventlog>
     <filelists>
         <allowfiledeletion default="true">false</allowfiledeletion>
+        <browsearchives default="true">true</browsearchives>
         <ignorethewhensorting default="true">true</ignorethewhensorting>
         <showaddsourcebuttons default="true">true</showaddsourcebuttons>
         <showextensions default="true">true</showextensions>
@@ -105,7 +108,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>217</systemtotaluptime>
+        <systemtotaluptime>18701</systemtotaluptime>
     </general>
     <input>
         <asknewcontrollers default="true">true</asknewcontrollers>
@@ -117,7 +120,7 @@
         <audiolanguage default="true">original</audiolanguage>
         <charset default="true">DEFAULT</charset>
         <country>Ελλάδα</country>
-        <keyboardlayouts default="true">English QWERTY</keyboardlayouts>
+        <keyboardlayouts>English QWERTY|Greek QWERTY</keyboardlayouts>
         <language>resource.language.el_gr</language>
         <longdateformat default="true">regional</longdateformat>
         <shortdateformat default="true">regional</shortdateformat>
@@ -125,8 +128,8 @@
         <subtitlelanguage>Greek</subtitlelanguage>
         <temperatureunit default="true">regional</temperatureunit>
         <timeformat default="true">regional</timeformat>
-        <timezone default="true"></timezone>
-        <timezonecountry default="true"></timezonecountry>
+        <timezone>Europe/Athens</timezone>
+        <timezonecountry>Greece</timezonecountry>
         <use24hourclock default="true">regional</use24hourclock>
     </locale>
     <lookandfeel>
@@ -134,8 +137,8 @@
         <font default="true">Default</font>
         <rssedit default="true"></rssedit>
         <skin default="true">skin.estuary</skin>
-        <skincolors default="true">SKINDEFAULT</skincolors>
-        <skintheme default="true">SKINDEFAULT</skintheme>
+        <skincolors>midnight</skincolors>
+        <skintheme>curial</skintheme>
         <skinzoom default="true">0</skinzoom>
         <soundskin default="true">resource.uisounds.kodi</soundskin>
         <startupwindow default="true">10000</startupwindow>
@@ -184,9 +187,9 @@
         <needsupdate>0</needsupdate>
     </mymusic>
     <myvideos>
-        <extractchapterthumbs default="true">true</extractchapterthumbs>
-        <extractflags default="true">true</extractflags>
-        <extractthumb default="true">true</extractthumb>
+        <extractchapterthumbs default="true">false</extractchapterthumbs>
+        <extractflags default="true">false</extractflags>
+        <extractthumb default="true">false</extractthumb>
         <flatten default="true">false</flatten>
         <replacelabels default="true">true</replacelabels>
         <selectaction default="true">1</selectaction>
@@ -217,14 +220,14 @@
     </pictures>
     <powermanagement>
         <displaysoff default="true">0</displaysoff>
-        <shutdownstate default="true">0</shutdownstate>
+        <shutdownstate default="true">1</shutdownstate>
         <shutdowntime default="true">0</shutdowntime>
         <wakeonaccess default="true">false</wakeonaccess>
     </powermanagement>
     <pvrmanager>
         <backendchannelorder default="true">true</backendchannelorder>
         <hideconnectionlostwarning default="true">false</hideconnectionlostwarning>
-        <syncchannelgroups default="true">true</syncchannelgroups>
+        <syncchannelgroups default="true">false</syncchannelgroups>
         <usebackendchannelnumbers default="true">false</usebackendchannelnumbers>
     </pvrmanager>
     <pvrmenu>
@@ -235,7 +238,7 @@
     <pvrparental>
         <duration default="true">300</duration>
         <enabled default="true">false</enabled>
-        <pin>008bd5ad93b754d500338c253d9c1770</pin>
+        <pin default="true"></pin>
     </pvrparental>
     <pvrplayback>
         <channelentrytimeout default="true">0</channelentrytimeout>
@@ -244,7 +247,7 @@
         <fps default="true">0</fps>
         <playminimized default="true">true</playminimized>
         <scantime default="true">10</scantime>
-        <signalquality default="true">true</signalquality>
+        <signalquality default="true">false</signalquality>
         <startlast default="true">0</startlast>
         <trafficadvisory default="true">false</trafficadvisory>
         <trafficadvisoryvolume default="true">10</trafficadvisoryvolume>
@@ -255,7 +258,7 @@
         <dailywakeuptime default="true">00:00:00</dailywakeuptime>
         <enabled default="true">false</enabled>
         <prewakeup default="true">15</prewakeup>
-        <setwakeupcmd default="true"></setwakeupcmd>
+        <setwakeupcmd default="true">/usr/bin/setwakeup.sh</setwakeupcmd>
     </pvrpowermanagement>
     <pvrrecord>
         <defaultlifetime default="true">99</defaultlifetime>
@@ -278,17 +281,17 @@
     </scrapers>
     <screensaver>
         <mode default="true">screensaver.xbmc.builtin.dim</mode>
-        <time default="true">3</time>
+        <time>5</time>
         <usedimonpause default="true">true</usedimonpause>
         <usemusicvisinstead default="true">true</usemusicvisinstead>
     </screensaver>
     <services>
-        <airplay default="true">false</airplay>
+        <airplay default="true">true</airplay>
         <airplaypassword default="true"></airplaypassword>
         <airplayvideosupport default="true">true</airplayvideosupport>
         <airplayvolumecontrol default="true">true</airplayvolumecontrol>
         <devicename default="true">Kodi</devicename>
-        <esallinterfaces default="true">false</esallinterfaces>
+        <esallinterfaces>true</esallinterfaces>
         <escontinuousdelay default="true">25</escontinuousdelay>
         <esenabled default="true">true</esenabled>
         <esinitialdelay default="true">750</esinitialdelay>
@@ -301,7 +304,7 @@
         <upnprenderer default="true">false</upnprenderer>
         <upnpserver default="true">false</upnpserver>
         <useairplaypassword default="true">false</useairplaypassword>
-        <webserver default="true">false</webserver>
+        <webserver default="true">true</webserver>
         <webserverpassword default="true"></webserverpassword>
         <webserverport default="true">8080</webserverport>
         <webserverusername default="true">kodi</webserverusername>
@@ -315,7 +318,9 @@
         <staytime default="true">5</staytime>
     </slideshow>
     <smb>
+        <legacysecurity default="true">false</legacysecurity>
         <maxprotocol default="true">0</maxprotocol>
+        <minprotocol default="true">0</minprotocol>
         <winsserver default="true">0.0.0.0</winsserver>
         <workgroup default="true">WORKGROUP</workgroup>
     </smb>
@@ -327,15 +332,15 @@
         <downloadfirst default="true">false</downloadfirst>
         <font default="true">arial.ttf</font>
         <height default="true">28</height>
-        <languages default="true">English</languages>
-        <movie default="true"></movie>
+        <languages>Greek</languages>
+        <movie>service.subtitles.opensubtitles_by_opensubtitles</movie>
         <overrideassfonts default="true">false</overrideassfonts>
         <parsecaptions default="true">false</parsecaptions>
         <pauseonsearch default="true">true</pauseonsearch>
         <stereoscopicdepth default="true">0</stereoscopicdepth>
         <storagemode default="true">0</storagemode>
         <style default="true">1</style>
-        <tv default="true"></tv>
+        <tv>service.subtitles.opensubtitles_by_opensubtitles</tv>
     </subtitles>
     <system>
         <playlistspath>special://profile/playlists/</playlistspath>
@@ -357,7 +362,8 @@
         <adjustrefreshrate default="true">0</adjustrefreshrate>
         <autoplaynextitem default="true">false</autoplaynextitem>
         <errorinaspect default="true">0</errorinaspect>
-        <hqscalers>0</hqscalers>
+        <hqscalers default="true">20</hqscalers>
+        <limitguiupdate default="true">10</limitguiupdate>
         <preferdefaultflag default="true">true</preferdefaultflag>
         <prefervaapirender default="true">true</prefervaapirender>
         <quitstereomodeonstop default="true">true</quitstereomodeonstop>
@@ -366,18 +372,20 @@
         <seeksteps default="true">-600,-300,-180,-60,-30,-10,10,30,60,180,300,600</seeksteps>
         <stereoscopicplaybackmode default="true">0</stereoscopicplaybackmode>
         <stretch43 default="true">0</stretch43>
+        <supportmvc default="true">true</supportmvc>
         <teletextenabled default="true">true</teletextenabled>
         <teletextscale default="true">true</teletextscale>
         <useamcodec default="true">true</useamcodec>
         <useamcodech264 default="true">0</useamcodech264>
         <useamcodecmpeg2 default="true">0</useamcodecmpeg2>
         <useamcodecmpeg4 default="true">800</useamcodecmpeg4>
-        <usedisplayasclock>true</usedisplayasclock>
+        <usedisplayasclock default="true">false</usedisplayasclock>
         <usedxva2 default="true">true</usedxva2>
         <usemediacodec default="true">true</usemediacodec>
         <usemediacodecsurface default="true">true</usemediacodecsurface>
+        <usemmal default="true">true</usemmal>
         <useomx default="true">true</useomx>
-        <useomxplayer default="true">true</useomxplayer>
+        <useomxplayer>true</useomxplayer>
         <usevaapi default="true">true</usevaapi>
         <usevaapimpeg2 default="true">true</usevaapimpeg2>
         <usevaapimpeg4 default="true">true</usevaapimpeg4>
@@ -404,22 +412,25 @@
         <dither default="true">false</dither>
         <ditherdepth default="true">8</ditherdepth>
         <fakefullscreen default="true">true</fakefullscreen>
+        <framepacking>true</framepacking>
         <limitedrange default="true">false</limitedrange>
+        <limitgui default="true">0</limitgui>
         <monitor default="true">Default</monitor>
-        <noofbuffers default="true">3</noofbuffers>
+        <noofbuffers default="true">2</noofbuffers>
         <preferedstereoscopicmode default="true">100</preferedstereoscopicmode>
-        <resolution>15</resolution>
-        <screen>-1</screen>
-        <screenmode>WINDOW</screenmode>
+        <resolution default="true">16</resolution>
+        <screen default="true">0</screen>
+        <screenmode default="true">DESKTOP</screenmode>
         <stereoscopicmode default="true">0</stereoscopicmode>
+        <textures32 default="true">true</textures32>
     </videoscreen>
     <weather>
         <addon default="true"></addon>
         <currentlocation default="true">1</currentlocation>
     </weather>
     <window>
-        <height>864</height>
-        <width>1536</width>
+        <height default="true">480</height>
+        <width default="true">720</width>
     </window>
     <viewstates>
         <musicfiles>
@@ -459,16 +470,16 @@
             <sortattributes>0</sortattributes>
         </pictures>
         <programs>
-            <viewmode>720896</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
-            <sortattributes>0</sortattributes>
+            <sortattributes>1</sortattributes>
         </programs>
         <videofiles>
-            <viewmode>720896</viewmode>
+            <viewmode>65536</viewmode>
             <sortmethod>1</sortmethod>
             <sortorder>1</sortorder>
-            <sortattributes>0</sortattributes>
+            <sortattributes>1</sortattributes>
         </videofiles>
         <videonavactors>
             <viewmode>65536</viewmode>
