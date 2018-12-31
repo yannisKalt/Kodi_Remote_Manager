@@ -1,5 +1,7 @@
 Preconfigured Kodi Addons For RPI-3 Libreelec
 
+Designed Greek Clients.
+
 # TODO: One script to rule them all
 # 1) Fetch addons from git
 # 2) Install them
