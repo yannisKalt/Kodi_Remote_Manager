@@ -24,4 +24,4 @@ All addons are configured for greek clients
 7) update_kodi_utils.py
     Functions for update.py
 
-Final Notice:
+Final Notice: Make Sure To run update.py as start. (For libreelec check https://wiki.libreelec.tv/autostart.sh)
