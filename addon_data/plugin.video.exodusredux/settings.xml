@@ -4,8 +4,8 @@
     <setting id="alluc.api" value="" />
     <setting id="alluc.download" value="false" />
     <setting id="alluc.limit" value="100" />
-    <setting id="api.language" value="AUTO" />
-    <setting id="appearance.1" value="Exodus" />
+    <setting id="api.language" value="Greek" />
+    <setting id="appearance.1" value="Stealth" />
     <setting id="appearance.alt" value="-" />
     <setting id="autoTraktOnStart" value="false" />
     <setting id="autoplay.sd" value="false" />
@@ -62,7 +62,7 @@
     <setting id="prem.identify" value="0" />
     <setting id="prgr.sortorder" value="1" />
     <setting id="progress.dialog" value="0" />
-    <setting id="provider.trailers" value="true" />
+    <setting id="provider.trailers" value="false" />
     <setting id="providers.lang" value="English" />
     <setting id="schedTraktTime" value="0" />
     <setting id="scrapers.timeout.1" value="60" />
@@ -76,10 +76,10 @@
     <setting id="sources.extrainfo" value="true" />
     <setting id="streamlord.pass" value="" />
     <setting id="streamlord.user" value="" />
-    <setting id="subtitles" value="false" />
-    <setting id="subtitles.lang.1" value="English" />
-    <setting id="subtitles.lang.2" value="English" />
-    <setting id="subtitles.utf" value="false" />
+    <setting id="subtitles" value="true" />
+    <setting id="subtitles.lang.1" value="Greek" />
+    <setting id="subtitles.lang.2" value="Greek" />
+    <setting id="subtitles.utf" value="true" />
     <setting id="tm.user" value="3b3eccd1c6bc0f679223fdbd7cf0d06d" />
     <setting id="trakt.auth" value="" />
     <setting id="trakt.refresh" value="" />

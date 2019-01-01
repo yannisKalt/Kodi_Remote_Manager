@@ -14,11 +14,11 @@
     <setting id="provider.300mbfilms" value="false" />
     <setting id="provider.321movies" value="false" />
     <setting id="provider.4kmovieto" value="true" />
+    <setting id="provider.Hdmto" value="true" />
     <setting id="provider.afdah" value="false" />
     <setting id="provider.allrls" value="false" />
     <setting id="provider.alltube" value="false" />
     <setting id="provider.allucde" value="false" />
-    <setting id="provider.allucen" value="false" />
     <setting id="provider.animebase" value="false" />
     <setting id="provider.animeloads" value="false" />
     <setting id="provider.animeultima" value="false" />
@@ -69,7 +69,6 @@
     <setting id="provider.hd" value="false" />
     <setting id="provider.hdfilme" value="false" />
     <setting id="provider.hdmega" value="false" />
-    <setting id="provider.hdmto" value="true" />
     <setting id="provider.hdpopcorns" value="true" />
     <setting id="provider.hdstreams" value="false" />
     <setting id="provider.horrorkino" value="false" />

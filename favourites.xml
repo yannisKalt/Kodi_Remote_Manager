@@ -1,4 +1,10 @@
 <favourites>
-    <favourite name="Sport365" thumb="/storage/.kodi/addons/plugin.video.sport365.live/icon.png">RunAddon(plugin.video.sport365.live)</favourite>
-    <favourite name="[COLOR lime][B]Live TV[/B][/COLOR]" thumb="/storage/pictures/live_TV.jpg">ActivateWindow(10025,&quot;plugin://plugin.video.MaverickTV/?description=No%20information%20available&amp;fanart=https%3a%2f%2fi.imgur.com%2fIGcg7tE.jpg&amp;iconimage=https%3a%2f%2fi.imgur.com%2fhzBz7Wk.jpg&amp;mode=get_list&amp;name=%5bCOLOR%20lime%5d%5bB%5dLive%20TV%5b%2fB%5d%5b%2fCOLOR%5d&amp;url=https%3a%2f%2fpastebin.com%2fraw%2fM6uVZQwr&quot;,return)</favourite>
+    <favourite name="Ταινίες/Σειρές" thumb="/storage/.kodi/addons/plugin.video.Yoda/icon.jpg">RunAddon(plugin.video.Yoda)</favourite>
+    <favourite name="Ταινίες/Σειρές" thumb="/storage/.kodi/addons/plugin.video.exodusredux/icon.png">RunAddon(plugin.video.exodusredux)</favourite>
+    <favourite name="YouTube" thumb="/storage/.kodi/addons/plugin.video.youtube/icon.png">RunAddon(plugin.video.youtube)</favourite>
+    <favourite name="Live Αγώνες" thumb="/storage/.kodi/addons/plugin.video.quantum.sport/icon.png">RunAddon(plugin.video.quantum.sport)</favourite>
+    <favourite name="Live Αγώνες" thumb="/storage/.kodi/addons/plugin.video.sport365.live/icon.png">RunAddon(plugin.video.sport365.live)</favourite>
+    <favourite name="Κανάλια  Αθλητικά" thumb="/storage/.kodi/addons/plugin.video.MaverickTV/ICON.png">ActivateWindow(10025,&quot;plugin://script.module.ATFlive/list_channels/1&quot;,return)</favourite>
+    <favourite name="Bonus Αθλητικά Κανάλια" thumb="/storage/.kodi/addons/plugin.video.MaverickTV/ICON.png">ActivateWindow(10025,&quot;plugin://script.module.MaverickLive/list_channels/1&quot;,return)</favourite>
+    <favourite name="ΓιουροΒιζιόν" thumb="/storage/.kodi/addons/plugin.video.uwc/ICON.png">ActivateWindow(10025,&quot;plugin://plugin.video.uwc/?channel=None&amp;keyword&amp;mode=5&amp;name=%5bCOLOR%20hotpink%5dOne%20list%2c%20to%20watch%20them%20all%5b%2fCOLOR%5d&amp;page=1&amp;section=None&amp;url&quot;,return)</favourite>
 </favourites>

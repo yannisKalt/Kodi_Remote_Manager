@@ -59,7 +59,7 @@
   ], 
   "app_version": {
     "changelog": "* Bug fixes\\n* Minor Improvements\\n", 
-    "link": "http://212.83.182.86:8080/files/LiveNetTV_4.6_Updated.apk", 
+    "link": "http://uk13.livenettv.co/LiveNetTV_4.6_Updated.apk", 
     "message": "New version 4.1 (Blue Logo) of the app is available at http://apk.livenettv.xyz . Please update app to enjoy latest features.", 
     "new_version_code": "30", 
     "version_code": "19", 
@@ -14058,58 +14058,6 @@
     {
       "Qc3RyZWFtX2xpc3Q=": [
         {
-          "AdG9rZW4=": "NDQ=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4xMzIuMTc4LjgyOjYxODUvcmFiYml0L25lb3ByaW1lL3BsYXlsaXN0Lm0zdTg=", 
-          "cc3RyZWFtX2lk": "NDYyY", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "TmVvIFByaW1lo", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL25lb19wcmltZS5wbmc=", 
-      "cat_id": "1", 
-      "cat_name": "Sports", 
-      "country_id": "2", 
-      "country_name": "Indian", 
-      "rY19pZA==": "Mjg1w", 
-      "status": "1"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
-          "AdG9rZW4=": "NDQ=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4xMzIuMTc4LjgyOjYxODUvcmFiYml0L25lb3Nwb3J0cy9wbGF5bGlzdC5tM3U4", 
-          "cc3RyZWFtX2lk": "NDYxY", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "TmVvIFNwb3J0cw==o", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL25lb19zcG9ydHMucG5n", 
-      "cat_id": "1", 
-      "cat_name": "Sports", 
-      "country_id": "2", 
-      "country_name": "Indian", 
-      "rY19pZA==": "Mjg0w", 
-      "status": "1"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
           "AdG9rZW4=": "MzI=s", 
           "Bc3RyZWFtX3VybA==": "mb25lfm9mZmxpbmV+c2VzcG4=", 
           "cc3RyZWFtX2lk": "MzMyNg==Y", 
@@ -14795,32 +14743,6 @@
       "country_name": "Indian", 
       "rY19pZA==": "OTc3w", 
       "status": "2"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
-          "AdG9rZW4=": "Mzg=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovL3pvbG8ua3RrLnNpOjc2MjMvdGlnZXIvdGVuZ29sZmhkL3BsYXlsaXN0Lm0zdTg=", 
-          "cc3RyZWFtX2lk": "NDI2NQ==Y", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "VGVuIEdvbGY=o", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL3NvbnlfdGVuZ29sZl9oZC5wbmc=", 
-      "cat_id": "1", 
-      "cat_name": "Sports", 
-      "country_id": "2", 
-      "country_name": "Indian", 
-      "rY19pZA==": "NTYzw", 
-      "status": "1"
     }, 
     {
       "Qc3RyZWFtX2xpc3Q=": [
@@ -22728,32 +22650,6 @@
     {
       "Qc3RyZWFtX2xpc3Q=": [
         {
-          "AdG9rZW4=": "NDQ=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4xMzIuMTc4LjgyOjYxODUvcmFiYml0L3NvbnlsZXBsZXhoZC9wbGF5bGlzdC5tM3U4", 
-          "cc3RyZWFtX2lk": "MTc2Mw==Y", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "U29ueSBMZXBsZXg=o", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL3NvbnlfbGVwbGV4LnBuZw==", 
-      "cat_id": "9", 
-      "cat_name": "Movies", 
-      "country_id": "12", 
-      "country_name": "United States", 
-      "rY19pZA==": "ODE3w", 
-      "status": "1"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
           "AdG9rZW4=": "MzM=s", 
           "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTYuMTU2Ojg1NTQvbmluZS9taXgvc3Rhcnpjb21lZHkvcGxheWxpc3QubTN1OA==", 
           "cc3RyZWFtX2lk": "MjIyNA==Y", 
@@ -30112,6 +30008,32 @@
     {
       "Qc3RyZWFtX2xpc3Q=": [
         {
+          "AdG9rZW4=": "NDQ=s", 
+          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTYuMTYwOjg1NTQvY2hhcmxpL2ZlYXR1cmUva3VyZDI0L3BsYXlsaXN0Lm0zdTg=", 
+          "cc3RyZWFtX2lk": "MzM0Nw==Y", 
+          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
+          "player_headers": null, 
+          "player_referer": null, 
+          "player_user_agent": null, 
+          "quality": null, 
+          "referer": null, 
+          "stream_qualities": "0", 
+          "user_agent": null
+        }
+      ], 
+      "Xd2l6X25hbWU=": "p", 
+      "ZY19uYW1l": "S3VyZGlzdGFuIFRWo", 
+      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL2t1cmRpc3Rhbl90di5wbmc=", 
+      "cat_id": "28", 
+      "cat_name": "Kurd", 
+      "country_id": "6", 
+      "country_name": "", 
+      "rY19pZA==": "MTYyNw==w", 
+      "status": "5"
+    }, 
+    {
+      "Qc3RyZWFtX2xpc3Q=": [
+        {
           "AdG9rZW4=": "MA==s", 
           "Bc3RyZWFtX3VybA==": "maHR0cDovLzg0LjI0NC4xODcuMTI6MTkzNS9saXZlL2xpdmVzdHJlYW0vcGxheWxpc3QubTN1OA==", 
           "cc3RyZWFtX2lk": "MzM0Mw==Y", 
@@ -30146,32 +30068,6 @@
       "country_id": "6", 
       "country_name": "", 
       "rY19pZA==": "MTYyMw==w", 
-      "status": "5"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
-          "AdG9rZW4=": "NDQ=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTYuMTYwOjg1NTQvY2hhcmxpL2ZlYXR1cmUva3VyZDI0L3BsYXlsaXN0Lm0zdTg=", 
-          "cc3RyZWFtX2lk": "MzM0Nw==Y", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "S3VyZGlzdGFuIFRWo", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL2t1cmRpc3Rhbl90di5wbmc=", 
-      "cat_id": "28", 
-      "cat_name": "Kurd", 
-      "country_id": "6", 
-      "country_name": "", 
-      "rY19pZA==": "MTYyNw==w", 
       "status": "5"
     }, 
     {
@@ -32087,32 +31983,6 @@
     {
       "Qc3RyZWFtX2xpc3Q=": [
         {
-          "AdG9rZW4=": "Mzg=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzc4LjEyOS4xMzkuNDQ6ODU1NC90dXR1L3N0ZXJrdHYvcGxheWxpc3QubTN1OA==", 
-          "cc3RyZWFtX2lk": "MzA2MA==Y", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "U3RlcmsgVFY=o", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL3N0ZXJrX3R2LnBuZw==", 
-      "cat_id": "27", 
-      "cat_name": "Belgium", 
-      "country_id": "6", 
-      "country_name": "", 
-      "rY19pZA==": "MTQzOQ==w", 
-      "status": "4"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
           "AdG9rZW4=": "MTg=s", 
           "Bc3RyZWFtX3VybA==": "maHR0cDovL2thcndhbi50di9saXZlL3N0ZXJrLXR2LnBocA==", 
           "cc3RyZWFtX2lk": "Mzk0NA==Y", 
@@ -32135,6 +32005,32 @@
       "country_name": "", 
       "rY19pZA==": "MTYzOA==w", 
       "status": "5"
+    }, 
+    {
+      "Qc3RyZWFtX2xpc3Q=": [
+        {
+          "AdG9rZW4=": "Mzg=s", 
+          "Bc3RyZWFtX3VybA==": "maHR0cDovLzc4LjEyOS4xMzkuNDQ6ODU1NC90dXR1L3N0ZXJrdHYvcGxheWxpc3QubTN1OA==", 
+          "cc3RyZWFtX2lk": "MzA2MA==Y", 
+          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
+          "player_headers": null, 
+          "player_referer": null, 
+          "player_user_agent": null, 
+          "quality": null, 
+          "referer": null, 
+          "stream_qualities": "0", 
+          "user_agent": null
+        }
+      ], 
+      "Xd2l6X25hbWU=": "p", 
+      "ZY19uYW1l": "U3RlcmsgVFY=o", 
+      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL3N0ZXJrX3R2LnBuZw==", 
+      "cat_id": "27", 
+      "cat_name": "Belgium", 
+      "country_id": "6", 
+      "country_name": "", 
+      "rY19pZA==": "MTQzOQ==w", 
+      "status": "4"
     }, 
     {
       "Qc3RyZWFtX2xpc3Q=": [
@@ -39926,32 +39822,6 @@
     {
       "Qc3RyZWFtX2xpc3Q=": [
         {
-          "AdG9rZW4=": "NDQ=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4xMzIuMTc4LjgyOjYxODUvcmFiYml0L3Nvbnlyb3hoZC9wbGF5bGlzdC5tM3U4", 
-          "cc3RyZWFtX2lk": "MTg4OA==Y", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "U29ueSBSb3ggSEQ=o", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL3Nvbnlfcm94LnBuZw==", 
-      "cat_id": "5", 
-      "cat_name": "Music", 
-      "country_id": "2", 
-      "country_name": "Indian", 
-      "rY19pZA==": "OTM0w", 
-      "status": "2"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
           "AdG9rZW4=": "Mzg=s", 
           "Bc3RyZWFtX3VybA==": "maHR0cDovL3pvbG8ua3RrLnNpOjc2MjMvdGlnZXIvd293bXVzaWMvcGxheWxpc3QubTN1OA==", 
           "cc3RyZWFtX2lk": "NDEzNQ==Y", 
@@ -46622,32 +46492,6 @@
       "Qc3RyZWFtX2xpc3Q=": [
         {
           "AdG9rZW4=": "NDQ=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTcuOTo4NTU0L3NldmVuL2Zldy9uaWNrZWxvZGVvbi9wbGF5bGlzdC5tM3U4", 
-          "cc3RyZWFtX2lk": "MzY2MA==Y", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "Tmlja2xvZGVvbg==o", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL25pY2tsb2Rlb24ucG5n", 
-      "cat_id": "31", 
-      "cat_name": "Greek", 
-      "country_id": "6", 
-      "country_name": "", 
-      "rY19pZA==": "MTgyMA==w", 
-      "status": "5"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
-          "AdG9rZW4=": "NDQ=s", 
           "Bc3RyZWFtX3VybA==": "maHR0cDovL21pYS50cnUuaW86ODU2NS9kZWx0YS9zZWxlY3Qvbmlja2xvZGVvbi9wbGF5bGlzdC5tM3U4", 
           "cc3RyZWFtX2lk": "MzY4NA==Y", 
           "player_compatibility": "1,1,1,1,1,1,1,1,1", 
@@ -46668,6 +46512,32 @@
       "country_id": "6", 
       "country_name": "", 
       "rY19pZA==": "MTg0NA==w", 
+      "status": "5"
+    }, 
+    {
+      "Qc3RyZWFtX2xpc3Q=": [
+        {
+          "AdG9rZW4=": "NDQ=s", 
+          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTcuOTo4NTU0L3NldmVuL2Zldy9uaWNrZWxvZGVvbi9wbGF5bGlzdC5tM3U4", 
+          "cc3RyZWFtX2lk": "MzY2MA==Y", 
+          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
+          "player_headers": null, 
+          "player_referer": null, 
+          "player_user_agent": null, 
+          "quality": null, 
+          "referer": null, 
+          "stream_qualities": "0", 
+          "user_agent": null
+        }
+      ], 
+      "Xd2l6X25hbWU=": "p", 
+      "ZY19uYW1l": "Tmlja2xvZGVvbg==o", 
+      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL25pY2tsb2Rlb24ucG5n", 
+      "cat_id": "31", 
+      "cat_name": "Greek", 
+      "country_id": "6", 
+      "country_name": "", 
+      "rY19pZA==": "MTgyMA==w", 
       "status": "5"
     }, 
     {
