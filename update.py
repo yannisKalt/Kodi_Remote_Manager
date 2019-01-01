@@ -11,7 +11,6 @@ conn = sqlite3.connect(addons_db_path)
 c = conn.cursor()
 c.execute('UPDATE installed SET enabled = 1 WHERE enabled = 0')
 conn.commit()
-conn.close()
 
 # Check if network connection is established
 while (True):
@@ -27,6 +26,9 @@ while (True):
 update_interval = 7
 
 last_update_date = min(c.execute('SELECT installDate FROM installed'))[0] 
+conn.close()
+
+
 # last_update_date: str -> sqlite.datetime
 last_update_date = sqlite3.datetime.datetime.strptime(last_update_date, '%Y-%m-%d %H:%M:%S')
 
