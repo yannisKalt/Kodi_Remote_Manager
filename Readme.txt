@@ -18,9 +18,8 @@ Files:
     * guisettings.xml * 
         File Missing (may cause nasty crash)
         
-    * update_flag.txt *
-        Single character file (plus \n). 
-        Contains a flag so that clients check whether or not update is needed. 
+    * version.txt *
+        Contains the build version.
         
     * update.py *
         Update Script (hackish but does the work)
