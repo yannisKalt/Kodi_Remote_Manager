@@ -52,8 +52,4 @@ def update_addons():
     os.system('mv %s %s' % (repo_path + '/yiannis*/favourites.xml',addon_data_path))
 
     os.system('rm -rf %s' % repo_path)
-    os.system('mv %s %s' % ('/storage/version.txt', '/storage/current_version.txt')     
-    
-   
-
-
+    os.system('mv %s %s' % ('/storage/version.txt', '/storage/current_version.txt'))     

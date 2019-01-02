@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<libreelec>
+	<addon_config/>
+	<settings>
+		<system>
+			<wizard_completed>True</wizard_completed>
+		</system>
+		<connman>
+			<wizard_completed>True</wizard_completed>
+		</connman>
+		<services>
+			<wizard_completed>True</wizard_completed>
+		</services>
+		<about>
+			<wizard_completed>True</wizard_completed>
+		</about>
+		<libreelec>
+			<wizard_completed>True</wizard_completed>
+		</libreelec>
+	</settings>
+</libreelec>

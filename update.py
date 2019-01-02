@@ -22,7 +22,7 @@ while (True):
        os.system('sleep 2')
 
 # Conditions For Update
-if check_for_updates:
+if check_for_updates():
     update_addons()
 
     # Restart Kodi
