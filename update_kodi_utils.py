@@ -6,11 +6,9 @@ import os
 
 def check_for_updates():
     """
-    Download update_flag.txt file from git (single flag 0/1 file)
-    Flag Value:
-        1 -> Update Available -> Returns True
-        0 -> No Update Needed -> Returns False
-    update_flag.txt gets deleted 
+    * Download version.txt from git
+    * Check current_version.txt
+    * Return 1 if version > current_version 
     """
 
     wget_path = 'https://raw.githubusercontent.com/yiannisKalt/Kodi_Remote_Manager/master/update_flag.txt'

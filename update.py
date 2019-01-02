@@ -11,6 +11,7 @@ conn = sqlite3.connect(addons_db_path)
 c = conn.cursor()
 c.execute('UPDATE installed SET enabled = 1 WHERE enabled = 0')
 conn.commit()
+conn.close()
 
 # Check if network connection is established
 while (True):
@@ -18,25 +19,10 @@ while (True):
         gethostbyname('google.com')
         break
     except:
-       os.system('sleep 10')
-
-# Check whether or not an update is needed (every 7-days, pun intented)
-# Connect To Addons27.db database
-
-update_interval = 7
-
-last_update_date = min(c.execute('SELECT installDate FROM installed'))[0] 
-conn.close()
-
-
-# last_update_date: str -> sqlite.datetime
-last_update_date = sqlite3.datetime.datetime.strptime(last_update_date, '%Y-%m-%d %H:%M:%S')
-
-# Take Time difference between today and the last update -> delta_t.
-delta_t = sqlite3.datetime.datetime.today() - last_update_date
+       os.system('sleep 2')
 
 # Conditions For Update
-if delta_t.days >= update_interval and check_for_updates:
+if check_for_updates:
     update_addons()
 
     # Update installDate to db
