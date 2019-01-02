@@ -1,8 +1,8 @@
 <settings>
     <setting id="HEVC" value="true" />
     <setting id="addon_debug" value="false" />
-    <setting id="api.language" value="Greek" />
-    <setting id="appearance.1" value="Exuary" />
+    <setting id="api.language" value="AUTO" />
+    <setting id="appearance.1" value="Yoda" />
     <setting id="appearance.alt" value="-" />
     <setting id="autoplay.sd" value="false" />
     <setting id="bookmarks" value="true" />

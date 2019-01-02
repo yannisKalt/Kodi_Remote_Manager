@@ -1,6 +1,6 @@
 """
-    plugin in for urlresolver
-    Copyright (C) 2018 gujal
+    urlresolver XBMC Addon
+    Copyright (C) 2011 t0mm0
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 """
 
 from lib import helpers
-from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
 class DaclipsResolver(UrlResolver):
@@ -25,23 +24,8 @@ class DaclipsResolver(UrlResolver):
     domains = ["daclips.in", "daclips.com"]
     pattern = '(?://|\.)(daclips\.(?:in|com))/(?:embed-)?([0-9a-zA-Z]+)'
 
-    def __init__(self):
-        self.net = common.Net()
-
     def get_media_url(self, host, media_id):
-        web_url = self.get_url(host, media_id)
-        headers = {'User-Agent': common.FF_USER_AGENT}
-        response = self.net.http_GET(web_url, headers=headers)
-        html = response.content
-        if 'Not available' not in html:
-            if 'sources: [' not in html:
-                data = helpers.get_hidden(html)
-                headers['Cookie'] = response.get_headers(as_dict=True).get('Set-Cookie', '')
-                html = self.net.http_POST(response.get_url(), headers=headers, form_data=data).content
-            sources = helpers.scrape_sources(html)
-            return helpers.pick_source(sources) + helpers.append_headers({'User-Agent': common.FF_USER_AGENT})
-        else:
-            raise ResolverError('File Not Found or removed')
+        return helpers.get_media_url(self.get_url(host, media_id), patterns=['''file:\s*["'](?P<url>[^"']+)''']).replace(' ', '%20')
 
     def get_url(self, host, media_id):
-        return 'https://daclips.in/%s' % (media_id)
+        return self._default_get_url(host, media_id)

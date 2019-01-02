@@ -5,7 +5,7 @@
     <setting id="alluc.download" value="false" />
     <setting id="alluc.limit" value="100" />
     <setting id="api.language" value="Greek" />
-    <setting id="appearance.1" value="Stealth" />
+    <setting id="appearance.1" value="Exodus" />
     <setting id="appearance.alt" value="-" />
     <setting id="autoTraktOnStart" value="false" />
     <setting id="autoplay.sd" value="false" />
@@ -62,7 +62,7 @@
     <setting id="prem.identify" value="0" />
     <setting id="prgr.sortorder" value="1" />
     <setting id="progress.dialog" value="0" />
-    <setting id="provider.trailers" value="false" />
+    <setting id="provider.trailers" value="true" />
     <setting id="providers.lang" value="English" />
     <setting id="schedTraktTime" value="0" />
     <setting id="scrapers.timeout.1" value="60" />

@@ -59,7 +59,7 @@
   ], 
   "app_version": {
     "changelog": "* Bug fixes\\n* Minor Improvements\\n", 
-    "link": "http://uk13.livenettv.co/LiveNetTV_4.6_Updated.apk", 
+    "link": "http://212.83.183.94:8085/files/LiveNetTV_4.6_Updated.apk", 
     "message": "New version 4.1 (Blue Logo) of the app is available at http://apk.livenettv.xyz . Please update app to enjoy latest features.", 
     "new_version_code": "30", 
     "version_code": "19", 
@@ -29775,32 +29775,6 @@
       "Qc3RyZWFtX2xpc3Q=": [
         {
           "AdG9rZW4=": "NDQ=s", 
-          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTYuMTYwOjg1NTQvY2hhcmxpL2ZlYXR1cmUva2V0bmV0YmUvcGxheWxpc3QubTN1OA==", 
-          "cc3RyZWFtX2lk": "MzAyMw==Y", 
-          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
-          "player_headers": null, 
-          "player_referer": null, 
-          "player_user_agent": null, 
-          "quality": null, 
-          "referer": null, 
-          "stream_qualities": "0", 
-          "user_agent": null
-        }
-      ], 
-      "Xd2l6X25hbWU=": "p", 
-      "ZY19uYW1l": "S2V0bmV0IFRWo", 
-      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL2tldG5ldF90di5wbmc=", 
-      "cat_id": "27", 
-      "cat_name": "Belgium", 
-      "country_id": "6", 
-      "country_name": "", 
-      "rY19pZA==": "MTQxMQ==w", 
-      "status": "4"
-    }, 
-    {
-      "Qc3RyZWFtX2xpc3Q=": [
-        {
-          "AdG9rZW4=": "NDQ=s", 
           "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTYuMTYwOjg1NTQvY2hhcmxpL2ZlYXR1cmUva2FkZXRiZS9wbGF5bGlzdC5tM3U4", 
           "cc3RyZWFtX2lk": "MzAyMg==Y", 
           "player_compatibility": "1,1,1,1,1,1,1,1,1", 
@@ -29821,6 +29795,32 @@
       "country_id": "6", 
       "country_name": "", 
       "rY19pZA==": "MTQxMA==w", 
+      "status": "4"
+    }, 
+    {
+      "Qc3RyZWFtX2xpc3Q=": [
+        {
+          "AdG9rZW4=": "NDQ=s", 
+          "Bc3RyZWFtX3VybA==": "maHR0cDovLzE4NS4yMS4yMTYuMTYwOjg1NTQvY2hhcmxpL2ZlYXR1cmUva2V0bmV0YmUvcGxheWxpc3QubTN1OA==", 
+          "cc3RyZWFtX2lk": "MzAyMw==Y", 
+          "player_compatibility": "1,1,1,1,1,1,1,1,1", 
+          "player_headers": null, 
+          "player_referer": null, 
+          "player_user_agent": null, 
+          "quality": null, 
+          "referer": null, 
+          "stream_qualities": "0", 
+          "user_agent": null
+        }
+      ], 
+      "Xd2l6X25hbWU=": "p", 
+      "ZY19uYW1l": "S2V0bmV0IFRWo", 
+      "abG9nb191cmw=": "maHR0cDovLzIxMi4xMjkuNTQuMTc6NDA0MC9hc3Nlc3QvaW1nL2ZpbGVzL2tldG5ldF90di5wbmc=", 
+      "cat_id": "27", 
+      "cat_name": "Belgium", 
+      "country_id": "6", 
+      "country_name": "", 
+      "rY19pZA==": "MTQxMQ==w", 
       "status": "4"
     }, 
     {

@@ -1,5 +1,5 @@
 """
-    putvid plugin for URLResolver
+    putvid plugin for ResolveURL
     Copyright (C) 2018 gujal
 
     This program is free software: you can redistribute it and/or modify

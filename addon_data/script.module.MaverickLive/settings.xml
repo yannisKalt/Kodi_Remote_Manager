@@ -1,11 +1,11 @@
 <settings>
-    <setting id="android_id" value="77zf4inu" />
+    <setting id="android_id" value="acwuypzp" />
     <setting id="cache_time" value="8" />
-    <setting id="data_time" value="1546334486" />
+    <setting id="data_time" value="1546432282" />
     <setting id="inputstream" value="false" />
-    <setting id="kinvey_auth" value="3c640651-9507-4a80-97ee-cbd8eb71d283.3c64065195074a8097eecbd8eb71d283" />
+    <setting id="kinvey_auth" value="95cb51c9-7c4f-42db-b429-7ff44d1dd1fd.95cb51c97c4f42dbb4297ff44d1dd1fd" />
     <setting id="kinvey_user" value="" />
     <setting id="livestreamer" value="false" />
     <setting id="reset" value="30" />
-    <setting id="user_id" value="ddc8d70ca7c984e0c36877cbc536cada" />
+    <setting id="user_id" value="62b00ad5d99f726dd7d2cec67f8f8a62" />
 </settings>

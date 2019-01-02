@@ -25,15 +25,6 @@ while (True):
 if check_for_updates:
     update_addons()
 
-    # Update installDate to db
-    conn = sqlite3.connect(addons_db_path)  
-    c = conn.cursor()
-
-    now = sqlite3.datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    c.execute('UPDATE installed SET installDate = ?', (now, ))
-    conn.commit()
-    conn.close()
-
     # Restart Kodi
     os.system('shutdown -r now')
 
