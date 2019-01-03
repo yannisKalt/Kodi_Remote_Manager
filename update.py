@@ -13,13 +13,20 @@ c.execute('UPDATE installed SET enabled = 1 WHERE enabled = 0')
 conn.commit()
 conn.close()
 
-# Check if network connection is established
+# Check if network connection is established. 
+counter = 0
 while (True):
     try:
         gethostbyname('google.com')
         break
     except:
-       os.system('sleep 2')
+        os.system('sleep 2')
+        counter += 1
+
+        # After 10 attempts to connect give up.
+        # User needs re-establish connection within kodi.
+        if counter == 10: 
+            exit()
 
 # Conditions For Update
 if check_for_updates():
