@@ -58,7 +58,7 @@
     <setting id="ororo.pass" value="" />
     <setting id="ororo.user" value="" />
     <setting id="preemptive.limit" value="10" />
-    <setting id="preemptive.termination" value="false" />
+    <setting id="preemptive.termination" value="False" />
     <setting id="prem.identify" value="0" />
     <setting id="prgr.sortorder" value="1" />
     <setting id="progress.dialog" value="0" />

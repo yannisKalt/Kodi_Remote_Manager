@@ -19,6 +19,8 @@ from resources.lib.modules import client
 from resources.lib.modules import debrid
 from resources.lib.modules import log_utils
 from resources.lib.modules import source_utils
+from resources.lib.modules import cfscrape										  
+
 
 class source:
 	def __init__(self):
@@ -60,6 +62,7 @@ class source:
 	def sources(self, url, hostDict, hostprDict):
 		try:
 			sources = []
+			scraper = cfscrape.create_scraper()
 
 			if url == None: return sources
 
@@ -77,15 +80,24 @@ class source:
 
 			url = self.search_link % urllib.quote_plus(query)
 			url = urlparse.urljoin(self.base_link, url)
-			r = client.request(url)
+			r = scraper.get(url).content
+
+			
+
 			r = client.parseDOM(r, "div", attrs={'class': 'entry-content'})[0]
 			r = re.sub('shareaholic-canvas.+', '', r, flags=re.DOTALL)
+		
+		
+					
+			
 			a_txt = ''
 			a_url = ''
 			a_txt = client.parseDOM(r, "a", attrs={'href': '.+?'})
 			a_url = client.parseDOM(r, "a", ret = "href")
 			r = re.sub('<a .+?</a>', '', r, flags=re.DOTALL)
 			r = re.sub('<img .+?>', '', r, flags=re.DOTALL)	
+			
+		
 			
 			size = ''			
 			pre_txt = []
@@ -102,25 +114,35 @@ class source:
 				
 			r = re.sub('<pre .+?</pre>', '', r, flags=re.DOTALL)	
 
+			
+			
 			size = ''
 			if not 'tvshowtitle' in data:
 				try: size = " " + re.findall('([0-9,\.]+ ?(?:GB|GiB|MB|MiB))', r)[0]
 				except: pass
 
+			
+			
 			raw_url = re.findall('https?://[^ <"\'\s]+', r, re.DOTALL) 
 			raw_txt = [size] * len(raw_url) 
 
+			
 			pairs = zip(a_url+pre_url+raw_url, a_txt+pre_txt+raw_txt)
 
 			for pair in pairs:
 				try:
 					url = str(pair[0])
 					info = re.sub('<.+?>','',pair[1])
-
+					
+					
 					if any(x in url for x in ['.rar', '.zip', '.iso']): raise Exception()
 					if not query.lower() in re.sub('[\\\\:;*?"<>|/ \+\'\.]+', '-', url+info).lower(): raise Exception()
+					
+					
+				
 					size0 = info + " " + size
-
+					
+					
 					try:
 						size0 = re.findall('([0-9,\.]+ ?(?:GB|GiB|MB|MiB))', size0)[0]
 						div = 1 if size0.endswith(('GB', 'GiB')) else 1024
@@ -129,11 +151,13 @@ class source:
 					except:
 						size0 = ''
 						pass
-
+					
+					
+					
 					quality, info = source_utils.get_release_quality(url,info)
 					info.append(size0)
 					info = ' | '.join(info)
-					
+									
 					url = url.encode('utf-8')
 					hostDict = hostDict + hostprDict
 

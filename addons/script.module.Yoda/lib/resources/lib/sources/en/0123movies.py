@@ -23,7 +23,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['0123movies.org','0123moviesz.com']
-        self.base_link = 'http://http://www5.0123movies.org/'
+        self.base_link = 'http://www5.0123movies.org/'
         self.search_link = '/watch/%s-%s-online-123movies.html'
         
     def movie(self, imdb, title, localtitle, aliases, year):

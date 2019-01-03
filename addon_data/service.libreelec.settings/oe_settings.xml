@@ -4,6 +4,8 @@
 	<settings>
 		<system>
 			<wizard_completed>True</wizard_completed>
+			<KeyboardLayout1>us</KeyboardLayout1>
+			<AutoUpdate>manual</AutoUpdate>
 		</system>
 		<connman>
 			<wizard_completed>True</wizard_completed>

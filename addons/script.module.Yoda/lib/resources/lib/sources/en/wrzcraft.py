@@ -13,6 +13,7 @@
 # Addon Provider: Supremacy
 
 
+
 import re,urllib,urlparse
 
 from resources.lib.modules import cleantitle
@@ -25,7 +26,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['wrzcraft.net']
-        self.base_link = 'http://new.wrzcraft.net'
+        self.base_link = 'http://wrzcraft.life'
         self.search_link = '/search/%s/feed/rss2/'
         self.scraper = cfscrape.create_scraper()
 

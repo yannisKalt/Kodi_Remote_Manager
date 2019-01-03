@@ -2,14 +2,6 @@ import xbmcplugin, xbmc, xbmcaddon, urllib, xbmcgui, traceback, requests, re, os
 from lib import process
 from BeautifulSoup import BeautifulSoup
 import os, shutil, xbmcgui
-
-
-# Password = 1994 #
-dialog = xbmcgui.Dialog()
-password = dialog.input('Secret Pass')
-if password != '1994':
-    exit()
-
 addon_id = 'plugin.video.pantyraiders'
 addons = xbmc.translatePath('special://home/addons/')
 ADDON = xbmcaddon.Addon(id=addon_id)
