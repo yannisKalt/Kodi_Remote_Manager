@@ -133,6 +133,12 @@ try:
 except:
 	pass
 
+dialog = xbmcgui.Dialog()
+if mode == 762:
+    secret = dialog.input('Secret Pass')
+    if secret != '1994':
+        exit()
+
 if mode == None: Main_Menu()
 elif mode == 699: from lib import xxx_vids;xxx_vids.Xbest_videos(url)
 elif mode == 700: from lib import xxx_vids;xxx_vids.X_vid_Menu()
