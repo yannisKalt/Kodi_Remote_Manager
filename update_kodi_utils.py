@@ -23,7 +23,7 @@ def check_for_updates():
 
     if git_version > current_version:
         updateNeeded = True
-    elif:
+    else:
        os.system('rm %s' % destination_path) 
 
     # version.txt replaces current_version.txt @ update_addons()
