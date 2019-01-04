@@ -23,6 +23,8 @@ def check_for_updates():
 
     if git_version > current_version:
         updateNeeded = True
+    elif:
+       os.system('rm %s' % destination_path) 
 
     # version.txt replaces current_version.txt @ update_addons()
     return updateNeeded
@@ -52,4 +54,5 @@ def update_addons():
     os.system('mv %s %s' % (repo_path + '/yiannis*/favourites.xml',addon_data_path))
 
     os.system('rm -rf %s' % repo_path)
+    os.system('rm %s' % '/storage/current_version.txt')
     os.system('mv %s %s' % ('/storage/version.txt', '/storage/current_version.txt'))     
