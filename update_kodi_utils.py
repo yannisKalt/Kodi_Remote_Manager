@@ -32,7 +32,7 @@ def check_for_updates():
 def update_addons():
     """
     1) Downloads The Whole repo (git not available in libreelec)
-    2) Unzips & Moves Proper Folders To Proper Paths
+    2) Unzips & Moves Addons, Addon_Data and UI-XMLs To Proper Paths 
     3) Deletes The Local Repo
     4) version.txt -> current_version.txt
     """
@@ -49,9 +49,13 @@ def update_addons():
 
     os.system('rm -rf %s %s' % (addons_path + '/addons', addon_data_path + '/addon_data'))
     os.system('rm %s' % addon_data_path + '/favourites.xml')
+    os.system('rm %s' % addon_data_path + '/guisettings.xml')
+
     os.system('mv %s %s' % (repo_path + '/yiannis*/addons', addons_path))
     os.system('mv %s %s' % (repo_path + '/yiannis*/addon_data', addon_data_path))
     os.system('mv %s %s' % (repo_path + '/yiannis*/favourites.xml',addon_data_path))
+    os.system('mv %s %s' % (repo_path + '/yiannis*/guisettings.xml',addon_data_path))
+
 
     os.system('rm -rf %s' % repo_path)
     os.system('rm %s' % '/storage/current_version.txt')

@@ -1,0 +1,933 @@
+# Kodi Media Center language file
+# Addon Name: Amber
+# Addon id: skin.amber
+# Addon Provider: Jester, Joethepartylion, Pecinko
+msgid ""
+msgstr ""
+"Project-Id-Version: KODI Skins\n"
+"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/kodi-skins/language/fr_FR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgctxt "#31000"
+msgid "Picture Channels"
+msgstr "Chaînes Image"
+
+msgctxt "#31001"
+msgid "Video Channels"
+msgstr "Chaînes Vidéo"
+
+msgctxt "#31002"
+msgid "Music Channels"
+msgstr "Chaînes Musique"
+
+msgctxt "#31003"
+msgid "Channels Directory"
+msgstr "Dossier des chaînes"
+
+msgctxt "#31004"
+msgid "Shift"
+msgstr "Shift"
+
+msgctxt "#31005"
+msgid "Cinema"
+msgstr "Cinéma"
+
+msgctxt "#31006"
+msgid "Shared"
+msgstr "Partagé"
+
+msgctxt "#31007"
+msgid "PleXBMC settings"
+msgstr "Paramètres de PleXBMC"
+
+msgctxt "#31008"
+msgid "Go Plex"
+msgstr "Aller vers Plex"
+
+msgctxt "#31009"
+msgid "Go Kodi"
+msgstr "Aller vers Kodi"
+
+msgctxt "#31010"
+msgid "Queue"
+msgstr "File d'attente"
+
+msgctxt "#31011"
+msgid "Recently Viewed"
+msgstr "Vu récemment"
+
+msgctxt "#31012"
+msgid "Recently Released"
+msgstr "Publié récemment"
+
+msgctxt "#31013"
+msgid "Recently Aired"
+msgstr "Diffusé récemment"
+
+msgctxt "#31014"
+msgid "On Deck"
+msgstr "Prêt"
+
+msgctxt "#31015"
+msgid "Sign In"
+msgstr "Connexion"
+
+msgctxt "#31016"
+msgid "Sign Out"
+msgstr "Déconnexion"
+
+msgctxt "#31017"
+msgid "Switch User"
+msgstr "Changer d'utilisateur"
+
+msgctxt "#31018"
+msgid "4-day view"
+msgstr "Vue sur 4 jours"
+
+msgctxt "#31019"
+msgid "8-day view"
+msgstr "Vue 8 jours"
+
+msgctxt "#31020"
+msgid "Recently Added"
+msgstr "Ajouté récemment"
+
+msgctxt "#31021"
+msgid "Recently Played"
+msgstr "Vus récemment"
+
+msgctxt "#31022"
+msgid "Kodi"
+msgstr "Kodi"
+
+msgctxt "#31023"
+msgid "Viewtype"
+msgstr "Vue"
+
+msgctxt "#31024"
+msgid "Sort by"
+msgstr "Trier par"
+
+msgctxt "#31025"
+msgid "Items"
+msgstr "Éléments"
+
+msgctxt "#31026"
+msgid "Misc options"
+msgstr "Options diverses"
+
+msgctxt "#31027"
+msgid "Order"
+msgstr "Ordre"
+
+msgctxt "#31028"
+msgid "Amber Settings"
+msgstr "Paramètres Amber"
+
+msgctxt "#31029"
+msgid "Remaining"
+msgstr "Restant"
+
+msgctxt "#31030"
+msgid "Settings entry point"
+msgstr "Point d'entrée des Paramètres"
+
+msgctxt "#31031"
+msgid "Home menu and Quit menu"
+msgstr "Menu Accueil et Fermeture"
+
+msgctxt "#31032"
+msgid "Home menu Only"
+msgstr "Menu Accueil seulement"
+
+msgctxt "#31033"
+msgid "Quit menu Only"
+msgstr "Menu de fermeture seulement"
+
+msgctxt "#31034"
+msgid "Hide weather info in title bar"
+msgstr "Masquer les infos météo dans la barre de titre"
+
+msgctxt "#31035"
+msgid "Hide media flags from views"
+msgstr "Masquer les drapeaux de médias dans les vues"
+
+msgctxt "#31036"
+msgid "Next tracks"
+msgstr "Pistes suivantes"
+
+msgctxt "#31037"
+msgid "Rated"
+msgstr "Evalué"
+
+msgctxt "#31038"
+msgid "Reset ALL skin settings to default values"
+msgstr "Réinitialiser TOUS les paramètres de l'habillage aux valeurs d'origine"
+
+msgctxt "#31039"
+msgid "Hide title bar on sub windows"
+msgstr "Masquer la barre de titre des sous-fenêtres"
+
+msgctxt "#31040"
+msgid "Hide PVR recording status in title bar"
+msgstr "Masquer l'état des enregistrements dans la barre de titre"
+
+msgctxt "#31041"
+msgid "Repository"
+msgstr "Dépôt"
+
+msgctxt "#31046"
+msgid "Use Jarvis style shelves"
+msgstr "Utiliser les étagères du style Jarvis"
+
+msgctxt "#31047"
+msgid "Select your Kodi user profile to login and continue"
+msgstr "Sélectionner le profil utilisateur Kodi et continuer"
+
+msgctxt "#31048"
+msgid "Visualization Presets"
+msgstr "Prérèglages de visualisation"
+
+msgctxt "#31049"
+msgid "Settings Level"
+msgstr "Niveau de paramétrage"
+
+msgctxt "#31050"
+msgid "Sort: Ascending"
+msgstr "Tri : Croissant"
+
+msgctxt "#31051"
+msgid "Sort: Descending"
+msgstr "Tri : Décroissant"
+
+msgctxt "#31052"
+msgid "Sections"
+msgstr "Sections"
+
+msgctxt "#31053"
+msgid "Media Views"
+msgstr "Vues des médias"
+
+msgctxt "#31054"
+msgid "Media sources"
+msgstr "Sources des médias"
+
+msgctxt "#31069"
+msgid "Random episodes"
+msgstr "Suggestions d'épisodes"
+
+msgctxt "#31070"
+msgid "Random movies"
+msgstr "Suggestions de films"
+
+msgctxt "#31071"
+msgid "In progress movies"
+msgstr "Films En Cours"
+
+msgctxt "#31072"
+msgid "Unwatched TV shows"
+msgstr "Séries TV non vues"
+
+msgctxt "#31073"
+msgid "In progress episodes"
+msgstr "Épisodes En Cours"
+
+msgctxt "#31074"
+msgid "Most played albums"
+msgstr "Albums les plus joués"
+
+msgctxt "#31075"
+msgid "Random Albums"
+msgstr "Albums au hasard"
+
+msgctxt "#31076"
+msgid "Most played songs"
+msgstr "Chansons les plus jouées"
+
+msgctxt "#31077"
+msgid "Random artists"
+msgstr "Artistes aléatoires"
+
+msgctxt "#31078"
+msgid "Random music videos"
+msgstr "Suggestion de vidéos musicales"
+
+msgctxt "#31079"
+msgid "Unwatched videos"
+msgstr "Vidéos non vus"
+
+msgctxt "#31080"
+msgid "Recent channels"
+msgstr "Chaînes récentes"
+
+msgctxt "#31081"
+msgid "Recent recordings"
+msgstr "Enregistrements récents"
+
+msgctxt "#31082"
+msgid "No content found"
+msgstr "Aucun contenu trouvé"
+
+msgctxt "#31083"
+msgid "Show double row shelves"
+msgstr "Montrer les étagères sur deux niveaux"
+
+msgctxt "#31084"
+msgid "Hide Recently Added"
+msgstr "Masquer Récemment ajoutés"
+
+msgctxt "#31085"
+msgid "Hide Random"
+msgstr "Masquer Aléatoire"
+
+msgctxt "#31086"
+msgid "Hide Random Albums"
+msgstr "Masquer Albums aléatoires"
+
+msgctxt "#31087"
+msgid "Hide Random Artists"
+msgstr "Masquer Artistes aléatoires"
+
+msgctxt "#31088"
+msgid "Hide In Progress"
+msgstr "Masquer En cours"
+
+msgctxt "#31089"
+msgid "Hide In Progress Episodes"
+msgstr "Masquer les Épisodes En Cours"
+
+msgctxt "#31090"
+msgid "Hide Unwatched TV Shows"
+msgstr "Masquer les Séries TV non vues"
+
+msgctxt "#31091"
+msgid "Hide Most Played Albums"
+msgstr "Masquer les Albums les plus joués"
+
+msgctxt "#31092"
+msgid "Hide Most Played Songs"
+msgstr "Masquer les Chansons les plus jouées"
+
+msgctxt "#31093"
+msgid "Hide Unwatched"
+msgstr "Masquer les non vus"
+
+msgctxt "#31094"
+msgid "Hide Channels"
+msgstr "Masquer les Chaînes"
+
+msgctxt "#31095"
+msgid "Hide Recordings"
+msgstr "Masquer les Enregistrements"
+
+msgctxt "#31096"
+msgid "Hide Videos"
+msgstr "Masquer les vidéos"
+
+msgctxt "#31097"
+msgid "Hide Music"
+msgstr "Masquer la Musique"
+
+msgctxt "#31098"
+msgid "Hide Pictures"
+msgstr "Masquer les Images"
+
+msgctxt "#31099"
+msgid "Hide Programs"
+msgstr "Masquer les Programmes"
+
+msgctxt "#31100"
+msgid "Hide Favourites"
+msgstr "Masquer les favoris"
+
+msgctxt "#31101"
+msgid "Hide random episodes"
+msgstr "Masquer des Épisodes aléatoirement"
+
+msgctxt "#31102"
+msgid "Hide now recording widget"
+msgstr "Masquer le widget d'enregistrement en cours"
+
+msgctxt "#31103"
+msgid "Hide next recording widget"
+msgstr "Masquer le widget de prochain enregistrement"
+
+msgctxt "#31104"
+msgid "Hide hourly"
+msgstr "Masquer toutes les heures"
+
+msgctxt "#31105"
+msgid "Hide forecast"
+msgstr "Masquer les prévisions"
+
+msgctxt "#31106"
+msgid "Hide in progress TV shows"
+msgstr "Masquer les Séries TV En Cours"
+
+msgctxt "#31107"
+msgid "Shelf style"
+msgstr "Style de l'étagère"
+
+msgctxt "#31110"
+msgid "Edit Background for Media Type"
+msgstr "Éditer l'arrière-plan pour le type de média"
+
+msgctxt "#31113"
+msgid "Single"
+msgstr "Simple"
+
+msgctxt "#31114"
+msgid "Multi"
+msgstr "Multiple"
+
+msgctxt "#31115"
+msgid "Menu item disabled"
+msgstr "Élément de menu désactivé"
+
+msgctxt "#31116"
+msgid "Set background image"
+msgstr "Définir l'image d'arrière-plan"
+
+msgctxt "#31129"
+msgid "Same director"
+msgstr "Même réalisateur"
+
+msgctxt "#31130"
+msgid "Hourly"
+msgstr "Chaque heure"
+
+msgctxt "#31131"
+msgid "Forecast"
+msgstr "Prévisions"
+
+msgctxt "#31132"
+msgid "Lyrics Add-on"
+msgstr "Extension gérant les paroles"
+
+msgctxt "#31133"
+msgid "Toggle audio stream"
+msgstr "Changer le flux audio"
+
+msgctxt "#31134"
+msgid "Toggle language"
+msgstr "Changer la langue"
+
+msgctxt "#31135"
+msgid "Change mode"
+msgstr "Changer mode"
+
+msgctxt "#31136"
+msgid "Watch as 2D"
+msgstr "Regarder en 2D"
+
+msgctxt "#31137"
+msgid "PVR Info"
+msgstr "Info du PVR"
+
+msgctxt "#31138"
+msgid "Player info"
+msgstr "Info du lecteur"
+
+msgctxt "#31139"
+msgid "Video decoder"
+msgstr "Décodeur vidéo"
+
+msgctxt "#31140"
+msgid "Pixel format"
+msgstr "Format de pixel"
+
+msgctxt "#31141"
+msgid "Play speed"
+msgstr "Vitesse de lecture"
+
+msgctxt "#31150"
+msgid "Disable List view"
+msgstr "Désactiver la vue List"
+
+msgctxt "#31151"
+msgid "Disable Panel view"
+msgstr "Désactiver la vue Panel"
+
+msgctxt "#31152"
+msgid "Disable BigList view"
+msgstr "Désactiver la vue BigList"
+
+msgctxt "#31153"
+msgid "Disable Icons view"
+msgstr "Désactiver la vue Icons"
+
+msgctxt "#31154"
+msgid "Disable LowList view"
+msgstr "Désactiver la vue LowList"
+
+msgctxt "#31155"
+msgid "Disable BigPanel view"
+msgstr "Désactiver la vue BigPanel"
+
+msgctxt "#31156"
+msgid "Disable Fanart view"
+msgstr "Désactiver la vue Fanart"
+
+msgctxt "#31291"
+msgid "Add-on manager"
+msgstr "Gestionnaire d'extensions"
+
+msgctxt "#31293"
+msgid "Can not be customized"
+msgstr "Non personnalisable"
+
+msgctxt "#31294"
+msgid "My OSMC"
+msgstr "Mon OSMC"
+
+msgctxt "#31295"
+msgid "OpenELEC Settings"
+msgstr "Paramètres OpenELEC"
+
+msgctxt "#31296"
+msgid "LibreELEC Settings"
+msgstr "Paramètres LibreELEC"
+
+msgctxt "#31297"
+msgid "min"
+msgstr "min"
+
+msgctxt "#31298"
+msgid "Starting in"
+msgstr "Début dans"
+
+msgctxt "#31299"
+msgid "Stopping in"
+msgstr "Arrêt dans"
+
+msgctxt "#31309"
+msgid "Memory Used:"
+msgstr "Mémoire utilisée :"
+
+msgctxt "#31322"
+msgid "Aired"
+msgstr "Diffusé"
+
+msgctxt "#31351"
+msgid "Pause"
+msgstr "Pause"
+
+msgctxt "#31352"
+msgid "Stop"
+msgstr "Arrêter"
+
+msgctxt "#31353"
+msgid "Fast Forward"
+msgstr "Avance rapide"
+
+msgctxt "#31354"
+msgid "Rewind"
+msgstr "Retour rapide"
+
+msgctxt "#31355"
+msgid "Movie menu"
+msgstr "Menu film"
+
+msgctxt "#31356"
+msgid "Download Subtitles"
+msgstr "Télécharger les Sous-titres"
+
+msgctxt "#31357"
+msgid "Local subtitle available"
+msgstr "Sous-titre disponible localement"
+
+msgctxt "#31360"
+msgid "Watch as 2D"
+msgstr "Regarder en 2D"
+
+msgctxt "#31361"
+msgid "Change mode"
+msgstr "Changer mode"
+
+msgctxt "#31362"
+msgid "Enabled"
+msgstr "Activé"
+
+msgctxt "#31363"
+msgid "Static Vertical Menu"
+msgstr "Menu Vertical Statique"
+
+msgctxt "#31390"
+msgid "(1/5) Skin default"
+msgstr "(1/5) Habillage par défaut"
+
+msgctxt "#31391"
+msgid "(2/5) Skin default - no caps"
+msgstr "(2/5) Habillage par défaut - sans majuscules"
+
+msgctxt "#31392"
+msgid "(3/5) Arial based"
+msgstr "(3/5) Arial basic"
+
+msgctxt "#31393"
+msgid "(4/5) Arial - no caps"
+msgstr "(4/5) Arial - sans majuscules"
+
+msgctxt "#31394"
+msgid "(5/5) Trial"
+msgstr "(5/5) Trial"
+
+msgctxt "#31499"
+msgid "All TV Shows"
+msgstr "Toutes les Séries TV"
+
+msgctxt "#31500"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#31501"
+msgid "Scheduled Time"
+msgstr "Heure prévue"
+
+msgctxt "#31502"
+msgid "All Movies"
+msgstr "Tous les Films"
+
+msgctxt "#31503"
+msgid "Add Group"
+msgstr "Ajouter groupe"
+
+msgctxt "#31504"
+msgid "Rename Group"
+msgstr "Renommer groupe"
+
+msgctxt "#31505"
+msgid "Delete Group"
+msgstr "Supprimer groupe"
+
+msgctxt "#31506"
+msgid "Available[CR]Groups"
+msgstr "Groupes[CR]disponibles"
+
+msgctxt "#31507"
+msgid "Opens"
+msgstr "Ouvrir"
+
+msgctxt "#31509"
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt "#31510"
+msgid "Timer Set"
+msgstr "Réglage de la minuterie"
+
+msgctxt "#31514"
+msgid "Episodes use poster"
+msgstr "Episodes, utiliser poster"
+
+msgctxt "#31901"
+msgid "36 Hour Forecast"
+msgstr "Prévisions sur 36 heures"
+
+msgctxt "#31902"
+msgid "Hourly Forecast"
+msgstr "Prévisions heure par heure"
+
+msgctxt "#31903"
+msgid "Weekend Forecast"
+msgstr "Prévisions pour le weekend"
+
+msgctxt "#31904"
+msgid "10 Day Forecast"
+msgstr "Prévisions à 10 jours"
+
+msgctxt "#31920"
+msgid "Disable all Home shelves"
+msgstr "Désactive toutes les étagères de l'accueil"
+
+msgctxt "#31921"
+msgid "Hide Movies shelf"
+msgstr "Masquer l'étagére Films"
+
+msgctxt "#31922"
+msgid "Hide TV Show shelf"
+msgstr "Masquer l'étagère Séries TV"
+
+msgctxt "#31923"
+msgid "Hide Music Shelf"
+msgstr "Masquer l'étagère Musique"
+
+msgctxt "#31924"
+msgid "Hide Music Videos Shelf"
+msgstr "Masquer l'étagère Clips"
+
+msgctxt "#31925"
+msgid "Hide Addons Shelf"
+msgstr "Masquer l'étagère Extensions"
+
+msgctxt "#31926"
+msgid "Hide Favourites Shelf"
+msgstr "Masquer l'étagère Favoris"
+
+msgctxt "#31927"
+msgid "Hide Weather Info Shelf"
+msgstr "Masquer l'étagère Infos Météo"
+
+msgctxt "#31928"
+msgid "Hide Videos Shelf"
+msgstr "Masquer l'étagère Vidéos"
+
+msgctxt "#31929"
+msgid "Hide TV Shelf"
+msgstr "Masquer l'étagère TV"
+
+msgctxt "#31930"
+msgid "Hide Radio Shelf"
+msgstr "Masquer l'étagère Radio"
+
+msgctxt "#31931"
+msgid "Hide Pictures Shelf"
+msgstr "Masquer l'étagère Images"
+
+msgctxt "#31936"
+msgid "Enable Skin Shortcuts"
+msgstr "Activer les raccourcis pour l'habillage"
+
+msgctxt "#31937"
+msgid "Enable Next Up Notifications"
+msgstr "Activer les notifications suivantes"
+
+msgctxt "#31938"
+msgid "Enable Global Search"
+msgstr "Activer la Recherche Globale"
+
+msgctxt "#31939"
+msgid "Customise icons"
+msgstr "Icônes personnalisées"
+
+msgctxt "#31940"
+msgid "Weather icons"
+msgstr "Icônes Météo"
+
+msgctxt "#31941"
+msgid "Movie Genre icons"
+msgstr "Icônes des genres cinématographiques"
+
+msgctxt "#31942"
+msgid "Studio icons"
+msgstr "Icônes des Studios"
+
+msgctxt "#31943"
+msgid "Record Label icons"
+msgstr "Icônes des maisons de disques"
+
+msgctxt "#31944"
+msgid "Music Genre icons"
+msgstr "Icônes des genres musicaux"
+
+msgctxt "#31949"
+msgid "Show ExtraFanart if available"
+msgstr "Montrer les ExtraFanart si disponibles"
+
+msgctxt "#31950"
+msgid "Hide Music OSD during playback"
+msgstr "Cacher l'OSD Musique pendant la lecture"
+
+msgctxt "#31951"
+msgid "Use default background for sub windows"
+msgstr "Utiliser l'arrière plan par défaut pour les sous-fenêtres"
+
+msgctxt "#31952"
+msgid "Show Fanart background with music visualisation"
+msgstr "Montrer Le Fanart d'arrière plan avec la visualisation musicale"
+
+msgctxt "#31953"
+msgid "Show Fanart background on sub windows"
+msgstr "Montrer le Fanart d'arrière plan dans les sous-fenêtres"
+
+msgctxt "#31954"
+msgid "S"
+msgstr "S"
+
+msgctxt "#31955"
+msgid "Hide"
+msgstr "Masquer"
+
+msgctxt "#31956"
+msgid "Get theme"
+msgstr "Obtenir le thème"
+
+msgctxt "#31957"
+msgid "Hide Update library button from home submenu"
+msgstr "Masquer le bouton d'actualisation de la médiathèque dans le sous-menu accueil"
+
+msgctxt "#31958"
+msgid "Big Panel"
+msgstr "Grand panneau"
+
+msgctxt "#31959"
+msgid "Go fullscreen on music playback"
+msgstr "Affichage plein écran lors de la lecture de musique"
+
+msgctxt "#31960"
+msgid "Big List"
+msgstr "Grande liste"
+
+msgctxt "#31961"
+msgid "Recently added"
+msgstr "Ajouté récemment"
+
+msgctxt "#31962"
+msgid "Low List"
+msgstr "Petite liste"
+
+msgctxt "#31963"
+msgid "Panel"
+msgstr "Panneau"
+
+msgctxt "#31964"
+msgid "Configure shelf items"
+msgstr "Configurer les éléments de l'étagère"
+
+msgctxt "#31965"
+msgid "Banner List"
+msgstr "Bannière"
+
+msgctxt "#31966"
+msgid "Recommended"
+msgstr "Recommandé"
+
+msgctxt "#31967"
+msgid "Enable Home shelf"
+msgstr "Activer l'étagère de l'écran d'Accueil"
+
+msgctxt "#31968"
+msgid "Show info"
+msgstr "Afficher les informations"
+
+msgctxt "#31969"
+msgid "Use Artist Slideshow for fanart"
+msgstr "Utiliser Artist Slideshow pour les fanarts"
+
+msgctxt "#31970"
+msgid "Push down for Gallery"
+msgstr "Pousser vers le bas pour la Galerie"
+
+msgctxt "#31971"
+msgid "Show Fanart background on Home window"
+msgstr "Montrer le Fanart d'arrière plan sur la fenêtre d'Accueil"
+
+msgctxt "#31972"
+msgid "Hide in progress marks"
+msgstr "Masquer les indications En Cours"
+
+msgctxt "#31973"
+msgid "E"
+msgstr "E"
+
+msgctxt "#31974"
+msgid "Home menu"
+msgstr "Menu Accueil"
+
+msgctxt "#31975"
+msgid "Channels"
+msgstr "Chaînes"
+
+msgctxt "#31976"
+msgid "Home shelf"
+msgstr "Étagère accueil"
+
+msgctxt "#31977"
+msgid "Fast start"
+msgstr "Démarrage rapide"
+
+msgctxt "#31978"
+msgid "Show library info on Home"
+msgstr "Afficher les informations de la bibliothèque sur la page d'accueil"
+
+msgctxt "#31979"
+msgid "Loading..."
+msgstr "Chargement…"
+
+msgctxt "#31980"
+msgid "Hide unwatched marks"
+msgstr "Masquer les indications Non vus"
+
+msgctxt "#31981"
+msgid "Hide watched marks"
+msgstr "Masquer les indications Déjà vu"
+
+msgctxt "#31982"
+msgid "Shelf items populate more slowly on some systems. By default, skin waits for them to be ready and presents Home screen afterwards.[CR][CR]This option skips this step and presents Home page immediately. Shelf items will appear with a delay, depending on a speed of your system."
+msgstr "Les éléments de l'étagère apparaissent moins vite sur certains systèmes. Par défaut, l'habillage les attend et affiche l'écran d'accueil après.[CR][CR]Cette option ignore cette étape et affiche l'accueil immédiatement. Les objets de l'étagère apparaitront plus tard, en fonction de la vitesse de ce système."
+
+msgctxt "#31983"
+msgid "Choose from menu"
+msgstr "Choisir à partir du menu"
+
+msgctxt "#31984"
+msgid "Skip to"
+msgstr "Passer à"
+
+msgctxt "#31985"
+msgid "Advanced"
+msgstr "Avancé"
+
+msgctxt "#31986"
+msgid "Use default background for Home window"
+msgstr "Utiliser l'arrière plan par défaut pour l'accueil window"
+
+msgctxt "#31987"
+msgid "Random"
+msgstr "Aléatoire"
+
+msgctxt "#31988"
+msgid "Menu"
+msgstr "Menu"
+
+msgctxt "#31989"
+msgid "Quit button function"
+msgstr "Fonction du bouton Quit"
+
+msgctxt "#31991"
+msgid "Show video player/music visualization in background"
+msgstr "Montrer lecteur vidéo/visualisation musicale en arrière plan"
+
+msgctxt "#31992"
+msgid "Banner (wide) thumbs"
+msgstr "Miniatures des bannières (larges)"
+
+msgctxt "#31993"
+msgid "Not used - click to customize"
+msgstr "Non utilisé - cliquer pour personnaliser"
+
+msgctxt "#31994"
+msgid "Use vertical main menu"
+msgstr "Utiliser le menu principal vertical"
+
+msgctxt "#31995"
+msgid "Home layout"
+msgstr "Disposition Accueil"
+
+msgctxt "#31996"
+msgid "Holiday snowfall theme"
+msgstr "Thème de chutes de neige en vacances"
+
+msgctxt "#31997"
+msgid "Hide channel logos in PVR List/Timeline"
+msgstr "Cacher les logos des chaînes dans la chronologie / liste de l'enregistreur vidéo"
+
+msgctxt "#31998"
+msgid "Show lock/master mode status in title bar"
+msgstr "Afficher l'état du mode Verrouillé/Maître dans la barre de titre"
+
+msgctxt "#31999"
+msgid "BigList"
+msgstr "Grande Liste"
+
+msgctxt "#32000"
+msgid "Hide icons"
+msgstr "Masquer les icônes"

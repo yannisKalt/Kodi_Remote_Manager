@@ -1,0 +1,1 @@
+["http", ["https", "http injector", "http injector cosmote", "http injector vodafone greece", "http injector greece cosmote", "http injector vodafone", "http injector hotspot", "http 2", "http injector pro", "http injector free internet vodafone"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

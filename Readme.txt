@@ -16,7 +16,7 @@ Files:
         Favourite Addon List (easy xml config)
     
     * guisettings.xml * 
-        File Missing (may cause nasty crash)
+        File Added (may cause nasty crash if not using libreelec)
         
     * version.txt *
         Contains the build version.

@@ -1,0 +1,1 @@
+["http://fusion.tvaddons.co", ["http://fusion.tvaddons.co", "http //fusion.tvaddons.co zip download"], [], {"google:suggesttype": ["QUERY", "QUERY"]}]

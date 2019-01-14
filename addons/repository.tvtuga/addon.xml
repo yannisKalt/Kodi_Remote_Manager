@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.tvtuga" name="tvtuga.top Repositório" version="1.0" provider-name="tvtuga.top">
+	<extension point="xbmc.addon.repository" name="tvtuga Repository">
+		<info compressed="false">http://raw.github.com/Milhano/repository.tvtuga/master/addons.xml</info>
+		<checksum>http://raw.github.com/Milhano/repository.tvtuga/master/addons.xml.md5</checksum>
+		<datadir zip="true">http://raw.github.com/Milhano/repository.tvtuga/master/repo/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>tvtuga.top Repositório</summary>
+		<description>Addon Description</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>

@@ -58,11 +58,51 @@
     <setting id="ororo.pass" value="" />
     <setting id="ororo.user" value="" />
     <setting id="preemptive.limit" value="10" />
-    <setting id="preemptive.termination" value="False" />
+    <setting id="preemptive.termination" value="false" />
     <setting id="prem.identify" value="0" />
     <setting id="prgr.sortorder" value="1" />
     <setting id="progress.dialog" value="0" />
+    <setting id="provider.1080P" value="true" />
+    <setting id="provider.4kmovieto" value="true" />
+    <setting id="provider.bnwmovies" value="true" />
+    <setting id="provider.bobmovies" value="true" />
+    <setting id="provider.cartoonhd" value="true" />
+    <setting id="provider.coolmoviezone" value="true" />
+    <setting id="provider.darewatch" value="true" />
+    <setting id="provider.divxcrawler" value="true" />
+    <setting id="provider.fmovies" value="true" />
+    <setting id="provider.freefmovies" value="true" />
+    <setting id="provider.freeputlockers" value="true" />
+    <setting id="provider.furk" value="true" />
+    <setting id="provider.gostream" value="true" />
+    <setting id="provider.gowatchseries" value="true" />
+    <setting id="provider.hdpopcorns" value="true" />
+    <setting id="provider.kattv" value="true" />
+    <setting id="provider.library" value="true" />
+    <setting id="provider.moviesplanet" value="true" />
+    <setting id="provider.myprojectfreetv" value="true" />
+    <setting id="provider.odb" value="true" />
+    <setting id="provider.openloadmovie" value="true" />
+    <setting id="provider.ororo" value="true" />
+    <setting id="provider.plocker" value="true" />
+    <setting id="provider.primewire" value="true" />
+    <setting id="provider.putlocker" value="true" />
+    <setting id="provider.reddit" value="true" />
+    <setting id="provider.seehd" value="true" />
+    <setting id="provider.series9" value="true" />
+    <setting id="provider.seriesfree" value="true" />
+    <setting id="provider.seriesonline" value="true" />
+    <setting id="provider.solarmoviez" value="true" />
+    <setting id="provider.streamlord" value="true" />
     <setting id="provider.trailers" value="true" />
+    <setting id="provider.tvbox" value="true" />
+    <setting id="provider.videoscraper" value="true" />
+    <setting id="provider.vidics" value="true" />
+    <setting id="provider.watchonline" value="true" />
+    <setting id="provider.watchseries" value="true" />
+    <setting id="provider.xmovies" value="true" />
+    <setting id="provider.xwatchseries" value="true" />
+    <setting id="provider.ymovies" value="true" />
     <setting id="providers.lang" value="English" />
     <setting id="schedTraktTime" value="0" />
     <setting id="scrapers.timeout.1" value="60" />
@@ -78,7 +118,7 @@
     <setting id="streamlord.user" value="" />
     <setting id="subtitles" value="true" />
     <setting id="subtitles.lang.1" value="Greek" />
-    <setting id="subtitles.lang.2" value="Greek" />
+    <setting id="subtitles.lang.2" value="English" />
     <setting id="subtitles.utf" value="true" />
     <setting id="tm.user" value="3b3eccd1c6bc0f679223fdbd7cf0d06d" />
     <setting id="trakt.auth" value="" />
@@ -89,4 +129,5 @@
     <setting id="tv.specials" value="false" />
     <setting id="tv.widget" value="1" />
     <setting id="tv.widget.alt" value="2" />
+    <setting id="tvsearch" value="merlin&#x0A;monk&#x0A;" />
 </settings>
