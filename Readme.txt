@@ -34,4 +34,4 @@ Files:
     * update_kodi_utils.py *
         Functions for update.py
 
-Final Notice: Make Sure To run update.py as start. (For libreelec check https://wiki.libreelec.tv/autostart.sh)
+Final Notice: Make Sure To run update.py at startup. (For libreelec check https://wiki.libreelec.tv/autostart.sh)
