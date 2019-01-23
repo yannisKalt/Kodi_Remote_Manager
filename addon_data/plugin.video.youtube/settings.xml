@@ -5,7 +5,24 @@
     <setting id="kodion.cache.size" value="10" />
     <setting id="kodion.content.max_per_page" value="9" />
     <setting id="kodion.fanart.show" value="true" />
+    <setting id="kodion.http.client.ip" value="" />
+    <setting id="kodion.http.ip.whitelist" value="" />
     <setting id="kodion.http.listen" value="0.0.0.0" />
+    <setting id="kodion.http.listen.select" value="" />
+    <setting id="kodion.install.inputstreamhelper" value="" />
+    <setting id="kodion.maintain.clear.data" value="" />
+    <setting id="kodion.maintain.clear.func" value="" />
+    <setting id="kodion.maintain.clear.playback.history" value="" />
+    <setting id="kodion.maintain.clear.search" value="" />
+    <setting id="kodion.maintain.delete.access_manager" value="" />
+    <setting id="kodion.maintain.delete.api_keys" value="" />
+    <setting id="kodion.maintain.delete.data" value="" />
+    <setting id="kodion.maintain.delete.func" value="" />
+    <setting id="kodion.maintain.delete.playback.history" value="" />
+    <setting id="kodion.maintain.delete.search" value="" />
+    <setting id="kodion.maintain.delete.settings" value="" />
+    <setting id="kodion.maintain.delete.temp" value="" />
+    <setting id="kodion.maintain.reset.accessmanager" value="" />
     <setting id="kodion.mpd.live_streams" value="true" />
     <setting id="kodion.mpd.proxy.port" value="50152" />
     <setting id="kodion.mpd.videos" value="true" />
@@ -14,14 +31,22 @@
     <setting id="kodion.safe.search" value="0" />
     <setting id="kodion.search.size" value="10" />
     <setting id="kodion.setup_wizard" value="false" />
+    <setting id="kodion.subtitle.configure" value="" />
     <setting id="kodion.subtitle.download" value="false" />
+    <setting id="kodion.subtitle.languages.num" value="" />
     <setting id="kodion.support.alternative_player" value="false" />
     <setting id="kodion.thumbnail.size" value="1" />
+    <setting id="kodion.users.add" value="" />
+    <setting id="kodion.users.remove" value="" />
+    <setting id="kodion.users.rename" value="" />
+    <setting id="kodion.users.switch" value="" />
     <setting id="kodion.video.quality" value="3" />
     <setting id="kodion.video.quality.ask" value="false" />
     <setting id="kodion.video.quality.mpd" value="false" />
+    <setting id="kodion.video.quality.mpd.configure" value="" />
     <setting id="simple.requests.ssl.verify" value="true" />
     <setting id="youtube.allow.dev.keys" value="true" />
+    <setting id="youtube.api.config.address" value="" />
     <setting id="youtube.api.config.page" value="false" />
     <setting id="youtube.api.enable" value="true" />
     <setting id="youtube.api.id" value="" />
@@ -58,11 +83,13 @@
     <setting id="youtube.folder.upcoming.live.show" value="true" />
     <setting id="youtube.folder.watch_later.playlist" value="" />
     <setting id="youtube.folder.watch_later.show" value="true" />
+    <setting id="youtube.get.watch_later.playlist.id" value="" />
     <setting id="youtube.language" value="en-US" />
     <setting id="youtube.location" value="" />
     <setting id="youtube.location.radius" value="500" />
     <setting id="youtube.playlist.watchlater.autoremove" value="true" />
     <setting id="youtube.post.play.rate" value="false" />
+    <setting id="youtube.post.play.rate.playlists" value="false" />
     <setting id="youtube.post.play.refresh" value="false" />
     <setting id="youtube.region" value="US" />
     <setting id="youtube.suggested_videos" value="false" />

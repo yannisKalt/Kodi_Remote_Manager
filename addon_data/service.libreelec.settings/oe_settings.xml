@@ -4,7 +4,7 @@
 	<settings>
 		<system>
 			<wizard_completed>True</wizard_completed>
-			<AutoUpdate>manual</AutoUpdate>
+			<AutoUpdate>auto</AutoUpdate>
 		</system>
 		<connman>
 			<wizard_completed>True</wizard_completed>

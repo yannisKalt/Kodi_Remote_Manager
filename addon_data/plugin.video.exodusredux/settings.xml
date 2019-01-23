@@ -29,7 +29,7 @@
     <setting id="furk.mod.level" value="Yes" />
     <setting id="furk.user_name" value="" />
     <setting id="furk.user_pass" value="" />
-    <setting id="hidecinema" value="false" />
+    <setting id="hidecinema" value="true" />
     <setting id="hosts.captcha" value="true" />
     <setting id="hosts.mode" value="1" />
     <setting id="hosts.quality" value="0" />
@@ -51,6 +51,7 @@
     <setting id="module.provider" value="Lambda Scrapers" />
     <setting id="movie.download.path" value="" />
     <setting id="movie.widget" value="1" />
+    <setting id="moviesearch" value="" />
     <setting id="moviesplanet.pass" value="" />
     <setting id="moviesplanet.user" value="" />
     <setting id="open.settings" value="" />
@@ -118,7 +119,7 @@
     <setting id="streamlord.user" value="" />
     <setting id="subtitles" value="true" />
     <setting id="subtitles.lang.1" value="Greek" />
-    <setting id="subtitles.lang.2" value="English" />
+    <setting id="subtitles.lang.2" value="Greek" />
     <setting id="subtitles.utf" value="true" />
     <setting id="tm.user" value="3b3eccd1c6bc0f679223fdbd7cf0d06d" />
     <setting id="trakt.auth" value="" />
@@ -129,5 +130,5 @@
     <setting id="tv.specials" value="false" />
     <setting id="tv.widget" value="1" />
     <setting id="tv.widget.alt" value="2" />
-    <setting id="tvsearch" value="merlin&#x0A;monk&#x0A;" />
+    <setting id="tvsearch" value="" />
 </settings>
