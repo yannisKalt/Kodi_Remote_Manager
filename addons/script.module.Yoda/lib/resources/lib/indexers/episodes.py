@@ -1,21 +1,16 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
+#######################################################################
+ # ----------------------------------------------------------------------------
+ # "THE BEER-WARE LICENSE" (Revision 42):
+ # @tantrumdev wrote this file.  As long as you retain this notice you
+ # can do whatever you want with this stuff. If we meet some day, and you think
+ # this stuff is worth it, you can buy me a beer in return. - Muad'Dib
+ # ----------------------------------------------------------------------------
+#######################################################################
 
-'''
-    Yoda Add-on
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
+# Addon Name: Yoda
+# Addon id: plugin.video.Yoda
+# Addon Provider: Supremacy
 
 
 from resources.lib.modules import trakt
@@ -35,7 +30,7 @@ params = dict(urlparse.parse_qsl(sys.argv[2].replace('?',''))) if len(sys.argv) 
 
 action = params.get('action')
 
-control.moderator()
+
 
 
 class seasons:
@@ -44,6 +39,9 @@ class seasons:
 
         self.lang = control.apiLanguage()['tvdb']
         self.showunaired = control.setting('showunaired') or 'true'
+        self.unairedcolor = control.setting('unaired.identify')
+        if self.unairedcolor == '': self.unairedcolor = 'red'
+        self.unairedcolor = self.getUnairedColor(self.unairedcolor)
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.tvdb_key = 'MUQ2MkYyRjkwMDMwQzQ0NA=='
@@ -54,6 +52,19 @@ class seasons:
         self.tvdb_image = 'http://thetvdb.com/banners/'
         self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
 
+    def getUnairedColor(self, n):
+        if n == '0': n = 'blue'
+        elif n == '1': n = 'red'
+        elif n == '2': n = 'yellow'
+        elif n == '3': n = 'deeppink'
+        elif n == '4': n = 'cyan'
+        elif n == '5': n = 'lawngreen'
+        elif n == '6': n = 'gold'
+        elif n == '7': n = 'magenta'
+        elif n == '8': n = 'yellowgreen'
+        elif n == '9': n = 'nocolor'
+        else: n == 'blue'
+        return n
 
     def get(self, tvshowtitle, year, imdb, tvdb, idx=True, create_directory=True):
         if control.window.getProperty('PseudoTVRunning') == 'True':
@@ -164,7 +175,7 @@ class seasons:
             item = result[0] ; item2 = result2[0]
 
             episodes = [i for i in result if '<EpisodeNumber>' in i]
-            episodes = [i for i in episodes if not '<SeasonNumber>0</SeasonNumber>' in i]
+            episodes = [i for i in episodes if not '<SeasonNumber>0</SeasonNumber>' in i or control.setting('show_season0')  != 0]
             episodes = [i for i in episodes if not '<EpisodeNumber>0</EpisodeNumber>' in i]
 
             seasons = [i for i in episodes if '<EpisodeNumber>1</EpisodeNumber>' in i]
@@ -433,7 +444,7 @@ class seasons:
                 label = '%s %s' % (labelMenu, i['season'])
                 try:
                     if i['unaired'] == 'true':
-                        label = '[COLOR darkred][I]%s[/I][/COLOR]' % label
+                        label = '[COLOR %s][I]%s[/I][/COLOR]' % (self.unairedcolor, label)
                 except:
                     pass
                 systitle = sysname = urllib.quote_plus(i['tvshowtitle'])
@@ -530,13 +541,16 @@ class episodes:
 
         self.trakt_link = 'http://api.trakt.tv'
         self.tvmaze_link = 'http://api.tvmaze.com'
-        self.tvdb_key = 'MUQ2MkYyRjkwMDMwQzQ0NA=='
+        self.tvdb_key = 'NzFCQjk5MzY5NDI0RjE2Nw=='
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.trakt_user = control.setting('trakt.user').strip()
         self.lang = control.apiLanguage()['tvdb']
         self.showunaired = control.setting('showunaired') or 'true'
+        self.unairedcolor = control.setting('unaired.identify')
+        if self.unairedcolor == '': self.unairedcolor = 'red'
+        self.unairedcolor = self.getUnairedColor(self.unairedcolor)
 
         self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key.decode('base64'), '%s', '%s')
         self.tvdb_image = 'http://thetvdb.com/banners/'
@@ -555,6 +569,19 @@ class episodes:
         self.traktlikedlists_link = 'http://api.trakt.tv/users/likes/lists?limit=1000000'
         self.traktlist_link = 'http://api.trakt.tv/users/%s/lists/%s/items'
 
+    def getUnairedColor(self, n):
+        if n == '0': n = 'blue'
+        elif n == '1': n = 'red'
+        elif n == '2': n = 'yellow'
+        elif n == '3': n = 'deeppink'
+        elif n == '4': n = 'cyan'
+        elif n == '5': n = 'lawngreen'
+        elif n == '6': n = 'gold'
+        elif n == '7': n = 'magenta'
+        elif n == '8': n = 'yellowgreen'
+        elif n == '9': n = 'nocolor'
+        else: n == 'blue'
+        return n
 
     def get(self, tvshowtitle, year, imdb, tvdb, season=None, episode=None, idx=True, create_directory=True):
         try:
@@ -1414,7 +1441,7 @@ class episodes:
                 
                 try:
                     if i['unaired'] == 'true':
-                        label = '[COLOR darkred][I]%s[/I][/COLOR]' % label
+                        label = '[COLOR %s][I]%s[/I][/COLOR]' % (self.unairedcolor, label)
                 except:
                     pass
 

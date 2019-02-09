@@ -1,21 +1,9 @@
-# -*- coding: utf-8 -*-
+# -*- coding: UTF-8 -*-
+#######################################################################
 
-"""
-    Yoda Add-on
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
+# Addon Name: Yoda
+# Addon id: plugin.video.Yoda
+# Addon Provider: Supremacy
 
 
 import os
@@ -213,7 +201,6 @@ def infoDialog(message, heading=addonInfo('name'), icon='', time=3000, sound=Fal
     elif icon == 'ERROR': icon = xbmcgui.NOTIFICATION_ERROR
     dialog.notification(heading, message, icon, time, sound=sound)
 
-
 def yesnoDialog(line1, line2, line3, heading=addonInfo('name'), nolabel='', yeslabel=''):
     return dialog.yesno(heading, line1, line2, line3, nolabel, yeslabel)
 
@@ -222,16 +209,9 @@ def selectDialog(list, heading=addonInfo('name')):
     return dialog.select(heading, list)
 
 
-def moderator():
-    netloc = [urlparse.urlparse(sys.argv[0]).netloc, '', 'plugin.video.live.streamspro', 'plugin.video.phstreams', 'plugin.video.cpstreams', 'plugin.video.tinklepad', 'script.tvguide.fullscreen', 'script.tvguide.assassins', 'plugin.video.metalliq', 'script.extendedinfo', 'plugin.program.super.favourites']
-
-    if not infoLabel('Container.PluginName') in netloc: sys.exit()
-
-
 def metaFile():
     if condVisibility('System.HasAddon(script.Yoda.metadata)'):
         return os.path.join(xbmcaddon.Addon('script.Yoda.metadata').getAddonInfo('path'), 'resources', 'data', 'meta.db')
-
 
 def apiLanguage(ret_name=None):
     langDict = {'Bulgarian': 'bg', 'Chinese': 'zh', 'Croatian': 'hr', 'Czech': 'cs', 'Danish': 'da', 'Dutch': 'nl', 'English': 'en', 'Finnish': 'fi', 'French': 'fr', 'German': 'de', 'Greek': 'el', 'Hebrew': 'he', 'Hungarian': 'hu', 'Italian': 'it', 'Japanese': 'ja', 'Korean': 'ko', 'Norwegian': 'no', 'Polish': 'pl', 'Portuguese': 'pt', 'Romanian': 'ro', 'Russian': 'ru', 'Serbian': 'sr', 'Slovak': 'sk', 'Slovenian': 'sl', 'Spanish': 'es', 'Swedish': 'sv', 'Thai': 'th', 'Turkish': 'tr', 'Ukrainian': 'uk'}

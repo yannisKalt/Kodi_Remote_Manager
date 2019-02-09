@@ -8,9 +8,9 @@
  # ----------------------------------------------------------------------------
 #######################################################################
 
-# Addon Name: Galaxy
-# Addon id: plugin.video.Galaxy
-# Addon Provider: The Martian
+# Addon Name: Yoda
+# Addon id: plugin.video.Yoda
+# Addon Provider: Supremacy
 
 
 from resources.lib.modules import log_utils

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Jor-EL Add-on
+    Yoda Add-on
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,7 +37,6 @@ params = dict(urlparse.parse_qsl(sys.argv[2].replace('?',''))) if len(sys.argv) 
 
 action = params.get('action')
 
-control.moderator()
 
 
 

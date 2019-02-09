@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.program.update" name="Update" version="1.0.0" provider-name="Nietzsche">
+  <requires>
+    <import addon="xbmc.python" version="2.25.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Check For Updates</summary>
+    <description lang="en_GB">Check For Updates</description>
+    <disclaimer lang="en_GB"></disclaimer>
+    <language>en</language> 
+    <platform>all</platform>
+    <license>GPL-2.0</license>
+    <assets>
+        <icon>resources/icon.png</icon>
+        <fanart>resources/fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
+

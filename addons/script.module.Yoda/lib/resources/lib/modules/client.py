@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-'''
+"""
     Yoda Add-on
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
+"""
 
 
 import re,sys,cookielib,urllib,urllib2,urlparse,gzip,StringIO,HTMLParser,time,random,base64,xbmc
@@ -317,6 +317,9 @@ def replaceHTMLCodes(txt):
     txt = txt.strip()
     return txt
 
+def replaceEscapeCodes(txt):
+    txt = HTMLParser.HTMLParser().unescape(txt)
+    return txt
 
 def randomagent():
     BR_VERS = [
@@ -504,8 +507,6 @@ class sucuri:
             return self.cookie
         except:
             pass
-
-"""Bennu Specific"""
 
 def _get_keyboard( default="", heading="", hidden=False ):
     """ shows a keyboard and returns a value """

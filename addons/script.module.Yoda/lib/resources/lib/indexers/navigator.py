@@ -24,7 +24,7 @@ from resources.lib.modules import control
 from resources.lib.modules import trakt
 from resources.lib.modules import cache
 
-sysaddon = sys.argv[0] ; syshandle = int(sys.argv[1]) ; control.moderator()
+sysaddon = sys.argv[0] ; syshandle = int(sys.argv[1]) ;
 artPath = control.artPath() ; addonFanart = control.addonFanart()
 
 imdbCredentials = False if control.setting('imdb.user') == '' else True
@@ -40,11 +40,11 @@ class navigator:
     HOMEPATH      = xbmc.translatePath('special://home/')
     ADDONSPATH    = os.path.join(HOMEPATH, 'addons')
     THISADDONPATH = os.path.join(ADDONSPATH, ADDON_ID)
-    NEWSFILE      = base64.b64decode(b'')
-    LOCALNEWS     = os.path.join(THISADDONPATH, 'whatsnew.txt')
+    NEWSFILE      = base64.b64decode(b'aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3JuYnpLeTFB')
+    LOCALNEWS     = os.path.join(THISADDONPATH, 'Yoda Updates.txt')
     
     def root(self):
-        
+        self.addDirectoryItem('[COLOR=gold]Yoda Updates[/COLOR]', 'newsNavigator', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32001, 'movieNavigator', 'movies.png', 'DefaultMovies.png')
         self.addDirectoryItem(32002, 'tvNavigator', 'tvshows.png', 'DefaultTVShows.png')
 
@@ -63,7 +63,7 @@ class navigator:
 
         if self.getMenuEnabled('navi.channels') == True:
             self.addDirectoryItem(32016, 'tvNetworks', 'networks.png', 'DefaultTVShows.png')
-	self.addDirectoryItem(32632, 'boxsetsNavigator', 'boxsets.png', 'boxsets.png')
+			#self.addDirectoryItem(32632, 'boxsetsNavigator', 'boxsets.png', 'boxsets.png')
         self.addDirectoryItem(32008, 'toolNavigator', 'tools.png', 'DefaultAddonProgram.png')
 
         downloads = True if control.setting('downloads') == 'true' and (len(control.listDir(control.setting('movie.download.path'))[0]) > 0 or len(control.listDir(control.setting('tv.download.path'))[0]) > 0) else False
@@ -71,7 +71,6 @@ class navigator:
             self.addDirectoryItem(32009, 'downloadNavigator', 'downloads.png', 'DefaultFolder.png')
 
         self.addDirectoryItem(32010, 'searchNavigator', 'search.png', 'DefaultFolder.png')
-        
 
         self.endDirectory()
 
@@ -93,7 +92,7 @@ class navigator:
                             text_file.write(message)
                             text_file.close()
                             compfile = message
-            self.showText('[B][I][COLOR Aqua]Yoda User Agreement and Privacy Policy[/B][/I][/COLOR]', compfile)
+            self.showText('[B][I][COLOR yellow]Yoda Latest Updates[/COLOR][/B][/I]', compfile)
         
     def open_news_url(self, url):
             req = urllib2.Request(url)
@@ -122,6 +121,8 @@ class navigator:
 #######################################################################
 
     def movies(self, lite=False):
+        #if self.getMenuEnabled('navi.moviereview') == True:
+            #self.addDirectoryItem(32623, 'movieReviews', 'reviews.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.moviegenre') == True:
             self.addDirectoryItem(32011, 'movieGenres', 'genres.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.movieyears') == True:
@@ -193,6 +194,8 @@ class navigator:
 
 
     def tvshows(self, lite=False):
+        #if self.getMenuEnabled('navi.tvReviews') == True:
+            #self.addDirectoryItem(32623, 'tvReviews', 'reviews.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.tvGenres') == True:
             self.addDirectoryItem(32011, 'tvGenres', 'genres.png', 'DefaultTVShows.png')
         if self.getMenuEnabled('navi.tvNetworks') == True:
@@ -284,7 +287,7 @@ class navigator:
         self.addDirectoryItem(32614, 'clearMetaCache', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32613, 'clearAllCache', 'tools.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32073, 'authTrakt', 'trakt.png', 'DefaultAddonProgram.png')
-        self.addDirectoryItem(32609, 'Resolveurl', 'urlresolver.png', 'DefaultAddonProgram.png')
+        self.addDirectoryItem(32609, 'urlResolver', 'urlresolver.png', 'DefaultAddonProgram.png')
 
         self.endDirectory()
 

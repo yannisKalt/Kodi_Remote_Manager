@@ -108,7 +108,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>8403</systemtotaluptime>
+        <systemtotaluptime>8527</systemtotaluptime>
     </general>
     <input>
         <asknewcontrollers default="true">true</asknewcontrollers>
@@ -425,7 +425,7 @@
         <textures32 default="true">true</textures32>
     </videoscreen>
     <weather>
-        <addon>weather.gismeteo</addon>
+        <addon default="true"></addon>
         <currentlocation>2</currentlocation>
     </weather>
     <window>
@@ -647,6 +647,6 @@
     </defaultaudiosettings>
     <audio>
         <mute>false</mute>
-        <fvolumelevel>0.600000</fvolumelevel>
+        <fvolumelevel>1.000000</fvolumelevel>
     </audio>
 </settings>

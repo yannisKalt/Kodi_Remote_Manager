@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-'''
+"""
     Yoda Add-on
 
     This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
+"""
 
 import urlparse, urllib
 
@@ -34,7 +34,7 @@ def _getAniList(url):
 
 
 def _getToken():
-    result = urllib.urlencode({'grant_type': 'client_credentials', 'client_id': 'kodiexodus-7erse', 'client_secret': 'XelwkDEccpHX2uO8NpqIjVf6zeg'})
+    result = urllib.urlencode({'grant_type': 'client_credentials', 'client_id': 'Yoda-po0z6', 'client_secret': 'WHMhfUXcXb0q5iKjUIGssQu'})
     result = client.request('https://anilist.co/api/auth/access_token', post=result, headers={'Content-Type': 'application/x-www-form-urlencoded'}, error=True)
     result = utils.json_loads_as_str(result)
     return result['token_type'], result['access_token']

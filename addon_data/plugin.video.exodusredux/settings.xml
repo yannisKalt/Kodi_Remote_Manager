@@ -130,5 +130,5 @@
     <setting id="tv.specials" value="false" />
     <setting id="tv.widget" value="1" />
     <setting id="tv.widget.alt" value="2" />
-    <setting id="tvsearch" value="" />
+    <setting id="tvsearch" value="dr who&#x0A;" />
 </settings>

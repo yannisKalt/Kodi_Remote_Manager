@@ -57,9 +57,9 @@ def __getTrakt(url, post=None):
         elif resp_code in ['404']:
             log_utils.log('Object Not Found : %s' % resp_code, log_utils.LOGWARNING)
             return
-        elif resp_code in ['429']:
-            log_utils.log('Trakt Rate Limit Reached: %s' % resp_code, log_utils.LOGWARNING)
-            return
+#        elif resp_code in ['429']:
+#            log_utils.log('Trakt Rate Limit Reached: %s' % resp_code, log_utils.LOGWARNING)
+#            return
 
         if resp_code not in ['401', '405']:
             return result, resp_header

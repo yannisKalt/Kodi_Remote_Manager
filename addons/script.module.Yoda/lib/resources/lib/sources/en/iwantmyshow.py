@@ -23,13 +23,33 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['iwantmyshow.tk','myvideolinks.net']
+        self.domains = ['iwantmyshow.tk']
         self.base_link = 'http://iwantmyshow.tk'
         self.search_link = '/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
+            url = urllib.urlencode(url)
+            return url
+        except:
+            return
+
+    def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        try:
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
+            url = urllib.urlencode(url)
+            return url
+        except:
+            return
+
+    def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        try:
+            if url == None: return
+
+            url = urlparse.parse_qs(url)
+            url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
+            url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
             url = urllib.urlencode(url)
             return url
         except:
@@ -63,27 +83,28 @@ class source:
 
             r = client.request(url)
 
-            r = client.parseDOM(r, 'h2', attrs = {'class': 'post-title'})
-            r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
-            r = [(i[0], i[1], re.sub('(\.|\(|\[|\s)(\d{4}|3D)(\.|\)|\]|\s|)(.+|)', '', i[1]), re.findall('[\.|\(|\[|\s](\d{4}|)([\.|\)|\]|\s|].+)', i[1])) for i in r]
+            r = client.parseDOM(r, 'h2', attrs = {'class': 'post-title .+?'})
+            l = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
+            r = [(i[0], i[1], re.sub('(\.|\(|\[|\s)(\d{4}|3D)(\.|\)|\]|\s|)(.+|)', '', i[1]), re.findall('[\.|\(|\[|\s](\d{4}|)([\.|\)|\]|\s|].+)', i[1])) for i in l]
             r = [(i[0], i[1], i[2], i[3][0][0], i[3][0][1]) for i in r if i[3]]
             r = [(i[0], i[1], i[2], i[3], re.split('\.|\(|\)|\[|\]|\s|\-', i[4])) for i in r]
             r = [i for i in r if cleantitle.get(title) == cleantitle.get(i[2]) and data['year'] == i[3]]
             r = [i for i in r if not any(x in i[4] for x in ['HDCAM', 'CAM', 'DVDR', 'DVDRip', 'DVDSCR', 'HDTS', 'TS', '3D'])]
             r = [i for i in r if '1080p' in i[4]][:1] + [i for i in r if '720p' in i[4]][:1]
 
-            posts = [(i[1], i[0]) for i in r]
-
+            if 'tvshowtitle' in data:
+                posts = [(i[1], i[0]) for i in l]
+            else:
+                posts = [(i[1], i[0]) for i in l]
             hostDict = hostprDict + hostDict
 
             items = []
-
             for post in posts:
                 try:
                     t = post[0]
 
                     u = client.request(post[1])
-                    u = re.findall('\'(http.+?)\'', u) + re.findall('\"(http.+?)\"', u)
+                    u = re.findall('"(http.+?)"', u) + re.findall('"(http.+?)"', u)
                     u = [i for i in u if not '/embed/' in i]
                     u = [i for i in u if not 'youtube' in i]
 
@@ -107,13 +128,18 @@ class source:
                     fmt = re.sub('(.+)(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*)(\.|\)|\]|\s)', '', name.upper())
                     fmt = re.split('\.|\(|\)|\[|\]|\s|\-', fmt)
                     fmt = [i.lower() for i in fmt]
+                    print fmt
 
                     if any(i.endswith(('subs', 'sub', 'dubbed', 'dub')) for i in fmt): raise Exception()
                     if any(i in ['extras'] for i in fmt): raise Exception()
 
-                    if '1080p' in fmt: quality = '1080p'
-                    elif '720p' in fmt: quality = 'HD'
-                    else: quality = 'SD'
+                    if '1080p' in fmt:
+                        quality = '1080p'
+                    elif '720p' in fmt:
+                        quality = '720p'
+                    else:
+                        quality = '720p'
+
                     if any(i in ['dvdscr', 'r5', 'r6'] for i in fmt): quality = 'SCR'
                     elif any(i in ['camrip', 'tsrip', 'hdcam', 'hdts', 'dvdcam', 'dvdts', 'cam', 'telesync', 'ts'] for i in fmt): quality = 'CAM'
 
@@ -153,7 +179,7 @@ class source:
 
             return sources
         except:
-            return sources
+            return
 
     def resolve(self, url):
         return url

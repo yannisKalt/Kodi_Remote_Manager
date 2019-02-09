@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
     Yoda Add-on
 
@@ -15,6 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 import ast
 import hashlib
 import re
@@ -68,65 +70,6 @@ def timeout(function, *args):
         return int(result['date'])
     except Exception:
         return None
-
-def bennu_download_get(function, timeout, *args, **table):
-    try:
-        response = None
-
-        f = repr(function)
-        f = re.sub('.+\smethod\s|.+function\s|\sat\s.+|\sof\s.+', '', f)
-
-        a = hashlib.md5()
-        for i in args: a.update(str(i))
-        a = str(a.hexdigest())
-    except:
-        pass
-
-    try:
-        table = table['table']
-    except:
-        table = 'rel_list'
-
-    try:
-        control.makeFile(control.dataPath)
-        dbcon = db.connect(control.cacheFile)
-        dbcur = dbcon.cursor()
-        dbcur.execute("SELECT * FROM %s WHERE func = '%s' AND args = '%s'" % (table, f, a))
-        match = dbcur.fetchone()
-
-        response = eval(match[2].encode('utf-8'))
-
-        t1 = int(match[3])
-        t2 = int(time.time())
-        update = (abs(t2 - t1) / 3600) >= int(timeout)
-        if update == False:
-            return response
-    except:
-        pass
-
-    try:
-        r = function(*args)
-        if (r == None or r == []) and not response == None:
-            return response
-        elif (r == None or r == []):
-            return r
-    except:
-        return
-
-    try:
-        r = repr(r)
-        t = int(time.time())
-        dbcur.execute("CREATE TABLE IF NOT EXISTS %s (""func TEXT, ""args TEXT, ""response TEXT, ""added TEXT, ""UNIQUE(func, args)"");" % table)
-        dbcur.execute("DELETE FROM %s WHERE func = '%s' AND args = '%s'" % (table, f, a))
-        dbcur.execute("INSERT INTO %s Values (?, ?, ?, ?)" % table, (f, a, r, t))
-        dbcon.commit()
-    except:
-        pass
-
-    try:
-        return eval(r.encode('utf-8'))
-    except:
-        pass
 
 def cache_get(key):
     # type: (str, str) -> dict or None
@@ -294,7 +237,16 @@ def cache_version_check():
 def _find_cache_version():
 
     import os
+
     versionFile = os.path.join(control.dataPath, 'cache.v')
+    try:
+        if not os.path.exists(versionFile): f = open(versionFile, 'w'); f.close()
+    except Exception as e:
+        import xbmc
+        print 'Yoda Addon Data Path Does not Exist. Creating Folder....'
+        ad_folder = xbmc.translatePath('special://home/userdata/addon_data/plugin.video.Yoda')
+        os.makedirs(ad_folder)
+
     try: 
         with open(versionFile, 'rb') as fh: oldVersion = fh.read()
     except: oldVersion = '0'

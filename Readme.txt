@@ -1,7 +1,7 @@
 Preconfigured Kodi Addons
  
-# This repo is build for libreelec OS where git is absent (package manager is not available either) #
-# In case on needs to port to Windows change os.system calls (linux mv, cp, rm are used.. lazy way indeed)
+# This repo is build for libreelec OS where git is absent (package manager is not available either) 
+# In case one needs to port to Windows change os.system calls (linux mv, cp, rm are used.. lazy way indeed)
 
 All addons are configured with greek clients in mind (language, content etc..)
 
