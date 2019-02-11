@@ -6,6 +6,9 @@ from update_kodi_utils import check_for_updates, update_addons
 addon_data_path = '/storage/.kodi/userdata'
 addons_db_path = addon_data_path + '/Database/Addons27.db'
 
+# Update Database
+# Enable Installed Addons (Disabled By Default)
+
 conn = sqlite3.connect(addons_db_path)
 c = conn.cursor()
 c.execute('UPDATE installed SET enabled = 1 WHERE enabled = 0')
@@ -30,9 +33,6 @@ while (True):
 # Connection established -> Update if update is needed.
 if check_for_updates():
     update_addons()
-
-    # Update DB (Enable All Installed Addons)
-    # Restart is needed for addons to be enabled.
     
     # Restart
     os.system('shutdown -r now')
