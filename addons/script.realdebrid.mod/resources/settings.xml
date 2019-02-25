@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="50000">
+       <setting id="play_using" type="folder" label="20003" option="writeable" default=""/>
+       <setting type="action" label="50005" action="RunScript(plugin.video.realdebrid, 0, ?realdebrid=true)" />
+       <setting id="rd_access" type="text" label="50006" option="hidden" enable="false" />
+       <setting id="rd_refresh" type="text" label="50007" option="hidden" enable="false" />
+       <setting id="rd_id" type="text" label="50008" option="hidden" enable="false" />
+       <setting id="rd_secret" type="text" label="50009" option="hidden" enable="false" />
+	</category>
+</settings>

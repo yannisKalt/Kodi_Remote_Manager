@@ -10,7 +10,7 @@
     <setting id="debug" value="false" />
     <setting id="default_link" value="BOTH" />
     <setting id="disable_messages" value="false" />
-    <setting id="disable_metadata_dialog" value="false" />
+    <setting id="disable_metadata_dialog" value="true" />
     <setting id="disable_service" value="true" />
     <setting id="dlimage" value="false" />
     <setting id="enable_gifs" value="false" />

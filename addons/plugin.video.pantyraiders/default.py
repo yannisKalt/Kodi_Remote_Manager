@@ -135,11 +135,6 @@ except:
 
 # correct password <- 1994
 
-if mode == 762:
-	password = xbmcgui.Dialog().input('Secret Password')
-	if password != '1994':
-		xbmcgui.Dialog().notification('Error 69', 'Wrong Password')
-		exit()
 
 if mode == None: Main_Menu()
 elif mode == 699: from lib import xxx_vids;xxx_vids.Xbest_videos(url)

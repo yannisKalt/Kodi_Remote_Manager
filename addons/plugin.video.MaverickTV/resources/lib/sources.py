@@ -816,6 +816,16 @@ def get_sources(item):
                     player=jenplayer,
                     resolver=resolveurl,
                 )
+        elif preset.endswith('.torrent') or preset.startswith('magnet'):
+            played = koding.Play_Video(
+                preset,
+                showbusy=False,
+                ignore_dp=True,
+                item=listitem,
+                player=jenplayer,
+                resolver=resolveurl,
+            )
+
         else:
             # who knows
             busy_dialog.close()

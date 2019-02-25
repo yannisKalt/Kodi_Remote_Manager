@@ -51,7 +51,7 @@
     <setting id="module.provider" value="Lambda Scrapers" />
     <setting id="movie.download.path" value="" />
     <setting id="movie.widget" value="1" />
-    <setting id="moviesearch" value="" />
+    <setting id="moviesearch" value="vanishing&#x0A;" />
     <setting id="moviesplanet.pass" value="" />
     <setting id="moviesplanet.user" value="" />
     <setting id="open.settings" value="" />

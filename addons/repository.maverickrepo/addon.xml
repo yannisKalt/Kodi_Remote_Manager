@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="repository.maverickrepo" name="[COLOR lime]MaverickTV Repo[/COLOR]" version="3.5" provider-name="Maverick TV">
+<addon id="repository.maverickrepo" name="[COLOR lime]MaverickTV Repo[/COLOR]" version="3.6" provider-name="Maverick TV">
 <extension point="xbmc.addon.repository" name="[COLOR lime]MaverickTV Repo[/COLOR]">
 	<dir>
 		<info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>	
@@ -20,6 +20,11 @@
         <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
         <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
         <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+    </dir>
+	<dir>
+        <info compressed="false">http://kongmediaservice.tk/addons/addons.xml</info>
+        <checksum>http://kongmediaservice.tk/addons/addons.xml</checksum>
+        <datadir zip="true">http://kongmediaservice.tk/addons/</datadir>
     </dir>
 
 		<info compressed="false">https://raw.githubusercontent.com/Maverick53/repo/master/addons.xml</info>
