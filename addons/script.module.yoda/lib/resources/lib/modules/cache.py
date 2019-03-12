@@ -63,6 +63,14 @@ def get(function, duration, *args):
         return None
 
 
+def remove(function, *args):
+    try:
+        key = _hash_function(function, args)
+        cursor = _get_connection_cursor()
+        cursor.execute("DELETE FROM %s WHERE key = ?" % cache_table, [key])
+        cursor.connection.commit()
+    except Exception:
+        pass							
 def timeout(function, *args):
     try:
         key = _hash_function(function, args)

@@ -62,7 +62,8 @@ class navigator:
             self.addDirectoryItem(32631, 'docuHeaven', 'movies.png', 'DefaultMovies.png')
 
         if self.getMenuEnabled('navi.channels') == True:
-            self.addDirectoryItem(32016, 'tvNetworks', 'networks.png', 'DefaultTVShows.png')
+		    self.addDirectoryItem(32007, 'channels', 'channels.png', 'DefaultMovies.png')
+            #self.addDirectoryItem(32016, 'tvNetworks', 'networks.png', 'DefaultTVShows.png')
 			#self.addDirectoryItem(32632, 'boxsetsNavigator', 'boxsets.png', 'boxsets.png')
         self.addDirectoryItem(32008, 'toolNavigator', 'tools.png', 'DefaultAddonProgram.png')
 

@@ -26,9 +26,6 @@ params = dict(urlparse.parse_qsl(sys.argv[2].replace('?',''))) if len(sys.argv) 
 
 action = params.get('action')
 
-control.moderator()
-
-
 class channels:
     def __init__(self):
         self.list = [] ; self.items = []
@@ -38,7 +35,7 @@ class channels:
         self.tm_img_link = 'https://image.tmdb.org/t/p/w%s%s'
         self.lang = control.apiLanguage()['trakt']
 
-        self.sky_now_link = 'http://epgservices.sky.com/5.1.1/api/2.0/channel/json/%s/now/nn/0'
+        self.sky_now_link = 'http://epgservices.sky.com/5.1.1/api/2.0/channel/json/%s/now/nn/3'
         self.sky_programme_link = 'http://tv.sky.com/programme/channel/%s/%s/%s.json'
 
 
@@ -46,20 +43,20 @@ class channels:
         channels = [
             ('01', 'Sky Premiere', '4021'),
             ('02', 'Sky Premiere +1', '1823'),
-            ('03', 'Sky Showcase', '4033'),
-            ('04', 'Sky Greats', '1815'),
+            ('03', 'Sky Hits', '4033'),
+            ('04', 'Sky Greats', '4015'),
             ('05', 'Sky Disney', '4013'),
             ('06', 'Sky Family', '4018'),
             ('07', 'Sky Action', '4014'),
             ('08', 'Sky Comedy', '4019'),
-            ('09', 'Sky Crime', '4062'),
+            ('09', 'Sky Thriller', '4062'),
             ('10', 'Sky Drama', '4016'),
-            ('11', 'Sky Sci Fi', '4017'),
+            ('11', 'Sky SciFi/Horror', '4017'),
             ('12', 'Sky Select', '4020'),
             ('13', 'Film4', '4044'),
             ('14', 'Film4 +1', '1629'),
             ('15', 'TCM', '3811'),
-            ('16', 'TCM +1', '5275')
+            ('16', 'TCM +1', '5275'),
         ]
 
         threads = []
@@ -86,26 +83,15 @@ class channels:
             url = self.sky_now_link % id
             result = client.request(url, timeout='10')
             result = json.loads(result)
-            match = result['listings'][id][0]['url']
 
-            dt1 = (self.uk_datetime).strftime('%Y-%m-%d')
-            dt2 = int((self.uk_datetime).strftime('%H'))
-            if (dt2 < 6): dt2 = 0
-            elif (dt2 >= 6 and dt2 < 12): dt2 = 1
-            elif (dt2 >= 12 and dt2 < 18): dt2 = 2
-            elif (dt2 >= 18): dt2 = 3
+            try:
+                year = result['listings'][id][0]['d']
+                year = re.findall('[(](\d{4})[)]', year)[0].strip()
+                year = year.encode('utf-8')
+            except:
+                year = ''
 
-            url = self.sky_programme_link % (id, str(dt1), str(dt2))
-            result = client.request(url, timeout='10')
-            result = json.loads(result)
-            result = result['listings'][id]
-            result = [i for i in result if i['url'] == match][0]
-
-            year = result['d']
-            year = re.findall('[(](\d{4})[)]', year)[0].strip()
-            year = year.encode('utf-8')
-
-            title = result['t']
+            title = result['listings'][id][0]['t']
             title = title.replace('(%s)' % year, '').strip()
             title = client.replaceHTMLCodes(title)
             title = title.encode('utf-8')
@@ -293,5 +279,3 @@ class channels:
 
         control.content(syshandle, 'files')
         control.directory(syshandle, cacheToDisc=True)
-
-

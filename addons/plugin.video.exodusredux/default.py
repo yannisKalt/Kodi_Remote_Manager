@@ -17,14 +17,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
 import urlparse,sys,urllib
+from resources.lib.modules import log_utils
 from resources.lib.modules import control
 import xbmcgui
 
-params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
+
+
+
+params = dict(urlparse.parse_qsl(sys.argv[2].replace('?', '')))
+mode = params.get('mode')
 
 action = params.get('action')
+
+docu_category = params.get('docuCat')
+
+docu_watch = params.get('docuPlay')
 
 name = params.get('name')
 
@@ -64,12 +72,31 @@ windowedtrailer = params.get('windowedtrailer')
 windowedtrailer = int(windowedtrailer) if windowedtrailer in ("0","1") else 0
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if action == None:
     from resources.lib.indexers import navigator
     from resources.lib.modules import cache
-
     run = control.setting('first.info')
-
     if run == '': run = 'true' #clean install scenerio
     if cache._find_cache_version(): run = 'true'  #check whether script.module.exdodus has been updated
     if cache._find_cache_versionAlt(): run = 'true' #check whether plugin.video.exdodus has been updated.  Added function to script.module.exdodus/lib/resources/modules/cache - def _find_cache_versionAlt()
@@ -79,30 +106,17 @@ if action == None:
     cache.cache_version_check()
     navigator.navigator().root()
 
+
+
+
+
+
+
+
 elif action == 'newsNavigator':
     from resources.lib.indexers import navigator
     navigator.navigator().news()
 #    navigator.navigator().news_local()
-
-elif action == "furkNavigator":
-    from resources.lib.indexers import navigator
-    navigator.navigator().furk()
-
-elif action == "furkMetaSearch":
-    from resources.lib.indexers import furk
-    furk.furk().furk_meta_search(url)
-
-elif action == "furkSearch":
-    from resources.lib.indexers import furk
-    furk.furk().search()
-
-elif action == "furkUserFiles":
-    from resources.lib.indexers import furk
-    furk.furk().user_files()
-
-elif action == "furkSearchNew":
-    from resources.lib.indexers import furk
-    furk.furk().search_new()
 
 elif action == 'movieNavigator':
     from resources.lib.indexers import navigator
@@ -155,6 +169,10 @@ elif action == 'searchNavigator':
 elif action == 'viewsNavigator':
     from resources.lib.indexers import navigator
     navigator.navigator().views()
+
+elif action == 'clearSources':
+    from resources.lib.modules import sources
+    sources.sources().clearSources()
 
 elif action == 'clearCache':
     from resources.lib.indexers import navigator
@@ -228,10 +246,6 @@ elif action == 'movieUserlists':
     from resources.lib.indexers import movies
     movies.movies().userlists()
 
-elif action == 'channels':
-    from resources.lib.indexers import channels
-    channels.channels().get()
-
 elif action == 'tvshows':
     from resources.lib.indexers import tvshows
     tvshows.tvshows().get(url)
@@ -251,7 +265,7 @@ elif action == 'tvSearchnew':
 elif action == 'tvSearchterm':
     from resources.lib.indexers import tvshows
     tvshows.tvshows().search_term(name)
-    
+
 elif action == 'tvPerson':
     from resources.lib.indexers import tvshows
     tvshows.tvshows().person()
@@ -315,6 +329,10 @@ elif action == 'queueItem':
 elif action == 'openSettings':
     from resources.lib.modules import control
     control.openSettings(query)
+    
+elif action == 'open.Settings.CacheProviders':
+    from resources.lib.modules import control
+    control.openSettings(query)
 
 elif action == 'artwork':
     from resources.lib.modules import control
@@ -348,10 +366,14 @@ elif action == 'authTrakt':
     from resources.lib.modules import trakt
     trakt.authTrakt()
 
-elif action == 'smuSettings':
+elif action == 'urlResolver':
     try: import resolveurl
     except: pass
     resolveurl.display_settings()
+
+elif action == 'urlResolverRDTorrent':
+    from resources.lib.modules import control
+    control.openSettings(query, "script.module.resolveurl")
 
 elif action == 'download':
     import json
@@ -359,6 +381,18 @@ elif action == 'download':
     from resources.lib.modules import downloader
     try: downloader.download(name, image, sources.sources().sourcesResolve(json.loads(source)[0], True))
     except: pass
+
+elif action == 'docuHeaven':
+    from resources.lib.indexers import docu
+    if not docu_category == None:
+        docu.documentary().docu_list(docu_category)
+    elif not docu_watch == None:
+        docu.documentary().docu_play(docu_watch)
+    else:
+        docu.documentary().root()
+
+elif action == 'sectionItem':
+    pass # Placeholder. This is a non-clickable menu item for notes, etc.
 
 elif action == 'play':
     from resources.lib.modules import sources
@@ -376,10 +410,6 @@ elif action == 'alterSources':
     from resources.lib.modules import sources
     sources.sources().alterSources(url, meta)
 
-elif action == 'clearSources':
-    from resources.lib.modules import sources
-    sources.sources().clearSources()
-
 elif action == 'disableAll':
     from resources.lib.modules import sources
     sources.sources().disableAll()
@@ -387,6 +417,11 @@ elif action == 'disableAll':
 elif action == 'enableAll':
     from resources.lib.modules import sources
     sources.sources().enableAll()
+
+if mode == "toggleAll":
+    open_id = params['open_id'] if 'open_id' in params else '0.0'
+    sourcelist = params['sourcelist'] if 'sourcelist' in params else None
+    toggleAll(params['setting'], open_id, sourceList=sourcelist)
 
 elif action == 'random':
     rtype = params.get('rtype')
@@ -462,6 +497,16 @@ elif action == 'service':
     from resources.lib.modules import libtools
     libtools.libepisodes().service()
 
-elif action == 'lambdaScraperChoice':
+elif action == 'cfNavigator':
+    from resources.lib.indexers import navigator
+    navigator.navigator().cf()
+
+
+elif action == 'openscrapersSettings':
     from resources.lib.modules import control
-    control.lambdaScraperChoice()
+    control.openSettings('0.0', 'script.module.openscrapers')
+
+elif action == 'channels':
+    from resources.lib.indexers import channels
+    channels.channels().get()
+

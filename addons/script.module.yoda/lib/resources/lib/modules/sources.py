@@ -1046,8 +1046,9 @@ class sources:
         prem_identify = control.setting('prem.identify')
         if prem_identify == '': prem_identify = 'blue'
         prem_identify = self.getPremColor(prem_identify)        
+        
         torrent_identify = control.setting('torrent.identify')
-        if torrent_identify == '': torrent_identify = 'blue'
+        if torrent_identify == '': torrent_identify = ''
         torrent_identify = self.getPremColor(torrent_identify)
 
         for i in range(len(self.sources)):
