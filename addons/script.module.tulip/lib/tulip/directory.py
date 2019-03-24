@@ -215,7 +215,7 @@ def add(
             )
 
             item.addContextMenuItems(cm)
-            item.setInfo(type=infotype, infoLabels=meta)
+            item.setInfo(type=infotype if 'infotype' not in i else i['infotype'], infoLabels=meta)
 
             if isPlayable:
 
@@ -472,22 +472,26 @@ def run_builtin(
         query_string = ''
 
         if content_type:
-            query_string += 'content_type={0}{1}'.format(content_type, '&' if action is not None or mode is not None or query is not None else '')
+            query_string += 'content_type={0}{1}'.format(content_type, '' if action is None and mode is None and query is None else '&')
 
-        if action and not mode:
+        if action:
+
             query_string += 'action={0}'.format(action)
-        elif mode and not action:
+
+        if mode:
+
             query_string += 'mode={0}'.format(mode)
-        else:
-            query_string += 'action={0}&mode={1}'.format(action, mode)
 
         if url:
+
             query_string += '&url={0}'.format(quote_plus(url))
 
         if query:
+
             query_string += '&query={0}'.format(query)
 
         if args:
+
             query_string += '&' + '&'.join(args)
 
     if 'content_type=video' in query_string:
@@ -501,7 +505,7 @@ def run_builtin(
     elif 'content_type' in query_string and dict(parse_qsl(query_string))['content_type'] not in ['video', 'audio', 'image', 'executable']:
         raise AttributeError('Incorrect content_type specified')
 
-    addon_id = 'plugin://' + addon_id + '/'
+    addon_id = ''.join(['plugin://', addon_id, '/'])
 
     if 'content_type' in query_string and isinstance(command, tuple):
 

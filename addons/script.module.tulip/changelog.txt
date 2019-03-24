@@ -3,6 +3,7 @@
 - Changed all "BaseException" into "Exception"
 - Replaced builtin eval with ast.literaleval which is more secure
 - Added the fuzzywuzzy library for fuzzy string matching
+- Moved all user agent related functions and strings into new user_agent module
 - Various other tweaks
 
 [B]2.2.X[/B]

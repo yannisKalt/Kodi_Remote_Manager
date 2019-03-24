@@ -23,9 +23,21 @@ import sys
 from tulip.compat import parse_qsl
 
 argv = sys.argv
-syshandle = int(argv[1])
+
+try:
+    syshandle = int(argv[1])
+except IndexError:
+    syshandle = -1
+
 sysaddon = argv[0]
-params_tuple = parse_qsl(argv[2].replace('?',''))
-params = dict(params_tuple)
+
+try:
+
+    params_tuple = parse_qsl(argv[2].replace('?',''))
+    params = dict(params_tuple)
+
+except IndexError:
+
+    params = {'action': None}
 
 __all__ = ["syshandle", "sysaddon", "params"]
