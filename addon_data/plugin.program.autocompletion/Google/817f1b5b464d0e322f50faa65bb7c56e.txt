@@ -1,0 +1,1 @@
+["Greek-T", ["greek-turkish war 1919-23", "greek-turkish war 1919\u201322", "greek-turkish war", "greek-turkish border", "greek tragedy the wombats", "greek traditional music", "greek tv show bts", "greek tv show", "greek tv", "greek theater"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

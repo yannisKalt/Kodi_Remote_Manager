@@ -1,0 +1,1 @@
+["MMA", ["mma", "mma world", "mma training", "mma highlights", "mma 2018", "mma greece", "mma 2019", "mma fight", "mma women", "mma music"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

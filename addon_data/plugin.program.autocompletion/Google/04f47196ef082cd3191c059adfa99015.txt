@@ -1,0 +1,1 @@
+["Gr", ["greek music", "greece", "greece eurovision 2019", "green day", "green book", "grammys 2019", "greek songs", "greek", "grammatik", "graham norton"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["AliveGR", ["alivegr fix", "alivegr error", "alivegr repo", "alivegr tv series not working", "alivegr master", "alivegr addon not working", "alivegr apk download", "alivegr update", "alivegr ant1", "alivegr live tv not working"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

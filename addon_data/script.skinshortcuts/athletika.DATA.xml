@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+	<shortcut>
+		<defaultID>colorffffffffff-sportsstreams-color</defaultID>
+		<label>[COLOR FFffffffff]Sports Streams[/COLOR]</label>
+		<label2>Αγαπημένο</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>special://skin/extras/icons/</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.video.loki/?description=No%20information%20available&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ffanart.jpg&amp;iconimage=https%3a%2f%2fi.pinimg.com%2f736x%2fa2%2fb9%2f7c%2fa2b97c577ff82928cc53591c33ba8f75--stream-online-daytona--live.jpg&amp;mode=Sport_Stream&amp;name=%5bCOLOR%20FFffffffff%5dSports%20Streams%5b%2fCOLOR%5d&amp;url=games",return)</action>
+	</shortcut>
+</shortcuts>

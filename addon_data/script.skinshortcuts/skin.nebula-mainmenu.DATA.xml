@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+	<shortcut>
+		<defaultID>movies</defaultID>
+		<label>342</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/backgrounds/Movies.jpg</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,MovieTitles,return)</action>
+		<visible>!Skin.HasSetting(plexbmc) + Library.HasContent(Movies)</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>tvshows</defaultID>
+		<label>20343</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/backgrounds/TVShows.jpg</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,TVShowTitles,return)</action>
+		<visible>!Skin.HasSetting(plexbmc) + Library.HasContent(TVShows)</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>31972</defaultID>
+		<label>$SKIN[31972|skin.nebula|Κλιπ]</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/backgrounds/Clips.jpg</icon>
+		<thumb />
+		<action>ActivateWindow(10501,"videodb://musicvideos/")</action>
+		<visible>!Skin.HasSetting(plexbmc) + Library.HasContent(MusicVideos)</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>31971</defaultID>
+		<label>$SKIN[31971|skin.nebula|Συναυλίες]</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/backgrounds/Concerts.jpg</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,MusicVideoTitles,return)</action>
+		<visible>!Skin.HasSetting(plexbmc) + Library.HasContent(MusicVideos)</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>livetv</defaultID>
+		<label>32022</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/backgrounds/Tv.jpg</icon>
+		<thumb />
+		<action>ActivateWindow(TVChannels)</action>
+		<visible>Pvr.HasTVChannels</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>radio</defaultID>
+		<label>32087</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/backgrounds/Radio.jpg</icon>
+		<thumb />
+		<action>ActivateWindow(RadioChannels)</action>
+		<visible>Pvr.HasRadioChannels</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>dvd</defaultID>
+		<label>32032</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/backgrounds/Dvds.jpg</icon>
+		<thumb />
+		<action>PlayDVD()</action>
+		<visible>System.HasMediaDVD</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.AliveGR</defaultID>
+		<label>Greek Tv</label>
+		<label2>Πρόσθετο Βίντεο</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://%2fstorage%2f.kodi%2faddons%2fplugin.video.AliveGR%2ficon.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.AliveGR",return)</action>
+	</shortcut>
+</shortcuts>

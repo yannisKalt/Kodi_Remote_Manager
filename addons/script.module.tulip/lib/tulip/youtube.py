@@ -20,8 +20,9 @@
 from __future__ import absolute_import
 
 import re, json
+from datetime import datetime
 from tulip.compat import urlparse, parse_qs, quote_plus, range
-from tulip import client, workers, control, directory
+from tulip import client, workers, control, directory, iso8601
 
 
 class youtube(object):
@@ -169,10 +170,23 @@ class youtube(object):
                 except AttributeError:
                     pass
 
-                append = {'title': title, 'url': url, 'image': image}
+                try:
+                    dateadded = item['snippet']['publishedAt']
+                    dateadded = str(iso8601.parse_date(dateadded).strftime('%Y-%m-%d %H:%M:%S'))
+                except Exception:
+                    dateadded = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+                date = '.'.join(dateadded.split()[0].split('-')[::-1])
+
+                data = {
+                    'title': title, 'url': url, 'image': image, 'dateadded': dateadded, 'date': date,
+                    'premiered': dateadded.split()[0], 'aired': dateadded.split()[0], 'year': int(dateadded[:4])
+                }
+
                 if next != '':
-                    append['next'] = next
-                self.list.append(append)
+                    data['next'] = next
+                self.list.append(data)
+
             except Exception:
                 pass
 

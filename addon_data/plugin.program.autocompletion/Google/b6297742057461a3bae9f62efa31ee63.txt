@@ -1,0 +1,1 @@
+["Updat", ["update", "update news", "update windows", "update bios", "update trailer", "update windows 10", "update movie", "update pubg", "update drivers", "update youtube"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

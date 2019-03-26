@@ -1,0 +1,1 @@
+["MM", ["mma", "mm", "mmorpg 2019", "mma world", "mmorpg", "mmm", "mma training", "mmk", "mmm yeah", "mma highlights"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

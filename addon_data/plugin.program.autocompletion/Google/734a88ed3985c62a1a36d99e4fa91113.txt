@@ -1,0 +1,1 @@
+["Greek T", ["greek tv news", "greek tv", "greek trap", "greek trash", "greek tv live", "greek turkish war", "greek trash tv", "greek trance", "greek tv show", "greek tv fails"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

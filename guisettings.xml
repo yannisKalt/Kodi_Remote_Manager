@@ -90,7 +90,7 @@
         <enablednotifications default="true">false</enablednotifications>
     </eventlog>
     <filelists>
-        <allowfiledeletion default="true">false</allowfiledeletion>
+        <allowfiledeletion>true</allowfiledeletion>
         <browsearchives default="true">true</browsearchives>
         <ignorethewhensorting default="true">true</ignorethewhensorting>
         <showaddsourcebuttons default="true">true</showaddsourcebuttons>
@@ -108,7 +108,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>23047</systemtotaluptime>
+        <systemtotaluptime>23374</systemtotaluptime>
     </general>
     <input>
         <asknewcontrollers default="true">true</asknewcontrollers>
@@ -134,10 +134,10 @@
     </locale>
     <lookandfeel>
         <enablerssfeeds default="true">false</enablerssfeeds>
-        <font>Arial nocaps</font>
+        <font default="true">Default</font>
         <rssedit default="true"></rssedit>
-        <skin>skin.amber</skin>
-        <skincolors>Blue</skincolors>
+        <skin>skin.pellucid</skin>
+        <skincolors default="true">SKINDEFAULT</skincolors>
         <skintheme default="true">SKINDEFAULT</skintheme>
         <skinzoom default="true">0</skinzoom>
         <soundskin default="true">resource.uisounds.kodi</soundskin>
@@ -213,7 +213,7 @@
         <usehttpproxy>true</usehttpproxy>
     </network>
     <pictures>
-        <displayresolution default="true">14</displayresolution>
+        <displayresolution>35</displayresolution>
         <generatethumbs default="true">true</generatethumbs>
         <showvideos default="true">true</showvideos>
         <usetags default="true">true</usetags>
@@ -371,7 +371,7 @@
         <seekdelay default="true">750</seekdelay>
         <seeksteps default="true">-600,-300,-180,-60,-30,-10,10,30,60,180,300,600</seeksteps>
         <stereoscopicplaybackmode default="true">0</stereoscopicplaybackmode>
-        <stretch43 default="true">0</stretch43>
+        <stretch43>4</stretch43>
         <supportmvc default="true">true</supportmvc>
         <teletextenabled default="true">true</teletextenabled>
         <teletextscale default="true">true</teletextscale>

@@ -1,0 +1,10 @@
+<settings>
+    <setting id="dmUser" value="" />
+    <setting id="downloadDir" value="" />
+    <setting id="family_filter" value="true" />
+    <setting id="forceViewModeNew" value="true" />
+    <setting id="itemsPerPage" value="1" />
+    <setting id="language" value="17" />
+    <setting id="maxVideoQuality" value="2" />
+    <setting id="viewModeNew" value="54" />
+</settings>

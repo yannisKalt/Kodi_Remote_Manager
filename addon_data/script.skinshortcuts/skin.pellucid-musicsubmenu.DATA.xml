@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+	<shortcut>
+		<defaultID>31136</defaultID>
+		<label>$SKIN[31136|skin.pellucid|Now Playing]</label>
+		<label2>Μουσική</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb />
+		<action>activateWindow(1103)</action>
+		<visible>Player.HasMedia</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>31031</defaultID>
+		<label>$SKIN[31031|skin.pellucid|Play Random]</label>
+		<label2>Μουσική</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb />
+		<action>PlayerControl(Partymode(music))</action>
+		<visible>Library.HasContent(Music)</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>31059</defaultID>
+		<label>$SKIN[31059|skin.pellucid|Radio]</label>
+		<label2>Μουσική</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb />
+		<action>ActivateWindow(Radiochannels)</action>
+		<visible>PVR.HasRadioChannels</visible>
+	</shortcut>
+</shortcuts>

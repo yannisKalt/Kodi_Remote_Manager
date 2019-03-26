@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="seasons">
+        <control type="group">
+            <visible>!isempty(container.folderpath) + container.content(seasons) + !container.content(episodes)</visible>
+            <!--fanart-->
+            <control type="group">
+                <visible>!Substring(Container.folderpath,plugin)</visible>
+                <posy>-100</posy>
+                <include>itemFanart</include>
+                <control type="image">
+                    <include>dimensionsFullscreen</include>
+                    <texture>vignette.png</texture>
+                    <colordiffuse>ffffffff</colordiffuse>
+                    <aspectratio>stretch</aspectratio>
+                </control>
+            </control>
+            <control type="group">
+                <animation type="conditional" condition="control.hasfocus(9001)">
+                    <effect type="fade" start="100" end="0" time="200"/>
+                </animation>
+                <!--title-->
+                <control type="group">
+                    <visible>!Substring(Container.folderpath,plugin)</visible>
+                    <posx>col-1-begin</posx>
+                    <posy>row-4-begin</posy>
+					<control type="label">
+                        <posx>0</posx>
+                        <posy>0</posy>
+                        <width>24-col</width>
+                        <height>3-row</height>
+                        <font>veryLargeLight</font>
+                        <textcolor>ffffffff</textcolor>
+						<aligny>center</aligny>
+                        <shadowcolor>-</shadowcolor>
+                        <wrapmultiline>true</wrapmultiline>
+                        <label>$INFO[container.showtitle]</label>
+                    </control>
+					<control type="textbox">
+                        <posx>0</posx>
+                        <posy>4-row</posy>
+                        <width>12-col</width>
+                        <height>198</height>
+                        <font>textbox</font>
+                        <textcolor>ffffffff</textcolor>
+                        <shadowcolor>-</shadowcolor>
+                        <label>$INFO[container.showplot]</label>
+                    </control>
+                </control>
+                <!--overlay-->
+                <control type="group">
+                    <visible>!Substring(Container.folderpath,plugin)</visible>
+                    <posy>row-15-begin</posy>
+                    <posy>0</posy>
+                    <include>globalBackground</include>
+                    <control type="image">
+                        <posx>0</posx>
+                        <posy>0</posy>
+                        <width>fullscreenWidth</width>
+                        <height>6</height>
+                        <aspectratio scalediffuse="false">stretch</aspectratio>
+                        <texture border="0">colors/white.png</texture>
+                        <colordiffuse>highlight</colordiffuse>
+                    </control>
+                </control>
+                <!--content-->
+                <control type="panel" id="58">
+                    <visible>$EXP[isSeason]</visible>
+                    <posx>col-1-begin</posx>
+                    <posy>row-16-begin</posy>
+                    <width>1860</width>
+                    <height>13-row</height>
+                    <onleft>9000</onleft>
+                    <onright>58</onright>
+                    <orientation>horizontal</orientation>
+                    <itemlayout width="4-col" height="391">
+                        <control type="image">
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>4-col-gutter</width>
+                            <height>396</height>
+                            <aspectratio>stretch</aspectratio>
+                            <texture border="6">colors/black.png</texture>
+                            <bordertexture border="6" colordiffuse="22FFFFFF">colors/black.png</bordertexture>
+                            <bordersize>6</bordersize>
+                            <colordiffuse>overlay</colordiffuse>
+                        </control>
+						<control type="image">
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>4-col-gutter</width>
+                            <height>396</height>
+                            <aspectratio>stretch</aspectratio>
+                            <texture>$INFO[ListItem.art(poster)]</texture>
+                            <bordersize>6</bordersize>
+                            <colordiffuse>ffffffff</colordiffuse>
+                        </control>
+                        <control type="label">
+                            <visible>ListItem.IsParentFolder</visible>
+                            <posx>12</posx>
+                            <posy>4-row</posy>
+                            <width>240</width>
+                            <height>2-row</height>
+                            <align>center</align>
+                            <aligny>center</aligny>
+                            <font>largeStrong</font>
+                            <textcolor>textActive</textcolor>
+                            <label>..</label>
+                        </control>
+                        <control type="label">
+                            <visible>!controlgroup(9000).hasfocus + !ListItem.IsParentFolder</visible>
+                            <posx>12</posx>
+                            <posy>384</posy>
+                            <width>240</width>
+                            <height>2-row</height>
+                            <aligny>center</aligny>
+                            <font>thumbTitle</font>
+                            <textcolor>textActive</textcolor>
+                            <label fallback="31190">[B]$INFO[ListItem.label][/B][CR][COLOR textInactive]$VAR[itemDetail][/COLOR]</label>
+                        </control>
+						<control type="group">
+							<visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
+							<posx>202</posx>
+							<posy>6</posy>
+							<control type="image">
+								<posx>0</posx>
+								<posy>0</posy>
+								<width>56</width>
+								<height>56</height>
+								<aspectratio>stretch</aspectratio>
+								<texture>masks/newContent.png</texture>
+								<colordiffuse>highlight</colordiffuse>
+							</control>
+							<control type="label">
+								<posx>28</posx>
+								<posy>-4</posy>
+								<width>36</width>
+								<height>36</height>
+								<aligny>center</aligny>
+								<font>symbol</font>
+								<textcolor>textActive</textcolor>
+								<label></label>
+							</control>
+						</control>
+                    </itemlayout>
+                    <focusedlayout width="4-col" height="391">
+                        <control type="group">
+                            <include>focusThumb</include>
+							<control type="image">
+		                        <posx>0</posx>
+		                        <posy>0</posy>
+		                        <width>4-col-gutter</width>
+		                        <height>396</height>
+		                        <aspectratio>stretch</aspectratio>
+		                        <texture border="6">colors/black.png</texture>
+		                        <bordertexture border="6" colordiffuse="FFFFFFFF">colors/white.png</bordertexture>
+		                        <bordersize>6</bordersize>
+		                        <colordiffuse>FF000000</colordiffuse>
+		                    </control>
+                            <control type="image">
+                                <posx>0</posx>
+                                <posy>0</posy>
+                                <width>4-col-gutter</width>
+                                <height>396</height>
+                                <aspectratio aligny="top">scale</aspectratio>
+                                <texture>$INFO[ListItem.art(poster)]</texture>
+                                <bordersize>6</bordersize>
+                            </control>
+                            <control type="label">
+                                <visible>ListItem.IsParentFolder</visible>
+                                <posx>12</posx>
+                                <posy>4-row</posy>
+                                <width>240</width>
+                                <height>2-row</height>
+                                <align>center</align>
+                                <aligny>center</aligny>
+                                <font>largeStrong</font>
+                                <textcolor>textActive</textcolor>
+                                <label>..</label>
+                            </control>
+                            <control type="label">
+	                            <visible>!controlgroup(9000).hasfocus + !ListItem.IsParentFolder</visible>
+	                            <posx>12</posx>
+	                            <posy>384</posy>
+	                            <width>240</width>
+	                            <height>2-row</height>
+	                            <aligny>center</aligny>
+	                            <font>thumbTitle</font>
+	                            <textcolor>textActive</textcolor>
+	                            <label fallback="31190">[B]$INFO[ListItem.label][/B][CR][COLOR textInactive]$VAR[itemDetail][/COLOR]</label>
+	                        </control>
+							<control type="group">
+								<visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
+								<posx>202</posx>
+								<posy>6</posy>
+								<control type="image">
+									<posx>0</posx>
+									<posy>0</posy>
+									<width>56</width>
+									<height>56</height>
+									<aspectratio>stretch</aspectratio>
+									<texture>masks/newContent.png</texture>
+									<colordiffuse>highlight</colordiffuse>
+								</control>
+								<control type="label">
+									<posx>28</posx>
+									<posy>-4</posy>
+									<width>36</width>
+									<height>36</height>
+									<aligny>center</aligny>
+									<font>symbol</font>
+									<textcolor>textActive</textcolor>
+									<label></label>
+								</control>
+							</control>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+        </control>
+    </include>
+</includes>

@@ -1,0 +1,1 @@
+["Sci T", ["sci talks", "sci talks mikeius", "sci talks 12", "sci talks 3", "sci talks 1", "sci talks 10", "sci tec", "csi theme song", "sci talks 2", "scite"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

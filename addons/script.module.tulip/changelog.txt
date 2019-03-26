@@ -4,6 +4,7 @@
 - Replaced builtin eval with ast.literaleval which is more secure
 - Added the fuzzywuzzy library for fuzzy string matching
 - Moved all user agent related functions and strings into new user_agent module
+- Added datetime keys for youtube videos
 - Various other tweaks
 
 [B]2.2.X[/B]

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+	<shortcut>
+		<defaultID>31136</defaultID>
+		<label>$SKIN[31136|skin.pellucid|Now Playing]</label>
+		<label2>Common menu item</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb />
+		<action>action(FullScreen)</action>
+		<visible>Player.HasMedia</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>31215</defaultID>
+		<label>$SKIN[31215|skin.pellucid|TV Channels]</label>
+		<label2>Βίντεο</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb />
+		<action>ActivateWindow(TVChannels)</action>
+		<visible>PVR.HasTVChannels</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>31112</defaultID>
+		<label>$SKIN[31112|skin.pellucid|TV Guide]</label>
+		<label2>Βίντεο</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb />
+		<action>ActivateWindow(TVGuide)</action>
+		<visible>PVR.HasTVChannels</visible>
+	</shortcut>
+	<shortcut>
+		<defaultID>31165</defaultID>
+		<label>$SKIN[31165|skin.pellucid|TV Recordings]</label>
+		<label2>Βίντεο</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb />
+		<action>ActivateWindow(TVRecordings)</action>
+		<visible>PVR.HasTVChannels</visible>
+	</shortcut>
+</shortcuts>

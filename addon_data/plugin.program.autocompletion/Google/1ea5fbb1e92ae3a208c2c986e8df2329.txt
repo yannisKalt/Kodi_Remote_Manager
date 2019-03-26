@@ -1,0 +1,1 @@
+["G", ["gigi", "gangsta", "girls like you", "game of thrones", "g eazy", "gucci gang", "genius", "goosebumps", "gucci mane", "ghostemane"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

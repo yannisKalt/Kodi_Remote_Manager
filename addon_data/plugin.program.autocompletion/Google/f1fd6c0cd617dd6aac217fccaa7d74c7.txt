@@ -1,0 +1,1 @@
+["[C", ["cardi b", "chanel", "criminal", "con calma", "cry", "complex", "christmas songs", "captain marvel", "chill music", "calma"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
