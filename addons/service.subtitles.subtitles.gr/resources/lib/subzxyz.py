@@ -16,7 +16,7 @@
 '''
 
 from xbmcvfs import rename, File as openFile
-import re
+import re, zipfile
 from os.path import split as os_split
 from resources.lib.tools import multichoice
 from tulip.compat import urljoin, quote_plus, unquote_plus, quote
@@ -27,9 +27,7 @@ class subzxyz:
 
     def __init__(self):
 
-        self.list = []
-        self.r = None
-        self.r = None
+        self.list = [] ; self.data = []
 
     def get(self, query):
 
@@ -44,7 +42,13 @@ class subzxyz:
 
                 match = re.findall(r'(.+?) *?\(?(\d{4})?\)?$', query)[0]
 
-                title, year = match[0], match[1]
+                if len(match[1]) == 4:
+
+                    title, year = match[0], match[1]
+
+                else:
+
+                    title = match[0]
 
                 query = ' '.join(unquote_plus(re.sub('%\w\w', ' ', quote_plus(title))).split())
 
@@ -65,19 +69,26 @@ class subzxyz:
 
                     if c is not None:
 
-                        if cleantitle.get(c[0]) == cleantitle.get(title) and c[1] == year:
+                        if len(match[1]) == 4:
+                            year_check = c[1] == year
+                        else:
+                            year_check = True
+
+                        if cleantitle.get(c[0]) == cleantitle.get(title) and year_check:
 
                             try:
 
                                 item = self.r
 
-                            except Exception as e:
-
-                                log.log('Subzxyz.py re-requesting, reason: ' + str(e))
+                            except Exception:
 
                                 item = client.request(i)
 
                             break
+
+                        else:
+
+                            self.data.append(self.r)
 
             else:
 
@@ -112,6 +123,10 @@ class subzxyz:
 
                 item = '{0}/seasons/{1}/episodes/{2}'.format(item, season, episode)
                 item = client.request(item)
+
+            if self.data:
+
+                item = '\n\n'.join(self.data)
 
             item = re.sub(r'[^\x00-\x7F]+', ' ', item)
             items = client.parseDOM(item, 'tr', attrs={'data-id': '.+?'})
@@ -154,8 +169,9 @@ class subzxyz:
 
             self.r = client.request(i)
             self.r = re.sub(r'[^\x00-\x7F]+', ' ', self.r)
-            t = re.findall('(?:\"|\')original_title(?:\"|\')\s*:\s*(?:\"|\')(.+?)(?:\"|\')', self.r)[0]
-            y = re.findall('(?:\"|\')year(?:\"|\')\s*:\s*(?:\"|\'|)(\d{4})', self.r)[0]
+            t = re.findall(r'(?:\"|\')original_title(?:\"|\')\s*:\s*(?:\"|\')(.+?)(?:\"|\')', self.r)[0]
+            y = re.findall(r'(?:\"|\')year(?:\"|\')\s*:\s*(?:\"|\'|)(\d{4})', self.r)[0]
+
             return t, y
 
         except Exception as e:
@@ -182,7 +198,12 @@ class subzxyz:
                 return
 
             if not f.lower().endswith('.rar'):
-                control.execute('Extract("{0}","{0}")'.format(f, path))
+
+                try:
+                    zipped = zipfile.ZipFile(f)
+                    zipped.extractall(path)
+                except Exception:
+                    control.execute('Extract("{0}","{0}")'.format(f, path))
 
             if f.lower().endswith('.rar'):
 

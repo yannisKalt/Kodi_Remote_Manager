@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.thgiliwt" name="Thgiliwt Repository" version="1.7.0" provider-name="Thgiliwt">
+    <addon id="repository.thgiliwt" name="Thgiliwt Repository" version="1.8" provider-name="Thgiliwt">
         <extension point="xbmc.addon.repository" name="Thgiliwt Repository">
             <info compressed="false">https://bitbucket.org/thgiliwt/repo.thgiliwt/raw/HEAD/_thgiliwt/addons.xml</info>
             <checksum>https://bitbucket.org/thgiliwt/repo.thgiliwt/raw/HEAD/_thgiliwt/addons.xml.md5</checksum>
@@ -19,11 +19,6 @@
                 <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
                 <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
                 <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-            </dir>
-			<dir>
-                <info compressed="false">http://magicabox.co/grecotm/grrepo/tv0ne/addons.xml</info>
-                <checksum>http://magicabox.co/grecotm/grrepo/tv0ne/addons.xml.md5</checksum>
-                <datadir zip="true">http://magicabox.co/grecotm/grrepo/tv0ne/zips</datadir>
             </dir>
         </extension>
         <extension point="xbmc.addon.metadata">

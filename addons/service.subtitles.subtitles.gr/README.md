@@ -1,25 +1,24 @@
 
-Subtitles.gr addon for Kodi
-======================
+# Subtitles.gr addon for Kodi
 
-About
------
+------------
+
+### About
+
 Search and download subtitles from subtitles.gr, xsubs.tv and subztv.gr
 
-Kodi Addon for http://www.subtitles.gr/, http://xsubs.tv/ and http://subztv.club/
+Kodi Addon for http://www.subtitles.gr/, http://xsubs.tv/ and https://subz.xyz/
 
-This service is not published nor endorsed by subtitles.gr, xsubs.tv and subztv.club
+This service is not published nor endorsed by subtitles.gr, xsubs.tv and subz.xyz
 
 
-Artwork
----------------------
+### Artwork
+
 Artwork sourced from public domain:
 
 http://www.subtitles.gr/logo.jpg
 
 
-License
--------
-This software is released under the [GPL 3.0 license] [1].
+### License
 
-[1]: http://www.gnu.org/licenses/gpl-3.0.html
+This software is released under the [GPL 3.0 license](http://www.gnu.org/licenses/gpl-3.0.html).

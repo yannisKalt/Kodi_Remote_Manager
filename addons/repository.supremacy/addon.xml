@@ -1,5 +1,5 @@
 <?xml version="1.1" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.supremacy" name="[COLORaqua]supremacy[/COLOR]" version="2.6" provider-name="supremacy">
+<addon id="repository.supremacy" name="[COLORaqua]supremacy[/COLOR]" version="1.0" provider-name="supremacy">
 	<extension point="xbmc.addon.repository" name="[COLORaqua]supremacy[/COLOR]">
 	<dir>
 		<info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>	
@@ -16,9 +16,9 @@
         <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
         <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
     </dir>
-		<info compressed="false">http://supremacy.org.uk/zip/plugin/addon.xml</info>
-		<checksum>http://supremacy.org.uk/zip/plugin/addons.xml.md5</checksum>
-		<datadir zip="true">http://supremacy.org.uk/zip/plugin/</datadir>
+		<info compressed="false">http://2supremacy.uk/addons/addon.xml</info>
+		<checksum>http://2supremacy.uk/addons/addons.xml.md5</checksum>
+		<datadir zip="true">http://2supremacy.uk/addons/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>video addon for supremacy</summary>
@@ -26,4 +26,3 @@
 		<platform>all</platform>
 	</extension>
 </addon>
-

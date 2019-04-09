@@ -286,6 +286,19 @@
         <setting id="provider.xrysoi" type="bool" label="XRYSOI" default="true" />
         <setting id="provider.liomenoi" type="bool" label="LIOMENOI" default="true" />
     </category>
+	    <category label="32640">
+        <setting label="32640" type="lsep" /> 
+        <setting id="provider.eztv" type="bool" label="EZTV" default="true" /> 
+        <setting id="provider.glodls" type="bool" label="GLODLS" default="true" /> 
+        <setting id="provider.kickass2" type="bool" label="KICKASS2" default="true" /> 
+        <setting id="provider.limetorrents" type="bool" label="LIMETORRENTS" default="true" />
+        <setting id="provider.magnetdl" type="bool" label="MAGNETDL" default="true" /> 
+        <setting id="provider.piratebay" type="bool" label="PIRATEBAY" default="true" /> 
+        <setting id="provider.torrentapi" type="bool" label="TORRENTAPI" default="true" /> 
+        <setting id="provider.torrentdownloads" type="bool" label="TORRENTDOWNLOADS" default="true" /> 
+        <setting id="provider.yify" type="bool" label="YIFY" default="true" /> 
+        <setting id="provider.zoogle" type="bool" label="ZOOGLE" default="true" /> 
+    </category>
     <category label="32346">
         <setting type="lsep" label="FANART.TV" />
         <setting type="lsep" label="32582" default="" />
@@ -296,7 +309,7 @@
         <setting id="tm.user" type="text" option="hidden" label="32309" default="5f4ba6df4db23739632640be569fc3fa" />
         <setting type="sep" />
         <setting type="lsep" label="Trakt" />
-        <setting id="trakt.auth" type="action" label="32306" option="close" action="RunPlugin(plugin://plugin.video.yoda/?action=authTrakt)" />
+        <setting id="trakt.user" type="action" label="32306" option="close" action="RunPlugin(plugin://plugin.video.yoda/?action=authTrakt)" />
         <setting id="trakt.token" type="text" visible="false" label="" default="" />
         <setting id="trakt.refresh" type="text" visible="false" label="" default="" />
         <setting type="sep" />

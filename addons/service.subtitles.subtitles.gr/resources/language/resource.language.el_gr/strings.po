@@ -44,5 +44,9 @@ msgid "Reset function cache"
 msgstr "Επαναφορά μνήμης λειτουργιών"
 
 msgctxt "#32218"
-msgid "Search term might be too broad or incorrect"
-msgstr "Το κείμενο αναζήτησης μπορεί να είναι πολύ γενικό ή λανθασμένο"
+msgid "Options"
+msgstr "Επιλογές"
+
+msgctxt "#32219"
+msgid "Use older subtitles.gr domain"
+msgstr "Κάνε χρήση του παλαιοτέρου subtitles.gr ιστοτόπου"

@@ -578,7 +578,7 @@ def checkpoint():
 
         # if control.yesnoDialog(control.lang(30267)):
             # changelog()
-        welcome()
+        # welcome()
 
         cache_clear()
         reset_idx(notify=False)

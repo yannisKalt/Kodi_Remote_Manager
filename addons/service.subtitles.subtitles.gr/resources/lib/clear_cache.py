@@ -18,4 +18,6 @@
 from xbmc import translatePath
 from xbmcvfs import delete
 
-delete(translatePath('special://profile/addon_data/service.subtitles.subtitles.gr/cache.db'))
+if __name__ == '__main__':
+
+    delete(translatePath('special://profile/addon_data/service.subtitles.subtitles.gr/cache.db'))

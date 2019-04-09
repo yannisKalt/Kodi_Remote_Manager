@@ -44,5 +44,9 @@ msgid "Reset function cache"
 msgstr ""
 
 msgctxt "#32218"
-msgid "Search term might be too broad or incorrect"
+msgid "Options"
+msgstr ""
+
+msgctxt "#32219"
+msgid "Use older subtitles.gr domain"
 msgstr ""

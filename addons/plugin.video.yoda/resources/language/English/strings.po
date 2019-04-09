@@ -1054,3 +1054,7 @@ msgstr ""
 msgctxt "#32639"
 msgid "Sort By Torrent/Premium"
 msgstr ""
+
+msgctxt "#32640"
+msgid "Torrents"
+msgstr ""

@@ -1,6 +1,22 @@
-# Addon Name: Yoda
-# Addon id: plugin.video.Yoda
-# Addon Provider: Supremacy
+# -*- coding: utf-8 -*-
+
+"""
+    Eggman Add-on
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
 
 import re
 import traceback
@@ -107,6 +123,7 @@ class source:
                     try:
                         name = re.findall('class="detLink" title=".+?">(.+?)</a>', entry, re.DOTALL)[0]
                         name = client.replaceHTMLCodes(name)
+                        # t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
                         if not cleantitle.get(title) in cleantitle.get(name):
                             continue
                     except Exception:

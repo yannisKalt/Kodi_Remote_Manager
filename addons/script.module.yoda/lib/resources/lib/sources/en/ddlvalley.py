@@ -1,16 +1,24 @@
-# -*- coding: UTF-8 -*-
-#######################################################################
- # ----------------------------------------------------------------------------
- # "THE BEER-WARE LICENSE" (Revision 42):
- # @tantrumdev wrote this file.  As long as you retain this notice you
- # can do whatever you want with this stuff. If we meet some day, and you think
- # this stuff is worth it, you can buy me a beer in return. - Muad'Dib
- # ----------------------------------------------------------------------------
-#######################################################################
+# -*- coding: utf-8 -*-
 
-# Addon Name: Yoda
-# Addon id: plugin.video.Yoda
-# Addon Provider: Supremacy
+'''
+    Eggman Add-on
+
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+'''
+
 
 import re
 import traceback
@@ -112,82 +120,82 @@ class source:
             hostDict = hostprDict + hostDict
 
             for item in items:
-            try:
-                name = item[0]
-                name = client.replaceHTMLCodes(name)
-                query = query.lower().replace(' ', '-')
-            if query not in item[1]:
-                continue
-                url = item[1]
-                headers = {
-                'Referer': 'www.ddlvalley.me/search/',
-                'Accept':
-                'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-                'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9',
-                'User-Agent':
-                'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
-                r = self.scraper.get(url, headers=headers).content
-                links = dom_parser2.parse_dom(r, 'a', req=['href', 'rel', 'data-wpel-link'])
-                links = [i.attrs['href'] for i in links]
-            for url in links:
                 try:
-                     if hdlr in name:
-                        fmt = re.sub('(.+)(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*)(\.|\)|\]|\s)', '', name.upper())
-                        fmt = re.split('\.|\(|\)|\[|\]|\s|\-', fmt)
-                        fmt = [i.lower() for i in fmt]
+                    name = item[0]
+                    name = client.replaceHTMLCodes(name)
+                    query = query.lower().replace(' ', '-')
+                    if query not in item[1]:
+                        continue
+                    url = item[1]
+                    headers = {
+                        'Referer': 'www.ddlvalley.me/search/',
+                        'Accept':
+                        'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                        'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'en-US,en;q=0.9',
+                        'User-Agent':
+                        'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
+                    r = self.scraper.get(url, headers=headers).content
+                    links = dom_parser2.parse_dom(r, 'a', req=['href', 'rel', 'data-wpel-link'])
+                    links = [i.attrs['href'] for i in links]
+                    for url in links:
+                        try:
+                            if hdlr in name:
+                                fmt = re.sub('(.+)(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*)(\.|\)|\]|\s)', '', name.upper())
+                                fmt = re.split('\.|\(|\)|\[|\]|\s|\-', fmt)
+                                fmt = [i.lower() for i in fmt]
 
-            if any(i.endswith(('subs', 'sub', 'dubbed', 'dub')) for i in fmt):
-                raise Exception()
-            if any(i in ['extras'] for i in fmt):
-                raise Exception()
+                                if any(i.endswith(('subs', 'sub', 'dubbed', 'dub')) for i in fmt):
+                                    raise Exception()
+                                if any(i in ['extras'] for i in fmt):
+                                    raise Exception()
 
-            if '2160p' in fmt:
-                quality = '4K'
-            elif '1080p' in fmt:
-                quality = '1080p'
-            elif '720p' in fmt:
-                quality = '720p'
-            else:
-                 quality = 'SD'
-            if any(i in ['dvdscr', 'r5', 'r6'] for i in fmt):
-                quality = 'SCR'
-            elif any(i in ['camrip', 'tsrip', 'hdcam', 'hdts', 'dvdcam', 'dvdts', 'cam', 'telesync', 'ts'] for i in fmt):
-                quality = 'CAM'
+                                if '2160p' in fmt:
+                                    quality = '4K'
+                                elif '1080p' in fmt:
+                                    quality = '1080p'
+                                elif '720p' in fmt:
+                                    quality = '720p'
+                                else:
+                                    quality = 'SD'
+                                if any(i in ['dvdscr', 'r5', 'r6'] for i in fmt):
+                                    quality = 'SCR'
+                                elif any(i in ['camrip', 'tsrip', 'hdcam', 'hdts', 'dvdcam', 'dvdts', 'cam', 'telesync', 'ts'] for i in fmt):
+                                    quality = 'CAM'
 
-                info = []
+                                info = []
 
-            if '3d' in fmt:
-                info.append('3D')
+                                if '3d' in fmt:
+                                    info.append('3D')
 
-            try:
-                size = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+) (?:GB|GiB|MB|MiB))', name[2])[-1]
-                div = 1 if size.endswith(('GB', 'GiB')) else 1024
-                size = float(re.sub('[^0-9|/.|/,]', '', size))/div
-                size = '%.2f GB' % size
-                info.append(size)
-            except Exception:
-                pass
+                                try:
+                                    size = re.findall('((?:\d+\.\d+|\d+\,\d+|\d+) (?:GB|GiB|MB|MiB))', name[2])[-1]
+                                    div = 1 if size.endswith(('GB', 'GiB')) else 1024
+                                    size = float(re.sub('[^0-9|/.|/,]', '', size))/div
+                                    size = '%.2f GB' % size
+                                    info.append(size)
+                                except Exception:
+                                    pass
 
-            if any(i in ['hevc', 'h265', 'x265'] for i in fmt):
-                info.append('HEVC')
+                                if any(i in ['hevc', 'h265', 'x265'] for i in fmt):
+                                    info.append('HEVC')
 
-                info = ' | '.join(info)
+                                info = ' | '.join(info)
 
-            if not any(x in url for x in ['.rar', '.zip', '.iso']):
-                url = client.replaceHTMLCodes(url)
-                url = url.encode('utf-8')
+                                if not any(x in url for x in ['.rar', '.zip', '.iso']):
+                                    url = client.replaceHTMLCodes(url)
+                                    url = url.encode('utf-8')
 
-                host = re.findall('([\w]+[.][\w]+)$',
-                    urlparse.urlparse(url.strip().lower()).netloc)[0]
-            if host in hostDict:
-                host = client.replaceHTMLCodes(host)
-                host = host.encode('utf-8')
+                                    host = re.findall('([\w]+[.][\w]+)$',
+                                                      urlparse.urlparse(url.strip().lower()).netloc)[0]
+                                    if host in hostDict:
+                                        host = client.replaceHTMLCodes(host)
+                                        host = host.encode('utf-8')
 
-                sources.append(
-                {'source': host, 'quality': quality, 'language': 'en', 'url': url,
-                    'info': info, 'direct': False, 'debridonly': debrid.status()})
-                    except Exception:
-                        pass
+                                        sources.append(
+                                            {'source': host, 'quality': quality, 'language': 'en', 'url': url,
+                                             'info': info, 'direct': False, 'debridonly': debrid.status()})
+                        except Exception:
+                            pass
                 except Exception:
                     pass
             check = [i for i in sources if not i['quality'] == 'CAM']

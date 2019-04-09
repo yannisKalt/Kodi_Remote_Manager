@@ -94,7 +94,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(10025,"plugin://script.module.whiskyone/list_channels/6",return)</action>
+		<action>ActivateWindow(Videos,"plugin://script.module.ATFlive/list_channels/17",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />
@@ -114,6 +114,14 @@
 	</shortcut>
 	<shortcut>
 		<defaultID />
+		<label>Live Αγωνες (2)</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,"plugin://plugin.video.sport365.live/?foldername=Sport365+LIVE&amp;params=%7B%27_service%27%3A+%27sport365%27%2C+%27_act%27%3A+%27ListChannels%27%2C+%27_url%27%3A+%27http%3A%2F%2Fwww.sport365.live%2F%27%7D&amp;ex_link=&amp;mode=site2",return)</action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
 		<label>Ταινιες</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
@@ -130,11 +138,11 @@
 	</shortcut>
 	<shortcut>
 		<defaultID />
-		<label>18+ (φιρμες)</label>
+		<label>18+ </label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(10025,"plugin://plugin.video.pantyraiders/?description&amp;extra&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.pantyraiders%2ffanart.jpg&amp;iconimage=https%3a%2f%2fi.imgur.com%2fcZ0oEj2.jpg&amp;mode=762&amp;name=Pornstars&amp;url=https%3a%2f%2fwww.eporner.com%2fpornstars%2f",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=xdirectory&amp;url=%24doregex%5Bmakelist%5D%7Cregex%3D8825698e186d84ff51ab38052ff1f386&amp;content=0",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />
@@ -142,7 +150,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FQqKkWNru&amp;content=addons",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FQfZUiJgQ&amp;content=addons",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />

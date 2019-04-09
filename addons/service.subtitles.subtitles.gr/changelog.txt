@@ -1,3 +1,12 @@
+[B]2.0.Χ[/B]
+- Extraction method for zip files is now performed by python library by default, kodi built-in as fallback
+- Removed notification for broad search terms and tweaked various functions and regexes to allow them
+- Install vfs.libarchive on Leia, whenever possible via builtin command
+- Replaced subtitles.gr domain with an alternative one by default, old one kept as optional
+- Sort subtitles.gr items according to rating (downloads)
+- Bumped dependencies
+- Various other tweaks
+
 [B]1.6.0[/B]
 - Tweaked conditionals for match on subzxyz
 - Subtitles.gr:

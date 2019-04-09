@@ -37,12 +37,20 @@ class Search:
 
     def run(self, query=None):
 
-        if not 'Greek' in str(langs).split(','):
+        if 'Greek' not in str(langs).split(','):
 
             control.directory(syshandle)
             control.infoDialog(control.lang(32002))
 
             return
+
+        if not control.conditional_visibility(
+            'System.HasAddon(vfs.libarchive)'
+        ) and float(
+            control.addon('xbmc.addon').getAddonInfo('version')[:4]
+        ) >= 18.0:
+
+            control.execute('InstallAddon(vfs.libarchive)')
 
         threads = [workers.Thread(self.xsubstv), workers.Thread(self.subzxyz), workers.Thread(self.subtitlesgr)]
         dup_removal = False
@@ -67,6 +75,7 @@ class Search:
             season = control.infoLabel('{0}.Season'.format(infolabel_prefix))
 
             if len(season) == 1:
+
                 season = '0' + season
 
             episode = control.infoLabel('{0}.Episode'.format(infolabel_prefix))
@@ -78,20 +87,29 @@ class Search:
                 season, episode = '0', episode[-1:]
 
             if tvshowtitle != '':  # episode
+
                 title_query = '{0} {1}'.format(tvshowtitle, title)
                 season_episode_query = '{0} S{1} E{2}'.format(tvshowtitle, season, episode)
+
                 threads = [
                     workers.Thread(self.xsubstv, title_query), workers.Thread(self.subzxyz, title_query),
                     workers.Thread(self.subtitlesgr, title_query), workers.Thread(self.xsubstv, season_episode_query),
                     workers.Thread(self.subzxyz, season_episode_query), workers.Thread(self.subtitlesgr, season_episode_query)
                 ]
+
                 dup_removal = True
                 log.log('Dual query used for subtitles search: ' + title_query + ' / ' + season_episode_query)
+
             elif year != '':  # movie
+
                 query = '{0} ({1})'.format(title, year)
+
             else:  # file
+
                 query, year = getCleanMovieTitle(title)
+
                 if year != '':
+
                     query = '{0} ({1})'.format(query, year)
 
         if not dup_removal:
@@ -118,7 +136,6 @@ class Search:
         if len(self.list) == 0:
 
             control.directory(syshandle)
-            control.infoDialog(control.lang(32218), time=6000)
 
             return
 
@@ -168,8 +185,11 @@ class Search:
             query = self.query
 
         try:
+
             self.list.extend(subtitlesgr.subtitlesgr().get(query))
+
         except TypeError:
+
             pass
 
     def xsubstv(self, query=None):

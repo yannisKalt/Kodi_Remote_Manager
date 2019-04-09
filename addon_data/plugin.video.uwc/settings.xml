@@ -1,0 +1,25 @@
+<settings>
+    <setting id="backup_favorites" value="" />
+    <setting id="backup_keywords" value="" />
+    <setting id="changelog_seen_version" value="1.1.64" />
+    <setting id="chatcouple" value="true" />
+    <setting id="chatfemale" value="true" />
+    <setting id="chatmale" value="false" />
+    <setting id="chatplay" value="0" />
+    <setting id="chatslow" value="0" />
+    <setting id="chattrans" value="false" />
+    <setting id="chaturbate" value="false" />
+    <setting id="clear_favorites" value="" />
+    <setting id="clear_keywords" value="" />
+    <setting id="dontask" value="false" />
+    <setting id="download_path" value="" />
+    <setting id="open_smr_settings" value="" />
+    <setting id="paradisehill" value="false" />
+    <setting id="posterfanart" value="true" />
+    <setting id="restore_favorites" value="" />
+    <setting id="restore_keywords" value="" />
+    <setting id="sortwxf" value="0" />
+    <setting id="sortxt" value="0" />
+    <setting id="universal_resolvers" value="true" />
+    <setting id="uwcage" value="true" />
+</settings>
