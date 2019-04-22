@@ -94,7 +94,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(Videos,"plugin://script.module.ATFlive/list_channels/17",return)</action>
+		<action>ActivateWindow(Videos,"plugin://script.module.limitless-tvtap/list_channels/6",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />
@@ -102,7 +102,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(10025,"plugin://script.module.ATFlive/list_channels/1",return)</action>
+		<action>ActivateWindow(Videos,"plugin://script.module.limitless-tvtap/list_channels/5",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />

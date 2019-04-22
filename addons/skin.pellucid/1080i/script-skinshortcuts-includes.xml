@@ -179,13 +179,13 @@
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="labelID">script.module.ATFlive/list_channels/17</property>
+			<property name="labelID">script.module.limitless-tvtap/list_channels/6</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://script.module.ATFlive/list_channels/17",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://script.module.ATFlive/list_channels/17",return)</property>
-			<property name="list">plugin://script.module.ATFlive/list_channels/17</property>
+			<onclick>ActivateWindow(Videos,"plugin://script.module.limitless-tvtap/list_channels/6",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://script.module.limitless-tvtap/list_channels/6",return)</property>
+			<property name="list">plugin://script.module.limitless-tvtap/list_channels/6</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">script-module-atflive-list-channels-17</property>
+			<property name="submenuVisibility">script-module-limitless-tvtap-list-channels-6</property>
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
@@ -195,13 +195,13 @@
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="labelID">script.module.ATFlive/list_channels/1</property>
+			<property name="labelID">script.module.limitless-tvtap/list_channels/5</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(10025,"plugin://script.module.ATFlive/list_channels/1",return)</onclick>
-			<property name="path">ActivateWindow(10025,"plugin://script.module.ATFlive/list_channels/1",return)</property>
-			<property name="list">plugin://script.module.ATFlive/list_channels/1</property>
+			<onclick>ActivateWindow(Videos,"plugin://script.module.limitless-tvtap/list_channels/5",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://script.module.limitless-tvtap/list_channels/5",return)</property>
+			<property name="list">plugin://script.module.limitless-tvtap/list_channels/5</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">script-module-atflive-list-channels-1</property>
+			<property name="submenuVisibility">script-module-limitless-tvtap-list-channels-5</property>
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
@@ -1234,16 +1234,16 @@
 	<include name="skinshortcuts-group-alt-greek-tv">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-script-module-atflive-list-channels-17">
+	<include name="skinshortcuts-group-script-module-limitless-tvtap-list-channels-6">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-alt-script-module-atflive-list-channels-17">
+	<include name="skinshortcuts-group-alt-script-module-limitless-tvtap-list-channels-6">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-script-module-atflive-list-channels-1">
+	<include name="skinshortcuts-group-script-module-limitless-tvtap-list-channels-5">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-alt-script-module-atflive-list-channels-1">
+	<include name="skinshortcuts-group-alt-script-module-limitless-tvtap-list-channels-5">
 		<description>No items</description>
 	</include>
 	<include name="skinshortcuts-group-liveagones">

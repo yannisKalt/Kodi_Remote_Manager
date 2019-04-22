@@ -1,0 +1,41 @@
+<settings>
+    <setting id="SESSION_HOURS" value="1" />
+    <setting id="allow_debrid" value="true" />
+    <setting id="allow_openload" value="true" />
+    <setting id="allow_the_video_me" value="false" />
+    <setting id="allow_vidup_me" value="false" />
+    <setting id="autostart_queue" value="true" />
+    <setting id="cache_folder" value="special://profile/addon_data/plugin.video.limitless/" />
+    <setting id="current_version" value="0" />
+    <setting id="debug" value="false" />
+    <setting id="default_link" value="BOTH" />
+    <setting id="disable_messages" value="false" />
+    <setting id="disable_metadata_dialog" value="true" />
+    <setting id="disable_service" value="true" />
+    <setting id="dlimage" value="false" />
+    <setting id="enable_gifs" value="false" />
+    <setting id="enable_notification" value="true" />
+    <setting id="enable_offensive" value="false" />
+    <setting id="first_run" value="false" />
+    <setting id="hide_help" value="false" />
+    <setting id="include_watched_queue" value="false" />
+    <setting id="language_id" value="system" />
+    <setting id="lastfm_api_key" value="API KEY GOES HERE" />
+    <setting id="lastfm_secret" value="API KEY GOES HERE" />
+    <setting id="link_fallthrough" value="true" />
+    <setting id="message_xml_url" value="file://news.xml" />
+    <setting id="metadata" value="false" />
+    <setting id="movie_metadata_provider" value="Trakt" />
+    <setting id="news_win" value="false" />
+    <setting id="quiet_cache" value="true" />
+    <setting id="root_xml" value="http://luxurywizard.space/xmls/main.xml" />
+    <setting id="search_db_location" value="" />
+    <setting id="settings_context" value="true" />
+    <setting id="tmdb_api_key" value="6ea6343518784b2f557bdccb3259f98d" />
+    <setting id="trailer_context" value="true" />
+    <setting id="trakt_api_client_id" value="a241274d5a25786209330579be485f002edf6a0119f006d5fa4fbe4a1f064a30" />
+    <setting id="trakt_api_client_secret" value="4c7f228db7f6c64c868e2568457178d608dc0ca0e0e76501476f75e0b8677ac8" />
+    <setting id="tv_metadata_provider" value="Trakt" />
+    <setting id="tvdb_api_key" value="OTJNA40QXZ10GKJH" />
+    <setting id="use_link_dialog" value="true" />
+</settings>

@@ -1,0 +1,1 @@
+["http://luxurywizard.space/luxur", [], [], {"google:suggesttype": []}]

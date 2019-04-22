@@ -23,9 +23,11 @@
     <setting id="kodion.maintain.delete.settings" value="" />
     <setting id="kodion.maintain.delete.temp" value="" />
     <setting id="kodion.maintain.reset.accessmanager" value="" />
+    <setting id="kodion.mpd.hdr" value="false" />
     <setting id="kodion.mpd.live_streams" value="true" />
     <setting id="kodion.mpd.proxy.port" value="50152" />
     <setting id="kodion.mpd.videos" value="true" />
+    <setting id="kodion.mpd.webm" value="false" />
     <setting id="kodion.play_count.percent" value="85" />
     <setting id="kodion.playback.history" value="false" />
     <setting id="kodion.safe.search" value="0" />

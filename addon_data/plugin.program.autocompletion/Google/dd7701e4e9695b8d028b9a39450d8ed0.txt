@@ -1,0 +1,1 @@
+["http://luxury", [], [], {"google:suggesttype": []}]

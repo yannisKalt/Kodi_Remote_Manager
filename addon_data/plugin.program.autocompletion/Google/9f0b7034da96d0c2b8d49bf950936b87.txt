@@ -1,0 +1,1 @@
+["http://lu", ["luben", "lucky you", "lullaby", "lucid dreams", "lucifer", "luis fonsi", "luke perry", "luna", "lucas and marcus", "lush life"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

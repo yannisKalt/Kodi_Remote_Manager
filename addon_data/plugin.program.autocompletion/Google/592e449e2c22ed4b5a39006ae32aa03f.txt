@@ -1,0 +1,1 @@
+["http://luxurywizard.spac", [], [], {"google:suggesttype": []}]
