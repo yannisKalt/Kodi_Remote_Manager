@@ -1,7 +1,7 @@
 <settings>
     <setting id="SESSION_HOURS" value="1" />
     <setting id="allow_debrid" value="true" />
-    <setting id="allow_openload" value="true" />
+    <setting id="allow_openload" value="false" />
     <setting id="allow_the_video_me" value="false" />
     <setting id="allow_vidup_me" value="false" />
     <setting id="autostart_queue" value="true" />

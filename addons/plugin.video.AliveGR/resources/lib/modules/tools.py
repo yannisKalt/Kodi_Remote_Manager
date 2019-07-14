@@ -2,7 +2,7 @@
 
 '''
     AliveGR Addon
-    Author Thgiliwt
+    Author Twilight0
 
         License summary below, for more details please read license.txt file
 
@@ -19,10 +19,11 @@
 '''
 
 from tulip import control, client
-from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx
+from resources.lib.modules.helpers import thgiliwt, addon_version, cache_clear, i18n, reset_idx, skin_name
 from resources.lib.modules.constants import api_keys
 from os import path
 import pyxbmct, re
+from random import choice
 
 
 ########################################################################################################################
@@ -515,53 +516,132 @@ def disclaimer():
     except (UnicodeEncodeError, UnicodeDecodeError, AttributeError):
         text = control.addonInfo('disclaimer')
 
-    control.dialog.textviewer(
-        control.addonInfo(
-            'name'
-        ) + ', ' + control.lang(30129), text + '\n' * 2 + control.lang(30131)
-    )
+    control.dialog.textviewer(control.addonInfo('name') + ', ' + control.lang(30129), text)
 
 
 class Prompt(pyxbmct.AddonDialogWindow):
 
+    pyxbmct.skin.estuary = False if 'onfluence' in skin_name().lower() or 'aeon' in skin_name().lower() else True
+
     def __init__(self):
 
         # noinspection PyArgumentList
-        super(Prompt, self).__init__(control.lang(30267))
+        super(Prompt, self).__init__(control.lang(30267).format(control.version()))
 
         self.changelog_button = None
         self.disclaimer_button = None
         self.close_button = None
-        self.setGeometry(854, 480, 7, 5)
+        self.external_label = None
+        self.description = None
+        self.patreon_button = None
+        self.paypal_button = None
+        self.facebook_button = None
+        self.twitter_button = None
+        self.website_button = None
+        self.setGeometry(854, 480, 8, 5)
         self.set_controls()
         self.connect(pyxbmct.ACTION_NAV_BACK, self.close)
         self.set_navigation()
 
     def set_controls(self):
 
-        image = pyxbmct.Image('https://pbs.twimg.com/media/D1DUCwXWwAE5Ga8.jpg', aspectRatio=2)
+        image = pyxbmct.Image(control.fanart(), aspectRatio=2)
         self.placeControl(image, 0, 0, 5, 5)
-        description = pyxbmct.TextBox()
-        self.placeControl(description, 5, 0, 2, 5)
-        description.setText(control.lang(30328))
+        # Note
+        self.description = pyxbmct.Label(control.lang(30328), alignment=2)
+        self.placeControl(self.description, 5, 0, 2, 5)
+        # Click to open label
+        # self.external_label = pyxbmct.Label(control.lang(30131), alignment=pyxbmct.ALIGN_CENTER_Y | pyxbmct.ALIGN_CENTER_X)
+        # self.placeControl(self.external_label, 6, 0, 1, 1)
+        self.website_button = pyxbmct.Button(control.lang(30333))
+        self.placeControl(self.website_button, 6, 0, 1, 1)
+        self.connect(self.website_button, lambda: control.open_web_browser('https://www.alivegr.net'))
+        # Paypal button
+        self.paypal_button = pyxbmct.Button(control.lang(30141))
+        self.placeControl(self.paypal_button, 6, 2, 1, 1)
+        self.connect(self.paypal_button, lambda: control.open_web_browser('https://www.paypal.me/AliveGR'))
+        # Patreon button
+        self.patreon_button = pyxbmct.Button(control.lang(30142))
+        self.placeControl(self.patreon_button, 6, 1, 1, 1)
+        self.connect(self.patreon_button, lambda: control.open_web_browser('https://www.patreon.com/twilight0'))
+        # Facebook button
+        self.facebook_button = pyxbmct.Button('Facebook')
+        self.placeControl(self.facebook_button, 6, 3, 1, 1)
+        self.connect(self.facebook_button, lambda: control.open_web_browser('https://www.facebook.com/alivegr/'))
+        # Twitter button
+        self.twitter_button = pyxbmct.Button('Twitter')
+        self.placeControl(self.twitter_button, 6, 4, 1, 1)
+        self.connect(self.twitter_button, lambda: control.open_web_browser('https://twitter.com/TwilightZer0'))
+        # Close button
         self.close_button = pyxbmct.Button(control.lang(30329))
-        self.placeControl(self.close_button, 6, 2)
+        self.placeControl(self.close_button, 7, 2)
         self.connect(self.close_button, self.close)
-        self.changelog_button = pyxbmct.Button(control.lang(30114))
-        self.placeControl(self.changelog_button, 6, 0, 1, 2)
+        # Changelog button
+        self.changelog_button = pyxbmct.Button(control.lang(30110))
+        self.placeControl(self.changelog_button, 7, 0, 1, 2)
         self.connect(self.changelog_button, lambda: changelog())
-        self.disclaimer_button = pyxbmct.Button(control.lang(30330))
-        self.placeControl(self.disclaimer_button, 6, 3, 1, 2)
+        # Disclaimer button
+        self.disclaimer_button = pyxbmct.Button(control.lang(30129))
+        self.placeControl(self.disclaimer_button, 7, 3, 1, 2)
         self.connect(self.disclaimer_button, lambda: disclaimer())
 
     def set_navigation(self):
 
+        self.website_button.controlRight(self.patreon_button)
+        self.website_button.controlDown(self.changelog_button)
+
+        self.patreon_button.controlLeft(self.website_button)
+        self.patreon_button.controlRight(self.paypal_button)
+        self.patreon_button.controlDown(self.changelog_button)
+
+        self.paypal_button.controlRight(self.facebook_button)
+        self.paypal_button.controlDown(self.close_button)
+        self.paypal_button.controlLeft(self.patreon_button)
+
+        self.facebook_button.controlRight(self.twitter_button)
+        self.facebook_button.controlDown(self.disclaimer_button)
+        self.facebook_button.controlLeft(self.paypal_button)
+
+        self.twitter_button.controlDown(self.disclaimer_button)
+        self.twitter_button.controlLeft(self.facebook_button)
+
         self.close_button.controlLeft(self.changelog_button)
         self.close_button.controlRight(self.disclaimer_button)
+        self.close_button.controlUp(self.paypal_button)
+
         self.changelog_button.controlRight(self.close_button)
+        self.changelog_button.controlUp(self.patreon_button)
+
         self.disclaimer_button.controlLeft(self.close_button)
+        self.disclaimer_button.controlUp(choice([self.facebook_button, self.twitter_button]))
 
         self.setFocus(self.close_button)
+
+
+def new_version(new=False):
+
+    version_file = control.join(control.dataPath, 'version.txt')
+
+    if not path.exists(version_file) or new:
+
+        if not path.exists(control.dataPath):
+
+            control.makeFile(control.dataPath)
+
+        with open(version_file, 'w') as f:
+            f.write(control.version())
+
+        return True
+
+    else:
+
+        with open(version_file) as f:
+            version = f.read()
+
+        if version != control.version():
+            return new_version(new=True)
+        else:
+            return False
 
 
 def welcome():
@@ -574,11 +654,11 @@ def welcome():
 
 def checkpoint():
 
-    if path.exists(control.join(control.addonPath, 'UPDATE')):
+    if new_version():
 
         # if control.yesnoDialog(control.lang(30267)):
-            # changelog()
-        # welcome()
+        #     changelog()
+        welcome()
 
         cache_clear()
         reset_idx(notify=False)
@@ -587,12 +667,11 @@ def checkpoint():
 
             from tulip.log import log_notice
 
-            log_notice('Debug settings have been reset, please do not touch these settings manually, they are meant *only* to help developer test various things.')
+            log_notice('Debug settings have been reset, please do not touch these settings manually,'
+                       ' they are *only* meant to help developer test various aspects.')
 
             control.setSetting('debug', 'false')
             control.setSetting('toggler', 'false')
-
-        control.deleteFile(control.join(control.addonPath, 'UPDATE'))
 
 
 def dev():

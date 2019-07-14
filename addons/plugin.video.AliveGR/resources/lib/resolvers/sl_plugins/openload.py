@@ -12,8 +12,9 @@ from streamlink.plugin.api.utils import itertags
 
 class Openload(Plugin):
 
-    url_re = re.compile(r'https?://o(?:pen)??load\.(?:io|co|tv|stream|win|download|info)/(?:embed|f)/([\w-]+)')
-    web_url = 'https://openload.co/stream/{0}?mime=true'
+    url_re = re.compile(r'https?://(?P<domain>o(?:pen)?load\.(?:io|co|tv|stream|win|download|info|icu|fun|pw))/(?:embed|f)/(?P<streamid>[\w-]+)')
+    web_url = 'https://{0}/stream/{1}?mime=true'
+
     HEADERS = {
         'User-Agent': CHROME,
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -34,7 +35,7 @@ class Openload(Plugin):
 
         return dict(req.headers).get('Location')
 
-    def _compute(self, code, parseInt, _0x59ce16, _1x4bfb36):
+    def _compute(self, code, parseInt, _0x59ce16, _1x4bfb36, domain):
 
         _0x1bf6e5 = ''
         ke = []
@@ -52,7 +53,7 @@ class Openload(Plugin):
             _0x1a873b = 0
             _0x3c9d8e = 0
 
-            while True:
+            while 1:
 
                 if _0x439a49 + 1 >= len(code[9 * 8:]):
                     _0x5eb93a = 143
@@ -87,24 +88,23 @@ class Openload(Plugin):
 
             _0x145894 += 1
 
-        url = self.web_url.format(_0x1bf6e5)
+        url = self.web_url.format(domain, _0x1bf6e5)
 
         return url
 
     def _get_streams(self):
 
-        data = self.session.http.get(self.url, headers={'User-Agent': CHROME})
-
-        data = data.text
+        data = self.session.http.get(self.url, headers={'User-Agent': CHROME}).text
 
         if 'File not found ;' in data:
             raise NoStreamsError
 
         code = [i.text for i in list(itertags(data, 'p')) if 'style' in i.attributes][0]
-        _0x59ce16 = eval(re.search('_0x59ce16=(0x\w{8})', data).group(1))
+        _0x59ce16 = eval(re.search(r'_0x59ce16=(0x\w{8})', data).group(1))
         _1x4bfb36 = eval(re.search(r'_1x4bfb36=(parseInt[()\',\d-]+?);', data).group(1).replace('parseInt', 'int'))
-        integer = eval(re.search('_0x30725e,(\(parseInt.*?)\),', data).group(1).replace('parseInt', 'int'))
-        link = self._compute(code, integer, _0x59ce16, _1x4bfb36)
+        integer = eval(re.search(r'_0x30725e,(\(parseInt.*?)\),', data).group(1).replace('parseInt', 'int'))
+        domain = re.search(self.url_re, self.url).group('domain')
+        link = self._compute(code, integer, _0x59ce16, _1x4bfb36, domain)
         video = self._location(link)
 
         del self.HEADERS['Accept-Charset']

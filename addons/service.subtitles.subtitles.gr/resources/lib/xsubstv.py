@@ -178,7 +178,8 @@ class xsubstv:
             with open(subtitle, 'wb') as subFile:
                 subFile.write(result)
 
-            result = control.join(os_split(subtitle)[0], 'subtitles.' + os_split(subtitle)[1].split('.')[1])
+            fileparts = os_split(subtitle)[1].split('.')
+            result = control.join(os_split(subtitle)[0], 'subtitles.' + fileparts[len(fileparts)-1])
 
             rename(subtitle, result)
 

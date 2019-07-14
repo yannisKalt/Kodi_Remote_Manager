@@ -15,11 +15,6 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-    For v1.9 Jen:
-    
-        2019.11.03
-            - Updated sources.py to include magnet and torrent links
 """
 import random
 
@@ -33,7 +28,10 @@ from koding import route
 import sys
 import xbmcplugin
 
-import resolveurl
+try:
+    import resolveurl
+except:
+    import urlresolver as resolveurl
 
 from resources.lib.util.xml import JenItem, JenList
 from resources.lib.util.messages import get_link_message, get_searching_message
@@ -54,25 +52,23 @@ class Sources(object):
         pass
 
     @staticmethod
-    def get_sources(
-        title,
-        year,
-        imdb,
-        tvdb,
-        season,
-        episode,
-        tvshowtitle,
-        premiered,
-        timeout=30,
-        preset="search",
-        dialog=None,
-        exclude=None,
-        scraper_title=False,
-        listitem=None,
-        output_function=koding.Play_Video,
-        skip_selector=False,
-        player=None,
-    ):
+    def get_sources(title,
+                    year,
+                    imdb,
+                    tvdb,
+                    season,
+                    episode,
+                    tvshowtitle,
+                    premiered,
+                    timeout=30,
+                    preset="search",
+                    dialog=None,
+                    exclude=None,
+                    scraper_title=False,
+                    listitem=None,
+                    output_function=koding.Play_Video,
+                    skip_selector=False,
+                    player=None):
         """
         scrapes for video sources using NaN scraper library
         Args:
@@ -94,12 +90,12 @@ class Sources(object):
             Boolean indicating playback success
         """
         year = str(year)
-        content = "movie" if tvshowtitle is None else "episode"
-        allow_debrid = ADDON.getSetting("allow_debrid") == "true"
+        content = 'movie' if tvshowtitle is None else 'episode'
+        allow_debrid = ADDON.getSetting('allow_debrid') == "true"
 
-        if ADDON.getSetting("use_link_dialog") == "true" and not skip_selector:
+        if ADDON.getSetting('use_link_dialog') == 'true' and not skip_selector:
             # use link selector
-            if content == "movie":
+            if content == 'movie':
                 scraper = universalscrapers.scrape_movie_with_dialog
                 link, rest = scraper(
                     title,
@@ -109,8 +105,7 @@ class Sources(object):
                     exclude=exclude,
                     extended=True,
                     sort_function=Sources.sort_function,
-                    enable_debrid=allow_debrid,
-                )
+                    enable_debrid=allow_debrid)
             elif content == "episode":
                 scraper = universalscrapers.scrape_episode_with_dialog
                 link, rest = scraper(
@@ -125,8 +120,7 @@ class Sources(object):
                     exclude=exclude,
                     extended=True,
                     sort_function=Sources.sort_function,
-                    enable_debrid=allow_debrid,
-                )
+                    enable_debrid=allow_debrid)
             else:
                 return
 
@@ -134,8 +128,8 @@ class Sources(object):
                 link = link["path"]
             if link is None:
                 return False
-            url = link["url"]
-            if ADDON.getSetting("link_fallthrough") == "true":
+            url = link['url']
+            if ADDON.getSetting('link_fallthrough') == 'true':
                 played = False
                 index = 0
                 links = []
@@ -145,7 +139,7 @@ class Sources(object):
                     else:
                         links.extend(item[1])
                 index = links.index(link)
-                links = links[index + 1 :]
+                links = links[index + 1:]
                 num_results = len(rest) + 1
                 while not played:
                     try:
@@ -154,43 +148,35 @@ class Sources(object):
                         if dialog is not None:
                             index = index + 1
                             percent = int((index * 100) / num_results)
-                            line = "%s - %s (%s)" % (
-                                link["scraper"],
-                                link["source"],
-                                link["quality"],
-                            )
+                            line = "%s - %s (%s)" % (link['scraper'],
+                                                     link['source'],
+                                                     link['quality'])
                             dialog.update(percent, line)
                     except:
                         pass
                     try:
-                        resolved_link = universalscrapers.resolve(
-                            link["scraper"], link["url"]
-                        )
                         played = output_function(
-                            resolved_link,
+                            link["url"],
                             showbusy=False,
                             ignore_dp=True,
                             item=listitem,
                             player=player,
-                            resolver=resolveurl,
-                        )
+                            resolver=resolveurl)
                         link = links[0]
                         links = links[1:]
                     except:
                         return False
                 return played
             else:
-                resolved_link = universalscrapers.resolve(link["scraper"], link["url"])
                 return output_function(
-                    resolved_link,
+                    url,
                     showbusy=False,
                     ignore_dp=True,
                     item=listitem,
                     player=player,
-                    resolver=resolveurl,
-                )
+                    resolver=resolveurl)
         else:
-            if content == "movie":
+            if content == 'movie':
                 title = title
                 scraper = universalscrapers.scrape_movie
                 links_scraper = scraper(
@@ -199,10 +185,9 @@ class Sources(object):
                     imdb,
                     timeout=timeout,
                     exclude=exclude,
-                    enable_debrid=allow_debrid,
-                )
+                    enable_debrid=allow_debrid)
 
-            elif content == "episode":
+            elif content == 'episode':
                 if scraper_title:
                     tvshowtitle = title
                 tvshowtitle = tvshowtitle
@@ -217,8 +202,7 @@ class Sources(object):
                     tvdb,
                     timeout=timeout,
                     exclude=exclude,
-                    enable_debrid=allow_debrid,
-                )
+                    enable_debrid=allow_debrid)
             else:
                 return
 
@@ -244,9 +228,10 @@ class Sources(object):
                         if Sources().__check_skip_pairing(scraper_link):
                             continue
 
-                        quality = Sources.__determine_quality(scraper_link["quality"])
+                        quality = Sources.__determine_quality(
+                            scraper_link["quality"])
                         preset = preset.lower()
-                        if preset == "searchsd":
+                        if preset == 'searchsd':
                             if quality == "HD":
                                 continue
                         elif preset == "search":
@@ -254,15 +239,13 @@ class Sources(object):
                                 sd_links.append(scraper_link)
 
                         if scraper_link["direct"]:
-                            resolved_link = universalscrapers.resolve(scraper_link["scraper"], scraper_link["url"])
                             result = output_function(
-                                resolved_link,
+                                scraper_link["url"],
                                 showbusy=False,
                                 ignore_dp=True,
                                 item=listitem,
                                 player=player,
-                                resolver=resolveurl,
-                            )
+                                resolver=resolveurl)
                             if result:
                                 return result
                         else:
@@ -271,15 +254,13 @@ class Sources(object):
             for scraper_link in non_direct_links:
                 if dialog is not None and dialog.iscanceled():
                     return False
-                resolved_link = universalscrapers.resolve(scraper_link["scraper"], scraper_link["url"])
                 result = output_function(
-                    resolved_link,
+                    scraper_link["url"],
                     showbusy=False,
                     ignore_dp=True,
                     item=listitem,
                     player=player,
-                    resolver=resolveurl,
-                )
+                    resolver=resolveurl)
                 if result:
                     return result
 
@@ -287,16 +268,14 @@ class Sources(object):
                 if dialog is not None and dialog.iscanceled():
                     return
 
-                if scraper_link["direct"]:
-                    resolved_link = universalscrapers.resolve(scraper_link["scraper"], scraper_link["url"])
+                if scraper_link['direct']:
                     result = output_function(
-                        resolved_link,
+                        scraper_link["url"],
                         showbusy=False,
                         ignore_dp=True,
                         item=listitem,
                         player=player,
-                        resolver=resolveurl,
-                    )
+                        resolver=resolveurl)
                     if result:
                         return result
                 else:
@@ -305,15 +284,13 @@ class Sources(object):
             for scraper_link in non_direct_sd_links:
                 if dialog is not None and dialog.iscanceled():
                     return
-                resolved_link = universalscrapers.resolve(scraper_link["scraper"], scraper_link["url"])
                 result = output_function(
-                    resolved_link,
+                    scraper_link["url"],
                     showbusy=False,
                     ignore_dp=True,
                     item=listitem,
                     player=player,
-                    resolver=resolveurl,
-                )
+                    resolver=resolveurl)
                 if result:
                     return result
 
@@ -322,18 +299,16 @@ class Sources(object):
             return False
 
     @staticmethod
-    def get_music_sources(
-        title,
-        artist,
-        timeout=30,
-        preset="search",
-        dialog=None,
-        exclude=None,
-        listitem=None,
-        output_function=koding.Play_Video,
-        skip_selector=False,
-        player=None,
-    ):
+    def get_music_sources(title,
+                          artist,
+                          timeout=30,
+                          preset="search",
+                          dialog=None,
+                          exclude=None,
+                          listitem=None,
+                          output_function=koding.Play_Video,
+                          skip_selector=False,
+                          player=None):
         """
         scrapes for music sources using NaN scraper library
         Args:
@@ -347,22 +322,21 @@ class Sources(object):
             Boolean indicating playback success
         """
         title = title
-        allow_debrid = ADDON.getSetting("allow_debrid") == "true"
-        if ADDON.getSetting("use_link_dialog") == "true" and not skip_selector:
+        allow_debrid = ADDON.getSetting('allow_debrid') == "true"
+        if ADDON.getSetting('use_link_dialog') == 'true' and not skip_selector:
             link, rest = universalscrapers.scrape_song_with_dialog(
                 title,
                 artist,
                 timeout=timeout,
                 exclude=exclude,
                 enable_debrid=allow_debrid,
-                extended=True,
-            )
+                extended=True)
             if type(link) == dict and "path" in link:
                 link = link["path"]
             if link is None:
                 return False
-            url = link["url"]
-            if ADDON.getSetting("link_fallthrough") == "true":
+            url = link['url']
+            if ADDON.getSetting('link_fallthrough') == 'true':
                 played = False
                 index = 0
                 links = []
@@ -372,7 +346,7 @@ class Sources(object):
                     else:
                         links.extend(item[1])
                 index = links.index(link)
-                links = links[index + 1 :]
+                links = links[index + 1:]
                 num_results = len(rest) + 1
                 while not played:
                     try:
@@ -381,11 +355,9 @@ class Sources(object):
                         if dialog is not None:
                             index = index + 1
                             percent = int((index * 100) / num_results)
-                            line = "%s - %s (%s)" % (
-                                link["scraper"],
-                                link["source"],
-                                link["quality"],
-                            )
+                            line = "%s - %s (%s)" % (link['scraper'],
+                                                     link['source'],
+                                                     link['quality'])
                             dialog.update(percent, line)
                     except:
                         pass
@@ -396,8 +368,7 @@ class Sources(object):
                             ignore_dp=True,
                             item=listitem,
                             player=player,
-                            resolver=resolveurl,
-                        )
+                            resolver=resolveurl)
                         link = links[0]
                         links = links[1:]
                     except:
@@ -410,11 +381,13 @@ class Sources(object):
                     ignore_dp=True,
                     item=listitem,
                     player=player,
-                    resolver=resolveurl,
-                )
+                    resolver=resolveurl)
         links_scraper = universalscrapers.scrape_song(
-            title, artist, timeout=timeout, exclude=exclude, enable_debrid=allow_debrid
-        )
+            title,
+            artist,
+            timeout=timeout,
+            exclude=exclude,
+            enable_debrid=allow_debrid)
 
         sd_links = []
         num_scrapers = len(universalscrapers.relevant_scrapers())
@@ -436,9 +409,10 @@ class Sources(object):
                         if Sources().__check_skip_pairing(scraper_link):
                             continue
 
-                        quality = Sources.__determine_quality(scraper_link["quality"])
+                        quality = Sources.__determine_quality(
+                            scraper_link["quality"])
                         preset = preset.lower()
-                        if preset == "searchsd":
+                        if preset == 'searchsd':
                             if quality == "HD":
                                 continue
                         elif preset == "search":
@@ -451,8 +425,7 @@ class Sources(object):
                             ignore_dp=True,
                             item=listitem,
                             player=player,
-                            resolver=resolveurl,
-                        )
+                            resolver=resolveurl)
                         if result:
                             return result
 
@@ -465,8 +438,7 @@ class Sources(object):
                     ignore_dp=True,
                     item=listitem,
                     player=player,
-                    resolver=resolveurl,
-                )
+                    resolver=resolveurl)
                 if result:
                     return result
         except:
@@ -483,10 +455,19 @@ class Sources(object):
             playable url
         """
         try:
-            youtube_id = url.split("?v=")[-1].split("/")[-1].split("?")[0].split("&")[0]
-            result = requests.head("http://www.youtube.com/watch?v=%s" % youtube_id)
+            if '?v=' in url:
+                youtube_id = url.split('?v=')[-1].split('/')[-1].split('?')[0].split('&')[0]
+            elif '/embed/' in url:
+                if 'videoseries' in url: # FIXME: cannot be played via this method (playlist) directly.
+                    return
+                else:
+                    youtube_id = url.split('/')[-1]
+            elif '/youtu.be/' in url:
+                youtube_id = url.split('/')[-1].split('?')[0]
+            result = requests.head(
+                'http://www.youtube.com/watch?v=%s' % youtube_id)
             if result:
-                return "plugin://plugin.video.youtube/play/?video_id=%s" % (youtube_id)
+                return 'plugin://plugin.video.youtube/play/?video_id=%s' % (youtube_id)
         except:
             return
 
@@ -499,32 +480,30 @@ class Sources(object):
         Returns:
             sortable quality string
         """
-        if "quality" in item[1][0]:
+        if 'quality' in item[1][0]:
             quality = item[1][0]["quality"]
         else:
             quality = item[1][0]["path"]["quality"]
 
         if "path" in item[1][0]:
-            if "debridonly" in item[1][0]["path"]:
+            if 'debridonly' in item[1][0]["path"]:
                 q = "A"
-        elif "debridonly" in item[1][0]:
+        elif 'debridonly' in item[1][0]:
             q = "A"
         else:
             q = "B"
 
         if q == "A":
-            if quality.startswith("4K"):
+            if quality.startswith("1080"):
                 quality = "Aa"
-            elif quality.startswith("1080"):
-                quality = "Ab"
             elif quality.startswith("720"):
-                quality = "Ac"
+                quality = "Ab"
             elif quality.startswith("560"):
-                quality = "Ad"
+                quality = "Ac"
             elif quality == "DVD":
-                quality = "Ae"
+                quality = "Ad"
             elif quality == "HD":
-                quality = "Af"
+                quality = "Ae"
             elif quality.startswith("480"):
                 quality = "Ba"
             elif quality.startswith("360"):
@@ -534,18 +513,16 @@ class Sources(object):
             else:
                 quality = "CZ"
 
-        elif quality.startswith("4K"):
-            quality = "HDa"
         elif quality.startswith("1080"):
-            quality = "HDb"
+            quality = "HDa"
         elif quality.startswith("720"):
-            quality = "HDc"
+            quality = "HDb"
         elif quality.startswith("560"):
-            quality = "HDd"
+            quality = "HDc"
         elif quality == "DVD":
-            quality = "HDe"
+            quality = "HDd"
         elif quality == "HD":
-            quality = "HDf"
+            quality = "HDe"
         elif quality.startswith("480"):
             quality = "SDa"
         elif quality.startswith("360"):
@@ -572,20 +549,14 @@ class Sources(object):
 
     @staticmethod
     def __check_skip_pairing(scraper_link):
-        if (
-            not ADDON.getSetting("allow_openload") == "true"
-            and "openload" in scraper_link["url"]
-        ):
+        if not ADDON.getSetting('allow_openload') == 'true' and\
+           'openload' in scraper_link['url']:
             return True
-        if (
-            not ADDON.getSetting("allow_the_video_me") == "true"
-            and "thevideo.me" in scraper_link["url"]
-        ):
+        if not ADDON.getSetting('allow_the_video_me') == 'true' and\
+           'thevideo.me' in scraper_link['url']:
             return True
-        if (
-            not ADDON.getSetting("allow_the_vidup_me") == "true"
-            and "vidup.me" in scraper_link["url"]
-        ):
+        if not ADDON.getSetting('allow_the_vidup_me') == 'true' and\
+           'vidup.me' in scraper_link['url']:
             return True
         return False
 
@@ -599,9 +570,8 @@ def choose_quality(link, name=None, selected_link=None):
     name -- Name to display in dialog (default None)
     """
     import re
-
     if name is None:
-        name = xbmc.getInfoLabel("listitem.label")
+        name = xbmc.getInfoLabel('listitem.label')
     if link.startswith("http") or link.startswith("plugin"):
         sublinks = [link]
     else:
@@ -623,24 +593,25 @@ def choose_quality(link, name=None, selected_link=None):
         if "searchsd" in sublink:
             if default_link == "SD":
                 return sublink
-            label = "SD"
-            if message["SD"] != "":
-                label += " (%s)" % message["SD"]
+            label = 'SD'
+            if message['SD'] != '':
+                label += ' (%s)' % message['SD']
             new_item = (label, sublink)
         elif "search" in sublink:
             if default_link == "HD":
                 return sublink
-            label = "HD"
-            if message["HD"] != "":
-                label += " (%s)" % message["HD"]
+            label = 'HD'
+            if message['HD'] != '':
+                label += ' (%s)' % message['HD']
             new_item = (label, sublink)
         else:
             direct_links = True
             match = re.findall("(.*?)\((.*?)\)", sublink)
             if match:
-                new_item = ("%s" % match[0][1], match[0][0])
+                new_item = ('%s' % match[0][1], match[0][0])
             else:
-                new_item = ("Link %s" % (int(sublinks.index(sublink)) + 1), sublink)
+                new_item = ('Link %s' % (int(sublinks.index(sublink)) + 1),
+                            sublink)
         links.append(new_item)
     if link_dialog and (not direct_links or len(sublinks) > 1):
         links.append(("Search", "search"))
@@ -677,7 +648,7 @@ def get_sources(item):
             else:
                 link = sublinks[0]
         link = link.replace("&amp;", "&")
-        xbmc.executebuiltin("Container.update(" + link + ")")
+        xbmc.executebuiltin('Container.update(' + link + ')')
         return
     item = JenItem(item)
 
@@ -686,7 +657,7 @@ def get_sources(item):
         return
     meta = JenItem(item["meta"])
     title = meta["title"]
-    year = meta.get("year", "").split("-")[0].strip()
+    year = meta.get("year", '').split("-")[0].strip()
     imdb = meta.get("imdb", "")
     tvdb = meta.get("tvdb", "")
     season = meta.get("season", "")
@@ -704,28 +675,31 @@ def get_sources(item):
             koding.dolog("wrong premiered format")
     busy_dialog = xbmcgui.DialogProgress()
     dialog = xbmcgui.Dialog()
-    icon = ADDON.getAddonInfo("icon")
+    icon = ADDON.getAddonInfo('icon')
 
     jenplayer = JenPlayer(resume=False)
     try:
-        spec = {"identifier": imdb, "season": season or "0", "episode": episode or "0"}
+        spec = {
+            "identifier": imdb,
+            "season": season or "0",
+            "episode": episode or "0"
+        }
         match = koding.Get_From_Table("watched", spec)
         if match:
             match = match[0]
             if match["currentTime"] and not match["currentTime"] == "0":
-                if dialog.yesno(
-                    ADDON.getAddonInfo("name"),
-                    _("Previous playback detected"),
-                    yeslabel=_("Resume"),
-                    nolabel=_("Restart"),
-                ):
+                if dialog.yesno(ADDON.getAddonInfo("name"),
+                                _("Previous playback detected"),
+                                yeslabel=_("Resume"),
+                                nolabel=_("Restart")):
                     jenplayer = JenPlayer(resume=True)
     except:
         pass
 
     jenplayer.setItem(item)
 
-    busy_dialog.create(xbmcaddon.Addon().getAddonInfo("name"), _("Processing Link"))
+    busy_dialog.create(xbmcaddon.Addon().getAddonInfo('name'),
+                       _("Processing Link"))
     preset = choose_quality(link)
     message = get_searching_message(preset)
     played = False
@@ -738,8 +712,7 @@ def get_sources(item):
         listitem = xbmcgui.ListItem(
             path=link,
             iconImage=item.get("thumbnail", icon),
-            thumbnailImage=item.get("thumbnail", icon),
-        )
+            thumbnailImage=item.get("thumbnail", icon))
         infolabels = {}
         if fetch_meta and imdb != "0":  # only try valid items with imdb
             try:
@@ -754,13 +727,9 @@ def get_sources(item):
         if "plotoutline" not in infolabels:
             infolabels["plotoutline"] = infolabels.get("plot", "")
         if item.get("content", "") == "song":
-            listitem.setInfo(
-                type="Music",
-                infoLabels={
-                    "title": meta.get("title", ""),
-                    "artist": meta.get("artist", ""),
-                },
-            )
+            listitem.setInfo(type='Music',
+                             infoLabels={'title': meta.get("title", ""),
+                                         'artist': meta.get("artist", "")})
         else:
             listitem.setInfo(type="video", infoLabels=infolabels)
             listitem.setLabel(item.get("title", item.get("name", "")))
@@ -774,15 +743,12 @@ def get_sources(item):
             # nanscraper link
             if item.get("content", "") == "song":
                 artist = item.get("artist", "")
-                played = Sources.get_music_sources(
-                    title,
-                    artist,
-                    preset=preset,
-                    dialog=busy_dialog,
-                    exclude=exclude_scrapers,
-                    listitem=listitem,
-                    player=jenplayer,
-                )
+                played = Sources.get_music_sources(title, artist,
+                                                   preset=preset,
+                                                   dialog=busy_dialog,
+                                                   exclude=exclude_scrapers,
+                                                   listitem=listitem,
+                                                   player=jenplayer)
             else:
                 played = Sources.get_sources(
                     title,
@@ -797,13 +763,12 @@ def get_sources(item):
                     dialog=busy_dialog,
                     listitem=listitem,
                     exclude=exclude_scrapers,
-                    player=jenplayer,
-                )
+                    player=jenplayer)
         elif preset.startswith("http") or preset.startswith("plugin"):
             # direct link
             if "/playlist" in preset and "youtube" in preset:
                 busy_dialog.close()
-                xbmc.executebuiltin("Container.update(" + preset + ")")
+                xbmc.executebuiltin('Container.update(' + preset + ')')
                 return
             elif "plugin://plugin.video.youtube/play/?video_id=" in preset:
                 xbmc.executebuiltin("PlayMedia(%s)" % preset)
@@ -819,18 +784,7 @@ def get_sources(item):
                     ignore_dp=True,
                     item=listitem,
                     player=jenplayer,
-                    resolver=resolveurl,
-                )
-        elif preset.endswith('.torrent') or preset.startswith('magnet'):
-            played = koding.Play_Video(
-                preset,
-                showbusy=False,
-                ignore_dp=True,
-                item=listitem,
-                player=jenplayer,
-                resolver=resolveurl,
-            )
-                    
+                    resolver=resolveurl)
         else:
             # who knows
             busy_dialog.close()
@@ -849,7 +803,6 @@ def queue_source(item, depth=0):
     item -- JenItem to try playing
     """
     from resources.lib.util.url import get_addon_url
-
     jen_item = JenItem(item)
     playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
     if "<item>" in str(jen_item):
@@ -860,9 +813,7 @@ def queue_source(item, depth=0):
         playlist.add(
             get_addon_url("get_sources", str(item)),
             xbmcgui.ListItem(
-                jen_item["title"], iconImage=jen_item.get("thumbnail", "")
-            ),
-        )
+                jen_item["title"], iconImage=jen_item.get("thumbnail", "")))
         if play:
             play_queue()
     else:
@@ -872,10 +823,8 @@ def queue_source(item, depth=0):
             queue_source(str(list_item), depth + 1)
     if depth == 0:
         xbmcgui.Dialog().notification(
-            ADDON.getAddonInfo("name"),
-            _("Finished Queueing").encode("utf-8"),
-            ADDON.getAddonInfo("icon"),
-        )
+            ADDON.getAddonInfo("name"), _("Finished Queueing").encode('utf-8'),
+            ADDON.getAddonInfo("icon"))
         xbmc.executebuiltin("Container.Refresh")
 
 
@@ -883,11 +832,9 @@ def queue_source(item, depth=0):
 def clear_queue():
     xbmc.PlayList(xbmc.PLAYLIST_VIDEO).clear()
     xbmcgui.Dialog().notification(
-        ADDON.getAddonInfo("name"),
-        _("Queue cleared").encode("utf-8"),
-        ADDON.getAddonInfo("icon"),
-    )
-    xbmc.executebuiltin("Container.Refresh")
+        ADDON.getAddonInfo("name"), _("Queue cleared").encode('utf-8'),
+        ADDON.getAddonInfo("icon"))
+    xbmc.executebuiltin('Container.Refresh')
 
 
 @route(mode="play_queue")
@@ -899,7 +846,8 @@ def play_queue():
         xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
     else:
         xbmcgui.Dialog().notification(
-            ADDON.getAddonInfo("name"),
-            _("Queue is empty").encode("utf-8"),
-            ADDON.getAddonInfo("icon"),
-        )
+            ADDON.getAddonInfo("name"), _("Queue is empty").encode('utf-8'),
+            ADDON.getAddonInfo("icon"))
+
+
+#  LocalWords:  searchsd HD

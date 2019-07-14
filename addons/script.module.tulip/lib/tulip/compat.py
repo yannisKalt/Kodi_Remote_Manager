@@ -18,17 +18,22 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+
 from __future__ import absolute_import
 
 import sys
 
-is_py2 = (sys.version_info[0] == 2)
-is_py3 = (sys.version_info[0] == 3)
+is_py2 = sys.version_info[0] == 2
+is_py3 = sys.version_info[0] == 3
 
 if sys.version_info < (2, 7, 0):
+
     from tulip.ordereddict import OrderedDict
+
 else:
+
     from collections import OrderedDict
+
 
 if is_py2:
 
@@ -36,10 +41,12 @@ if is_py2:
     str = unicode
     range = xrange
     from itertools import izip
+    zip = izip
     unicode = unicode
     basestring = basestring
 
     def bytes(b, encoding="ascii"):
+
         return _str(b)
 
     def iteritems(d, **kw):
@@ -51,11 +58,36 @@ elif is_py3:
     bytes = bytes
     str = unicode = basestring = str
     range = range
-    izip = zip
+    zip = zip
 
     def iteritems(d, **kw):
 
         return iter(d.items(**kw))
+
+
+def py2_enc(s, encoding='utf-8'):
+
+    if is_py2 and isinstance(s, unicode):
+        s = s.encode(encoding)
+
+    return s
+
+
+def py2_uni(s, encoding='utf-8'):
+
+    if is_py2 and isinstance(s, str):
+        s = unicode(s, encoding)
+
+    return s
+
+
+def py3_dec(d, encoding='utf-8'):
+
+    if is_py3 and isinstance(d, bytes):
+        d = d.decode(encoding)
+
+    return d
+
 
 try:
     from sqlite3 import dbapi2 as database
@@ -64,6 +96,7 @@ except ImportError:
 
 # Python 2
 try:
+
     from urlparse import urlparse, urlunparse, urljoin, parse_qsl, urlsplit, urlunsplit, parse_qs
     from urllib import quote, unquote, urlencode, URLopener, quote_plus, unquote_plus, addinfourl
     import Queue
@@ -74,8 +107,10 @@ try:
     from SocketServer import ThreadingMixIn
     from HTMLParser import HTMLParser
     unescape = HTMLParser().unescape
+
 # Python 3:
 except ImportError:
+
     from http import cookiejar as cookielib
     from html import unescape
     import urllib.request as urllib2
@@ -89,14 +124,16 @@ except ImportError:
     )
     from urllib.response import addinfourl
     import queue as Queue
+
 finally:
+
     urlopen = urllib2.urlopen
     Request = urllib2.Request
 
 
 __all__ = [
     "is_py2", "is_py3", "str", "bytes", "urlparse", "urlunparse", "urljoin", "parse_qsl", "quote", "unquote", "Queue",
-    "range", "urlencode", "izip", "urlsplit", "urlunsplit", "cookielib", "URLopener", "quote_plus", "unescape",
+    "range", "urlencode", "zip", "urlsplit", "urlunsplit", "cookielib", "URLopener", "quote_plus", "unescape",
     "parse_qs", "unquote_plus", "urllib2", "unicode", "database", "basestring", "urlopen", "Request", "OrderedDict",
-    "iteritems", "BaseHTTPServer", "ThreadingMixIn", "addinfourl", "StringIO"
+    "iteritems", "BaseHTTPServer", "ThreadingMixIn", "addinfourl", "StringIO", "py2_enc", "py2_uni", "py3_dec"
 ]

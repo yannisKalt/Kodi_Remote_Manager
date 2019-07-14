@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.video.SportsDevil"
-  version="2018.06.23"
+  version="2018.09.20"
   name="SportsDevil"
   provider-name="SportsDevil">
   <requires>
@@ -11,6 +11,7 @@
    <import addon="script.module.six" />
    <import addon="script.module.requests" />   
    <import addon="plugin.video.f4mTester" />
+   <import addon="script.module.slproxy" />
   </requires>
   <extension 
     point="xbmc.python.pluginsource"
@@ -23,9 +24,6 @@
     <description lang="en">[I]There can only be one.[/I][CR][CR]Unofficial Kodi Addon.</description>
     <disclaimer lang="en">There can only be one.</disclaimer>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-      <platform>all</platform>
-        <website/>
-        <video_guide>https://youtu.be/0kFhoWahtFw</video_guide>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
-    </extension>
+    <platform>all</platform>
+  </extension>
 </addon>

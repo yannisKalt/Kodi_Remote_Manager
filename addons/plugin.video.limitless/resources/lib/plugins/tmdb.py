@@ -518,7 +518,7 @@ def tmdb(url):
                     else:
                         name = "%s Shows TMDB" % name.capitalize()
                     xml += "<dir>\n"\
-                           "\t<title>[COLOR red]%s[/COLOR]</title>\n"\
+                           "\t<title>%s</title>\n"\
                            "\t<tmdb>person/shows/%s</tmdb>\n"\
                            "\t<thumbnail>%s</thumbnail>\n"\
                            "</dir>\n\n" % (name, person_id, thumbnail)
@@ -527,7 +527,7 @@ def tmdb(url):
                     else:
                         name = "%s Movies TMDB" % name.capitalize()
                     xml += "<dir>\n"\
-                           "\t<title>[COLOR red]%s[/COLOR]</title>\n"\
+                           "\t<title>%s</title>\n"\
                            "\t<tmdb>person/movies/%s</tmdb>\n"\
                            "\t<thumbnail>%s</thumbnail>\n"\
                            "\t</dir>\n\n" % (name, person_id, thumbnail)
@@ -541,7 +541,7 @@ def tmdb(url):
             else:
                 myPage = "Next Page >>"
             xml += "<dir>"\
-                   "<title>[COLOR red]%s[/COLOR]</title>"\
+                   "<title>%s</title>"\
                    "<tmdb>%s</tmdb>"\
                    "<thumbnail>https://image.ibb.co/gtsNjw/next.png</thumbnail>"\
                    "<summary>Go To Page %s</summary>"\
@@ -585,7 +585,7 @@ def get_movie_xml(item):
           "<meta>"\
           "<imdb>%s</imdb>"\
           "<content>movie</content>"\
-          "<title>[COLOR red]%s[/COLOR]</title>"\
+          "<title>%s</title>"\
           "<year>%s</year>"\
           "</meta>"\
           "<link>"\
@@ -621,7 +621,7 @@ def get_trailer_xml(item):
     if not COLOR1 == "":
         name = "[COLOR %s]%s[/COLOR]" % (COLOR1, name)
     xml = "<dir>"\
-          "<title>[COLOR red]%s[/COLOR]</title>"\
+          "<title>%s</title>"\
           "<tmdb>trailer/%s</tmdb>"\
           "<thumbnail>%s</thumbnail>"\
           "<fanart>%s</fanart>"\
@@ -638,7 +638,7 @@ def get_trailer_video_xml(item):
     if not COLOR1 == "":
         title = "[COLOR %s]%s[/COLOR]" % (COLOR1, title)
     xml = "<item>"\
-          "<title>[COLOR red]%s[/COLOR]</title>"\
+          "<title>%s</title>"\
           "<link>https://www.youtube.com/watch?v=%s&feature=youtube</link>"\
           "<summary>%s</summary>"\
           "</item>" % (title, key, title)
@@ -660,7 +660,7 @@ def get_person_xml(item):
     if not COLOR1 == "":
         title = "[COLOR %s]%s[/COLOR]" % (COLOR1, title)
     xml = "<dir>"\
-          "<title>[COLOR red]%s[/COLOR]</title>"\
+          "<title>%s</title>"\
           "<tmdb>person/movies/%s</tmdb>"\
           "<thumbnail>%s</thumbnail>"\
           "<fanart>%s</fanart>"\
@@ -781,7 +781,7 @@ def get_episode_xml(item, tmdb_id, year, tvtitle):
           "<content>episode</content>"\
           "<tvshowtitle>%s</tvshowtitle>"\
           "<year>%s</year>"\
-          "<title>[COLOR red]%s[/COLOR]</title>"\
+          "<title>%s</title>"\
           "<premiered>%s</premiered>"\
           "<season>%s</season>"\
           "<episode>%s</episode>"\

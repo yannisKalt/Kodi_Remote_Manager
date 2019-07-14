@@ -58,13 +58,23 @@ def add(
 
         control.playlist(1 if infotype == 'video' else 0).clear()
 
+    meta_tags = [
+        'count', 'size', 'date', 'genre', 'country', 'year', 'episode', 'season', 'sortepisode', 'sortseason',
+        'episodeguide', 'showlink', 'top250', 'setid', 'tracknumber', 'rating', 'userrating', 'watched', 'playcount',
+        'overlay', 'cast', 'castandrole', 'director', 'mpaa', 'plot', 'plotoutline', 'title', 'originaltitle',
+        'sorttitle', 'duration', 'studio', 'tagline', 'writer', 'tvshowtitle', 'premiered', 'status', 'set', 'gameclient',
+        'setoverview', 'tag', 'imdbnumber', 'code', 'aired', 'credits', 'lastplayed', 'album', 'artist', 'votes',
+        'path', 'trailer', 'dateadded', 'mediatype', 'dbid', 'tracknumber', 'discnumber', 'lyrics', 'listeners',
+        'musicbrainztrackid', 'comment', 'picturepath', 'platform', 'genres', 'publisher', 'developer', 'overview'
+    ]
+
     for c, i in list(enumerate(items)):
 
         try:
 
             if progress:
 
-                p = control.percent(c, len(items))
+                p = control.per_cent(c, len(items))
                 pd.update(p)
 
             try:
@@ -200,7 +210,7 @@ def add(
 
                     pass
 
-            meta = dict((k, v) for k, v in iteritems(i) if not (k == 'cm' or k == 'streaminfo') and (not v == '0' or v is None))
+            meta = dict((k, v) for k, v in iteritems(i) if k in meta_tags and (not v == '0' or v is None))
 
             if mediatype is not None:
                 meta['mediatype'] = mediatype
@@ -395,8 +405,7 @@ def resolve(
         return
 
     if not headers and '|' in url:
-        url = url.rpartition('|')[0]
-        headers = url.rpartition('|')[2]
+        url, sep, headers = url.rpartition('|')
     elif headers:
         if isinstance(headers, basestring):
             if headers.startswith('|'):
@@ -430,9 +439,9 @@ def resolve(
         item.setContentLookup(False)
         item.setMimeType('{0}'.format(mimetype))
         item.setProperty('inputstreamaddon', 'inputstream.{}'.format(inputstream_type))
-        item.setProperty('inputstream.{}.manifest_type'.format(inputstream_type), manifest_type)
+        item.setProperty('inputstream.{0}.manifest_type'.format(inputstream_type), manifest_type)
         if headers:
-            item.setProperty("inputstream.{}.stream_headers".format(inputstream_type), headers)
+            item.setProperty("inputstream.{0}.stream_headers".format(inputstream_type), headers)
     elif mimetype:
         item.setContentLookup(False)
         item.setMimeType('{0}'.format(mimetype))

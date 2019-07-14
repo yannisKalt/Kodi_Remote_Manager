@@ -551,7 +551,7 @@ def imdbmovies(url):
                 "<meta>"\
                 "<content>movie</content>"\
                 "<imdb>%s</imdb>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<year>%s</year>"\
                 "</meta>"\
                 "<link>"\
@@ -668,7 +668,7 @@ def imdbseason(url):
             episodeURL = 'http://www.imdb.com/title/' + imdb + '/episodes?season=' + season
             name = "Season: [COLOR dodgerblue]" + season + "[/COLOR]"
             xml +=  "<dir>"\
-                    "<title>[COLOR red]%s[/COLOR]</title>"\
+                    "<title>%s</title>"\
                     "<meta>"\
                     "<content>season</content>"\
                     "<imdb>%s</imdb>"\
@@ -711,7 +711,7 @@ def imdbepisode(url):
                     "<tvdb></tvdb>"\
                     "<tvshowtitle>%s</tvshowtitle>"\
                     "<year>%s</year>"\
-                    "<title>[COLOR red]%s[/COLOR]</title>"\
+                    "<title>%s</title>"\
                     "<premiered>%s</premiered>"\
                     "<season>%s</season>"\
                     "<episode>%s</episode>"\
@@ -783,7 +783,7 @@ def imdblists(url):
                 "<meta>"\
                 "<content>movie</content>"\
                 "<imdb>%s</imdb>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<year>%s</year>"\
                 "</meta>"\
                 "<link>"\
@@ -815,7 +815,7 @@ def imdbyears(url):
                 "<meta>"\
                 "<content>movie</content>"\
                 "<imdb>%s</imdb>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<year>%s</year>"\
                 "</meta>"\
                 "<link>"\
@@ -899,7 +899,7 @@ def imdbgenres(url):
                 "<meta>"\
                 "<content>movie</content>"\
                 "<imdb>%s</imdb>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<year>%s</year>"\
                 "</meta>"\
                 "<link>"\
@@ -980,7 +980,7 @@ def imdbactors(url):
         thumbnail = thumbnail.replace("@._V1_UY209_CR10,0,140,209_AL_.jpg","@._V1_UX520_CR0,0,520,700_AL_.jpg")
         thumbnail = thumbnail.replace("._V1_UY209_CR5,0,140,209_AL_.jpg","._V1_UX520_CR0,0,520,700_AL_.jpg")
         xml += "<dir>"\
-               "<title>[COLOR red]%s[/COLOR]</title>"\
+               "<title>%s</title>"\
                "<imdburl>name/%s</imdburl>"\
                "<thumbnail>%s</thumbnail>"\
                "</dir>" % (name, imdb ,thumbnail)
@@ -1013,11 +1013,11 @@ def imdbactorspage(url):
     for year, imdb, title in match:
         name = title + " (" + year + ")"
         xml += "<item>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<meta>"\
                 "<content>movie</content>"\
                 "<imdb>%s</imdb>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<year>%s</year>"\
                 "</meta>"\
                 "<link>"\
@@ -1044,11 +1044,11 @@ def imdbchart(url):
         year = year.replace("(","").replace(")","")
         thumbnail = thumbnail.replace("@._V1_UY67_CR0,0,45,67_AL_.jpg","@._V1_UX520_CR0,0,520,700_AL_.jpg")
         xml += "<item>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<meta>"\
                 "<content>movie</content>"\
                 "<imdb>%s</imdb>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<year>%s</year>"\
                 "</meta>"\
                 "<link>"\
@@ -1076,7 +1076,7 @@ def imdbcharttv(url):
         year = year.replace("(","").replace(")","")
         thumbnail = thumbnail.replace("@._V1_UY67_CR0,0,45,67_AL_.jpg","@._V1_UX520_CR0,0,520,700_AL_.jpg")
         xml += "<dir>"\
-               "<title>[COLOR red]%s[/COLOR]</title>"\
+               "<title>%s</title>"\
                "<meta>"\
                "<content>tvshow</content>"\
                "<imdb>%s</imdb>"\
@@ -1127,11 +1127,11 @@ def moviecalendar(url):
             entries = re.compile('<a href="/title/(.+?)/\?ref_=rlm">(.+?)</a>', re.IGNORECASE | re.DOTALL).findall(listcont)
             for imdb, title in entries:
                 xml += "<item>"\
-                       "<title>[COLOR red]%s[/COLOR]</title>"\
+                       "<title>%s</title>"\
                        "<meta>"\
                        "<content>movie</content>"\
                        "<imdb>%s</imdb>"\
-                       "<title>[COLOR red]%s[/COLOR]</title>"\
+                       "<title>%s</title>"\
                        "<year>%s</year>"\
                        "</meta>"\
                        "<link></link>"\
@@ -1160,11 +1160,11 @@ def imdbNextPage(url):
         year = year.replace("(","").replace(")","")
         thumbnail = thumbnail.replace("@._V1_UX67_CR0,0,67,98_AL_.jpg","@._V1_UX520_CR0,0,520,700_AL_.jpg")
         xml += "<item>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<meta>"\
                 "<content>movie</content>"\
                 "<imdb>%s</imdb>"\
-                "<title>[COLOR red]%s[/COLOR]</title>"\
+                "<title>%s</title>"\
                 "<year>%s</year>"\
                 "</meta>"\
                 "<link>"\

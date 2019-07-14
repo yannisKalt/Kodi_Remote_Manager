@@ -245,7 +245,7 @@ def get_album_xml(album):
     url = "album/%s/%s/tracks" % (artist_name, album_title)
 
     xml += "<dir>\n"\
-           "\t<title>[COLOR red]%s[/COLOR]</title>\n"\
+           "\t<title>%s</title>\n"\
            "\t<meta>\n"\
            "\t\t<content>album<content>\n"\
            "\t</meta>"\
@@ -292,7 +292,7 @@ def get_track_xml(track, image=None):
            "\t<meta>\n"\
            "\t\t<content>song</content>\n"\
            "\t\t<artist>%s</artist>\n"\
-           "\t\t<title>[COLOR red]%s[/COLOR]</title>\n"\
+           "\t\t<title>%s</title>\n"\
            "\t</meta>\n"\
            "\t<link>\n"\
            "\t\t<sublink>search</sublink>\n"\
@@ -315,7 +315,7 @@ def get_artist_xml(artist):
         image = ""
 
     xml += "<dir>\n"\
-           "\t<title>[COLOR red]%s[/COLOR]</title>\n"\
+           "\t<title>%s</title>\n"\
            "\t<lastfm>%s</lastfm>\n"\
            "\t<meta>"\
            "\t\t<content>artist<content>\n"\
@@ -337,7 +337,7 @@ def get_tag_xml(tag):
     summary = tag["wiki"].get("content", "")
 
     xml += "<dir>\n"\
-           "\t<title>[COLOR red]%s[/COLOR]</title>\n"\
+           "\t<title>%s</title>\n"\
            "\t<lastfm>%s</lastfm>\n"\
            "\t<thumbnail>%s</thumbnail>" % (name, url, image)
     if summary:

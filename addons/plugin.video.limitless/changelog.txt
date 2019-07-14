@@ -1,11 +1,3 @@
-v1.9.1
-    - Added new readme.html- Rewrote section 4 - Upgrading your Jen - thanks T
-    - Added new sources.py for help playing links - thanks B
-    - Added new trakt.py - thanks K            
-	    - Added customizable settings for 2 colors (COLOR1 for Movie/Show titles; COLOR2 for Season/Episode numbers as well as for "Next Page >>")
-            - Updated the display for seasons (added ":" between season and season number) as well as for episodes (added season & episode number to title)
-            - Updated so that season and episode numbers less than 10 are displayed as double digits with a leading "0" (example: Season 1, Episode 9 ==> S01E09).
-            - Added thumbnail for "Next Page >>" (same as tmdb.py)
 v1.9
     - Added airtable wrapper to the Jen template. No user action is required.
 

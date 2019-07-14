@@ -467,7 +467,7 @@ msgid "Delete cache file"
 msgstr ""
 
 msgctxt "#30114"
-msgid "View Changelog"
+msgid ""
 msgstr ""
 
 msgctxt "#30115"
@@ -535,7 +535,7 @@ msgid "In order to use AliveGR addon please install respective repository zip ad
 msgstr ""
 
 msgctxt "#30131"
-msgid "Please press back button on your remote or backspace on your keyboard to exit from this message"
+msgid "[COLOR blue]Links:[/COLOR]"
 msgstr ""
 
 msgctxt "#30132"
@@ -575,11 +575,11 @@ msgid "Settings folder no longer exists"
 msgstr ""
 
 msgctxt "#30141"
-msgid ""
+msgid "Paypal"
 msgstr ""
 
 msgctxt "#30142"
-msgid ""
+msgid "Patreon"
 msgstr ""
 
 msgctxt "#30143"
@@ -711,7 +711,7 @@ msgid "International"
 msgstr ""
 
 msgctxt "#30204"
-msgid ""
+msgid "Adaptive (Leia+)"
 msgstr ""
 
 msgctxt "#30205"
@@ -963,7 +963,7 @@ msgid "Also reset live channel groups"
 msgstr ""
 
 msgctxt "#30267"
-msgid "AliveGR updated"
+msgid "AliveGR, version: {0}"
 msgstr ""
 
 msgctxt "#30268"
@@ -1083,7 +1083,7 @@ msgid "[COLOR white][B]Force check for updates[/B][/COLOR]"
 msgstr ""
 
 msgctxt "#30297"
-msgid "Resolve ustream"
+msgid "Resolve dailymotion with"
 msgstr ""
 
 msgctxt "#30298"
@@ -1207,11 +1207,11 @@ msgid "More settings..."
 msgstr ""
 
 msgctxt "#30328"
-msgid "This version is dedicated to the memory of my beloved mother, who recently passed away. May she rest in peace."
+msgid "Kodi media center addon[CR]Developer: [B]Twilight0[/B] - [COLOR blue]https://www.alivegr.net[/COLOR]"
 msgstr ""
 
 msgctxt "#30329"
-msgid "Close"
+msgid "[B]Close[/B]"
 msgstr ""
 
 msgctxt "#30330"
@@ -1224,6 +1224,10 @@ msgstr ""
 
 msgctxt "#30332"
 msgid "Open PVR Settings"
+msgstr ""
+
+msgctxt "#30333"
+msgid "Website"
 msgstr ""
 
 msgctxt "#30401"

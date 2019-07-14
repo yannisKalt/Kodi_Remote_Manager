@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 #  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
 #  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
@@ -9,18 +9,24 @@
 #  ..#######.##.......#######.##....#..######..######.##.....#.##.....#.##.......#######.##.....#..######.
 
 '''
-    cartoonhd scraper for Exodus forks.
-    Nov 9 2018 - Checked
-    Oct 10 2018 - Cleaned and Checked
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-    Updated and refactored by someone.
-    Originally created by others.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+
 import base64
 import json
 import re
 import time
-import traceback
 import urllib
 import urlparse
 
@@ -28,14 +34,14 @@ from openscrapers.modules import cleantitle
 from openscrapers.modules import client
 from openscrapers.modules import directstream
 from openscrapers.modules import source_utils
-from openscrapers.modules import log_utils
+
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['cartoonhd.watch','cartoonhd.care']
-        self.base_link = 'https://cartoonhd.watch'
+        self.domains = ['cartoonhd.care']
+        self.base_link = 'https://www1.cartoonhd.care'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -44,8 +50,6 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            failure = traceback.format_exc()
-            log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
@@ -55,58 +59,56 @@ class source:
             url = urllib.urlencode(url)
             return url
         except:
-            failure = traceback.format_exc()
-            log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            if url == None: return
+            if url is None:
+                return
             url = urlparse.parse_qs(url)
             url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
             url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
             url = urllib.urlencode(url)
             return url
         except:
-            failure = traceback.format_exc()
-            log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
     def searchShow(self, title, season, episode, aliases, headers):
         try:
             for alias in aliases:
-                url = '%s/show/%s/season/%01d/episode/%01d' % (self.base_link, cleantitle.geturl(title), int(season), int(episode))
-                url = client.request(url, headers=headers,output='geturl', timeout='10')
-                if not url == None and url != self.base_link: break
+                url = '%s/show/%s/season/%01d/episode/%01d' % (
+                self.base_link, cleantitle.geturl(title), int(season), int(episode))
+                url = client.request(url, headers=headers, output='geturl', timeout='10')
+                if not url is None and url != self.base_link:
+                    break
             return url
         except:
-            failure = traceback.format_exc()
-            log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
     def searchMovie(self, title, year, aliases, headers):
         try:
             for alias in aliases:
-                url = '%s/full-movie/%s' % (self.base_link, cleantitle.geturl(alias['title']))
+                url = '%s/film/%s' % (self.base_link, cleantitle.geturl(alias['title']))
                 url = client.request(url, headers=headers, output='geturl', timeout='10')
-                if not url == None and url != self.base_link: break
-            if url == None:
+                if url is not None and url != self.base_link:
+                    break
+            if url is None:
                 for alias in aliases:
-                    url = '%s/full-movie/%s-%s' % (self.base_link, cleantitle.geturl(alias['title']), year)
+                    url = '%s/film/%s-%s' % (self.base_link, cleantitle.geturl(alias['title']), year)
                     url = client.request(url, headers=headers, output='geturl', timeout='10')
-                    if not url == None and url != self.base_link: break
+                    if url is not None and url != self.base_link:
+                        break
 
             return url
         except:
-            failure = traceback.format_exc()
-            log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return
 
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
 
-            if url == None: return sources
+            if url is None:
+                return sources
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
@@ -122,9 +124,12 @@ class source:
 
             r = client.request(url, headers=headers, output='extended', timeout='10')
 
-            if not imdb in r[0]: raise Exception()
+            if imdb not in r[0]:
+                raise Exception()
 
-            cookie = r[4] ; headers = r[3] ; result = r[0]
+            cookie = r[4]
+            headers = r[3]
+            result = r[0]
 
             try:
                 r = re.findall('(https:.*?redirector.*?)[\'\"]', result)
@@ -138,8 +143,10 @@ class source:
             except:
                 pass
 
-            try: auth = re.findall('__utmx=(.+)', cookie)[0].split(';')[0]
-            except: auth = 'false'
+            try:
+                auth = re.findall('__utmx=(.+)', cookie)[0].split(';')[0]
+            except:
+                auth = 'false'
             auth = 'Bearer %s' % urllib.unquote_plus(auth)
             headers['Authorization'] = auth
             headers['Referer'] = url
@@ -158,7 +165,7 @@ class source:
 
             post = {'action': action, 'idEl': idEl, 'token': token, 'nopop': '', 'elid': elid}
             post = urllib.urlencode(post)
-            cookie += ';%s=%s'%(idEl,elid)
+            cookie += ';%s=%s' % (idEl, elid)
             headers['Cookie'] = cookie
 
             r = client.request(u, post=post, headers=headers, cookie=cookie, XHR=True)
@@ -184,52 +191,33 @@ class source:
                             except Exception:
                                 pass
 
-                        sources.append({
-                            'source': 'gvideo',
-                            'quality': quality,
-                            'language': 'en',
-                            'url': i,
-                            'direct': True,
-                            'debridonly': False
-                        })
+                        sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en', 'url': i,
+                                        'direct': True, 'debridonly': False})
 
                     elif 'llnwi.net' in i or 'vidcdn.pro' in i:
                         try:
                             quality = source_utils.check_sd_url(i)
 
-                            sources.append({
-                                'source': 'CDN',
-                                'quality': quality,
-                                'language': 'en',
-                                'url': i,
-                                'direct': True,
-                                'debridonly': False
-                            })
+                            sources.append({'source': 'CDN', 'quality': quality, 'language': 'en', 'url': i,
+                                            'direct': True, 'debridonly': False})
 
                         except Exception:
                             pass
                     else:
                         valid, hoster = source_utils.is_host_valid(i, hostDict)
-                        if not valid: continue
+                        if not valid:
+                            continue
 
-                        sources.append({
-                            'source': hoster,
-                            'quality': '720p',
-                            'language': 'en',
-                            'url': i,
-                            'direct': False,
-                            'debridonly': False
-                        })
+                        sources.append({'source': hoster, 'quality': '720p', 'language': 'en', 'url': i,
+                                        'direct': False, 'debridonly': False})
                 except Exception:
                     pass
             return sources
         except:
-            failure = traceback.format_exc()
-            log_utils.log('CartoonHD - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):
-        if 'google' in url and not 'googleapis' in url:
+        if 'google' in url and 'googleapis' not in url:
             return directstream.googlepass(url)
         else:
             return url

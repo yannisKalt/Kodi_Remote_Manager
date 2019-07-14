@@ -1,7 +1,8 @@
 import re
 
-from streamlink.plugin import Plugin
-from streamlink.stream import HLSStream
+from distutils.util import strtobool
+from streamlink.plugin import Plugin, PluginArguments, PluginArgument
+from streamlink.stream import HLSStream, HTTPStream
 from streamlink.plugin.api.useragents import CHROME
 from streamlink.plugin.api.utils import itertags
 from streamlink.exceptions import NoStreamsError
@@ -11,6 +12,8 @@ class Ant1Cy(Plugin):
 
     _url_re = re.compile(r'https?://www\.ant1\.com\.cy/web-tv-live/')
     _live_api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
+
+    arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
     @classmethod
     def can_handle_url(cls, url):
@@ -31,7 +34,12 @@ class Ant1Cy(Plugin):
 
         headers.update({"Referer": self.url})
 
-        return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        parse_hls = bool(strtobool(self.get_option('parse_hls')))
+
+        if parse_hls:
+            return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)
+        else:
+            return dict(live=HTTPStream(self.session, stream, headers=headers))
 
 
 __plugin__ = Ant1Cy

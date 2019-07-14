@@ -2,7 +2,7 @@
 
 '''
     AliveGR Addon
-    Author Thgiliwt
+    Author Twilight0
 
         License summary below, for more details please read license.txt file
 
@@ -128,7 +128,7 @@ class Indexer:
             {
                 'title': control.lang(30269),
                 'action': 'top50_list',
-                'url': 'https://alivegr.net/raw/top50.xml',
+                'url': 's1GeuATNw9GdvcXYy9Cdl5mLydWZ2lGbh9yL6MHc0RHa',
                 'image': control.addonInfo('icon'),
                 'fanart': 'https://i.ytimg.com/vi/vtjL9IeowUs/maxresdefault.jpg'
             }
@@ -213,8 +213,6 @@ class Indexer:
         if self.list is None:
             log_debug('Artist\'s section failed to load')
             return
-        else:
-            log_debug('Artist index section list:' + ' ' + str(self.list))
 
         for item in self.list:
             bookmark = dict((k, v) for k, v in iteritems(item) if not k == 'next')
@@ -229,10 +227,8 @@ class Indexer:
         self.list = cache.get(self.music_list, 48, url)
 
         if self.list is None:
-            log_debug('Album index section failed to load successfully')
+            log_debug('Album index section failed to load')
             return
-        else:
-            log_debug('Album index section list:' + ' ' + str(self.list))
 
         for item in self.list:
             item.update(
@@ -251,8 +247,6 @@ class Indexer:
         if self.list is None:
             log_debug('Songs section failed to load')
             return
-        else:
-            log_debug('Song section list:' + ' ' + str(self.list))
 
         for item in self.list:
             item.update({'action': 'play', 'isFolder': 'False'})
@@ -354,8 +348,6 @@ class Indexer:
         if self.list is None:
             log_debug('Mad Greekz top 10 section failed to load')
             return
-        else:
-            log_debug('Mad Greekz list:' + ' ' + str(self.list))
 
         for item in self.list:
             item.update({'action': 'play', 'isFolder': 'False'})
@@ -455,8 +447,6 @@ class Indexer:
         if self.list is None:
             log_debug('Top 20 list section failed to load')
             return
-        else:
-            log_debug('Top 20 list section list:' + ' ' + str(self.list))
 
         if url == self.rythmos_top20_url:
             fanart = control.addonmedia(
@@ -492,7 +482,7 @@ class Indexer:
 
         if control.setting('debug') == 'false':
 
-            playlists = client.request(url)
+            playlists = client.request(thgiliwt(url), headers={'User-Agent': 'AliveGR, version: ' + control.version()})
 
         else:
 
@@ -535,8 +525,6 @@ class Indexer:
         if self.list is None:
             log_debug('Developer\'s picks section failed to load')
             return
-        else:
-            log_debug('Top 50 list:' + ' ' + str(self.list))
 
         for count, item in list(enumerate(self.list, start=1)):
             add_to_playlist = {'title': 30226, 'query': {'action': 'add_to_playlist'}}

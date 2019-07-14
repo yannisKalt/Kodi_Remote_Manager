@@ -158,7 +158,7 @@ def get_game(url):
             name = remove_non_ascii(name)
             summary = clean_search(summary)               
             xml += "<item>"\
-                   "<title>%s</title>"\
+                   "<title>[COLOR red]%s[/COLOR]</title>"\
                    "<meta>"\
                    "<content>movie</content>"\
                    "<imdb></imdb>"\
@@ -214,7 +214,7 @@ def get_result(url):
             name = name.replace("&#039;","")
             name = remove_non_ascii(name)
             xml += "<item>"\
-                   "<title>%s</title>"\
+                   "<title>[COLOR red]%s/[COLOR]</title>"\
                    "<meta>"\
                    "<content>movie</content>"\
                    "<imdb></imdb>"\
@@ -249,7 +249,7 @@ def search_trailers(url):
                     name = remove_non_ascii(name)
                     summary = clean_search(summary)                   
                     xml += "<item>"\
-                           "<title>%s</title>"\
+                           "<title>[COLOR red]%s[/COLOR]</title>"\
                            "<meta>"\
                            "<content>movie</content>"\
                            "<imdb></imdb>"\

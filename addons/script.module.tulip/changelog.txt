@@ -5,6 +5,11 @@
 - Added the fuzzywuzzy library for fuzzy string matching
 - Moved all user agent related functions and strings into new user_agent module
 - Added datetime keys for youtube videos
+- Compat module enhancements
+- Cleantitle module enhancements
+- Request function enhancements for python 3
+- Directory module bugfixes
+- Added replace xml codes function
 - Various other tweaks
 
 [B]2.2.X[/B]

@@ -5,6 +5,7 @@
     <setting id="cache_period" value="4" />
     <setting id="changelog_lang" value="0" />
     <setting id="debug" value="false" />
+    <setting id="dm_resolve" value="1" />
     <setting id="episodes_reverse" value="true" />
     <setting id="geoloc_override" value="0" />
     <setting id="hide_cartoons" value="true" />

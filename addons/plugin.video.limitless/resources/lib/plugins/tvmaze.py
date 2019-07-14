@@ -351,7 +351,7 @@ def get_country(url):
         match = re.compile('<option value="(.+?)">(.+?)</option>',re.DOTALL).findall(str(block))
         for number, country in match:
             xml += "<dir>"\
-                   "<title>[COLOR red]%s[/COLOR]</title>"\
+                   "<title>%s</title>"\
                    "<tvmaze>country/%s/1</tvmaze>"\
                    "</dir>" % (country, country)
 
@@ -373,7 +373,7 @@ def get_country(url):
                     link = link.split("/")[-2]
                     thumb = "http:"+image
                     xml += "<dir>"\
-                           "<title>[COLOR red]%s[/COLOR]</title>"\
+                           "<title>%s</title>"\
                            "<thumbnail>%s</thumbnail>"\
                            "<tvmaze>network/%s/1</tvmaze>"\
                            "</dir>" % (name, thumb,link)
@@ -405,7 +405,7 @@ def get_web_channel(url):
         link = link.split("/")[-2]
         thumb = "http:"+image
         xml += "<dir>"\
-               "<title>[COLOR red]%s[/COLOR]</title>"\
+               "<title>%s</title>"\
                "<thumbnail>%s</thumbnail>"\
                "<tvmaze>network/%s/1</tvmaze>"\
                "</dir>" % (name, thumb, link)
@@ -439,7 +439,7 @@ def get_network(url):
         link = link.split("/")[-2]
         thumb = "http:"+image
         xml += "<dir>"\
-               "<title>[COLOR red]%s[/COLOR]</title>"\
+               "<title>%s</title>"\
                "<thumbnail>%s</thumbnail>"\
                "<tvmaze>show/%s/%s</tvmaze>"\
                "</dir>" % (name, thumb, name, link)
@@ -491,7 +491,7 @@ def get_show(url):
         sea_num = seasons['season_number']
         sea_year = seasons['air_date']
         xml += "<dir>"\
-               "<title>[COLOR red]%s[/COLOR]</title>"\
+               "<title>%s</title>"\
                "<year>%s</year>"\
                "<thumbnail>%s</thumbnail>"\
                "<fanart>%s</fanart>"\
@@ -525,14 +525,14 @@ def get_season(url):
         title = remove_non_ascii(title)
         premiered = episodes['air_date']
         xml += "<item>"\
-              "<title>[COLOR red]%s[/COLOR]</title>"\
+              "<title>%s</title>"\
               "<meta>"\
               "<imdb>%s</imdb>"\
               "<tvdb>%s</tvdb>"\
               "<content>episode</content>"\
               "<tvshowtitle>%s</tvshowtitle>"\
               "<year>%s</year>"\
-              "<title>[COLOR red]%s[/COLOR]</title>"\
+              "<title>%s</title>"\
               "<premiered>%s</premiered>"\
               "<season>%s</season>"\
               "<episode>%s</episode>"\
@@ -583,7 +583,7 @@ def calendars():
 
             url = calendar_link % (date_time - datetime.timedelta(days=i)).strftime('%Y-%m-%d')
             xml +="<item>"\
-                  "<title>[COLOR red]%s[/COLOR]</title>"\
+                  "<title>%s</title>"\
                   "<tvmaze>%s|day</tvmaze>"\
                   "<thumbnail>%s</thumbnail>"\
                   "<fanart>%s</fanart>"\
@@ -668,14 +668,14 @@ def tvmaze_list(url):
 
             final_title = '{0} - {1}x{2} - {3}' .format(tvshowtitle, season, episode, title)
             xml += "<item>" \
-                   "<title>[COLOR red]%s[/COLOR]</title>"\
+                   "<title>%s</title>"\
                    "<meta>" \
                    "<imdb>%s</imdb>" \
                    "<tvdb>%s</tvdb>" \
                    "<content>episode</content>" \
                    "<tvshowtitle>%s</tvshowtitle>" \
                    "<year>%s</year>" \
-                   "<title>[COLOR red]%s[/COLOR]</title>" \
+                   "<title>%s</title>" \
                    "<premiered>%s</premiered>" \
                    "<season>%s</season>" \
                    "<episode>%s</episode>" \
@@ -707,7 +707,7 @@ def tvmaze_list(url):
 #         link = link.split("/")[-2]
 #         thumb = "http:"+image
 #         xml = "<dir>"\
-#                "<title>[COLOR red]%s[/COLOR]</title>"\
+#                "<title>%s</title>"\
 #                "<thumbnail>%s</thumbnail>"\
 #                "</dir>" % (name, thumb)
 #         return xml               

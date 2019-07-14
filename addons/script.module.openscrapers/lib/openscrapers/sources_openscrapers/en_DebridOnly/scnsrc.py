@@ -9,7 +9,6 @@
 #  ..#######.##.......#######.##....#..######..######.##.....#.##.....#.##.......#######.##.....#..######.
 
 '''
-    OpenScrapers Project
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -24,14 +23,17 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import re, urllib, urlparse
+import re
+import urllib
+import urlparse
 
-from openscrapers.modules import debrid
+import requests
 from openscrapers.modules import cleantitle
 from openscrapers.modules import client
-from openscrapers.modules import dom_parser2
-from openscrapers.modules import workers
+from openscrapers.modules import debrid
+from openscrapers.modules import dom_parser
 from openscrapers.modules import source_utils
+from openscrapers.modules import workers
 
 
 class source:
@@ -40,7 +42,6 @@ class source:
         self.language = ['en']
         self.domains = ['scnsrc.me']
         self.base_link = 'https://www.scnsrc.me'
-
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -60,7 +61,8 @@ class source:
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            if url is None: return
+            if url is None:
+                return
 
             url = urlparse.parse_qs(url)
             url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
@@ -73,31 +75,38 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             self._sources = []
-            if url is None: return self._sources
-
-            if debrid.status() is False: raise Exception()
+            if url is None:
+                return self._sources
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
-            title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
-            hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
-
             query = '%s S%02dE%02d' % (
-            data['tvshowtitle'], int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (
-            data['title'], data['year'])
+                data['tvshowtitle'],
+                int(data['season']),
+                int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (
+                data['title'],
+                data['year'])
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
             query = cleantitle.geturl(query)
             url = urlparse.urljoin(self.base_link, query)
 
-            headers = {'User-Agent': client.agent()}
-            r = client.request(url, headers=headers)
-            posts = dom_parser2.parse_dom(r, 'li', {'class': re.compile('.+?'), 'id': re.compile('comment-.+?')})
+            shell = requests.Session()
+
+            headers = {
+                'Referer': url,
+                'User-Agent':
+                    'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            r = shell.get(url, headers=headers)
+            r = r.headers['Location']
+            r = shell.get(r).content
+            posts = dom_parser.parse_dom(r, 'li', {'class': re.compile('.+?'), 'id': re.compile('comment-.+?')})
             self.hostDict = hostDict + hostprDict
             threads = []
 
-            for i in posts: threads.append(workers.Thread(self._get_sources, i.content))
+            for i in posts:
+                threads.append(workers.Thread(self._get_sources, i.content))
             [i.start() for i in threads]
             [i.join() for i in threads]
 
@@ -107,7 +116,7 @@ class source:
 
     def _get_sources(self, item):
         try:
-            links = dom_parser2.parse_dom(item, 'a', req='href')
+            links = dom_parser.parse_dom(item, 'a', req='href')
             links = [i.attrs['href'] for i in links]
             info = []
             try:
@@ -120,18 +129,23 @@ class source:
                 pass
             info = ' | '.join(info)
             for url in links:
-                if 'youtube' in url: continue
+
+                if 'youtube' in url:
+                    continue
                 if any(x in url for x in ['.rar.', '.zip.', '.iso.']) or any(
-                        url.endswith(x) for x in ['.rar', '.zip', '.iso']): raise Exception()
+                        url.endswith(x) for x in ['.rar', '.zip', '.iso']):
+                    raise Exception()
                 valid, host = source_utils.is_host_valid(url, self.hostDict)
-                if not valid: continue
+                if not valid:
+                    continue
                 host = client.replaceHTMLCodes(host)
                 host = host.encode('utf-8')
                 quality, info2 = source_utils.get_release_quality(url, url)
-                if url in str(self._sources): continue
+                if url in str(self._sources):
+                    continue
                 self._sources.append(
                     {'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False,
-                     'debridonly': True})
+                     'debridonly': debrid.status()})
         except Exception:
             pass
 

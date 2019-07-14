@@ -155,20 +155,28 @@ class WorkingDialog(object):
     wd = None
 
     def __init__(self):
+
         try:
+
             self.wd = xbmcgui.DialogBusy()
             self.wd.create()
             self.update(0)
+
         except:
+
             busy()
 
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
+
         if self.wd is not None:
+
             self.wd.close()
+
         else:
+
             idle()
 
     def is_canceled(self):
@@ -237,16 +245,21 @@ class CountdownDialog(object):
     pd = None
 
     def __init__(self, heading, line1='', line2='', line3='', active=True, countdown=60, interval=5):
+
         self.heading = heading
         self.countdown = countdown
         self.interval = interval
         self.line3 = line3
+
         if active:
             pd = xbmcgui.DialogProgress()
+
             if not self.line3:
                 line3 = 'Expires in: %s seconds' % countdown
+
             pd.create(self.heading, line1, line2, line3)
             pd.update(100)
+
             self.pd = pd
 
     def __enter__(self):
@@ -269,13 +282,22 @@ class CountdownDialog(object):
         interval = self.interval
 
         while time_left > 0:
+
             for _ in list(range(CountdownDialog.INTERVALS)):
+
                 sleep(int(round(interval * 1000 / CountdownDialog.INTERVALS)))
-                if self.is_canceled(): return
+
+                if self.is_canceled():
+                    return
+
                 time_left = expires - int(time.time() - start)
-                if time_left < 0: time_left = 0
+
+                if time_left < 0:
+                    time_left = 0
+
                 progress = int(round(time_left * 100 / expires))
                 line3 = 'Expires in: %s seconds' % time_left if not self.line3 else ''
+
                 self.update(progress, line3=line3)
 
             result = func(*args, **kwargs)
@@ -352,7 +374,7 @@ class Monitor(monitor):
         pass
         # return self
 
-def percent(count, total):
+def per_cent(count, total):
 
     return min(int(round(count * 100 / total)), 100)
 

@@ -9,83 +9,53 @@
 		<setting label="Deletelog" type="action" option="close" action="RunPlugin(plugin://script.module.universalscrapers/?mode=Deletelog)"/>
 	</category>
 	<category label="Scrapers 1">
-		<setting label="Animetoon" type="lsep"/>
-		<setting id="Animetoon_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="BnwMovies" type="lsep"/>
-		<setting id="BnwMovies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="AnimeToon" type="lsep"/>
+		<setting id="AnimeToon_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="BNWmovies" type="lsep"/>
+		<setting id="BNWmovies_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="Cmovies" type="lsep"/>
 		<setting id="Cmovies_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="CoolMovieZone" type="lsep"/>
-		<setting id="CoolMovieZone_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="CoolTV" type="lsep"/>
 		<setting id="CoolTV_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Couchtuner" type="lsep"/>
-		<setting id="Couchtuner_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="extramovies" type="lsep"/>
-		<setting id="extramovies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="DirectDownload" type="lsep"/>
+		<setting id="DirectDownload_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="ExtraMovies" type="lsep"/>
+		<setting id="ExtraMovies_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="EZTV" type="lsep"/>
 		<setting id="EZTV_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="filepursuit" type="lsep"/>
-		<setting id="filepursuit_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Freemusic" type="lsep"/>
-		<setting id="Freemusic_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="HD Popcorns" type="lsep"/>
-		<setting id="HD Popcorns_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="FreeMusic" type="lsep"/>
+		<setting id="FreeMusic_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="GoWatchSeries" type="lsep"/>
+		<setting id="GoWatchSeries_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="HDvix" type="lsep"/>
 		<setting id="HDvix_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="m4ufree" type="lsep"/>
-		<setting id="m4ufree_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="movie4u" type="lsep"/>
-		<setting id="movie4u_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="MovieFull" type="lsep"/>
-		<setting id="MovieFull_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="MovieNoLimit" type="lsep"/>
-		<setting id="MovieNoLimit_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Mp3guild" type="lsep"/>
-		<setting id="Mp3guild_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="MyVideoLinks" type="lsep"/>
-		<setting id="MyVideoLinks_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="New episodes" type="lsep"/>
-		<setting id="New episodes_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="kickass2" type="lsep"/>
+		<setting id="kickass2_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="MP3guild" type="lsep"/>
+		<setting id="MP3guild_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="OceanofMovies" type="lsep"/>
 		<setting id="OceanofMovies_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="one337x" type="lsep"/>
-		<setting id="one337x_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="openloadmovie" type="lsep"/>
-		<setting id="openloadmovie_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="One23moviesHubz" type="lsep"/>
+		<setting id="One23moviesHubz_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="PirateBay" type="lsep"/>
 		<setting id="PirateBay_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Primewire" type="lsep"/>
-		<setting id="Primewire_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="PutlockerHD" type="lsep"/>
-		<setting id="PutlockerHD_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Releasebb" type="lsep"/>
-		<setting id="Releasebb_enabled" type="bool" label="Enabled" default="true"/>
-	</category>
-	<category label="Scrapers 2">
+		<setting label="PutlockerOnline" type="lsep"/>
+		<setting id="PutlockerOnline_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Putlockers" type="lsep"/>
+		<setting id="Putlockers_enabled" type="bool" label="Enabled" default="true"/>
 		<setting label="SeeHD" type="lsep"/>
 		<setting id="SeeHD_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Series9" type="lsep"/>
-		<setting id="Series9_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="serieswatch" type="lsep"/>
-		<setting id="serieswatch_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="StreamDreams" type="lsep"/>
-		<setting id="StreamDreams_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="TheWatchSeries" type="lsep"/>
-		<setting id="TheWatchSeries_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="TwoDDL" type="lsep"/>
-		<setting id="TwoDDL_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Twomovies" type="lsep"/>
-		<setting id="Twomovies_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Watchepisodes" type="lsep"/>
-		<setting id="Watchepisodes_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="watchfrees" type="lsep"/>
-		<setting id="watchfrees_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="Watchstream" type="lsep"/>
-		<setting id="Watchstream_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="WatchTVseries" type="lsep"/>
-		<setting id="WatchTVseries_enabled" type="bool" label="Enabled" default="true"/>
-		<setting label="wEpisodesSeries" type="lsep"/>
-		<setting id="wEpisodesSeries_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="SeriesOnline8" type="lsep"/>
+		<setting id="SeriesOnline8_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="SwatchSeries" type="lsep"/>
+		<setting id="SwatchSeries_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="WatchEpisodes4" type="lsep"/>
+		<setting id="WatchEpisodes4_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="WatchEpSeries" type="lsep"/>
+		<setting id="WatchEpSeries_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="WatchSeries" type="lsep"/>
+		<setting id="WatchSeries_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Zooqle" type="lsep"/>
+		<setting id="Zooqle_enabled" type="bool" label="Enabled" default="true"/>
 	</category>
 </settings>

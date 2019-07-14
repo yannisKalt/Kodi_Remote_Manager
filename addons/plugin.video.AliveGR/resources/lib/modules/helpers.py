@@ -2,7 +2,7 @@
 
 '''
     AliveGR Addon
-    Author Thgiliwt
+    Author Twilight0
 
         License summary below, for more details please read license.txt file
 
@@ -57,6 +57,21 @@ def papers():
     control.execute('ActivateWindow(10002,"plugin://plugin.video.AliveGR/?content_type=image",return)')
 
 
+def skin_name():
+
+    xml = control.join(control.transPath('special://skin/'), 'addon.xml')
+
+    with open(xml) as f:
+
+        xml_file = f.read()
+        try:
+            name = client.parseDOM(xml_file, 'addon', ret='name')[0]
+        except IndexError:
+            name = 'not found'
+
+        return name
+
+
 def stream_picker(qualities, urls):
 
     choice = control.selectDialog(heading=control.lang(30006), list=qualities)
@@ -64,8 +79,6 @@ def stream_picker(qualities, urls):
     if choice <= len(qualities) and not choice == -1:
         popped = urls[choice]
         return popped
-    else:
-        return 30403
 
 
 def lang_choice():
@@ -107,7 +120,14 @@ def addon_version(addon_id):
 def other_addon_settings(query):
 
     try:
-        control.Settings(id='{0}'.format(query))
+
+        if query == 'script.module.resolveurl':
+
+            from resolveurl import display_settings
+
+        else:
+
+            control.Settings(id='{0}'.format(query))
     except:
         pass
 

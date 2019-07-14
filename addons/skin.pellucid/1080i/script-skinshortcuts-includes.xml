@@ -213,9 +213,9 @@
 			<thumb />
 			<property name="labelID">liveagones</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(10025,"plugin://plugin.video.loki/?description=No%20information%20available&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ffanart.jpg&amp;iconimage=https%3a%2f%2fi.pinimg.com%2f736x%2fa2%2fb9%2f7c%2fa2b97c577ff82928cc53591c33ba8f75--stream-online-daytona--live.jpg&amp;mode=Sport_Stream&amp;name=%5bCOLOR%20FFffffffff%5dSports%20Streams%5b%2fCOLOR%5d&amp;url=games",return)</onclick>
-			<property name="path">ActivateWindow(10025,"plugin://plugin.video.loki/?description=No%20information%20available&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ffanart.jpg&amp;iconimage=https%3a%2f%2fi.pinimg.com%2f736x%2fa2%2fb9%2f7c%2fa2b97c577ff82928cc53591c33ba8f75--stream-online-daytona--live.jpg&amp;mode=Sport_Stream&amp;name=%5bCOLOR%20FFffffffff%5dSports%20Streams%5b%2fCOLOR%5d&amp;url=games",return)</property>
-			<property name="list">plugin://plugin.video.loki/?description=No%20information%20available&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ffanart.jpg&amp;iconimage=https%3a%2f%2fi.pinimg.com%2f736x%2fa2%2fb9%2f7c%2fa2b97c577ff82928cc53591c33ba8f75--stream-online-daytona--live.jpg&amp;mode=Sport_Stream&amp;name=%5bCOLOR%20FFffffffff%5dSports%20Streams%5b%2fCOLOR%5d&amp;url=games</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.limitless/?mode=Sport_Stream&amp;url=games&amp;name=%5BCOLOR+FFffffffff%5D%5BCOLOR+red%5DSports+Streams%5B%2FCOLOR%5D%5B%2FCOLOR%5D&amp;iconimage=http%3A%2F%2Fluxurywizard.space%2Ficons%2Ficon.png&amp;fanart=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.limitless%2Ffanart.jpg&amp;description=No+information+available",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.limitless/?mode=Sport_Stream&amp;url=games&amp;name=%5BCOLOR+FFffffffff%5D%5BCOLOR+red%5DSports+Streams%5B%2FCOLOR%5D%5B%2FCOLOR%5D&amp;iconimage=http%3A%2F%2Fluxurywizard.space%2Ficons%2Ficon.png&amp;fanart=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.limitless%2Ffanart.jpg&amp;description=No+information+available",return)</property>
+			<property name="list">plugin://plugin.video.limitless/?mode=Sport_Stream&amp;url=games&amp;name=%5BCOLOR+FFffffffff%5D%5BCOLOR+red%5DSports+Streams%5B%2FCOLOR%5D%5B%2FCOLOR%5D&amp;iconimage=http%3A%2F%2Fluxurywizard.space%2Ficons%2Ficon.png&amp;fanart=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.limitless%2Ffanart.jpg&amp;description=No+information+available</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="submenuVisibility">liveagones</property>
 			<property name="group">mainmenu</property>
@@ -243,34 +243,18 @@
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="labelID">plugin.video.yoda</property>
+			<property name="labelID">plugin.video.exodusredux</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.yoda",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.yoda",return)</property>
-			<property name="list">plugin://plugin.video.yoda</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.exodusredux",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.exodusredux",return)</property>
+			<property name="list">plugin://plugin.video.exodusredux</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">plugin-video-yoda</property>
+			<property name="submenuVisibility">plugin-video-exodusredux</property>
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
 		<item id="16">
 			<property name="id">$NUMBER[16]</property>
-			<label>MMA</label>
-			<label2>Custom item</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb />
-			<property name="labelID">mma</property>
-			<property name="defaultID" />
-			<onclick>ActivateWindow(10025,"plugin://plugin.video.loki/?description=No%20information%20available&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ffanart.jpg&amp;iconimage=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ficon.png&amp;mode=get_list&amp;name=%5bCOLOR%20FFffffffff%5dUFC%5b%2fCOLOR%5d&amp;url=http%3a%2f%2fbuilds.kodiuk.tv%2fdevelopment%2floki%2fufc%2fufc.xml",return)</onclick>
-			<property name="path">ActivateWindow(10025,"plugin://plugin.video.loki/?description=No%20information%20available&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ffanart.jpg&amp;iconimage=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ficon.png&amp;mode=get_list&amp;name=%5bCOLOR%20FFffffffff%5dUFC%5b%2fCOLOR%5d&amp;url=http%3a%2f%2fbuilds.kodiuk.tv%2fdevelopment%2floki%2fufc%2fufc.xml",return)</property>
-			<property name="list">plugin://plugin.video.loki/?description=No%20information%20available&amp;fanart=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ffanart.jpg&amp;iconimage=%2fstorage%2f.kodi%2faddons%2fplugin.video.loki%2ficon.png&amp;mode=get_list&amp;name=%5bCOLOR%20FFffffffff%5dUFC%5b%2fCOLOR%5d&amp;url=http%3a%2f%2fbuilds.kodiuk.tv%2fdevelopment%2floki%2fufc%2fufc.xml</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">mma</property>
-			<property name="group">mainmenu</property>
-			<property name="hasSubmenu">False</property>
-		</item>
-		<item id="17">
-			<property name="id">$NUMBER[17]</property>
 			<label>18+ </label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -285,8 +269,8 @@
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
-		<item id="18">
-			<property name="id">$NUMBER[18]</property>
+		<item id="17">
+			<property name="id">$NUMBER[17]</property>
 			<label>18+ (sites)</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -301,8 +285,8 @@
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
-		<item id="19">
-			<property name="id">$NUMBER[19]</property>
+		<item id="18">
+			<property name="id">$NUMBER[18]</property>
 			<label>Update</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -555,7 +539,7 @@
 		</item>
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Common menu item</label2>
 			<icon>DefaultAddon.png</icon>
@@ -573,7 +557,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31215]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -591,7 +575,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31112]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -609,7 +593,7 @@
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31165]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -627,7 +611,7 @@
 		</item>
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -645,7 +629,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31031]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -663,7 +647,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31059]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -681,7 +665,7 @@
 		</item>
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[744]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -698,7 +682,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[1039]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1258,16 +1242,10 @@
 	<include name="skinshortcuts-group-alt-liveagones-2">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-plugin-video-yoda">
+	<include name="skinshortcuts-group-plugin-video-exodusredux">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-alt-plugin-video-yoda">
-		<description>No items</description>
-	</include>
-	<include name="skinshortcuts-group-mma">
-		<description>No items</description>
-	</include>
-	<include name="skinshortcuts-group-alt-mma">
+	<include name="skinshortcuts-group-alt-plugin-video-exodusredux">
 		<description>No items</description>
 	</include>
 	<include name="skinshortcuts-group-num-18">
@@ -1291,7 +1269,7 @@
 	<include name="skinshortcuts-group-videosubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Common menu item</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1309,7 +1287,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31215]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1327,7 +1305,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31112]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1345,7 +1323,7 @@
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31165]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1365,7 +1343,7 @@
 	<include name="skinshortcuts-group-alt-videosubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Common menu item</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1383,7 +1361,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31215]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1401,7 +1379,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31112]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1419,7 +1397,7 @@
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">20</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31165]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1439,7 +1417,7 @@
 	<include name="skinshortcuts-group-musicsubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1457,7 +1435,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31031]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1475,7 +1453,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31059]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1495,7 +1473,7 @@
 	<include name="skinshortcuts-group-alt-musicsubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1513,7 +1491,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31031]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1531,7 +1509,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">21</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31059]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1551,7 +1529,7 @@
 	<include name="skinshortcuts-group-picturessubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[744]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1568,7 +1546,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[1039]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1587,7 +1565,7 @@
 	<include name="skinshortcuts-group-alt-picturessubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[744]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1604,7 +1582,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[1039]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>

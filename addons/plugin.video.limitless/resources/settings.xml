@@ -68,7 +68,7 @@
         <!-- filtering settings -->
         <setting label="30735" type="lsep"/>
         <setting id="allow_debrid" label="30743" type="bool" default="true"/>
-        <setting id="allow_openload" label="30736" type="bool" default="true"/>
+        <setting id="allow_openload" label="30736" type="bool" default="false"/>
         <setting id="allow_the_video_me" label="30737" type="bool" default="false"/>
         <setting id="allow_vidup_me" label="30738" type="bool" default="false"/>
         <setting label="30760" type="lsep" visible="false"/>

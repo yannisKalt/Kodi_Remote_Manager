@@ -27,20 +27,22 @@ from kodi_six.xbmc import log
 
 from tulip.compat import (
     urllib2, cookielib, urlparse, URLopener, quote_plus, unquote, unicode, unescape, range, basestring, str,
-    urlsplit, urlencode, bytes, is_py3, is_py2, addinfourl
+    urlsplit, urlencode, bytes, is_py3, addinfourl
 )
 
 
 def request(
         url, close=True, redirect=True, error=False, proxy=None, post=None, headers=None, mobile=False, limit=None,
-        referer=None, cookie=None, output='', timeout='30', username=None, password=None, verify=True
+        referer=None, cookie=None, output='', timeout='30', username=None, password=None, verify=True, as_bytes=False
 ):
 
+    try:
+        url = url.decode('utf-8')
+    except Exception:
+        pass
+
     if isinstance(post, dict):
-        if is_py2:
-            post = urlencode(post)
-        elif is_py3:
-            post = bytes(urlencode(post), encoding='utf-8')
+        post = bytes(urlencode(post), encoding='utf-8')
     elif isinstance(post, basestring) and is_py3:
         post = bytes(post, encoding='utf-8')
 
@@ -262,17 +264,27 @@ def request(
         if close is True:
             response.close()
 
-        return result
+        if is_py3 and not as_bytes and isinstance(result, bytes):
+            return result.decode('utf-8')
+        else:
+            return result
 
     except Exception as reason:
         log('Client module failed, reason of failure: ' + repr(reason))
         return
 
 
-def retriever(source, destination, *args):
+def retriever(source, destination, user_agent=None, referer=None, *args):
+
+    if user_agent is None:
+        user_agent = cache.get(randomagent, 12)
 
     class Opener(URLopener):
-        version = cache.get(randomagent, 12)
+        version = user_agent
+
+        def __init__(self):
+            URLopener.__init__(self)
+            self.addheaders = [('User-Agent', self.version), ('Accept', '*/*'), ('Referer', referer)]
 
     Opener().retrieve(source, destination, *args)
 
@@ -432,12 +444,13 @@ def parseDOM(html, name=u"", attrs=None, ret=False):
 
     # log_debug("Name: " + repr(name) + " - Attrs:" + repr(attrs) + " - Ret: " + repr(ret) + " - HTML: " + str(type(html)))
 
-    if isinstance(name, basestring): # Should be handled
+    if isinstance(name, basestring):  # Should be handled
+
         try:
             name = name.decode("utf-8")
         except Exception:
             pass
-            log_debug("Couldn't decode name binary string: " + repr(name))
+            # log_debug("Couldn't decode name binary string: " + repr(name))
 
     if isinstance(html, basestring):
         try:

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.module.tulip" name="Tulip Routine Libraries" version="2.3.5" provider-name="Twilight0">
+<addon id="script.module.tulip" name="Tulip Routine Libraries" version="2.3.11" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.module.kodi-six" version="0.0.2"/>
@@ -18,6 +18,11 @@
 - Added the fuzzywuzzy library for fuzzy string matching
 - Moved all user agent related functions and strings into new user_agent module
 - Added datetime keys for youtube videos
+- Compat module enhancements
+- Cleantitle module enhancements
+- Request function enhancements for python 3
+- Directory module bugfixes
+- Added replace xml codes function
 - Various other tweaks
 
 [B]2.2.X[/B]
