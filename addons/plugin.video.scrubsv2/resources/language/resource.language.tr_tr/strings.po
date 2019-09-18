@@ -1,0 +1,1243 @@
+# Addon Name: Scrubs v2
+# Addon id: plugin.video.scrubsv2
+# Addon Provider: JewBMX
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: scrubsv2\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-03-10 12:00+0000\n"
+"Last-Translator: JewBMX\n"
+"Language-Team: Turkish (http://www.google.com/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+
+msgctxt "#32001"
+msgid "Movies"
+msgstr "filmler"
+
+msgctxt "#32002"
+msgid "TV Shows"
+msgstr "TV Programları"
+
+msgctxt "#32003"
+msgid "My Movies"
+msgstr "Benim filmlerim"
+
+msgctxt "#32004"
+msgid "My TV Shows"
+msgstr "TV Şovlarım"
+
+msgctxt "#32005"
+msgid "New Movies"
+msgstr "Yeni Filmler"
+
+msgctxt "#32006"
+msgid "New Episodes"
+msgstr "Yeni Bölümler"
+
+msgctxt "#32007"
+msgid "Channels"
+msgstr "Kanallar"
+
+msgctxt "#32008"
+msgid "Tools"
+msgstr "Araçlar"
+
+msgctxt "#32009"
+msgid "Downloads"
+msgstr "İndirilenler"
+
+msgctxt "#32010"
+msgid "Search"
+msgstr "Arama"
+
+msgctxt "#32011"
+msgid "Genres"
+msgstr "Türler"
+
+msgctxt "#32012"
+msgid "Year"
+msgstr "Yıl"
+
+msgctxt "#32013"
+msgid "People"
+msgstr "İnsanlar"
+
+msgctxt "#32014"
+msgid "Languages"
+msgstr "duujjil"
+
+msgctxt "#32015"
+msgid "Certificates"
+msgstr "Sertifikalar"
+
+msgctxt "#32016"
+msgid "Networks"
+msgstr "Ağlar"
+
+msgctxt "#32017"
+msgid "People Watching"
+msgstr "İnsanlar izliyor"
+
+msgctxt "#32018"
+msgid "Most Popular"
+msgstr "En popüler"
+
+msgctxt "#32019"
+msgid "Most Voted"
+msgstr "En Oy"
+
+msgctxt "#32020"
+msgid "Box Office"
+msgstr "Gişe"
+
+msgctxt "#32021"
+msgid "Oscar Winners"
+msgstr "Oscar Kazananlar"
+
+msgctxt "#32022"
+msgid "In Theaters"
+msgstr "Sinemalarda"
+
+msgctxt "#32023"
+msgid "Highly Rated"
+msgstr "Yüksek puan"
+
+msgctxt "#32024"
+msgid "Airing Today"
+msgstr "Bugün havalandırma"
+
+msgctxt "#32025"
+msgid "Returning TV Shows"
+msgstr "TV Şovları dönersek"
+
+msgctxt "#32026"
+msgid "New TV Shows"
+msgstr "Yeni TV Programları"
+
+msgctxt "#32027"
+msgid "TV Calendar"
+msgstr "Televizyon Takvim"
+
+msgctxt "#32028"
+msgid "People Search"
+msgstr "İnsan arama"
+
+msgctxt "#32029"
+msgid "People (Movies)"
+msgstr "İnsanlar (Filmler)"
+
+msgctxt "#32030"
+msgid "People (TV)"
+msgstr "İnsanlar (TV)"
+
+msgctxt "#32031"
+msgid "Discover"
+msgstr "keşfedin"
+
+msgctxt "#32032"
+msgid "Collection"
+msgstr "Toplamak"
+
+msgctxt "#32033"
+msgid "Watchlist"
+msgstr "TAKİP"
+
+msgctxt "#32034"
+msgid "IMDb"
+msgstr "IMDb"
+
+msgctxt "#32035"
+msgid "Featured"
+msgstr "Öne çıkan"
+
+msgctxt "#32036"
+msgid "History"
+msgstr "Tarihçe"
+
+msgctxt "#32037"
+msgid "Progress"
+msgstr "İlerleme"
+
+msgctxt "#32038"
+msgid "Episodes"
+msgstr "Bölümler"
+
+msgctxt "#32039"
+msgid "Movie Lists"
+msgstr "Film Listeleri"
+
+msgctxt "#32040"
+msgid "TV Show Lists"
+msgstr "TV Programı Listeleri"
+
+msgctxt "#32041"
+msgid "Episode Lists"
+msgstr "Bölüm Listeleri"
+
+msgctxt "#32042"
+msgid "No Trakt or IMDb account found."
+msgstr "Hiçbir Trakt veya IMDb hesabı bulunamadı."
+
+msgctxt "#32043"
+msgid "[B]SETTINGS[/B] : General"
+msgstr "[B]AYARLAR[/B] : Genel"
+
+msgctxt "#32044"
+msgid "[B]SETTINGS[/B] : Accounts"
+msgstr "[B]AYARLAR[/B] : Hesaplar"
+
+msgctxt "#32045"
+msgid "[B]SETTINGS[/B] : Playback"
+msgstr "[B]AYARLAR[/B] : Çalma"
+
+msgctxt "#32046"
+msgid "[B]SETTINGS[/B] : Subtitles"
+msgstr "[B]AYARLAR[/B] : Alt"
+
+msgctxt "#32047"
+msgid "[B]SETTINGS[/B] : Providers"
+msgstr "[B]AYARLAR[/B] : Sağlayıcıları"
+
+msgctxt "#32048"
+msgid "[B]Scrubs[/B] : Downloads"
+msgstr "[B]Scrubs[/B] : Yükleme"
+
+msgctxt "#32049"
+msgid "[B]Scrubs[/B] : Viewtypes"
+msgstr "[B]Scrubs[/B] : Viewtypes"
+
+msgctxt "#32050"
+msgid "[B]Scrubs[/B] : Clear providers..."
+msgstr "[B]Scrubs[/B] : temizle sağlayıcıları..."
+
+msgctxt "#32051"
+msgid "[B]Scrubs[/B] : Clear metadata..."
+msgstr "[B]Scrubs[/B] : Şeffaf meta..."
+
+msgctxt "#32052"
+msgid "[B]Scrubs[/B] : Clear cache..."
+msgstr "[B]Scrubs[/B] : önbelleği..."
+
+msgctxt "#32053"
+msgid "[I]Next Page[/I]"
+msgstr "[I]Sonraki Sayfa[/I]"
+
+msgctxt "#32054"
+msgid "Seasons"
+msgstr "Mevsimler"
+
+msgctxt "#32055"
+msgid "Season"
+msgstr "Sezon"
+
+msgctxt "#32056"
+msgid "Are you sure?"
+msgstr "Emin misiniz?"
+
+msgctxt "#32057"
+msgid "Process Complete"
+msgstr "Bütün Süreç"
+
+msgctxt "#32058"
+msgid "This will slow down things until they are re-cached!"
+msgstr "onlar yeniden önbelleğe kadar bu işleri yavaşlatacaktır!"
+
+msgctxt "#32059"
+msgid "CLICK HERE TO SAVE VIEW"
+msgstr "VIEW KAYDETMEK TIKLAYINIZ"
+
+msgctxt "#32060"
+msgid "January|February|March|April|May|June|July|August|September|October|November|December"
+msgstr "Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık"
+
+msgctxt "#32061"
+msgid "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday"
+msgstr "Pazartesi|Salı|Cumartesi|Cuma|Cuma|Cumartesi|Pazar"
+
+msgctxt "#32062"
+msgid "[B]%s[/B] : %s"
+msgstr "[B]%s[/B] : %s"
+
+msgctxt "#32063"
+msgid "Play using..."
+msgstr "kullanarak oyna..."
+
+msgctxt "#32064"
+msgid "Auto Play"
+msgstr "Otomatik oynatma"
+
+msgctxt "#32065"
+msgid "Queue item"
+msgstr "kuyruk öğe"
+
+msgctxt "#32066"
+msgid "Watched in Scrubs"
+msgstr "Scrubs içinde İzlenen"
+
+msgctxt "#32067"
+msgid "Unwatched in Scrubs"
+msgstr "Scrubs izlenmemiş"
+
+msgctxt "#32068"
+msgid "Watched in Trakt"
+msgstr "Trakt içinde İzlenen"
+
+msgctxt "#32069"
+msgid "Unwatched in Trakt"
+msgstr "Trakt izlenmemiş"
+
+msgctxt "#32070"
+msgid "Trakt Manager"
+msgstr "Trakt Müdürü"
+
+msgctxt "#32071"
+msgid "Browse Series"
+msgstr "Göz Serisi"
+
+msgctxt "#32072"
+msgid "Refresh"
+msgstr "Yenile"
+
+msgctxt "#32073"
+msgid "[B]TRAKT[/B] : Authorize"
+msgstr "[B]TRAKT[/B] : Yetki vermek"
+
+msgctxt "#32074"
+msgid "[B]HELP[/B]"
+msgstr "[B]YARDIM ET[/B]"
+
+msgctxt "#32301"
+msgid "Enabled"
+msgstr "Etkin"
+
+msgctxt "#32302"
+msgid "Disabled"
+msgstr "engelli"
+
+msgctxt "#32303"
+msgid "User"
+msgstr "kullanıcı"
+
+msgctxt "#32304"
+msgid "Email"
+msgstr "E-posta"
+
+msgctxt "#32305"
+msgid "ID"
+msgstr "İD"
+
+msgctxt "#32306"
+msgid "Authorization..."
+msgstr "yetki..."
+
+msgctxt "#32307"
+msgid "Password"
+msgstr "Parola"
+
+msgctxt "#32308"
+msgid "PIN"
+msgstr "TOPLU İĞNE"
+
+msgctxt "#32309"
+msgid "API"
+msgstr "API"
+
+msgctxt "#32310"
+msgid "General"
+msgstr "Genel"
+
+msgctxt "#32311"
+msgid "Appearance"
+msgstr "Görünüm"
+
+msgctxt "#32312"
+msgid "Providers Timeout"
+msgstr "Sağlayıcıları Zaman Aşımı"
+
+msgctxt "#32313"
+msgid "Indicators"
+msgstr "Göstergeler"
+
+msgctxt "#32314"
+msgid "Local"
+msgstr "Yerel"
+
+msgctxt "#32315"
+msgid "Trakt"
+msgstr "Trakt"
+
+msgctxt "#32316"
+msgid "Info Language"
+msgstr "Bilgi Dil"
+
+msgctxt "#32317"
+msgid "Flatten TV seasons"
+msgstr "Televizyon mevsimleri düzleştirin"
+
+msgctxt "#32318"
+msgid "Enable Fanart"
+msgstr "Çizimlerinizle etkinleştirme"
+
+msgctxt "#32319"
+msgid "Menu"
+msgstr "Menü"
+
+msgctxt "#32320"
+msgid "New Movies"
+msgstr "Yeni Filmler"
+
+msgctxt "#32321"
+msgid "Featured"
+msgstr "Öne çıkan"
+
+msgctxt "#32322"
+msgid "People Watching"
+msgstr "İnsanlar izliyor"
+
+msgctxt "#32323"
+msgid "Most Popular"
+msgstr "En popüler"
+
+msgctxt "#32324"
+msgid "In Theaters"
+msgstr "Sinemalarda"
+
+msgctxt "#32325"
+msgid "New Episodes"
+msgstr "Yeni Bölümler"
+
+msgctxt "#32326"
+msgid "Episodes"
+msgstr "Bölümler"
+
+msgctxt "#32327"
+msgid "Trakt Progress"
+msgstr "Trakt İlerleme"
+
+msgctxt "#32328"
+msgid "Trakt Episodes"
+msgstr "Trakt Bölümler"
+
+msgctxt "#32329"
+msgid "My Lists"
+msgstr "Benim Listeleri"
+
+msgctxt "#32330"
+msgid "Playback"
+msgstr "Playback"
+
+msgctxt "#32331"
+msgid "Default action"
+msgstr "Varsayılan aksiyon"
+
+msgctxt "#32332"
+msgid "Dialog"
+msgstr "diyalog"
+
+msgctxt "#32333"
+msgid "Directory"
+msgstr "rehber"
+
+msgctxt "#32334"
+msgid "Auto Play"
+msgstr "Otomatik oynatma"
+
+msgctxt "#32335"
+msgid "Progress Dialog"
+msgstr "İlerleme diyalog"
+
+msgctxt "#32336"
+msgid "Foreground"
+msgstr "ön plan"
+
+msgctxt "#32337"
+msgid "Background"
+msgstr "Arka fon"
+
+msgctxt "#32338"
+msgid "File Hosting Filters"
+msgstr "Dosya Barındırma Filtreler"
+
+msgctxt "#32339"
+msgid "Max Quality"
+msgstr "Maksimum Kalite"
+
+msgctxt "#32340"
+msgid "SD Hosters in Auto Play"
+msgstr "SD hosterlardan Oto Play"
+
+msgctxt "#32341"
+msgid "Hosters with captchas"
+msgstr "captcha'lar ile hosterlardan"
+
+msgctxt "#32342"
+msgid "Sort by Provider"
+msgstr "Sağlayıcı tarafından sırala"
+
+msgctxt "#32343"
+msgid "When playback starts..."
+msgstr "Ne zaman çalma başlar..."
+
+msgctxt "#32344"
+msgid "Resume Playback"
+msgstr "Çalmaya devam et"
+
+msgctxt "#32345"
+msgid "Providers"
+msgstr "Sağlayıcıları"
+
+msgctxt "#32346"
+msgid "Accounts"
+msgstr "Hesaplar"
+
+msgctxt "#32347"
+msgid "Downloads"
+msgstr "İndirilenler"
+
+msgctxt "#32348"
+msgid "Enable downloads"
+msgstr "İndirmeleri etkinleştir"
+
+msgctxt "#32349"
+msgid "Movies"
+msgstr "filmler"
+
+msgctxt "#32350"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#32351"
+msgid "Downloading features are disabled by default."
+msgstr "İndirme özellikleri varsayılan olarak devre dışıdır."
+
+msgctxt "#32352"
+msgid "Set up your download folders in order to enable them."
+msgstr "İndirme klasörlerinizi etkinleştirmek için ayarlayın."
+
+msgctxt "#32353"
+msgid "Subtitles"
+msgstr "Altyazı"
+
+msgctxt "#32354"
+msgid "Enable subtitles"
+msgstr "Altyazıları etkinleştir"
+
+msgctxt "#32355"
+msgid "Convert subtitles to UTF-8"
+msgstr "Altyazıları UTF-8'e dönüştür"
+
+msgctxt "#32356"
+msgid "Primary Language"
+msgstr "Birincil dil"
+
+msgctxt "#32357"
+msgid "Secondary Language"
+msgstr "İkincil dil"
+
+msgctxt "#32358"
+msgid "Subtitles could be unavailable or out of sync."
+msgstr "Altyazılar kullanılamıyor veya senkronizasyon dışında olabilir."
+
+msgctxt "#32359"
+msgid "In that case use your own subtitles."
+msgstr "Bu durumda kendi altyazınızı kullanın."
+
+msgctxt "#32360"
+msgid "Providers Language"
+msgstr "Sağlayıcıları Dil"
+
+msgctxt "#32363"
+msgid "HEVC"
+msgstr "HEVC"
+
+msgctxt "#32372"
+msgid "When playback ends..."
+msgstr "Çalma sona erdiğinde..."
+
+msgctxt "#32373"
+msgid "Force container refresh"
+msgstr "Konteyner yenilemeye zorla"
+
+msgctxt "#32374"
+msgid "Enable Debug"
+msgstr "Hata Ayıklamayı Etkinleştir"
+
+msgctxt "#32375"
+msgid "News and Updates"
+msgstr "Haberler ve Güncellemeler"
+
+msgctxt "#32401"
+msgid "No stream available"
+msgstr "Akış yok"
+
+msgctxt "#32402"
+msgid "Playback outside Scrubs is not allowed"
+msgstr "Scrubs dışında oynatma yapılamaz"
+
+msgctxt "#32403"
+msgid "Download"
+msgstr "İndir"
+
+msgctxt "#32404"
+msgid "Time elapsed: %s seconds"
+msgstr "Geçen süre: %s saniye"
+
+msgctxt "#32405"
+msgid "%s seconds"
+msgstr "%s saniye"
+
+msgctxt "#32406"
+msgid "Remaining providers: %s"
+msgstr "Kalan sağlayıcılar: %s"
+
+msgctxt "#32407"
+msgid "Are you sure?"
+msgstr "Emin misiniz?"
+
+msgctxt "#32408"
+msgid "Process Complete"
+msgstr "İşlem tamamlandı"
+
+msgctxt "#32501"
+msgid "Start from beginning"
+msgstr "Baştan başla"
+
+msgctxt "#32502"
+msgid "Resume from %s"
+msgstr "%s öğesinden devam et"
+
+msgctxt "#32503"
+msgid "Resume"
+msgstr "Devam et"
+
+msgctxt "#32511"
+msgid "An account already exists."
+msgstr "Bir hesap zaten var."
+
+msgctxt "#32512"
+msgid "Do you want to reset?"
+msgstr "Sıfırlamak ister misiniz?"
+
+msgctxt "#32513"
+msgid "1) Visit : [COLOR orange]%s[/COLOR]"
+msgstr "1) Ziyaret etmek : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32514"
+msgid "2) When prompted enter : [COLOR orange]%s[/COLOR]"
+msgstr "2) İstendiğinde girin : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32515"
+msgid "Trakt Manager"
+msgstr "Trakt Müdürü"
+
+msgctxt "#32516"
+msgid "Add to [B]Collection[/B]"
+msgstr "[B]Koleksiyon[/B] 'ye ekle"
+Add to Collection
+msgctxt "#32517"
+msgid "Remove from [B]Collection[/B]"
+msgstr "[B]Koleksiyonu[/B] 'den kaldır"
+
+msgctxt "#32518"
+msgid "Add to [B]Watchlist[/B]"
+msgstr "[B]İzleme listesine[/B] ekle"
+
+msgctxt "#32519"
+msgid "Remove from [B]Watchlist[/B]"
+msgstr "[B]İzleme Listesinden Çıkar[/B]"
+
+msgctxt "#32520"
+msgid "Add to [B]new List[/B]"
+msgstr "[B]yeni listeye ekle[/B]"
+
+msgctxt "#32521"
+msgid "Add to [B]%s[/B]"
+msgstr "[B]%s[/B] 'ye ekle"
+
+msgctxt "#32522"
+msgid "Remove from [B]%s[/B]"
+msgstr "[B]%s[/B] öğesinden kaldır"
+
+msgctxt "#32531"
+msgid "An account already exists."
+msgstr "Bir hesap zaten var."
+
+msgctxt "#32532"
+msgid "Do you want to reset?"
+msgstr "Sıfırlamak istiyor musunuz?"
+
+msgctxt "#32533"
+msgid "1) Visit : [COLOR orange]%s[/COLOR]"
+msgstr "1) Ziyaret etmek : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32534"
+msgid "2) When prompted enter : [COLOR orange]%s[/COLOR]"
+msgstr "2) İstendiğinde girin : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32535"
+msgid "Play Random"
+msgstr "Rastgele Oyna"
+
+msgctxt "#32536"
+msgid "Playing"
+msgstr "Çalma"
+
+msgctxt "#32537"
+msgid "Nothing found to play"
+msgstr "Oynamak için hiçbir şey bulunamadı"
+
+msgctxt "#32538"
+msgid "DEBRID-SERVICE"
+msgstr "DEBRID-HİZMET"
+
+msgctxt "#32539"
+msgid "Debrid Services: Configure in ResolveUrl Settings."
+msgstr "Debrid Services: ResolveUrl Ayarlarında Yapılandır."
+
+msgctxt "#32540"
+msgid "ResolveUrl Settings"
+msgstr "ResolveUrl Ayarlar"
+
+msgctxt "#32541"
+msgid "Library"
+msgstr "Kütüphane"
+
+msgctxt "#32542"
+msgid "Folders will be imported to library if they are added to media sources."
+msgstr "Medya kaynaklarına eklenirse klasörler kütüphaneye içe aktarılır."
+
+msgctxt "#32543"
+msgid "Movies"
+msgstr "Filmler"
+
+msgctxt "#32544"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#32545"
+msgid "Auto update TV Shows"
+msgstr "TV Şovlarını Otomatik Güncelle"
+
+msgctxt "#32546"
+msgid "Show notifications during update"
+msgstr "Güncelleme sırasında bildirimleri göster"
+
+msgctxt "#32547"
+msgid "Update library after adding content"
+msgstr "İçerik ekledikten sonra kütüphaneyi güncelle"
+
+msgctxt "#32548"
+msgid "Avoid creating duplicate content"
+msgstr "Yinelenen içerik oluşturmaktan kaçının"
+
+msgctxt "#32549"
+msgid "Check movie before adding it"
+msgstr "Eklemeden önce filmi kontrol et"
+
+msgctxt "#32550"
+msgid "Check first episode of season before adding it"
+msgstr "Eklemeden önce sezonun ilk bölümünü kontrol et"
+
+msgctxt "#32551"
+msgid "Add to Library"
+msgstr "Kütüphaneye ekle"
+
+msgctxt "#32552"
+msgid "Adding to library..."
+msgstr "Kütüphaneye ekleme..."
+
+msgctxt "#32553"
+msgid "Updating TV shows..."
+msgstr "TV şovları güncelleniyor..."
+
+msgctxt "#32554"
+msgid "Process Complete"
+msgstr "İşlem Tamamlandı"
+
+msgctxt "#32555"
+msgid "Are you sure?"
+msgstr "Emin misiniz?"
+
+msgctxt "#32556"
+msgid "[B]Scrubs[/B] : Library"
+msgstr "[B]Scrubs[/B] : Kütüphane"
+
+msgctxt "#32557"
+msgid "[B]LIBRARY[/B] : Settings"
+msgstr "[B]KÜTÜPHANE[/B] : Ayarlar"
+
+msgctxt "#32558"
+msgid "[B]Scrubs[/B] : Update library..."
+msgstr "[B]Scrubs[/B] : Kütüphaneyi güncelle..."
+
+msgctxt "#32559"
+msgid "[B]Scrubs[/B] : Movie folder..."
+msgstr "[B]Scrubs[/B] : Film klasörü..."
+
+msgctxt "#32560"
+msgid "[B]Scrubs[/B] : TV folder..."
+msgstr "[B]Scrubs[/B] : TV klasörü..."
+
+msgctxt "#32561"
+msgid "[B]TRAKT[/B] : Import Collection..."
+msgstr "[B]TRAKT[/B] : Koleksiyon Al..."
+
+msgctxt "#32562"
+msgid "[B]TRAKT[/B] : Import Watchlist..."
+msgstr "[B]TRAKT[/B] : İzleme Listesini İçe Aktar..."
+
+msgctxt "#32563"
+msgid "[B]TRAKT[/B] : Import TV Collection..."
+msgstr "[B]TRAKT[/B] : TV Koleksiyonunu İçe Aktar..."
+
+msgctxt "#32564"
+msgid "[B]TRAKT[/B] : Import TV Watchlist..."
+msgstr "[B]TRAKT[/B] : TV İzleme Listesini İçe Aktar..."
+
+msgctxt "#32565"
+msgid "Include episodes with unknown air dates"
+msgstr "Bilinmeyen hava tarihlerine sahip bölümleri dahil et"
+
+msgctxt "#32570"
+msgid "Show Unaired Seasons/Episodes"
+msgstr "İstenmeyen mevsimleri/bölümleri göster"
+
+msgctxt "#32571"
+msgid "Hide movies in cinema"
+msgstr "Sinemada filmleri gizle"
+
+msgctxt "#32572"
+msgid "Protected Link. Please enter account credentials in the settings."
+msgstr "Korumalı Bağlantı. Lütfen ayarlara hesap bilgilerini girin."
+
+msgctxt "#32580"
+msgid "Films/TV Movies"
+msgstr "Filmler/TV Filmleri"
+
+msgctxt "#32581"
+msgid "Results Limit"
+msgstr "Sonuç Sınırı"
+
+msgctxt "#32582"
+msgid "Personal API keys provide quicker API responses."
+msgstr "Kişisel API anahtarları daha hızlı API yanıtları sağlar."
+
+msgctxt "#32583"
+msgid "Become a VIP member for many benefits at: https://fanart.tv/vip"
+msgstr "Birçok avantaj için VIP üye olun: https://fanart.tv/vip"
+
+msgctxt "#32584"
+msgid "Sort order for Trakt Watched Progress"
+msgstr "Trakt İzlenen İlerleme için sıralama düzeni"
+
+msgctxt "#32585"
+msgid "Recently aired"
+msgstr "Son zamanlarda yayınlanan"
+
+msgctxt "#32586"
+msgid "Recently watched"
+msgstr "Son izlenenler"
+
+msgctxt "#32587"
+msgid "Show Extra Source Info"
+msgstr "Ekstra Kaynak Bilgilerini Göster"
+
+msgctxt "#32588"
+msgid "Premium Source Identifier Color"
+msgstr "Premium Kaynak Tanımlayıcı Rengi"
+
+msgctxt "#32589"
+msgid "Blue"
+msgstr "Blue"
+
+msgctxt "#32590"
+msgid "Red"
+msgstr "Red"
+
+msgctxt "#32591"
+msgid "Yellow"
+msgstr "Yellow"
+
+msgctxt "#32592"
+msgid "Deep Pink"
+msgstr "Deep Pink"
+
+msgctxt "#32593"
+msgid "Cyan"
+msgstr "Cyan"
+
+msgctxt "#32594"
+msgid "Lawn Green"
+msgstr "Lawn Green"
+
+msgctxt "#32595"
+msgid "Gold"
+msgstr "Gold"
+
+msgctxt "#32596"
+msgid "Magenta"
+msgstr "Magenta"
+
+msgctxt "#32597"
+msgid "Yellow Green"
+msgstr "Yellow Green"
+
+msgctxt "#32598"
+msgid "No Color"
+msgstr "No Color"
+
+msgctxt "#32599"
+msgid "Getting genre information from Trakt"
+msgstr "Trakt'tan tür bilgisi edinme"
+
+msgctxt "#32600"
+msgid "[COLOR orange]Loading...[/COLOR]"
+msgstr "[COLOR orange]Yükleniyor...[/COLOR]"
+
+msgctxt "#32601"
+msgid "Total"
+msgstr "Genel Toplam"
+
+msgctxt "#32602"
+msgid "Waiting for"
+msgstr "İçin beklemek"
+
+msgctxt "#32603"
+msgid "New search..."
+msgstr "Yeni arama..."
+
+msgctxt "#32604"
+msgid "[B]Scrubs[/B] : Clear search history..."
+msgstr "[B]Scrubs[/B] : Arama geçmişini temizle..."
+
+msgctxt "#32605"
+msgid "Click to clear search history"
+msgstr "Arama geçmişini temizlemek için tıklayın"
+
+msgctxt "#32606"
+msgid "[COLOR=yellow]Paid[/COLOR]"
+msgstr "[COLOR=yellow]Ücretli[/COLOR]"
+
+msgctxt "#32607"
+msgid "[COLOR=orange]Free[/COLOR]"
+msgstr "[COLOR=orange]Ücretsiz[/COLOR]"
+
+msgctxt "#32632"
+msgid "Unaired Season/Episode Color"
+msgstr "İstenmeyen Sezon/Bölüm Renk"
+
+msgctxt "#32608"
+msgid "Auto Syncing Trakt Library"
+msgstr "Otomatik Senkronizasyon Trakt Kütüphanesi"
+
+msgctxt "#32609"
+msgid "ResolveUrl Settings"
+msgstr "ResolveUrl Ayarlar"
+
+msgctxt "#32610"
+msgid "Kids Corner"
+msgstr "Çocuk Köşesi"
+
+msgctxt "#32611"
+msgid "Fitness Zone"
+msgstr "Spor Bölgesi"
+
+msgctxt "#32612"
+msgid "Legends of Music"
+msgstr "Müziğin Efsaneleri"
+
+msgctxt "#32613"
+msgid "[B]Scrubs[/B] : Clear All Cache..."
+msgstr "[B]Scrubs[/B] : Tüm Önbelleği Temizle..."
+
+msgctxt "#32614"
+msgid "[B]Scrubs[/B] : Clear Meta Cache..."
+msgstr "[B]Scrubs[/B] : Meta Önbelleği Temizle..."
+
+msgctxt "#32615"
+msgid "Check Host for Valid URL"
+msgstr "Geçerli URL için Ana Bilgisayarı Kontrol Et"
+
+msgctxt "#32616"
+msgid "Debugging"
+msgstr "Hata Ayıklama"
+
+msgctxt "#32617"
+msgid "Debug Log"
+msgstr "Hata ayıklama günlüğü"
+
+msgctxt "#32618"
+msgid "Kodi Log"
+msgstr "Kodi Günlüğü"
+
+msgctxt "#32619"
+msgid "Addon Log"
+msgstr "Eklenti Günlüğü"
+
+msgctxt "#32620"
+msgid "Podcasts"
+msgstr "Podcasts"
+
+msgctxt "#32621"
+msgid "Navigation"
+msgstr "Navigasyon"
+
+msgctxt "#32622"
+msgid "Main Menu"
+msgstr "Ana menü"
+
+msgctxt "#32623"
+msgid "Movie Reviews and Trailers"
+msgstr "Film Yorumları ve Fragmanlar"
+
+msgctxt "#326232"
+msgid "TV Reviews and Trailers"
+msgstr "TV Yorumları ve Fragmanlar"
+
+msgctxt "#32624"
+msgid "PodcastOne"
+msgstr "PodcastOne"
+
+msgctxt "#32625"
+msgid "Featured Podcasts"
+msgstr "Öne Çıkan Podcast'ler"
+
+msgctxt "#32626"
+msgid "New Podcasts"
+msgstr "Yeni Podcast'ler"
+
+msgctxt "#32627"
+msgid "Categories"
+msgstr "Kategoriler"
+
+msgctxt "#32628"
+msgid "[B]SETTINGS[/B] : Navigation"
+msgstr "[B]AYARLAR[/B] : Navigasyon"
+
+msgctxt "#32629"
+msgid "PodBay"
+msgstr "PodBay"
+
+msgctxt "#32630"
+msgid "Show Season 0 in Browse Seasons"
+msgstr "Mevsim 0'a mevsimde göz at"
+
+msgctxt "#32631"
+msgid "Documentaries"
+msgstr "Belgeseller"
+
+msgctxt "#42001"
+msgid "TMDB Lists"
+msgstr "TMDB Listeleri"
+
+msgctxt "#42002"
+msgid "Her Soaps"
+msgstr "Onun Sabunlar"
+
+msgctxt "#42003"
+msgid "IMDB Lists"
+msgstr "IMDB Listeleri"
+
+msgctxt "#42004"
+msgid "More Stuff"
+msgstr "Daha fazla şey"
+
+msgctxt "#42005"
+msgid "--The End--"
+msgstr "--Son--"
+
+msgctxt "#42006"
+msgid "Search Em"
+msgstr "Ara Em"
+
+msgctxt "#42007"
+msgid "Show Changelog"
+msgstr "Değişiklikleri Göster"
+
+msgctxt "#42008"
+msgid "BoxSets"
+msgstr "BoxSets"
+
+msgctxt "#42009"
+msgid "Movie Mosts"
+msgstr "Film Mosts"
+
+msgctxt "#42010"
+msgid "Featured(TMDB)"
+msgstr "Öne(TMDB)"
+
+msgctxt "#42011"
+msgid "Featured(Trakt)"
+msgstr "Öne(Trakt)"
+
+msgctxt "#42012"
+msgid "Popular(TMDB)"
+msgstr "Popüler(TMDB)"
+
+msgctxt "#42013"
+msgid "Top Rated"
+msgstr "En Çok Oy Alan"
+
+msgctxt "#42014"
+msgid "Premiere"
+msgstr "Premiere"
+
+msgctxt "#42015"
+msgid "In Theaters(Old Style)"
+msgstr "Tiyatrolarda(Eski Tarz)"
+
+msgctxt "#42016"
+msgid "In Theaters(TMDB)"
+msgstr "Tiyatrolarda(TMDB)"
+
+msgctxt "#42017"
+msgid "Top Rated(TMDB)"
+msgstr "En Çok Oylanan(TMDB)"
+
+msgctxt "#42018"
+msgid "Most Views(TMDB)"
+msgstr "Çoğu Görünüm(TMDB)"
+
+msgctxt "#42019"
+msgid "TV Show Mosts"
+msgstr "TV Şovu Mosts"
+
+msgctxt "#42020"
+msgid "Airing Today(TMDB)"
+msgstr "Bugün Havalandırılıyor(TMDB)"
+
+msgctxt "#42021"
+msgid "On The Air(TMDB)"
+msgstr "Yayında(TMDB)"
+
+msgctxt "#42022"
+msgid "Premiere(TMDB)"
+msgstr "Premiere(TMDB)"
+
+msgctxt "#42023"
+msgid "IPTV"
+msgstr "IPTV"
+
+msgctxt "#42024"
+msgid "MusicChoice"
+msgstr "MusicChoice"
+
+msgctxt "#42025"
+msgid "Tunes"
+msgstr "Tunes"
+
+msgctxt "#42026"
+msgid "Pair Em"
+msgstr "Em çifti"
+
+msgctxt "#010010"
+msgid "Dev Menu (Used For Lazy Testing!)"
+msgstr "Dev Menu (Tembel Testler İçin Kullanılır!)"
+
+msgctxt "#101011"
+msgid "Under Construction!"
+msgstr "Yapım halinde!"
+
+msgctxt "#32634"
+msgid "Torrent Source Identifier Color"
+msgstr "Torrent Kaynak Tanımlayıcı Rengi"
+
+msgctxt "#32635"
+msgid "Torrent Support"
+msgstr "Torrent Desteği"
+
+msgctxt "#32636"
+msgid "Enable Torrents Scraping"
+msgstr "Torrent Kazıma İşlemini Etkinleştir"
+
+msgctxt "#32637"
+msgid "Real-Debrid Torrent Settings"
+msgstr "Real-Debrid Torrent Ayarları"
+
+msgctxt "#32638"
+msgid "Minimum Seeders"
+msgstr "Minimum Tohum Makineleri"
+
+msgctxt "#32639"
+msgid "Sort By Torrent/Premium"
+msgstr "Torrent/Premium'a Göre Sırala"
+
+msgctxt "#32640"
+msgid "Premiumize.me Torrent Settings"
+msgstr "Premiumize.me Torrent Ayarları"
+
+msgctxt "#32641"
+msgid "[B]SETTINGS[/B] : Torrent Support"
+msgstr "[B]AYARLAR[/B] : Torrent Desteği"
+
+msgctxt "#32642"
+msgid "Sky Channels"
+msgstr "Gökyüzü Kanalları"
+
+msgctxt "#32643"
+msgid "Hide movies in cinema: Months to Rollback"
+msgstr ""
+
+msgctxt "#30731"
+msgid "Please wait..."
+msgstr ""
+
+msgctxt "#30726"
+msgid "Opening stream"
+msgstr ""
+
+msgctxt "#30711"
+msgid "Set Movies view"
+msgstr ""
+
+msgctxt "#30712"
+msgid "Set TV Shows view"
+msgstr ""
+
+msgctxt "#30713"
+msgid "Set Seasons view"
+msgstr ""
+
+msgctxt "#30714"
+msgid "Set Episodes view"
+msgstr ""
+
+msgctxt "#30500"
+msgid "[I]Next Page[/I]"
+msgstr ""
+
+msgctxt "#30722"
+msgid "Download item"
+msgstr ""
+
+msgctxt "#30723"
+msgid "Queue item"
+msgstr ""
+
+msgctxt "#30702"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30703"
+msgid "Clear History"
+msgstr ""
+
+msgctxt "#30707"
+msgid "Trailer"
+msgstr ""
+
+msgctxt "#30708"
+msgid "Information"
+msgstr ""
+
+msgctxt "#30705"
+msgid "Unplayable stream"
+msgstr ""
+
+

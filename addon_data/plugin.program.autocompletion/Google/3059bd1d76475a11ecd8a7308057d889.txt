@@ -1,0 +1,1 @@
+["https://jewb", ["jewbagel", "jewbacca", "jewbagel ld only", "jewbagel toah", "jewbagel celia", "jebaited", "jewbagel leo", "jewbagel guide", "jewbilee", "jewbellish"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

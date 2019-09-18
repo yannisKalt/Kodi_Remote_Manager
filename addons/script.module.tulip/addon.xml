@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.module.tulip" name="Tulip Routine Libraries" version="2.3.11" provider-name="Twilight0">
+<addon id="script.module.tulip" name="Tulip Routine Libraries" version="2.3.13" provider-name="Twilight0">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
         <import addon="script.module.kodi-six" version="0.0.2"/>
@@ -23,6 +23,9 @@
 - Request function enhancements for python 3
 - Directory module bugfixes
 - Added replace xml codes function
+- Youtube module performance tweaks
+- Update m3u8 modules (thanks globocom)
+- Update user agent strings
 - Various other tweaks
 
 [B]2.2.X[/B]

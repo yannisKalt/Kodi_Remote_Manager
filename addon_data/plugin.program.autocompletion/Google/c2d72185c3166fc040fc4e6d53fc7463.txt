@@ -1,0 +1,1 @@
+["brun", ["bruno mars", "bruno", "bruno mars live", "bruno gaspar", "bruno mars cardi b", "bruno mars lyrics", "bruno mars songs playlist", "bruno mars grenade", "bruno mars gorilla", "bruno mars count on me"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["http://mcteam.tech", [], [], {"google:suggesttype": []}]

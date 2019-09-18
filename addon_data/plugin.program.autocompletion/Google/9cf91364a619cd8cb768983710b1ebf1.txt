@@ -1,1 +1,1 @@
-["Li", ["light", "lil pump", "lil peep", "linkin park", "little mix", "lil bebe", "live", "lil skies", "lil wayne", "light primo"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["Li", ["light", "lil barty", "lil pump", "linkin park", "lil peep", "little mix", "lil tecca", "lil nas x", "lion king", "liverpool"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

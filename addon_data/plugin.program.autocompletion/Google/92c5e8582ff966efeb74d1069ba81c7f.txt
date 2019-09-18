@@ -1,1 +1,1 @@
-["S", ["say my name", "survivor", "shallow", "stray kids", "sia", "shakira", "solo", "songs", "shopping star", "sicko mode"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["S", ["senorita", "smuggler", "star tv", "seniora elis", "solmeister", "someone you loved", "star", "say my name", "slipknot", "songs"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

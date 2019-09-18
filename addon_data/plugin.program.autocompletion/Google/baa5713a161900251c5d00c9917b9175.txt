@@ -1,0 +1,1 @@
+["boss", ["bossa nova", "boss", "boss baby", "bossy", "boss man", "boss full movie", "bossikan", "boss nct", "boss song", "boss katana 50"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

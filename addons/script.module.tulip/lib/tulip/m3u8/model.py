@@ -125,22 +125,23 @@ class M3U8(object):
     '''
 
     simple_attributes = (
-        # obj attribute             # parser attribute
-        ('is_variant',              'is_variant'),
-        ('is_endlist',              'is_endlist'),
-        ('is_i_frames_only',        'is_i_frames_only'),
-        ('target_duration',         'targetduration'),
-        ('media_sequence',          'media_sequence'),
-        ('program_date_time',       'program_date_time'),
+        # obj attribute      # parser attribute
+        ('is_variant',       'is_variant'),
+        ('is_endlist',       'is_endlist'),
+        ('is_i_frames_only', 'is_i_frames_only'),
+        ('target_duration',  'targetduration'),
+        ('media_sequence',   'media_sequence'),
+        ('program_date_time',   'program_date_time'),
         ('is_independent_segments', 'is_independent_segments'),
-        ('version',                 'version'),
-        ('allow_cache',             'allow_cache'),
-        ('playlist_type',           'playlist_type')
+        ('version',          'version'),
+        ('allow_cache',      'allow_cache'),
+        ('playlist_type',    'playlist_type'),
+        ('discontinuity_sequence', 'discontinuity_sequence')
     )
 
-    def __init__(self, content=None, base_path=None, base_uri=None, strict=False):
+    def __init__(self, content=None, base_path=None, base_uri=None, strict=False, custom_tags_parser=None):
         if content is not None:
-            self.data = parse(content, strict)
+            self.data = parse(content, strict, custom_tags_parser)
         else:
             self.data = {}
         self._base_uri = base_uri
@@ -151,13 +152,13 @@ class M3U8(object):
         self._initialize_attributes()
         self.base_path = base_path
 
+
     def _initialize_attributes(self):
-        self.keys = [Key(base_uri=self.base_uri, **params) if params else None
-                     for params in self.data.get('keys', [])]
-        self.segments = SegmentList(
-            [Segment(base_uri=self.base_uri, keyobject=find_key(segment.get('key', {}), self.keys), **segment)
-             for segment in self.data.get('segments', [])])
-        # self.keys = get_uniques([ segment.key for segment in self.segments ])
+        self.keys = [ Key(base_uri=self.base_uri, **params) if params else None
+                      for params in self.data.get('keys', []) ]
+        self.segments = SegmentList([ Segment(base_uri=self.base_uri, keyobject=find_key(segment.get('key', {}), self.keys), **segment)
+                                      for segment in self.data.get('segments', []) ])
+        #self.keys = get_uniques([ segment.key for segment in self.segments ])
         for attr, param in self.simple_attributes:
             setattr(self, attr, self.data.get(param))
 
@@ -168,18 +169,18 @@ class M3U8(object):
                 self.files.append(key.uri)
         self.files.extend(self.segments.uri)
 
-        self.media = MediaList([Media(base_uri=self.base_uri, **media)
-                                for media in self.data.get('media', [])])
+        self.media = MediaList([ Media(base_uri=self.base_uri, **media)
+                                 for media in self.data.get('media', []) ])
 
-        self.playlists = PlaylistList([Playlist(base_uri=self.base_uri, media=self.media, **playlist)
-                                       for playlist in self.data.get('playlists', [])])
+        self.playlists = PlaylistList([ Playlist(base_uri=self.base_uri, media=self.media, **playlist)
+                                        for playlist in self.data.get('playlists', []) ])
 
         self.iframe_playlists = PlaylistList()
         for ifr_pl in self.data.get('iframe_playlists', []):
             self.iframe_playlists.append(IFramePlaylist(base_uri=self.base_uri,
-                                                        uri=ifr_pl['uri'],
-                                                        iframe_stream_info=ifr_pl['iframe_stream_info'])
-                                         )
+                                         uri=ifr_pl['uri'],
+                                         iframe_stream_info=ifr_pl['iframe_stream_info'])
+                                        )
         self.segment_map = self.data.get('segment_map')
 
         start = self.data.get('start', None)
@@ -221,6 +222,7 @@ class M3U8(object):
         self.segments.base_path = self._base_path
         self.playlists.base_path = self._base_path
 
+
     def add_playlist(self, playlist):
         self.is_variant = True
         self.playlists.append(playlist)
@@ -246,6 +248,9 @@ class M3U8(object):
             output.append('#EXT-X-INDEPENDENT-SEGMENTS')
         if self.media_sequence:
             output.append('#EXT-X-MEDIA-SEQUENCE:' + str(self.media_sequence))
+        if self.discontinuity_sequence:
+            output.append('#EXT-X-DISCONTINUITY-SEQUENCE:{}'.format(
+                int_or_float_to_string(self.discontinuity_sequence)))
         if self.allow_cache:
             output.append('#EXT-X-ALLOW-CACHE:' + self.allow_cache.upper())
         if self.version:
@@ -253,14 +258,19 @@ class M3U8(object):
         if self.target_duration:
             output.append('#EXT-X-TARGETDURATION:' +
                           int_or_float_to_string(self.target_duration))
-        if self.program_date_time is not None:
-            output.append('#EXT-X-PROGRAM-DATE-TIME:' + format_date_time(self.program_date_time))
         if not (self.playlist_type is None or self.playlist_type == ''):
             output.append('#EXT-X-PLAYLIST-TYPE:%s' % str(self.playlist_type).upper())
         if self.start:
             output.append(str(self.start))
         if self.is_i_frames_only:
             output.append('#EXT-X-I-FRAMES-ONLY')
+        if self.segment_map:
+            map_output = []
+            if self.segment_map.get('uri'):
+                map_output.append('URI=' + quoted(self.segment_map['uri']))
+            if self.segment_map.get('byterange'):
+                map_output.append('BYTERANGE=' + self.segment_map['byterange'])
+            output.append('#EXT-X-MAP:' + ','.join(map_output))
         if self.is_variant:
             if self.media:
                 output.append(str(self.media))
@@ -304,8 +314,14 @@ class Segment(BasePathMixin):
       title attribute from EXTINF parameter
 
     `program_date_time`
-      Returns the EXT-X-PROGRAM-DATE-TIME as a datetime
+      Returns the EXT-X-PROGRAM-DATE-TIME as a datetime. This field is only set
+      if EXT-X-PROGRAM-DATE-TIME exists for this segment
       http://tools.ietf.org/html/draft-pantos-http-live-streaming-07#section-3.3.5
+
+    `current_program_date_time`
+      Returns a datetime of this segment, either the value of `program_date_time`
+      when EXT-X-PROGRAM-DATE-TIME is set or a calculated value based on previous
+      segments' EXT-X-PROGRAM-DATE-TIME and EXTINF values
 
     `discontinuity`
       Returns a boolean indicating if a EXT-X-DISCONTINUITY tag exists
@@ -333,15 +349,17 @@ class Segment(BasePathMixin):
       Key used to encrypt the segment (EXT-X-KEY)
     '''
 
-    def __init__(self, uri, base_uri, program_date_time=None, duration=None,
-                 title=None, byterange=None, cue_out=False, discontinuity=False, key=None,
-                 scte35=None, scte35_duration=None, keyobject=None):
+    def __init__(self, uri, base_uri, program_date_time=None, current_program_date_time=None,
+                 duration=None, title=None, byterange=None, cue_out=False,
+                 discontinuity=False, key=None, scte35=None, scte35_duration=None,
+                 keyobject=None):
         self.uri = uri
         self.duration = duration
         self.title = title
         self.base_uri = base_uri
         self.byterange = byterange
         self.program_date_time = program_date_time
+        self.current_program_date_time = current_program_date_time
         self.discontinuity = discontinuity
         self.cue_out = cue_out
         self.scte35 = scte35
@@ -362,9 +380,9 @@ class Segment(BasePathMixin):
 
         if self.discontinuity:
             output.append('#EXT-X-DISCONTINUITY\n')
-            if self.program_date_time:
-                output.append('#EXT-X-PROGRAM-DATE-TIME:%s\n' %
-                              format_date_time(self.program_date_time))
+        if self.program_date_time:
+            output.append('#EXT-X-PROGRAM-DATE-TIME:%s\n' %
+                          format_date_time(self.program_date_time))
         if self.cue_out:
             output.append('#EXT-X-CUE-OUT-CONT\n')
         output.append('#EXTINF:%s,' % int_or_float_to_string(self.duration))
@@ -385,6 +403,7 @@ class Segment(BasePathMixin):
 
 
 class SegmentList(list, GroupedBasePathMixin):
+
     def __str__(self):
         output = []
         last_segment = None
@@ -397,8 +416,10 @@ class SegmentList(list, GroupedBasePathMixin):
     def uri(self):
         return [seg.uri for seg in self]
 
+
     def by_key(self, key):
-        return [segment for segment in self if segment.key == key]
+        return [ segment for segment in self if segment.key == key ]
+
 
 
 class Key(BasePathMixin):
@@ -446,11 +467,11 @@ class Key(BasePathMixin):
         if not other:
             return False
         return self.method == other.method and \
-               self.uri == other.uri and \
-               self.iv == other.iv and \
-               self.base_uri == other.base_uri and \
-               self.keyformat == other.keyformat and \
-               self.keyformatversions == other.keyformatversions
+            self.uri == other.uri and \
+            self.iv == other.iv and \
+            self.base_uri == other.base_uri and \
+            self.keyformat == other.keyformat and \
+            self.keyformatversions == other.keyformatversions
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -476,7 +497,7 @@ class Playlist(BasePathMixin):
         self.base_uri = base_uri
 
         resolution = stream_info.get('resolution')
-        if resolution is not None:
+        if resolution != None:
             resolution = resolution.strip('"')
             values = resolution.split('x')
             resolution_pair = (int(values[0]), int(values[1]))
@@ -485,6 +506,9 @@ class Playlist(BasePathMixin):
 
         self.stream_info = StreamInfo(
             bandwidth=stream_info['bandwidth'],
+            video=stream_info.get('video'),
+            audio=stream_info.get('audio'),
+            subtitles=stream_info.get('subtitles'),
             closed_captions=stream_info.get('closed_captions'),
             average_bandwidth=stream_info.get('average_bandwidth'),
             program_id=stream_info.get('program_id'),
@@ -512,7 +536,7 @@ class Playlist(BasePathMixin):
                               self.stream_info.average_bandwidth)
         if self.stream_info.resolution:
             res = str(self.stream_info.resolution[
-                          0]) + 'x' + str(self.stream_info.resolution[1])
+                      0]) + 'x' + str(self.stream_info.resolution[1])
             stream_inf.append('RESOLUTION=' + res)
         if self.stream_info.codecs:
             stream_inf.append('CODECS=' + quoted(self.stream_info.codecs))
@@ -556,7 +580,12 @@ class IFramePlaylist(BasePathMixin):
 
         self.iframe_stream_info = StreamInfo(
             bandwidth=iframe_stream_info.get('bandwidth'),
-            closed_captions=iframe_stream_info.get('closed_captions'),
+            video=iframe_stream_info.get('video'),
+            # Audio, subtitles, and closed captions should not exist in
+            # EXT-X-I-FRAME-STREAM-INF, so just hardcode them to None.
+            audio=None,
+            subtitles=None,
+            closed_captions=None,
             average_bandwidth=None,
             program_id=iframe_stream_info.get('program_id'),
             resolution=resolution_pair,
@@ -583,10 +612,9 @@ class IFramePlaylist(BasePathMixin):
 
         return '#EXT-X-I-FRAME-STREAM-INF:' + ','.join(iframe_stream_inf)
 
-
 StreamInfo = namedtuple(
     'StreamInfo',
-    ['bandwidth', 'closed_captions', 'average_bandwidth', 'program_id', 'resolution', 'codecs']
+    ['bandwidth', 'closed_captions', 'average_bandwidth', 'program_id', 'resolution', 'codecs', 'audio', 'video', 'subtitles']
 )
 
 
@@ -658,13 +686,14 @@ class Media(BasePathMixin):
         if self.characteristics:
             media_out.append('CHARACTERISTICS=' + quoted(self.characteristics))
 
-        return '#EXT-X-MEDIA:' + ','.join(media_out)
+        return ('#EXT-X-MEDIA:' + ','.join(media_out))
 
     def __str__(self):
         return self.dumps()
 
 
 class MediaList(list, GroupedBasePathMixin):
+
     def __str__(self):
         output = [str(playlist) for playlist in self]
         return '\n'.join(output)
@@ -675,12 +704,14 @@ class MediaList(list, GroupedBasePathMixin):
 
 
 class PlaylistList(list, GroupedBasePathMixin):
+
     def __str__(self):
         output = [str(playlist) for playlist in self]
         return '\n'.join(output)
 
 
 class Start(object):
+
     def __init__(self, time_offset, precise=None):
         self.time_offset = float(time_offset)
         self.precise = precise
@@ -702,8 +733,8 @@ def find_key(keydata, keylist):
         if key:
             # Check the intersection of keys and values
             if keydata.get('uri', None) == key.uri and \
-                            keydata.get('method', 'NONE') == key.method and \
-                            keydata.get('iv', None) == key.iv:
+               keydata.get('method', 'NONE') == key.method and \
+               keydata.get('iv', None) == key.iv:
                 return key
     raise KeyError("No key found for key data")
 

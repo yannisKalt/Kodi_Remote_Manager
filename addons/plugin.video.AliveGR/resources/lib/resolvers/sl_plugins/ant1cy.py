@@ -10,8 +10,9 @@ from streamlink.exceptions import NoStreamsError
 
 class Ant1Cy(Plugin):
 
-    _url_re = re.compile(r'https?://www\.ant1\.com\.cy/web-tv-live/')
-    _live_api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
+    _url_re = re.compile(r'https?://w{3}\.ant1\.com\.cy/(?:web-tv-live|webtv/show-page/(?:episodes|episodeinner)/\?show=\d+&episodeID=\d+)/?')
+
+    _api_url = 'https://www.ant1.com.cy/ajax.aspx?m=Atcom.Sites.Ant1iwo.Modules.TokenGenerator&videoURL={0}'
 
     arguments = PluginArguments(PluginArgument("parse_hls", default='true'))
 
@@ -23,18 +24,33 @@ class Ant1Cy(Plugin):
 
         headers = {'User-Agent': CHROME}
 
+        if 'web-tv-live' in self.url:
+            live = True
+        else:
+            live = False
+            self.url = self.url.replace('episodeinner', 'episodes')
+
         get_page = self.session.http.get(self.url, headers=headers)
 
-        try:
-            m3u8 = re.findall("'(.+?)'", list(itertags(get_page.text, 'script'))[-2].text)[1]
-        except IndexError:
-            raise NoStreamsError
+        if live:
 
-        stream = self.session.http.post(self._live_api_url.format(m3u8), headers=headers).text
+            try:
+                m3u8 = re.search("'(.+?)'", list(itertags(get_page.text, 'script'))[-2].text).group(2)
+            except IndexError:
+                raise NoStreamsError
+
+        else:
+
+            m3u8 = re.search("&quot;(http.+?master\.m3u8)&quot;", get_page.text).group(1)
+
+        stream = self.session.http.get(self._api_url.format(m3u8), headers=headers).text
 
         headers.update({"Referer": self.url})
 
-        parse_hls = bool(strtobool(self.get_option('parse_hls')))
+        try:
+            parse_hls = bool(strtobool(self.get_option('parse_hls')))
+        except AttributeError:
+            parse_hls = True
 
         if parse_hls:
             return HLSStream.parse_variant_playlist(self.session, stream, headers=headers)

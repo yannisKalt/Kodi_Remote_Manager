@@ -5,10 +5,12 @@
     <setting id="AliezResolver_enabled" value="true" />
     <setting id="AliezResolver_login" value="true" />
     <setting id="AliezResolver_priority" value="100" />
+    <setting id="AllDebridResolver_cached_only" value="false" />
     <setting id="AllDebridResolver_enabled" value="true" />
     <setting id="AllDebridResolver_login" value="true" />
     <setting id="AllDebridResolver_priority" value="100" />
     <setting id="AllDebridResolver_token" value="" />
+    <setting id="AllDebridResolver_torrents" value="true" />
     <setting id="AmazonCloudResolver_enabled" value="true" />
     <setting id="AmazonCloudResolver_login" value="true" />
     <setting id="AmazonCloudResolver_priority" value="100" />
@@ -27,6 +29,9 @@
     <setting id="CdaResolver_enabled" value="true" />
     <setting id="CdaResolver_login" value="true" />
     <setting id="CdaResolver_priority" value="100" />
+    <setting id="ChromecastResolver_enabled" value="true" />
+    <setting id="ChromecastResolver_login" value="true" />
+    <setting id="ChromecastResolver_priority" value="100" />
     <setting id="ClickNUploadResolver_enabled" value="true" />
     <setting id="ClickNUploadResolver_login" value="true" />
     <setting id="ClickNUploadResolver_priority" value="100" />
@@ -104,9 +109,18 @@
     <setting id="HDvidResolver_enabled" value="true" />
     <setting id="HDvidResolver_login" value="true" />
     <setting id="HDvidResolver_priority" value="100" />
+    <setting id="HXLoadResolver_enabled" value="true" />
+    <setting id="HXLoadResolver_login" value="true" />
+    <setting id="HXLoadResolver_priority" value="100" />
+    <setting id="HolaVidResolver_enabled" value="true" />
+    <setting id="HolaVidResolver_login" value="true" />
+    <setting id="HolaVidResolver_priority" value="100" />
     <setting id="HugefilesResolver_enabled" value="true" />
     <setting id="HugefilesResolver_login" value="true" />
     <setting id="HugefilesResolver_priority" value="100" />
+    <setting id="IDTboxResolver_enabled" value="true" />
+    <setting id="IDTboxResolver_login" value="true" />
+    <setting id="IDTboxResolver_priority" value="100" />
     <setting id="IRShareResolver_enabled" value="true" />
     <setting id="IRShareResolver_login" value="true" />
     <setting id="IRShareResolver_priority" value="100" />
@@ -119,6 +133,18 @@
     <setting id="KhatriResolver_enabled" value="true" />
     <setting id="KhatriResolver_login" value="true" />
     <setting id="KhatriResolver_priority" value="100" />
+    <setting id="LewdHostResolver_enabled" value="true" />
+    <setting id="LewdHostResolver_login" value="true" />
+    <setting id="LewdHostResolver_priority" value="100" />
+    <setting id="LinksnappyResolver_cached_files_only" value="false" />
+    <setting id="LinksnappyResolver_cached_only" value="true" />
+    <setting id="LinksnappyResolver_enabled" value="true" />
+    <setting id="LinksnappyResolver_expiration_timestamp" value="" />
+    <setting id="LinksnappyResolver_login" value="true" />
+    <setting id="LinksnappyResolver_password" value="" />
+    <setting id="LinksnappyResolver_priority" value="100" />
+    <setting id="LinksnappyResolver_torrents" value="true" />
+    <setting id="LinksnappyResolver_username" value="" />
     <setting id="MailRuResolver_enabled" value="true" />
     <setting id="MailRuResolver_login" value="true" />
     <setting id="MailRuResolver_priority" value="100" />
@@ -164,6 +190,9 @@
     <setting id="OneloadResolver_enabled" value="true" />
     <setting id="OneloadResolver_login" value="true" />
     <setting id="OneloadResolver_priority" value="100" />
+    <setting id="OnlyStreamResolver_enabled" value="true" />
+    <setting id="OnlyStreamResolver_login" value="true" />
+    <setting id="OnlyStreamResolver_priority" value="100" />
     <setting id="OpenLoadResolver_auto_update" value="true" />
     <setting id="OpenLoadResolver_enabled" value="true" />
     <setting id="OpenLoadResolver_etag" value="" />
@@ -269,6 +298,9 @@
     <setting id="StreamplayResolver_enabled" value="true" />
     <setting id="StreamplayResolver_login" value="true" />
     <setting id="StreamplayResolver_priority" value="100" />
+    <setting id="StreamvidResolver_enabled" value="true" />
+    <setting id="StreamvidResolver_login" value="true" />
+    <setting id="StreamvidResolver_priority" value="100" />
     <setting id="SuperITUResolver_enabled" value="true" />
     <setting id="SuperITUResolver_login" value="true" />
     <setting id="SuperITUResolver_priority" value="100" />
@@ -338,6 +370,9 @@
     <setting id="VeohResolver_enabled" value="true" />
     <setting id="VeohResolver_login" value="true" />
     <setting id="VeohResolver_priority" value="100" />
+    <setting id="VeryStreamResolver_enabled" value="true" />
+    <setting id="VeryStreamResolver_login" value="true" />
+    <setting id="VeryStreamResolver_priority" value="100" />
     <setting id="VevIoResolver_enabled" value="true" />
     <setting id="VevIoResolver_login" value="true" />
     <setting id="VevIoResolver_priority" value="100" />
@@ -371,6 +406,9 @@
     <setting id="VideaResolver_enabled" value="true" />
     <setting id="VideaResolver_login" value="true" />
     <setting id="VideaResolver_priority" value="100" />
+    <setting id="VideoApneResolver_enabled" value="true" />
+    <setting id="VideoApneResolver_login" value="true" />
+    <setting id="VideoApneResolver_priority" value="100" />
     <setting id="VideoBeeResolver_enabled" value="true" />
     <setting id="VideoBeeResolver_login" value="true" />
     <setting id="VideoBeeResolver_priority" value="100" />
@@ -383,9 +421,15 @@
     <setting id="VideowoodResolver_enabled" value="true" />
     <setting id="VideowoodResolver_login" value="true" />
     <setting id="VideowoodResolver_priority" value="100" />
+    <setting id="VideozResolver_enabled" value="true" />
+    <setting id="VideozResolver_login" value="true" />
+    <setting id="VideozResolver_priority" value="100" />
     <setting id="VideozUpload_enabled" value="true" />
     <setting id="VideozUpload_login" value="true" />
     <setting id="VideozUpload_priority" value="100" />
+    <setting id="VidiaResolver_enabled" value="true" />
+    <setting id="VidiaResolver_login" value="true" />
+    <setting id="VidiaResolver_priority" value="100" />
     <setting id="VidloxResolver_enabled" value="true" />
     <setting id="VidloxResolver_login" value="true" />
     <setting id="VidloxResolver_priority" value="100" />
@@ -413,6 +457,9 @@
     <setting id="VimeoResolver_enabled" value="true" />
     <setting id="VimeoResolver_login" value="true" />
     <setting id="VimeoResolver_priority" value="100" />
+    <setting id="ViuclipsResolver_enabled" value="true" />
+    <setting id="ViuclipsResolver_login" value="true" />
+    <setting id="ViuclipsResolver_priority" value="100" />
     <setting id="VivosxResolver_enabled" value="true" />
     <setting id="VivosxResolver_login" value="true" />
     <setting id="VivosxResolver_priority" value="100" />
@@ -425,6 +472,9 @@
     <setting id="VshareResolver_enabled" value="true" />
     <setting id="VshareResolver_login" value="true" />
     <setting id="VshareResolver_priority" value="100" />
+    <setting id="VuptoResolver_enabled" value="true" />
+    <setting id="VuptoResolver_login" value="true" />
+    <setting id="VuptoResolver_priority" value="100" />
     <setting id="WaawResolver_enabled" value="true" />
     <setting id="WaawResolver_login" value="true" />
     <setting id="WaawResolver_priority" value="100" />
@@ -434,6 +484,9 @@
     <setting id="WeShareResolver_enabled" value="true" />
     <setting id="WeShareResolver_login" value="true" />
     <setting id="WeShareResolver_priority" value="100" />
+    <setting id="XStreamCDNResolver_enabled" value="true" />
+    <setting id="XStreamCDNResolver_login" value="true" />
+    <setting id="XStreamCDNResolver_priority" value="100" />
     <setting id="YourUploadResolver_enabled" value="true" />
     <setting id="YourUploadResolver_login" value="true" />
     <setting id="YourUploadResolver_priority" value="100" />
@@ -449,8 +502,8 @@
     <setting id="allow_popups" value="true" />
     <setting id="allow_universal" value="true" />
     <setting id="auto_pick" value="true" />
-    <setting id="current_ua" value="" />
-    <setting id="last_ua_create" value="0" />
+    <setting id="current_ua" value="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; Win64; x64; Trident/6.0)" />
+    <setting id="last_ua_create" value="1568809083" />
     <setting id="myUpload_enabled" value="true" />
     <setting id="myUpload_login" value="true" />
     <setting id="myUpload_priority" value="100" />

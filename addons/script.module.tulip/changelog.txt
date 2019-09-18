@@ -10,6 +10,9 @@
 - Request function enhancements for python 3
 - Directory module bugfixes
 - Added replace xml codes function
+- Youtube module performance tweaks
+- Update m3u8 modules (thanks globocom)
+- Update user agent strings
 - Various other tweaks
 
 [B]2.2.X[/B]

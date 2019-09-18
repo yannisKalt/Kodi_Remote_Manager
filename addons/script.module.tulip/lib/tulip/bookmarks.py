@@ -25,7 +25,7 @@ from tulip import control
 from tulip.compat import database, str, iteritems
 
 
-def add(url, table=control.bookmarksFile):
+def add(url, _file_=control.bookmarksFile):
 
     try:
 
@@ -44,7 +44,7 @@ def add(url, table=control.bookmarksFile):
         item = repr(item)
 
         control.makeFile(control.dataPath)
-        dbcon = database.connect(table)
+        dbcon = database.connect(_file_)
         dbcur = dbcon.cursor()
         dbcur.execute("CREATE TABLE IF NOT EXISTS bookmark (""dbid TEXT, ""item TEXT, ""UNIQUE(dbid)"");")
         dbcur.execute("DELETE FROM bookmark WHERE dbid = '{}'".format(dbid))
@@ -56,7 +56,7 @@ def add(url, table=control.bookmarksFile):
         pass
 
 
-def delete(url, table=control.bookmarksFile):
+def delete(url, _file_=control.bookmarksFile):
 
     try:
 
@@ -73,7 +73,7 @@ def delete(url, table=control.bookmarksFile):
         dbid = str(dbid.hexdigest())
 
         control.makeFile(control.dataPath)
-        dbcon = database.connect(table)
+        dbcon = database.connect(_file_)
         dbcur = dbcon.cursor()
         dbcur.execute("CREATE TABLE IF NOT EXISTS bookmark (""dbid TEXT, ""item TEXT, ""UNIQUE(dbid)"");")
         dbcur.execute("DELETE FROM bookmark WHERE dbid = '{}'".format(dbid))
@@ -86,12 +86,12 @@ def delete(url, table=control.bookmarksFile):
         pass
 
 
-def get(table=control.bookmarksFile):
+def get(_file_=control.bookmarksFile):
 
     try:
 
         control.makeFile(control.dataPath)
-        dbcon = database.connect(table)
+        dbcon = database.connect(_file_)
         dbcur = dbcon.cursor()
         dbcur.execute("SELECT * FROM bookmark")
         items = dbcur.fetchall()

@@ -1,1 +1,1 @@
-["L", ["luben", "lady gaga", "lil pump", "lil peep", "lana del rey", "linkin park", "logan paul", "last week tonight", "la calin", "lofi"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["L", ["light", "luben", "loco contigo", "lana del rey", "lalala", "logos timis", "lady gaga", "lil pump", "linkin park", "loco"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

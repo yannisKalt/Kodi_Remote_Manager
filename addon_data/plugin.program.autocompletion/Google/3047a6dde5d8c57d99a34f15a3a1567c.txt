@@ -1,0 +1,1 @@
+["http://mcteam.tech/repo", ["http //mcteam.tech/report", "http //mcteam.tech/repot"], [], {"google:suggesttype": ["TAIL", "TAIL"]}]

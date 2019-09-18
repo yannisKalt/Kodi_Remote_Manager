@@ -17,6 +17,7 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
+
 from __future__ import absolute_import, division
 
 from tulip.user_agents import randomagent, random_mobile_agent
@@ -207,6 +208,7 @@ def request(
                 result = '; '.join(['%s=%s' % (i.name, i.value) for i in cookies])
             except Exception:
                 pass
+
             try:
                 result = cf
             except Exception:
@@ -238,19 +240,27 @@ def request(
                 cookie = '; '.join(['%s=%s' % (i.name, i.value) for i in cookies])
             except Exception:
                 pass
+
             try:
                 cookie = cf
             except Exception:
                 pass
+
             content = response.headers
             result = response.read(5242880)
+
+            if is_py3 and not as_bytes and isinstance(result, bytes):
+                result = result.decode('utf-8')
+
             return result, headers, content, cookie
 
         elif output == 'geturl':
             result = response.geturl()
 
         elif output == 'headers':
+
             content = response.headers
+
             return content
 
         else:
@@ -265,9 +275,9 @@ def request(
             response.close()
 
         if is_py3 and not as_bytes and isinstance(result, bytes):
-            return result.decode('utf-8')
-        else:
-            return result
+            result = result.decode('utf-8')
+
+        return result
 
     except Exception as reason:
         log('Client module failed, reason of failure: ' + repr(reason))

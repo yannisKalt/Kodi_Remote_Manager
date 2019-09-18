@@ -1,0 +1,1 @@
+["teen", ["teen wolf", "teen titans", "teen titans go", "teen mom", "teen idle", "teenage dream", "teens react", "teen spirit", "teen vogue", "teen wolf trailer"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

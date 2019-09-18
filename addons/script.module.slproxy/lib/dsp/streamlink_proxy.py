@@ -70,6 +70,7 @@ except ImportError:
             try:
                 from Crypto.Cipher import AES
                 _dec = True
+                _crypto = 'pyCrypto'
             except ImportError:
                 _dec = False
 
@@ -100,8 +101,8 @@ def create_decryptor(self, key, sequence):
             uri = 'http://www.zuom.xyz/k.php?q='+base64.urlsafe_b64encode(zuom_key+base64.urlsafe_b64encode(key.uri))
         elif livecam_key:           
             h = urlparse.urlparse(urllib.unquote(livecam_key)).netloc
-            q = urlparse.urlparse(urllib.unquote(livecam_key)).query            
-            uri = 'http://%s/kaes?q='%h+base64.urlsafe_b64encode(q+base64.b64encode(key.uri))
+            q = urlparse.urlparse(urllib.unquote(livecam_key)).query          
+            uri = 'https://%s/kaesv2?sqa='%h+base64.urlsafe_b64encode(q+base64.b64encode(key.uri))
         elif saw_key:
             if 'foxsportsgo' in key.uri:
                 _tmp = key.uri.split('/')
@@ -258,7 +259,7 @@ class MyHandler(BaseHTTPRequestHandler):
             pass
 
         session = streamlink.session.Streamlink()
-        #session.set_loglevel("debug")
+        session.set_loglevel("debug")
         session.set_logoutput(sys.stdout)
 
         try:
@@ -267,6 +268,7 @@ class MyHandler(BaseHTTPRequestHandler):
             pass
         
         if _dec:
+            #xbmc.log('[StreamLink_Proxy] using %s encryption library'%_crypto) 
             streamlink.stream.hls.HLSStreamWriter.create_decryptor = create_decryptor
             streamlink.stream.hls.HLSStreamWorker.process_sequences = process_sequences            
 
@@ -283,7 +285,9 @@ class MyHandler(BaseHTTPRequestHandler):
                     session.set_option("zoom-key", headers['Referer'].split('?')[1])                    
                 elif 'zuom' in headers['Referer']:
                     session.set_option("zuom-key", headers['Referer'].split('?')[1])
-                elif 'livecamtv' in headers['Referer'] or 'realtimetv' in headers['Referer'] or 'seelive' in headers['Referer']: 
+                elif ('livecamtv' in headers['Referer'] or 'realtimetv' in headers['Referer'] or \
+                        'seelive.me' in headers['Referer']) and ('vw%253D' in headers['Referer'] or \
+                        'vw=' in headers['Referer']): 
                     session.set_option("livecam-key", headers['Referer'])
                     headers.pop('Referer')               
                 elif 'sawlive' in headers['Referer']:

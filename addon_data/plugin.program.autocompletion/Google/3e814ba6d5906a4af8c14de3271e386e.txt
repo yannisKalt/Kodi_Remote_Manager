@@ -1,0 +1,1 @@
+["f", ["fortnite", "fuego", "funny videos", "friends", "fiba", "finem", "faded", "fero", "f academy", "fire on fire"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

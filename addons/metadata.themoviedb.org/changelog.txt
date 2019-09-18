@@ -1,3 +1,9 @@
+[B]5.1.9[/B]
+- fixed: search results
+
+[B]5.1.8[/B]
+- updated: CZ language
+
 [B]5.1.6&5.1.7[/B]
 - changed: fixes for Chinese language 
 

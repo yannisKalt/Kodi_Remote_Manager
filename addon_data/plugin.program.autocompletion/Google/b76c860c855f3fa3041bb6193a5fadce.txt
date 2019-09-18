@@ -1,1 +1,1 @@
-["h", ["happier", "havana", "halsey", "hit or miss", "high hopes", "horses in the back", "h3h3", "house music", "happy", "hindi movies"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["h", ["havana", "happier", "halsey", "hola senorita", "high", "house music", "high hopes", "hindi movies", "happy birthday", "hindi songs"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

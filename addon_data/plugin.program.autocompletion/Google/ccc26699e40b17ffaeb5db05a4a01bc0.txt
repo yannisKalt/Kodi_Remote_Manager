@@ -1,0 +1,1 @@
+["brunete", ["brunetti menu", "broontango", "brunetelul meu frumuselul meu", "bruneteau hockey"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY"]}]

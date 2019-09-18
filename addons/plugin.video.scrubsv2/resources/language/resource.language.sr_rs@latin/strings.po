@@ -1,0 +1,1243 @@
+# Addon Name: Scrubs v2
+# Addon id: plugin.video.scrubsv2
+# Addon Provider: JewBMX
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: scrubsv2\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-03-10 12:00+0000\n"
+"Last-Translator: JewBMX\n"
+"Language-Team: Serbian (http://www.google.com/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+
+msgctxt "#32001"
+msgid "Movies"
+msgstr "Филмови"
+
+msgctxt "#32002"
+msgid "TV Shows"
+msgstr "ТВ емисије"
+
+msgctxt "#32003"
+msgid "My Movies"
+msgstr "Моји филмови"
+
+msgctxt "#32004"
+msgid "My TV Shows"
+msgstr "Моје ТВ емисије"
+
+msgctxt "#32005"
+msgid "New Movies"
+msgstr "Нови филмови"
+
+msgctxt "#32006"
+msgid "New Episodes"
+msgstr "Нове епизоде"
+
+msgctxt "#32007"
+msgid "Channels"
+msgstr "Канали"
+
+msgctxt "#32008"
+msgid "Tools"
+msgstr "Алатке"
+
+msgctxt "#32009"
+msgid "Downloads"
+msgstr "Преузимања"
+
+msgctxt "#32010"
+msgid "Search"
+msgstr "Претрага"
+
+msgctxt "#32011"
+msgid "Genres"
+msgstr "Жанрови"
+
+msgctxt "#32012"
+msgid "Year"
+msgstr "Година"
+
+msgctxt "#32013"
+msgid "People"
+msgstr "Људи"
+
+msgctxt "#32014"
+msgid "Languages"
+msgstr "Језици"
+
+msgctxt "#32015"
+msgid "Certificates"
+msgstr "Сертификати"
+
+msgctxt "#32016"
+msgid "Networks"
+msgstr "Мреже"
+
+msgctxt "#32017"
+msgid "People Watching"
+msgstr "Гледање људи"
+
+msgctxt "#32018"
+msgid "Most Popular"
+msgstr "Најпопуларнији"
+
+msgctxt "#32019"
+msgid "Most Voted"
+msgstr "Највише гласа"
+
+msgctxt "#32020"
+msgid "Box Office"
+msgstr "Благајна"
+
+msgctxt "#32021"
+msgid "Oscar Winners"
+msgstr "Осцар добитници"
+
+msgctxt "#32022"
+msgid "In Theaters"
+msgstr "У биоскопима"
+
+msgctxt "#32023"
+msgid "Highly Rated"
+msgstr "Високо оцењено"
+
+msgctxt "#32024"
+msgid "Airing Today"
+msgstr "Аиринг Тодаи"
+
+msgctxt "#32025"
+msgid "Returning TV Shows"
+msgstr "Враћање ТВ емисија"
+
+msgctxt "#32026"
+msgid "New TV Shows"
+msgstr "Нове ТВ емисије"
+
+msgctxt "#32027"
+msgid "TV Calendar"
+msgstr "ТВ календар"
+
+msgctxt "#32028"
+msgid "People Search"
+msgstr "Претрага људи"
+
+msgctxt "#32029"
+msgid "People (Movies)"
+msgstr "Људи (филмови)"
+
+msgctxt "#32030"
+msgid "People (TV)"
+msgstr "Људи (ТВ)"
+
+msgctxt "#32031"
+msgid "Discover"
+msgstr "Откриј"
+
+msgctxt "#32032"
+msgid "Collection"
+msgstr "Колекција"
+
+msgctxt "#32033"
+msgid "Watchlist"
+msgstr "Списак праћења"
+
+msgctxt "#32034"
+msgid "IMDb"
+msgstr "ИМДб"
+
+msgctxt "#32035"
+msgid "Featured"
+msgstr "Изабран"
+
+msgctxt "#32036"
+msgid "History"
+msgstr "Историја"
+
+msgctxt "#32037"
+msgid "Progress"
+msgstr "Напредак"
+
+msgctxt "#32038"
+msgid "Episodes"
+msgstr "Епизоде"
+
+msgctxt "#32039"
+msgid "Movie Lists"
+msgstr "Листа филмова"
+
+msgctxt "#32040"
+msgid "TV Show Lists"
+msgstr "Листа ТВ емисија"
+
+msgctxt "#32041"
+msgid "Episode Lists"
+msgstr "Листе епизода"
+
+msgctxt "#32042"
+msgid "No Trakt or IMDb account found."
+msgstr "Није пронађен тракт или ИМДб рачун."
+
+msgctxt "#32043"
+msgid "[B]SETTINGS[/B] : General"
+msgstr "[B]СЕТТИНГС[/B] : Опште"
+
+msgctxt "#32044"
+msgid "[B]SETTINGS[/B] : Accounts"
+msgstr "[B]СЕТТИНГС[/B] : Рачуни"
+
+msgctxt "#32045"
+msgid "[B]SETTINGS[/B] : Playback"
+msgstr "[B]СЕТТИНГС[/B] : Репродукција"
+
+msgctxt "#32046"
+msgid "[B]SETTINGS[/B] : Subtitles"
+msgstr "[B]СЕТТИНГС[/B] : Титлови"
+
+msgctxt "#32047"
+msgid "[B]SETTINGS[/B] : Providers"
+msgstr "[B]СЕТТИНГС[/B] : Провидерс"
+
+msgctxt "#32048"
+msgid "[B]Scrubs[/B] : Downloads"
+msgstr "[B]Сцрубс[/B] : Преузимања"
+
+msgctxt "#32049"
+msgid "[B]Scrubs[/B] : Viewtypes"
+msgstr "[B]Сцрубс[/B] : Виевтипес"
+
+msgctxt "#32050"
+msgid "[B]Scrubs[/B] : Clear providers..."
+msgstr "[B]Сцрубс[/B] : Обриши провајдере..."
+
+msgctxt "#32051"
+msgid "[B]Scrubs[/B] : Clear metadata..."
+msgstr "[B]Сцрубс[/B] : Цлеар метадата..."
+
+msgctxt "#32052"
+msgid "[B]Scrubs[/B] : Clear cache..."
+msgstr "[B]Сцрубс[/B] : Цлеар цацхе..."
+
+msgctxt "#32053"
+msgid "[I]Next Page[/I]"
+msgstr "[I]Следећа страна[/I]"
+
+msgctxt "#32054"
+msgid "Seasons"
+msgstr "Годишња доба"
+
+msgctxt "#32055"
+msgid "Season"
+msgstr "Годишње доба"
+
+msgctxt "#32056"
+msgid "Are you sure?"
+msgstr "Да ли сте сигурни?"
+
+msgctxt "#32057"
+msgid "Process Complete"
+msgstr "Процесс Цомплете"
+
+msgctxt "#32058"
+msgid "This will slow down things until they are re-cached!"
+msgstr "Ово ће успорити ствари док се не поново учитају!"
+
+msgctxt "#32059"
+msgid "CLICK HERE TO SAVE VIEW"
+msgstr "КЛИКНИТЕ ОВДЕ да сачувате приказ"
+
+msgctxt "#32060"
+msgid "January|February|March|April|May|June|July|August|September|October|November|December"
+msgstr "Јануар|фебруар|март|април|мај|јун|јул|август|септембар|октобар|новембар|децембар"
+
+msgctxt "#32061"
+msgid "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday"
+msgstr "Понедељак|уторак|среда|четвртак|петак|субота|недјеља"
+
+msgctxt "#32062"
+msgid "[B]%s[/B] : %s"
+msgstr "[B]%s[/B] : %s"
+
+msgctxt "#32063"
+msgid "Play using..."
+msgstr "Репродукуј помоћу..."
+
+msgctxt "#32064"
+msgid "Auto Play"
+msgstr "Аутоматско покретање"
+
+msgctxt "#32065"
+msgid "Queue item"
+msgstr "Ставка реда"
+
+msgctxt "#32066"
+msgid "Watched in Scrubs"
+msgstr "Гледано у пилингу"
+
+msgctxt "#32067"
+msgid "Unwatched in Scrubs"
+msgstr "Унватцхед ин Сцрубс"
+
+msgctxt "#32068"
+msgid "Watched in Trakt"
+msgstr "Гледано у Тракту"
+
+msgctxt "#32069"
+msgid "Unwatched in Trakt"
+msgstr "Унватцхед ин Тракт"
+
+msgctxt "#32070"
+msgid "Trakt Manager"
+msgstr "Тракт менаџер"
+
+msgctxt "#32071"
+msgid "Browse Series"
+msgstr "Прегледај серије"
+
+msgctxt "#32072"
+msgid "Refresh"
+msgstr "Освјежи"
+
+msgctxt "#32073"
+msgid "[B]TRAKT[/B] : Authorize"
+msgstr "[B]ТРАКТ[/B] : Ауторизирај"
+
+msgctxt "#32074"
+msgid "[B]HELP[/B]"
+msgstr "[B]ПОМОЋ[/B]"
+
+msgctxt "#32301"
+msgid "Enabled"
+msgstr "Омогућено"
+
+msgctxt "#32302"
+msgid "Disabled"
+msgstr "Онемогућено"
+
+msgctxt "#32303"
+msgid "User"
+msgstr "Корисник"
+
+msgctxt "#32304"
+msgid "Email"
+msgstr "Е-пошта"
+
+msgctxt "#32305"
+msgid "ID"
+msgstr "ИД"
+
+msgctxt "#32306"
+msgid "Authorization..."
+msgstr "Овлашћење..."
+
+msgctxt "#32307"
+msgid "Password"
+msgstr "Лозинка"
+
+msgctxt "#32308"
+msgid "PIN"
+msgstr "ПИН"
+
+msgctxt "#32309"
+msgid "API"
+msgstr "АПИ"
+
+msgctxt "#32310"
+msgid "General"
+msgstr "Генерал"
+
+msgctxt "#32311"
+msgid "Appearance"
+msgstr "Изглед"
+
+msgctxt "#32312"
+msgid "Providers Timeout"
+msgstr "Тимеоут провајдери"
+
+msgctxt "#32313"
+msgid "Indicators"
+msgstr "Индикатори"
+
+msgctxt "#32314"
+msgid "Local"
+msgstr "Локално"
+
+msgctxt "#32315"
+msgid "Trakt"
+msgstr "Тракт"
+
+msgctxt "#32316"
+msgid "Info Language"
+msgstr "Инфо језик"
+
+msgctxt "#32317"
+msgid "Flatten TV seasons"
+msgstr "Изравнати ТВ сезоне"
+
+msgctxt "#32318"
+msgid "Enable Fanart"
+msgstr "Омогући Фанарт"
+
+msgctxt "#32319"
+msgid "Menu"
+msgstr "Мени"
+
+msgctxt "#32320"
+msgid "New Movies"
+msgstr "Нови филмови"
+
+msgctxt "#32321"
+msgid "Featured"
+msgstr "Изабран"
+
+msgctxt "#32322"
+msgid "People Watching"
+msgstr "Гледање људи"
+
+msgctxt "#32323"
+msgid "Most Popular"
+msgstr "Најпопуларнији"
+
+msgctxt "#32324"
+msgid "In Theaters"
+msgstr "У биоскопима"
+
+msgctxt "#32325"
+msgid "New Episodes"
+msgstr "Нове епизоде"
+
+msgctxt "#32326"
+msgid "Episodes"
+msgstr "Епизоде"
+
+msgctxt "#32327"
+msgid "Trakt Progress"
+msgstr "Тракт Прогресс"
+
+msgctxt "#32328"
+msgid "Trakt Episodes"
+msgstr "Тракт епизоде"
+
+msgctxt "#32329"
+msgid "My Lists"
+msgstr "Моје листе"
+
+msgctxt "#32330"
+msgid "Playback"
+msgstr "Репродукција"
+
+msgctxt "#32331"
+msgid "Default action"
+msgstr "Подразумевана радња"
+
+msgctxt "#32332"
+msgid "Dialog"
+msgstr "Дијалог"
+
+msgctxt "#32333"
+msgid "Directory"
+msgstr "Директоријум"
+
+msgctxt "#32334"
+msgid "Auto Play"
+msgstr "Аутоматско покретање"
+
+msgctxt "#32335"
+msgid "Progress Dialog"
+msgstr "Дијалог напретка"
+
+msgctxt "#32336"
+msgid "Foreground"
+msgstr "Предњи план"
+
+msgctxt "#32337"
+msgid "Background"
+msgstr "Позадина"
+
+msgctxt "#32338"
+msgid "File Hosting Filters"
+msgstr "Филтери за хостинг датотека"
+
+msgctxt "#32339"
+msgid "Max Quality"
+msgstr "Максимални квалитет"
+
+msgctxt "#32340"
+msgid "SD Hosters in Auto Play"
+msgstr "СД домаћини у аутоматској репродукцији"
+
+msgctxt "#32341"
+msgid "Hosters with captchas"
+msgstr "Хостерс витх цаптцхас"
+
+msgctxt "#32342"
+msgid "Sort by Provider"
+msgstr "Сортирај по провајдеру"
+
+msgctxt "#32343"
+msgid "When playback starts..."
+msgstr "Када започне репродукција..."
+
+msgctxt "#32344"
+msgid "Resume Playback"
+msgstr "Настави репродукцију"
+
+msgctxt "#32345"
+msgid "Providers"
+msgstr "Провајдери"
+
+msgctxt "#32346"
+msgid "Accounts"
+msgstr "Налози"
+
+msgctxt "#32347"
+msgid "Downloads"
+msgstr "Преузимања"
+
+msgctxt "#32348"
+msgid "Enable downloads"
+msgstr "Омогући преузимања"
+
+msgctxt "#32349"
+msgid "Movies"
+msgstr "Филмови"
+
+msgctxt "#32350"
+msgid "TV"
+msgstr "ТВ"
+
+msgctxt "#32351"
+msgid "Downloading features are disabled by default."
+msgstr "Функције преузимања су подразумевано онемогућене."
+
+msgctxt "#32352"
+msgid "Set up your download folders in order to enable them."
+msgstr "Поставите мапе за преузимање како бисте их омогућили."
+
+msgctxt "#32353"
+msgid "Subtitles"
+msgstr "Титлови"
+
+msgctxt "#32354"
+msgid "Enable subtitles"
+msgstr "Омогући титлове"
+
+msgctxt "#32355"
+msgid "Convert subtitles to UTF-8"
+msgstr "Претвори титлове у УТФ-8"
+
+msgctxt "#32356"
+msgid "Primary Language"
+msgstr "Примарни језик"
+
+msgctxt "#32357"
+msgid "Secondary Language"
+msgstr "Секундарни језик"
+
+msgctxt "#32358"
+msgid "Subtitles could be unavailable or out of sync."
+msgstr "Титлови могу бити недоступни или синхронизовани."
+
+msgctxt "#32359"
+msgid "In that case use your own subtitles."
+msgstr "У том случају користите властите титлове."
+
+msgctxt "#32360"
+msgid "Providers Language"
+msgstr "Језик провајдера"
+
+msgctxt "#32363"
+msgid "HEVC"
+msgstr "ХЕВЦ"
+
+msgctxt "#32372"
+msgid "When playback ends..."
+msgstr "Када се репродукција заврши..."
+
+msgctxt "#32373"
+msgid "Force container refresh"
+msgstr "Напајање контејнера за силу"
+
+msgctxt "#32374"
+msgid "Enable Debug"
+msgstr "Омогући отклањање грешака"
+
+msgctxt "#32375"
+msgid "News and Updates"
+msgstr "Вести и ажурирања"
+
+msgctxt "#32401"
+msgid "No stream available"
+msgstr "Нема доступног тока"
+
+msgctxt "#32402"
+msgid "Playback outside Scrubs is not allowed"
+msgstr "Репродукција изван скруба није дозвољена"
+
+msgctxt "#32403"
+msgid "Download"
+msgstr "Преузимање"
+
+msgctxt "#32404"
+msgid "Time elapsed: %s seconds"
+msgstr "Време које је протекло: %s секунди"
+
+msgctxt "#32405"
+msgid "%s seconds"
+msgstr "%s секунди"
+
+msgctxt "#32406"
+msgid "Remaining providers: %s"
+msgstr "Преостали провајдери: %s"
+
+msgctxt "#32407"
+msgid "Are you sure?"
+msgstr "Да ли сте сигурни?"
+
+msgctxt "#32408"
+msgid "Process Complete"
+msgstr "Процес је завршен"
+
+msgctxt "#32501"
+msgid "Start from beginning"
+msgstr "Почни од почетка"
+
+msgctxt "#32502"
+msgid "Resume from %s"
+msgstr "Ресуме фром %s"
+
+msgctxt "#32503"
+msgid "Resume"
+msgstr "Резиме"
+
+msgctxt "#32511"
+msgid "An account already exists."
+msgstr "Рачун већ постоји."
+
+msgctxt "#32512"
+msgid "Do you want to reset?"
+msgstr "Желите ли ресетирати?"
+
+msgctxt "#32513"
+msgid "1) Visit : [COLOR orange]%s[/COLOR]"
+msgstr "1) Посета : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32514"
+msgid "2) When prompted enter : [COLOR orange]%s[/COLOR]"
+msgstr "2) Када се то затражи, унесите : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32515"
+msgid "Trakt Manager"
+msgstr "Тракт менаџер"
+
+msgctxt "#32516"
+msgid "Add to [B]Collection[/B]"
+msgstr "Додати [B]Цоллецтион[/B]"
+
+msgctxt "#32517"
+msgid "Remove from [B]Collection[/B]"
+msgstr "Уклони из [B]Цоллецтион[/B]"
+
+msgctxt "#32518"
+msgid "Add to [B]Watchlist[/B]"
+msgstr "Додати [B]Ватцхлист[/B]"
+
+msgctxt "#32519"
+msgid "Remove from [B]Watchlist[/B]"
+msgstr "Уклони из [B]Ватцхлист[/B]"
+
+msgctxt "#32520"
+msgid "Add to [B]new List[/B]"
+msgstr "Додати [B]нова листа[/B]"
+
+msgctxt "#32521"
+msgid "Add to [B]%s[/B]"
+msgstr "Додати [B]%s[/B]"
+
+msgctxt "#32522"
+msgid "Remove from [B]%s[/B]"
+msgstr "Уклони из [B]%s[/B]"
+
+msgctxt "#32531"
+msgid "An account already exists."
+msgstr "Рачун већ постоји."
+
+msgctxt "#32532"
+msgid "Do you want to reset?"
+msgstr "Желите ли ресетирати?"
+
+msgctxt "#32533"
+msgid "1) Visit : [COLOR orange]%s[/COLOR]"
+msgstr "1) Посета : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32534"
+msgid "2) When prompted enter : [COLOR orange]%s[/COLOR]"
+msgstr "2) Када се то затражи, унесите : [COLOR orange]%s[/COLOR]"
+
+msgctxt "#32535"
+msgid "Play Random"
+msgstr "Плаи Рандом"
+
+msgctxt "#32536"
+msgid "Playing"
+msgstr "Играње"
+
+msgctxt "#32537"
+msgid "Nothing found to play"
+msgstr "Ништа пронађено за репродукцију"
+
+msgctxt "#32538"
+msgid "DEBRID-SERVICE"
+msgstr "ДЕБРИД-СЕРВИС"
+
+msgctxt "#32539"
+msgid "Debrid Services: Configure in ResolveUrl Settings."
+msgstr "Дебрид Сервицес: Конфигуришите у РесолвеУрл Сеттингс."
+
+msgctxt "#32540"
+msgid "ResolveUrl Settings"
+msgstr "РесолвеУрл Сеттингс"
+
+msgctxt "#32541"
+msgid "Library"
+msgstr "Библиотека"
+
+msgctxt "#32542"
+msgid "Folders will be imported to library if they are added to media sources."
+msgstr "Мапе ће бити увезене у библиотеку ако се додају медијским изворима."
+
+msgctxt "#32543"
+msgid "Movies"
+msgstr "Филмови"
+
+msgctxt "#32544"
+msgid "TV"
+msgstr "ТВ"
+
+msgctxt "#32545"
+msgid "Auto update TV Shows"
+msgstr "Аутоматско ажурирање ТВ емисија"
+
+msgctxt "#32546"
+msgid "Show notifications during update"
+msgstr "Прикажи обавештења током ажурирања"
+
+msgctxt "#32547"
+msgid "Update library after adding content"
+msgstr "Ажурирај библиотеку након додавања садржаја"
+
+msgctxt "#32548"
+msgid "Avoid creating duplicate content"
+msgstr "Избегавајте стварање дуплираног садржаја"
+
+msgctxt "#32549"
+msgid "Check movie before adding it"
+msgstr "Проверите филм пре него што га додате"
+
+msgctxt "#32550"
+msgid "Check first episode of season before adding it"
+msgstr "Проверите прву епизоду сезоне пре него што је додате
+
+msgctxt "#32551"
+msgid "Add to Library"
+msgstr "Додај у библиотеку"
+
+msgctxt "#32552"
+msgid "Adding to library..."
+msgstr "Додавање у библиотеку..."
+
+msgctxt "#32553"
+msgid "Updating TV shows..."
+msgstr "Ажурирање ТВ емисија..."
+
+msgctxt "#32554"
+msgid "Process Complete"
+msgstr "Процес је завршен"
+
+msgctxt "#32555"
+msgid "Are you sure?"
+msgstr "Да ли сте сигурни?"
+
+msgctxt "#32556"
+msgid "[B]Scrubs[/B] : Library"
+msgstr "[B]Сцрубс[/B] : Либрари"
+
+msgctxt "#32557"
+msgid "[B]LIBRARY[/B] : Settings"
+msgstr "[B]ЛИБРАРИ[/B] : Подешавања"
+
+msgctxt "#32558"
+msgid "[B]Scrubs[/B] : Update library..."
+msgstr "[B]Сцрубс[/B] : Ажурирај библиотеку..."
+
+msgctxt "#32559"
+msgid "[B]Scrubs[/B] : Movie folder..."
+msgstr "[B]Сцрубс[/B] : Мовие фолдер..."
+
+msgctxt "#32560"
+msgid "[B]Scrubs[/B] : TV folder..."
+msgstr "[B]Сцрубс[/B] : ТВ фолдер..."
+
+msgctxt "#32561"
+msgid "[B]TRAKT[/B] : Import Collection..."
+msgstr "[B]ТРАКТ[/B] : Увези колекцију..."
+
+msgctxt "#32562"
+msgid "[B]TRAKT[/B] : Import Watchlist..."
+msgstr "[B]ТРАКТ[/B] : Импорт Ватцх лист..."
+
+msgctxt "#32563"
+msgid "[B]TRAKT[/B] : Import TV Collection..."
+msgstr "[B]ТРАКТ[/B] : Увезите ТВ колекцију..."
+
+msgctxt "#32564"
+msgid "[B]TRAKT[/B] : Import TV Watchlist..."
+msgstr "[B]ТРАКТ[/B] : Импорт ТВ Ватцхлист..."
+
+msgctxt "#32565"
+msgid "Include episodes with unknown air dates"
+msgstr "Укључи епизоде са непознатим датумима емитовања"
+
+msgctxt "#32570"
+msgid "Show Unaired Seasons/Episodes"
+msgstr "Прикажи непознате сезоне/епизоде"
+
+msgctxt "#32571"
+msgid "Hide movies in cinema"
+msgstr "Сакриј филмове у биоскопу"
+
+msgctxt "#32572"
+msgid "Protected Link. Please enter account credentials in the settings."
+msgstr "Заштићена веза. Унесите поставке акоунта у поставкама."
+
+msgctxt "#32580"
+msgid "Films/TV Movies"
+msgstr "Филмови/ТВ филмови"
+
+msgctxt "#32581"
+msgid "Results Limit"
+msgstr "Ограничење резултата"
+
+msgctxt "#32582"
+msgid "Personal API keys provide quicker API responses."
+msgstr "Лични АПИ кључеви обезбеђују брже АПИ одговоре."
+
+msgctxt "#32583"
+msgid "Become a VIP member for many benefits at: https://fanart.tv/vip"
+msgstr "Постаните ВИП члан за многе погодности на: хттпс://фанарт.тв/вип"
+
+msgctxt "#32584"
+msgid "Sort order for Trakt Watched Progress"
+msgstr "Редослед сортирања за тракт гледан напредак"
+
+msgctxt "#32585"
+msgid "Recently aired"
+msgstr "Недавно емитовано"
+
+msgctxt "#32586"
+msgid "Recently watched"
+msgstr "Недавно гледано"
+
+msgctxt "#32587"
+msgid "Show Extra Source Info"
+msgstr "Прикажи екстра информације о извору"
+
+msgctxt "#32588"
+msgid "Premium Source Identifier Color"
+msgstr "Цолор Премиум Идентифиер Цолор"
+
+msgctxt "#32589"
+msgid "Blue"
+msgstr "Blue"
+
+msgctxt "#32590"
+msgid "Red"
+msgstr "Red"
+
+msgctxt "#32591"
+msgid "Yellow"
+msgstr "Yellow"
+
+msgctxt "#32592"
+msgid "Deep Pink"
+msgstr "Deep Pink"
+
+msgctxt "#32593"
+msgid "Cyan"
+msgstr "Cyan"
+
+msgctxt "#32594"
+msgid "Lawn Green"
+msgstr "Lawn Green"
+
+msgctxt "#32595"
+msgid "Gold"
+msgstr "Gold"
+
+msgctxt "#32596"
+msgid "Magenta"
+msgstr "Magenta"
+
+msgctxt "#32597"
+msgid "Yellow Green"
+msgstr "Yellow Green"
+
+msgctxt "#32598"
+msgid "No Color"
+msgstr "No Color"
+
+msgctxt "#32599"
+msgid "Getting genre information from Trakt"
+msgstr "Добијање информација о жанру из Тракт-а"
+
+msgctxt "#32600"
+msgid "[COLOR orange]Loading...[/COLOR]"
+msgstr "[COLOR orange]Лоадинг...[/COLOR]"
+
+msgctxt "#32601"
+msgid "Total"
+msgstr "Укупно"
+
+msgctxt "#32602"
+msgid "Waiting for"
+msgstr "Чекати"
+
+msgctxt "#32603"
+msgid "New search..."
+msgstr "Нова претрага..."
+
+msgctxt "#32604"
+msgid "[B]Scrubs[/B] : Clear search history..."
+msgstr "[B]Сцрубс[/B] : Обриши историју претраге..."
+
+msgctxt "#32605"
+msgid "Click to clear search history"
+msgstr "Кликните да бисте избрисали историју претраге"
+
+msgctxt "#32606"
+msgid "[COLOR=yellow]Paid[/COLOR]"
+msgstr "[COLOR=yellow]Паид[/COLOR]"
+
+msgctxt "#32607"
+msgid "[COLOR=orange]Free[/COLOR]"
+msgstr "[COLOR=orange]бесплатно[/COLOR]"
+
+msgctxt "#32632"
+msgid "Unaired Season/Episode Color"
+msgstr "Унаиред Сеасон/Еписоде Цолор"
+
+msgctxt "#32608"
+msgid "Auto Syncing Trakt Library"
+msgstr "Ауто Синцинг Тракт Либрари"
+
+msgctxt "#32609"
+msgid "ResolveUrl Settings"
+msgstr "РесолвеУрл Сеттингс"
+
+msgctxt "#32610"
+msgid "Kids Corner"
+msgstr "Дечији кутак"
+
+msgctxt "#32611"
+msgid "Fitness Zone"
+msgstr "Фитнесс зона"
+
+msgctxt "#32612"
+msgid "Legends of Music"
+msgstr "Легенде музике"
+
+msgctxt "#32613"
+msgid "[B]Scrubs[/B] : Clear All Cache..."
+msgstr "[B]Сцрубс[/B] : Цлеар Алл Цацхе..."
+
+msgctxt "#32614"
+msgid "[B]Scrubs[/B] : Clear Meta Cache..."
+msgstr "[B]Сцрубс[/B] : Цлеар Мета Цацхе..."
+
+msgctxt "#32615"
+msgid "Check Host for Valid URL"
+msgstr "Провери хост за важећу УРЛ адресу"
+
+msgctxt "#32616"
+msgid "Debugging"
+msgstr "Отклањање грешака"
+
+msgctxt "#32617"
+msgid "Debug Log"
+msgstr "дебуг Лог"
+
+msgctxt "#32618"
+msgid "Kodi Log"
+msgstr "Коди Лог"
+
+msgctxt "#32619"
+msgid "Addon Log"
+msgstr "Аддон Лог"
+
+msgctxt "#32620"
+msgid "Podcasts"
+msgstr "Подцастс"
+
+msgctxt "#32621"
+msgid "Navigation"
+msgstr "Навигација"
+
+msgctxt "#32622"
+msgid "Main Menu"
+msgstr "Главни мени"
+
+msgctxt "#32623"
+msgid "Movie Reviews and Trailers"
+msgstr "Мовие Ревиевс анд Траилерс"
+
+msgctxt "#326232"
+msgid "TV Reviews and Trailers"
+msgstr "ТВ рецензије и приколице"
+
+msgctxt "#32624"
+msgid "PodcastOne"
+msgstr "ПодцастОне"
+
+msgctxt "#32625"
+msgid "Featured Podcasts"
+msgstr "Истакнути подцасти"
+
+msgctxt "#32626"
+msgid "New Podcasts"
+msgstr "Нови подцасти"
+
+msgctxt "#32627"
+msgid "Categories"
+msgstr "Категорије"
+
+msgctxt "#32628"
+msgid "[B]SETTINGS[/B] : Navigation"
+msgstr "[B]СЕТТИНГС[/B] : Навигација"
+
+msgctxt "#32629"
+msgid "PodBay"
+msgstr "ПодБаи"
+
+msgctxt "#32630"
+msgid "Show Season 0 in Browse Seasons"
+msgstr "Прикажи сезону 0 у Бровсе Сеасонс"
+
+msgctxt "#32631"
+msgid "Documentaries"
+msgstr "Документарни"
+
+msgctxt "#42001"
+msgid "TMDB Lists"
+msgstr "ТМДБ Листс"
+
+msgctxt "#42002"
+msgid "Her Soaps"
+msgstr "Њени сапуни"
+
+msgctxt "#42003"
+msgid "IMDB Lists"
+msgstr "ИМДБ листе"
+
+msgctxt "#42004"
+msgid "More Stuff"
+msgstr "Још ствари"
+
+msgctxt "#42005"
+msgid "--The End--"
+msgstr "--Крај--"
+
+msgctxt "#42006"
+msgid "Search Em"
+msgstr "Претражи Ем"
+
+msgctxt "#42007"
+msgid "Show Changelog"
+msgstr "Прикажи измене"
+
+msgctxt "#42008"
+msgid "BoxSets"
+msgstr "БокСетс"
+
+msgctxt "#42009"
+msgid "Movie Mosts"
+msgstr "Филм Мостс"
+
+msgctxt "#42010"
+msgid "Featured(TMDB)"
+msgstr "Истакнуто(ТМДБ)"
+
+msgctxt "#42011"
+msgid "Featured(Trakt)"
+msgstr "Истакнути(Тракт)"
+
+msgctxt "#42012"
+msgid "Popular(TMDB)"
+msgstr "Популарно(ТМДБ)"
+
+msgctxt "#42013"
+msgid "Top Rated"
+msgstr "Најбоље оцењен"
+
+msgctxt "#42014"
+msgid "Premiere"
+msgstr "Премијера"
+
+msgctxt "#42015"
+msgid "In Theaters(Old Style)"
+msgstr "У биоскопима(стари стил)"
+
+msgctxt "#42016"
+msgid "In Theaters(TMDB)"
+msgstr "У биоскопима(ТМДБ)"
+
+msgctxt "#42017"
+msgid "Top Rated(TMDB)"
+msgstr "Најбоље оцењене(ТМДБ)"
+
+msgctxt "#42018"
+msgid "Most Views(TMDB)"
+msgstr "Највише прегледа(ТМДБ)"
+
+msgctxt "#42019"
+msgid "TV Show Mosts"
+msgstr "Већина ТВ емисија"
+
+msgctxt "#42020"
+msgid "Airing Today(TMDB)"
+msgstr "Емитовање данас(ТМДБ)"
+
+msgctxt "#42021"
+msgid "On The Air(TMDB)"
+msgstr "Он тхе Аир(ТМДБ)"
+
+msgctxt "#42022"
+msgid "Premiere(TMDB)"
+msgstr "Премијера(ТМДБ)"
+
+msgctxt "#42023"
+msgid "IPTV"
+msgstr "ИПТВ"
+
+msgctxt "#42024"
+msgid "MusicChoice"
+msgstr "МусицЦхоице"
+
+msgctxt "#42025"
+msgid "Tunes"
+msgstr "Тунес"
+
+msgctxt "#42026"
+msgid "Pair Em"
+msgstr "Паир Ем"
+
+msgctxt "#010010"
+msgid "Dev Menu (Used For Lazy Testing!)"
+msgstr "Дев мени (користи се за тестирање лењости!)"
+
+msgctxt "#101011"
+msgid "Under Construction!"
+msgstr "У изградњи!"
+
+msgctxt "#32634"
+msgid "Torrent Source Identifier Color"
+msgstr "Цолор Цолор Идентифиер Идентифиер"
+
+msgctxt "#32635"
+msgid "Torrent Support"
+msgstr "Торрент Суппорт"
+
+msgctxt "#32636"
+msgid "Enable Torrents Scraping"
+msgstr "Енабле Торрентс Сцрапинг"
+
+msgctxt "#32637"
+msgid "Real-Debrid Torrent Settings"
+msgstr "Реал-Дебрид Сеттингс"
+
+msgctxt "#32638"
+msgid "Minimum Seeders"
+msgstr "Минималне сејалице"
+
+msgctxt "#32639"
+msgid "Sort By Torrent/Premium"
+msgstr "Сортирај по Торренту/Премиуму"
+
+msgctxt "#32640"
+msgid "Premiumize.me Torrent Settings"
+msgstr "Подешавања Торрента за Премиумизе.ме"
+
+msgctxt "#32641"
+msgid "[B]SETTINGS[/B] : Torrent Support"
+msgstr "[B]СЕТТИНГС[/B] : Торрент Суппорт"
+
+msgctxt "#32642"
+msgid "Sky Channels"
+msgstr "Ски Цханнелс"
+
+msgctxt "#32643"
+msgid "Hide movies in cinema: Months to Rollback"
+msgstr ""
+
+msgctxt "#30731"
+msgid "Please wait..."
+msgstr ""
+
+msgctxt "#30726"
+msgid "Opening stream"
+msgstr ""
+
+msgctxt "#30711"
+msgid "Set Movies view"
+msgstr ""
+
+msgctxt "#30712"
+msgid "Set TV Shows view"
+msgstr ""
+
+msgctxt "#30713"
+msgid "Set Seasons view"
+msgstr ""
+
+msgctxt "#30714"
+msgid "Set Episodes view"
+msgstr ""
+
+msgctxt "#30500"
+msgid "[I]Next Page[/I]"
+msgstr ""
+
+msgctxt "#30722"
+msgid "Download item"
+msgstr ""
+
+msgctxt "#30723"
+msgid "Queue item"
+msgstr ""
+
+msgctxt "#30702"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30703"
+msgid "Clear History"
+msgstr ""
+
+msgctxt "#30707"
+msgid "Trailer"
+msgstr ""
+
+msgctxt "#30708"
+msgid "Information"
+msgstr ""
+
+msgctxt "#30705"
+msgid "Unplayable stream"
+msgstr ""
+
+

@@ -747,7 +747,7 @@ def reload_skin():
 def android_activity(url, package=''):
 
     if package:
-        package = '"' + package + '"'
+        package = ''.join(['"', package, '"'])
 
     return execute('StartAndroidActivity({0},"android.intent.action.VIEW","","{1}")'.format(package, url))
 

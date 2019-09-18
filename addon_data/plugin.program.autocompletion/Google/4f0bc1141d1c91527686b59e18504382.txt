@@ -1,0 +1,1 @@
+["g", ["gntm", "gntm 2", "gntm 2019", "gntm 2 \u03b5\u03c0\u03b5\u03b9\u03c3\u03bf\u03b4\u03b9\u03bf 3", "gigi", "gloomy gentlemen", "gntm 16/9", "g bani", "gntm 2 \u03b5\u03c0\u03b5\u03b9\u03c3\u03bf\u03b4\u03b9\u03bf 4", "gntm 16/9/19"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

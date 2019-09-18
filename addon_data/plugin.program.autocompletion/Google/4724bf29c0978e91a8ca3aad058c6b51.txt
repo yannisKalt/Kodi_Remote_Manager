@@ -1,0 +1,1 @@
+["ff", ["ffc", "ffdp", "ff", "fff", "ff7 remake", "ffxiv", "ffvii remake", "ff7", "ff sokol", "ffxiv shadowbringers"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["https://mbebe.github.io/blomq", ["https //mbebe.github.io/blomqvist"], [], {"google:suggesttype": ["TAIL"]}]

@@ -37,12 +37,12 @@ class youtube(object):
 
         self.key_link = '&key={0}'.format(control.setting(api_key_setting) or key)
 
-        self.playlists_link = self.google_base_link + 'playlists?part=snippet&maxResults=50&channelId=%s'
-        self.playlist_link = self.google_base_link + 'playlistItems?part=snippet&maxResults=50&playlistId=%s'
-        self.videos_link = self.google_base_link + 'search?part=snippet&order=date&maxResults=50&channelId=%s'
-        self.content_link = self.google_base_link + 'videos?part=contentDetails&id=%s'
-        self.search_link = self.google_base_link + 'search?part=snippet&type=video&maxResults=5&q=%s'
-        self.youtube_search = self.google_base_link + 'search?q='
+        self.playlists_link = ''.join([self.google_base_link, 'playlists?part=snippet&maxResults=50&channelId={}'])
+        self.playlist_link = ''.join([self.google_base_link, 'playlistItems?part=snippet&maxResults=50&playlistId={}'])
+        self.videos_link = ''.join([self.google_base_link, 'search?part=snippet&order=date&maxResults=50&channelId={}'])
+        self.content_link = ''.join([self.google_base_link, 'videos?part=contentDetails&id={}'])
+        self.search_link = ''.join([self.google_base_link, 'search?part=snippet&type=video&maxResults=5&q={}'])
+        self.youtube_search = ''.join([self.google_base_link, 'search?q={}'])
 
         if not replace_url:
             self.play_link = self.base_link + 'watch?v={}'
@@ -51,19 +51,19 @@ class youtube(object):
 
     def playlists(self, url, limit=5):
 
-        url = self.playlists_link % url + self.key_link
+        url = self.playlists_link.format(''.join([url, self.key_link]))
         return self._playlist(url, limit)
 
     def playlist(self, url, pagination=False, limit=5):
 
         cid = url.split('&')[0]
-        url = self.playlist_link % url + self.key_link
+        url = self.playlist_link.format(''.join([url, self.key_link]))
         return self._video_list(cid, url, pagination, limit)
 
     def videos(self, url, pagination=False, limit=5):
 
         cid = url.split('&')[0]
-        url = self.videos_link % url + self.key_link
+        url = self.videos_link.format(''.join([url, self.key_link]))
         return self._video_list(cid, url, pagination, limit)
 
     def _playlist(self, url, limit):
@@ -193,7 +193,7 @@ class youtube(object):
         try:
             u = [list(range(0, len(self.list)))[i:i+50] for i in list(range(len(list(range(0, len(self.list))))))[::50]]
             u = [','.join([self.list[x]['url'] for x in i]) for i in u]
-            u = [self.content_link % i + self.key_link for i in u]
+            u = [self.content_link.format(''.join([i, self.key_link])) for i in u]
 
             threads = []
             for i in list(range(0, len(u))):
@@ -298,8 +298,8 @@ class youtube(object):
 
         except Exception:
 
-            query = name + append_string
-            query = self.youtube_search + query
+            query = ''.join([name, append_string])
+            query = self.youtube_search.format(query)
             url = self.search(query)
 
             if url is None:
@@ -312,7 +312,7 @@ class youtube(object):
         try:
             query = parse_qs(urlparse(url).query)['q'][0]
 
-            url = self.search_link % quote_plus(query) + self.key_link
+            url = self.search_link.format(''.join([quote_plus(query), self.key_link]))
 
             result = client.request(url)
 
@@ -330,8 +330,8 @@ class youtube(object):
 
         try:
 
-            id = url.split('?v=')[-1].split('/')[-1].split('?')[0].split('&')[0]
-            result = client.request('http://www.youtube.com/watch?v=%s' % id)
+            vid = url.split('?v=')[-1].split('/')[-1].split('?')[0].split('&')[0]
+            result = client.request(''.join([self.base_link, 'watch?v={}'.format(vid)]))
 
             message = client.parseDOM(result, 'div', attrs={'id': 'unavailable-submessage'})
             message = ''.join(message)

@@ -1,0 +1,1 @@
+["ga", ["gango", "gangsta", "gasolina", "gaming music", "gamora", "gacha life", "game theory", "ganja rocks", "gabriel d alex", "gang"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

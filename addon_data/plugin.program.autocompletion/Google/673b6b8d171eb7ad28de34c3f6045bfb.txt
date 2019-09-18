@@ -1,0 +1,1 @@
+["https://mbe", ["mrbeast", "mbe", "mberry", "mpelafon", "mbel", "mbesa", "best", "mbed", "mbemba", "mbean"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

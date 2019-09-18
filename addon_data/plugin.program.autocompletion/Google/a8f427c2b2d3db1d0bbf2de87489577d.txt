@@ -1,1 +1,1 @@
-["ht", ["html", "httyd 3", "htc", "html tutorial", "htgawm", "http injector", "htc vive", "htv", "htb", "html css"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["ht", ["html", "htv", "htc", "html tutorial", "htb", "htan meres", "htgawm", "htrk", "htc u ultra", "htc vive"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

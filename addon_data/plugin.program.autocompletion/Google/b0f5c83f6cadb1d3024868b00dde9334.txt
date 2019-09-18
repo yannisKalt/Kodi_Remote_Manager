@@ -1,0 +1,1 @@
+["br", ["bruno mars", "britney spears", "brawl stars", "bratata", "bryan adams", "breathe", "bruce lee", "breathless", "bring me to life", "brexit"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

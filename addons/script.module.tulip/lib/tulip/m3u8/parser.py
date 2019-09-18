@@ -11,13 +11,12 @@ import datetime
 import itertools
 import re
 from tulip.m3u8 import protocol
-from tulip.compat import izip
+from tulip.compat import zip
 
 '''
 http://tools.ietf.org/html/draft-pantos-http-live-streaming-08#section-3.2
 http://stackoverflow.com/questions/2785755/how-to-split-but-ignore-separators-in-quoted-strings-in-python
 '''
-
 ATTRIBUTELISTPATTERN = re.compile(r'''((?:[^,"']|"[^"]*"|'[^']*')+)''')
 
 
@@ -27,6 +26,7 @@ def cast_date_time(value):
 
 def format_date_time(value):
     return value.isoformat()
+
 
 
 class ParseError(Exception):
@@ -39,7 +39,7 @@ class ParseError(Exception):
         return 'Syntax error in manifest on line %d: %s' % (self.lineno, self.line)
 
 
-def parse(content, strict=False):
+def parse(content, strict=False, custom_tags_parser=None):
     '''
     Given a M3U8 playlist content returns a dictionary with all data found
     '''
@@ -78,11 +78,15 @@ def parse(content, strict=False):
         elif line.startswith(protocol.ext_x_media_sequence):
             _parse_simple_parameter(line, data, int)
 
+        elif line.startswith(protocol.ext_x_discontinuity_sequence):
+            _parse_simple_parameter(line, data, int)
+
         elif line.startswith(protocol.ext_x_program_date_time):
             _, program_date_time = _parse_simple_parameter_raw_value(line, cast_date_time)
             if not data.get('program_date_time'):
                 data['program_date_time'] = program_date_time
             state['current_program_date_time'] = program_date_time
+            state['program_date_time'] = program_date_time
 
         elif line.startswith(protocol.ext_x_discontinuity):
             state['discontinuity'] = True
@@ -153,8 +157,8 @@ def parse(content, strict=False):
 
         # Comments and whitespace
         elif line.startswith('#'):
-            # comment
-            pass
+            if callable(custom_tags_parser):
+                custom_tags_parser(line, data, lineno)
 
         elif line.strip() == '':
             # blank lines are legal
@@ -201,8 +205,10 @@ def _parse_extinf(line, data, state, lineno, strict):
 
 def _parse_ts_chunk(line, data, state):
     segment = state.pop('segment')
+    if state.get('program_date_time'):
+        segment['program_date_time'] = state.pop('program_date_time')
     if state.get('current_program_date_time'):
-        segment['program_date_time'] = state['current_program_date_time']
+        segment['current_program_date_time'] = state['current_program_date_time']
         state['current_program_date_time'] += datetime.timedelta(seconds=segment['duration'])
     segment['uri'] = line
     segment['cue_out'] = state.pop('cue_out', False)
@@ -234,11 +240,10 @@ def _parse_attribute_list(prefix, line, atribute_parser):
 
     return attributes
 
-
 def _parse_stream_inf(line, data, state):
     data['is_variant'] = True
     data['media_sequence'] = None
-    atribute_parser = remove_quotes_parser('codecs', 'audio', 'video', 'subtitles')
+    atribute_parser = remove_quotes_parser('codecs', 'audio', 'video', 'subtitles', 'closed_captions')
     atribute_parser["program_id"] = int
     atribute_parser["bandwidth"] = lambda x: int(float(x))
     atribute_parser["average_bandwidth"] = int
@@ -300,24 +305,21 @@ def _parse_cueout(line, state):
         state['current_cue_out_duration'] = res.group(1)
         state['current_cue_out_scte35'] = res.group(2)
 
-
 def _cueout_elemental(line, state, prevline):
     param, value = line.split(':', 1)
     res = re.match('.*EXT-OATCLS-SCTE35:(.*)$', prevline)
     if res:
-        return res.group(1), value
+        return (res.group(1), value)
     else:
         return None
-
 
 def _cueout_envivio(line, state, prevline):
     param, value = line.split(':', 1)
     res = re.match('.*DURATION=(.*),.*,CUE="(.*)"', value)
     if res:
-        return res.group(2), res.group(1)
+        return (res.group(2), res.group(1))
     else:
         return None
-
 
 def _parse_cueout_start(line, state, prevline):
     _cueout_state = _cueout_elemental(line, state, prevline) or _cueout_envivio(line, state, prevline)
@@ -327,11 +329,11 @@ def _parse_cueout_start(line, state, prevline):
 
 
 def string_to_lines(string):
-    return string.strip().replace('\r\n', '\n').split('\n')
+    return string.strip().splitlines()
 
 
 def remove_quotes_parser(*attrs):
-    return dict(list(izip(attrs, itertools.repeat(remove_quotes))))
+    return dict(zip(attrs, itertools.repeat(remove_quotes)))
 
 
 def remove_quotes(string):
@@ -345,7 +347,7 @@ def remove_quotes(string):
 
     '''
     quotes = ('"', "'")
-    if string and string[0] in quotes and string[-1] in quotes:
+    if string.startswith(quotes) and string.endswith(quotes):
         return string[1:-1]
     return string
 
@@ -355,4 +357,5 @@ def normalize_attribute(attribute):
 
 
 def is_url(uri):
-    return re.match(r'https?://', uri) is not None
+    return uri.startswith(('https://', 'http://'))
+
