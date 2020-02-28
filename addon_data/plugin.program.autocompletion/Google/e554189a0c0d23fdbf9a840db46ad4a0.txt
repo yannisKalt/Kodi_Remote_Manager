@@ -1,0 +1,1 @@
+["tong", ["tongue tied", "tongo", "tongue", "tongue twister", "tongue drum", "tongue piercing", "tongo numb", "tongue tied yungblud", "tonga", "tongue web piercing"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

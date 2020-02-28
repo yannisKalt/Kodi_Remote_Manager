@@ -151,36 +151,6 @@ def _get_keyboard( default="", heading="", hidden=False ):
         return unicode( keyboard.getText(), "utf-8" )
     return default
 
-def GET_LUCKY():
-
-    import random
-    lucky = random.randrange(10)
-    
-    dp = xbmcgui.DialogProgress()
-    
-    if lucky == 1:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]We are getting the moisturiser.[/COLOR]','[COLOR azure]Do you have the wipes ready?[/COLOR]' )
-    elif lucky == 2:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]I am just taking off my pants.[/COLOR]','[COLOR azure]Darn belt![/COLOR]' )
-    elif lucky == 3:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]Are the curtains closed?[/COLOR]','[COLOR azure]Oh baby its cold outside![/COLOR]' )
-    elif lucky == 4:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]This is my fifth time today.[/COLOR]','[COLOR azure]How about you?[/COLOR]' )
-    elif lucky == 5:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]Please no buffer, please no buffer![/COLOR]')
-    elif lucky == 6:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]I think I am going blind :-/[/COLOR]','[COLOR azure]Oh no, just something in my eye.[/COLOR]' )
-    elif lucky == 7:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]Did I turn the oven off?[/COLOR]','[COLOR azure]It can wait![/COLOR]' )
-    elif lucky == 8:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]Your video is coming. Are you?[/COLOR]','[COLOR azure]Do you get it?[/COLOR]' )
-    elif lucky == 9:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]Kodi does not save your browsing history :-D[/COLOR]','[COLOR azure]Thats lucky isnt it :-)[/COLOR]' )
-    else:
-        dp.create(AddonTitle,"[COLOR yellow]Please wait.[/COLOR]",'[COLOR pink]There are more XXX addons by ECHO.[/COLOR]','[COLOR azure]Just so you know.[/COLOR]' )
-
-    return dp
-
 def open_url(url):
     req = urllib2.Request(url)
     if not "referer" in url.lower():
@@ -191,7 +161,7 @@ def open_url(url):
     link=response.read()
     response.close()
     return link
-
+#TC 2/01/19 started
 def addDir(name,url,mode,iconimage,fanartimage):
 
     u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanartimage="+urllib.quote_plus(fanartimage)

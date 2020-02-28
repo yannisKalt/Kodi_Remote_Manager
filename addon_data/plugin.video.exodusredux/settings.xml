@@ -42,8 +42,9 @@
     <setting id="library.update" value="true" />
     <setting id="lists.widget" value="0" />
     <setting id="module.provider" value="Openscrapers Scrapers" />
-    <setting id="movie.download.path" value="" />
+    <setting id="movie.download.path" value="/storage/music/" />
     <setting id="movie.widget" value="4" />
+    <setting id="moviesearch" value="monos&#x0A;λαβυρινθος&#x0A;ip man 4&#x0A;all the money in the world&#x0A;all the money in the world trailer&#x0A;earthquake bird&#x0A;the vast of night&#x0A;vivarium&#x0A;alta mar&#x0A;escape room&#x0A;point blank&#x0A;les miserables&#x0A;the negotiator&#x0A;pansom&#x0A;Υποθεση απαγωγης&#x0A;adults in&#x0A;the game changers&#x0A;bad boys&#x0A;matrix&#x0A;a wrinkle in time&#x0A;maleficent&#x0A;togo&#x0A;tongo&#x0A;dumbo&#x0A;shining&#x0A;love the coopers&#x0A;houdini&#x0A;ali&#x0A;geostorm&#x0A;geostorm (2017)&#x0A;cinderella&#x0A;mary poppins&#x0A;" />
     <setting id="moviesplanet.pass" value="" />
     <setting id="moviesplanet.user" value="" />
     <setting id="navi.channels" value="false" />
@@ -118,5 +119,6 @@
     <setting id="tv.widget" value="1" />
     <setting id="tv.widget.alt" value="2" />
     <setting id="tvdb.user" value="" />
+    <setting id="tvsearch" value="cosmos&#x0A;the affair&#x0A;fighter&#x0A;houdini&#x0A;explained&#x0A;" />
     <setting id="unaired.identify" value="1" />
 </settings>

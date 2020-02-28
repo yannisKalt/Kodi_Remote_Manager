@@ -1,6 +1,16 @@
 {
     "keys": {
-        "developer": {}, 
+        "developer": {
+            "plugin.video.Toronto-Channels": {
+                "main": {
+                    "id": "NDk4Nzg4MTUzMTYxLXBlMzU2dXJocjB1dTJtOThvZDZmNzJrMHZ2Y2RzaWowLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29t", 
+                    "key": "QUl6YVN5QThrMU95TEdmMDNIQk5sMGJ5RDUxMWpyOWNGV28yR1I0", 
+                    "secret": "ZTZSQklGQ1ZoMUZtLUlYODdQVkpqZ1V1", 
+                    "system": "JSONStore"
+                }, 
+                "origin": "plugin.video.Toronto-Channels"
+            }
+        }, 
         "personal": {
             "api_key": "", 
             "client_id": "", 

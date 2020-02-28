@@ -1,0 +1,1 @@
+["stela", ["stela", "stelar parov", "stela smirnia", "stellaris", "stela kalh", "stela gjoka", "stelar", "stella kalli", "stela popescu", "stella k1s"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

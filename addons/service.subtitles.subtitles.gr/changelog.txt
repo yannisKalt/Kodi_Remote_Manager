@@ -1,3 +1,17 @@
+[B]3.0.X[/B]
+- Removed subzxyz (subtitles were moved to opensubtitles.org)
+- Bypassed subtitles.gr/findsubtitles.eu domain completely and removed its setting
+- Added support for subs4free/subs4series, podnapisi
+- Added boolean setting for each site supported
+    > disable for faster searches (subs4free disabled by default)
+- Applied unicode ascii normalization
+- Added setting to sort subs by either subtitle name, source, rating, downloads
+- Results are now cached for two hours in order to reduce subsequent requests
+- Improved debug logging
+- Regex pattern tweaks for queries
+- Performance tweaks
+- Various other tweaks
+
 [B]2.0.Χ[/B]
 - Extraction method for zip files is now performed by python library by default, kodi built-in as fallback
 - Removed notification for broad search terms and tweaked various functions and regexes to allow them

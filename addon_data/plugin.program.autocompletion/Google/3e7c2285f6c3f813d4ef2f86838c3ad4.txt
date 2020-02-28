@@ -1,0 +1,1 @@
+["sk", ["skai", "skrillex", "skyfall", "skepta", "skillet", "skam", "skully", "skyrim", "skin", "skam espa\u00f1a"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["anna", ["anna maria gntm", "anna", "anna vissi", "anna trailer", "anna wintour", "anna kendrick", "anna akana", "anna gntm", "anna mcnulty", "anna vissi live"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

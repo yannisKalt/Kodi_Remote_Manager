@@ -1,0 +1,1 @@
+["http://sta", ["stars", "star wars", "star tv", "stan", "stand by me", "starboy", "stanga", "stay", "stairway to heaven", "stage drama"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -96,6 +96,7 @@
     <setting id="youtube.post.play.rate.playlists" value="false" />
     <setting id="youtube.post.play.refresh" value="false" />
     <setting id="youtube.region" value="US" />
+    <setting id="youtube.search.remote.friendly" value="false" />
     <setting id="youtube.suggested_videos" value="false" />
     <setting id="youtube.view.description.show_channel_name" value="true" />
 </settings>

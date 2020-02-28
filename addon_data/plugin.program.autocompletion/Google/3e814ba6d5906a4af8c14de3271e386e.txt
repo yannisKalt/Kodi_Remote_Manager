@@ -1,1 +1,1 @@
-["f", ["fortnite", "fuego", "funny videos", "friends", "fiba", "finem", "faded", "fero", "f academy", "fire on fire"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["f", ["falling", "fortnite", "fero", "funny videos", "fly me to the moon", "frozen 2", "finem", "frank sinatra", "filma shqiptar", "feliz navidad"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

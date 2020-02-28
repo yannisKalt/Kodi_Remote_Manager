@@ -1,0 +1,1 @@
+["j", ["justin bieber", "juice wrld", "jake paul", "jingle bells", "jazz", "james charles", "joe rogan", "jimmy fallon", "joker", "j balvin"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

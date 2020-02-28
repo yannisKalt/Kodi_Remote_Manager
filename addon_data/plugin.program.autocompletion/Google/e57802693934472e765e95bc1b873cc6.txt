@@ -1,0 +1,1 @@
+["ma", ["manos", "macarena", "mama", "mac miller", "maliatsis cooking", "maluma", "maximum top 10", "markiplier", "maroon 5", "mairiboo"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["cher", ["chernobyl", "cher", "cherry bomb", "cherdleys", "cherry pie", "cher lloyd", "chernobyl soundtrack", "cheryl blossom", "cherry", "cheryl cole"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

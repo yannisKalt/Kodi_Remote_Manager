@@ -11,13 +11,22 @@
     <setting id="chaturbate" value="false" />
     <setting id="clear_favorites" value="" />
     <setting id="clear_keywords" value="" />
+    <setting id="daftsexresolver" value="0" />
     <setting id="dontask" value="false" />
     <setting id="download_path" value="" />
+    <setting id="favsort" value="false" />
+    <setting id="jw_pass" value="" />
+    <setting id="jw_user" value="" />
     <setting id="open_smr_settings" value="" />
     <setting id="paradisehill" value="false" />
+    <setting id="porntrexacct" value="false" />
     <setting id="posterfanart" value="true" />
+    <setting id="pt_pass" value="" />
+    <setting id="pt_user" value="" />
     <setting id="restore_favorites" value="" />
     <setting id="restore_keywords" value="" />
+    <setting id="searchsort" value="false" />
+    <setting id="session" value="417trmg0frkvrcm7kug13qa2q2" />
     <setting id="sortwxf" value="0" />
     <setting id="sortxt" value="0" />
     <setting id="universal_resolvers" value="true" />

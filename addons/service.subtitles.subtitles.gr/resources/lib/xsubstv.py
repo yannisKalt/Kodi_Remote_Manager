@@ -15,18 +15,21 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import re
+from __future__ import print_function
+
+import re, traceback, sys
 from os.path import split as os_split
-from xbmcvfs import rename
-from tulip.compat import urlencode
+from os import rename
+from tulip.compat import urlencode, zip
 from tulip import cache, cleantitle, client, control, log
 
 
-class xsubstv:
+class Xsubstv:
 
     def __init__(self):
 
         self.list = []
+        self.base_link = 'http://www.xsubs.tv'
         self.user = control.setting('xsubstv.user')
         self.password = control.setting('xsubstv.pass')
 
@@ -34,24 +37,26 @@ class xsubstv:
 
         try:
 
-            title, season, episode = re.findall('(.+?) S?(\d+) ?X?E?(\d+)$', query, flags=re.IGNORECASE)[0]
+            title, season, episode = re.findall(r'(.+?) ?s?(\d{1,2}) ?x? ?e?p?(\d{1,2})', query, flags=re.I)[0]
 
-            season, episode = '{0}'.format(season), '{0}'.format(episode)
+            if season.startswith('0'):
+                season = season[-1]
 
-            title = re.sub('^THE\s+|^A\s+', '', title.strip().upper())
+            title = re.sub(r'^THE\s+|^A\s+', '', title.strip().upper())
             title = cleantitle.get(title)
 
-            url = 'http://www.xsubs.tv/series/all.xml'
+            url = ''.join([self.base_link, '/series/all.xml'])
 
             srsid = cache.get(self.cache, 48, url)
             srsid = [i[0] for i in srsid if title == i[1]][0]
 
-            url = 'http://www.xsubs.tv/series/{0}/main.xml'.format(srsid)
+            url = ''.join([self.base_link, '/series/{0}/main.xml'.format(srsid)])
 
             result = client.request(url)
+
             ssnid = client.parseDOM(result, 'series_group', ret='ssnid', attrs={'ssnnum': season})[0]
 
-            url = 'http://www.xsubs.tv/series/{0}/{1}.xml'.format(srsid, ssnid)
+            url = ''.join([self.base_link, '/series/{0}/{1}.xml'.format(srsid, ssnid)])
 
             result = client.request(url)
 
@@ -61,6 +66,10 @@ class xsubstv:
             items = re.findall('(<sr .+?</sr>)', items)
 
         except Exception as e:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
 
             log.log('Xsubs.tv failed at get function, reason: ' + str(e))
 
@@ -74,23 +83,31 @@ class xsubstv:
 
                 if p == '':
 
-                    raise Exception('Parsedom found no match, line 71 @ xsubztv.py')
+                    continue
 
                 name = client.parseDOM(item, 'sr')[0]
                 name = name.rsplit('<hits>', 1)[0]
-                name = re.sub('</.+?><.+?>|<.+?>', ' ', name).strip()
-                name = '{0} {1}'.format(query, name)
-                name = client.replaceHTMLCodes(name)
+                label = re.sub('</.+?><.+?>|<.+?>', ' ', name).strip()
+                label = client.replaceHTMLCodes(label)
+                name = '{0} {1}'.format(client.replaceHTMLCodes(query), label)
                 name = name.encode('utf-8')
 
                 url = client.parseDOM(item, 'sr', ret='rlsid')[0]
-                url = 'http://www.xsubs.tv/xthru/getsub/{0}'.format(url)
+                url = ''.join([self.base_link, '/xthru/getsub/{0}'.format(url)])
                 url = client.replaceHTMLCodes(url)
                 url = url.encode('utf-8')
 
-                self.list.append({'name': name, 'url': url, 'source': 'xsubstv', 'rating': 5})
+                downloads = client.parseDOM(item, 'hits')[0]
+
+                self.list.append(
+                    {'name': name, 'url': url, 'source': 'xsubstv', 'rating': 5, 'downloads': downloads, 'title': label}
+                )
 
             except Exception as e:
+
+                _, __, tb = sys.exc_info()
+
+                print(traceback.print_tb(tb))
 
                 log.log('Xsubs.tv failed at self.list formation function, reason:  ' + str(e))
 
@@ -105,12 +122,16 @@ class xsubstv:
             result = client.request(url)
             result = re.sub(r'[^\x00-\x7F]+', ' ', result)
 
-            result = zip(client.parseDOM(result, 'series', ret='srsid'), client.parseDOM(result, 'series'))
+            result = list(zip(client.parseDOM(result, 'series', ret='srsid'), client.parseDOM(result, 'series')))
             result = [(i[0], cleantitle.get(i[1])) for i in result]
 
             return result
 
         except Exception as e:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
 
             log.log('Xsubs.tv failed at cache function, reason:  ' + str(e))
 
@@ -120,7 +141,7 @@ class xsubstv:
 
         try:
 
-            login = 'http://www.xsubs.tv/xforum/account/signin/'
+            login = ''.join([self.base_link, '/xforum/account/signin/'])
 
             token = client.request(login)
             token = client.parseDOM(token, 'input', ret='value', attrs={'name': 'csrfmiddlewaretoken'})[0]
@@ -135,6 +156,10 @@ class xsubstv:
             return c
 
         except Exception as e:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
 
             log.log('Xsubs.tv failed at cookie function, reason: ' + str(e))
 
@@ -186,6 +211,10 @@ class xsubstv:
             return result
 
         except Exception as e:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
 
             log.log('Xsubstv subtitle download failed for the following reason: ' + str(e))
 

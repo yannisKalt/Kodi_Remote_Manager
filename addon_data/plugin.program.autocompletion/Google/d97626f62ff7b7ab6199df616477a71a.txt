@@ -1,0 +1,1 @@
+["fighte", ["fighter", "fighter in the wind", "fighter pl", "fighter jets", "fighterz", "fighterdome", "fighter movie", "fighter pilot", "fighter glee", "fighter monsta x"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

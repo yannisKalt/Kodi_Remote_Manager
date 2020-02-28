@@ -1,0 +1,1 @@
+["\u03c4\u03bf \u03c3\u03ba\u03bf\u03c4\u03b1\u03b4\u03b9 netflix", ["\u03c4\u03bf \u03c3\u03ba\u03bf\u03c4\u03b1\u03b4\u03b9 netflix"], [], {"google:suggesttype": ["QUERY"]}]

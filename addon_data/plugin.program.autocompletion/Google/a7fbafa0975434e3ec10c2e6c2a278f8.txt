@@ -1,0 +1,1 @@
+["cel", ["celine dion", "celoso", "celtic music", "celebrate", "celebration", "cell block tango", "cello", "celeste", "celtic frost", "celentano"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

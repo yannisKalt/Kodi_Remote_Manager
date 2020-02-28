@@ -1,0 +1,1 @@
+["melania", ["melania trump", "melania", "melania trump interview", "melania trump snl", "melania trump hand", "melania snl", "melania trump funny", "melania trump speaking english", "melanie martinez", "melania trump london"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

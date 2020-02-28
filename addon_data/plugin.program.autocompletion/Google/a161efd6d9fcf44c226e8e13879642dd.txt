@@ -1,0 +1,1 @@
+["cinderella", ["cinderella", "cinderella song", "cinderella story", "cinderella trailer", "cinderella man", "cinderella 2", "cinderella movie", "cinderella 2015", "cinderella soundtrack", "cinderella shake me"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

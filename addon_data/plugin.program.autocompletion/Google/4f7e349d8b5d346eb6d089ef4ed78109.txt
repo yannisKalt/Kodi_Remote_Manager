@@ -1,0 +1,1 @@
+["the aff", ["the affair", "the affair season 5", "the affair season 1", "the affair soundtrack", "the affair season 3", "the affair season 4", "the affair season 1 episode 1", "the affair finale", "the affair season 2", "the affair final scene"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

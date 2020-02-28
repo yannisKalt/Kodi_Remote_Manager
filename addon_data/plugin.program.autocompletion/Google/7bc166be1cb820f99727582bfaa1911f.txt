@@ -1,0 +1,1 @@
+["asmr", ["asmr", "asmr greek", "asmr eating", "asmr sleep", "asmr food", "asmr massage", "asmr glow", "asmr no talking", "asmr haircut", "asmr barber"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

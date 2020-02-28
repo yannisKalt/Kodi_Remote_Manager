@@ -1,5 +1,5 @@
 # Addon Name: THE CREW
-# Addon id: plugin.video.THE CREWbyTHE CREW
+# Addon id: plugin.video.THE CREW byTHE CREW
 # Addon Provider: THE CREW
 # Translators:
 # Translators:
@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: THE CREW\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2019-08-13 03:21+0200\n"
+"PO-Revision-Date: 2019-11-17 20:31+0100\n"
 "Last-Translator: lambda81\n"
 "Language-Team: Dutch (THE CREW)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2\n"
 
 msgctxt "#32000"
 msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Box Sets[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
@@ -65,7 +64,7 @@ msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Kanalen[/COLOR][/B] [COLOR 
 
 msgctxt "#32008"
 msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Tools[/COLOR][/B]"
-msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Gereedschap[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Instellingen[/COLOR][/B]"
 
 msgctxt "#32009"
 msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Downloads[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
@@ -330,6 +329,14 @@ msgstr "[B][COLOR crimson]TRAKT[/COLOR][/B] : AUTORISEREN"
 msgctxt "#32074"
 msgid "[B]HELP[/B]"
 msgstr "[B]HELP[/B]"
+
+msgctxt "#32089"
+msgid "{0} duplicate links removed"
+msgstr "{0} dubbele links verwijderd"
+
+msgctxt "#32090"
+msgid "Filter-out duplicate links"
+msgstr "Verwijder identieke links"
 
 msgctxt "#32301"
 msgid "Enabled"
@@ -917,7 +924,7 @@ msgstr "Haal genre informatie op van Trakt"
 
 msgctxt "#32600"
 msgid "THE CREW Will Find Your Links"
-msgstr "THE CREW Zal Uw Links Vinden"
+msgstr "THE CREW is op zoek naar links"
 
 msgctxt "#32601"
 msgid "Total"
@@ -1626,3 +1633,139 @@ msgstr "24 uur vertraging voor importeren"
 msgctxt "#90135"
 msgid "Enable Debug"
 msgstr "Debug Inschakelen"
+
+msgctxt "#90136"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]TENNIS[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]TENNIS[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90137"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Navigation Home[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Start Navigatie[/COLOR][/B]"
+
+msgctxt "#90138"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Family Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Familie Films[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90139"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]2010 - 2019 Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]2010 - 2019 Films[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90140"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Dreamworks Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Dreamworks Films[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90141"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]IMDB Lists[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]IMDB Lijsten[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90142"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]LFL[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]LFL[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90143"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Food & Brews[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Eten & Drinken[/COLOR][/B]"
+
+msgctxt "#32669"
+msgid "Swift Streamz"
+msgstr "Swift Streams"
+
+msgctxt "#32672"
+msgid "Sort By Channel Name"
+msgstr "Sorteren op naam Kanaal"
+
+msgctxt "#32675"
+msgid "Use Adaptive Stream Player"
+msgstr "Gebruik Adaptive Stream Player"
+
+msgctxt "#32676"
+msgid "Filter out MOV Lists"
+msgstr "Filter MOV lijsten eruit"
+
+msgctxt "#32677"
+msgid "Filter out Sports Lists"
+msgstr "Filter Sports Lijsten eruit"
+
+msgctxt "#32678"
+msgid "Filter out TV Lists"
+msgstr "Filter TV lijsten eruit"
+
+msgctxt "#90144"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Halloween Flicks[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Halloween Films[/COLOR][/B]"
+
+msgctxt "#90145"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Halloween Related Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Halloween gerelateerde Films/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90146"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Halloween Franchise Set[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Halloween Franchise Set[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90147"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]The Top 100 Halloween Movies of All-time[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]De Top 100 Halloween Films Aller Tijden[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90148"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Best Halloween Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]Beste Halloween Films[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90149"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]100 Great Halloween Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR orange]100 Goede Halloween Films[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90150"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]Chains Of Absolution[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]Chains Of Absolution[/COLOR][/B]"
+
+msgctxt "#90151"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]FORMULA 1[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Formule 1[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90152"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]NASCAR[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]NASCAR[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90153"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]PGA[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]PGA[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90154"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]CRICKET[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]CRICKET[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90155"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]Mad Titan[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]Mad Titan[/COLOR][/B]"
+
+msgctxt "#90156"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]NCAAB[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white][/COLOR][COLOR dodgerblue][/COLOR][COLOR white]NCAAB[/COLOR][/B]"
+
+msgctxt "#90157"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR red]Holiday Cheer[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR red]Feestdagen[/COLOR][/B]"
+
+msgctxt "#90158"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Holiday Related Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Decembermaand Films[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90159"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Hallmark Christmas[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Hallmark Kerstmis[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90160"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Random Christmas Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Willekeurige Kerstfilms[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90161"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Top 50 Holiday Movies[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Top 50 Kerstfilms[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90162"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Best Holiday Movies of All Times (as well as some rare finds)[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Beste Decembermaand Films aller Tijden (ook enkele zeldzame)[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]"
+
+msgctxt "#90163"
+msgid "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Kiddo (CDTV)[/COLOR][/B]"
+msgstr "[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Kiddo (CDTV)[/COLOR][/B]"

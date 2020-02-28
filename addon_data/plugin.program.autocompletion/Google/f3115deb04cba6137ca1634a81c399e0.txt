@@ -1,0 +1,1 @@
+["ka", ["karpouzifetagaming", "kako", "karaoke", "kanye west", "katy perry", "kafe tis xaras", "kalinka", "kallisti bee", "karan aujla", "kate yup"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

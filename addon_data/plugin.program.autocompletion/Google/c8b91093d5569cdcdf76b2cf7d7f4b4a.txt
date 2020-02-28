@@ -1,0 +1,1 @@
+["st", ["stephanie soo", "stars", "star tv", "star wars", "stresi", "stan", "stand by me", "stupid", "study music", "still dre"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

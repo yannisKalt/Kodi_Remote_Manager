@@ -1,6 +1,6 @@
 <settings>
     <setting id="confirm_download_path" value="true" />
-    <setting id="core_version" value="2018.11.07" />
+    <setting id="core_version" value="2019.09.12.1" />
     <setting id="debug" value="false" />
     <setting id="disable_dash_video" value="true" />
     <setting id="skip_no_audio" value="true" />

@@ -1,0 +1,1 @@
+["ge", ["germanos", "geo hunter", "george michael", "geeks the greeks", "geo news", "genius", "get low", "getinjo", "get you the moon", "george carlin"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

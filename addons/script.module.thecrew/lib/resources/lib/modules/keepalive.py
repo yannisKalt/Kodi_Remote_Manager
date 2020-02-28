@@ -77,7 +77,7 @@ EXTRA ATTRIBUTES AND METHODS
   easy to distinguish between non-200 responses.  The reason is that
   urllib2 tries to do clever things with error codes 301, 302, 401,
   and 407, and it wraps the object upon return.
-
+  #TC 2/01/19 started
   For python versions earlier than 2.4, you can avoid this fancy error
   handling by setting the module-level global HANDLE_ERRORS to zero.
   You see, prior to 2.4, it's the HTTP Handler's job to determine what

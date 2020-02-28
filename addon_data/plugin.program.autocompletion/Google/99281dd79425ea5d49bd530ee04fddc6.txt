@@ -1,0 +1,1 @@
+["esc", ["escape from tarkov", "escape room", "escanor", "escape the fate", "escape", "escape from tarkov gameplay", "escalate", "escobar fold 1", "escanor theme", "escape plan"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

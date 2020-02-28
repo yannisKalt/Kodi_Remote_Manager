@@ -1,0 +1,1 @@
+["star trek", ["star trek picard", "star trek", "star trek picard trailer", "star trek theme", "star trek discovery", "star trek into darkness", "star trek online", "star trek beyond", "star trek trailer", "star trek enterprise"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

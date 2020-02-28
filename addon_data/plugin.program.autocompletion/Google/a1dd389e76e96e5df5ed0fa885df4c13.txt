@@ -1,0 +1,1 @@
+["http://teamfalcon.", ["http://teamfalcon.exposed/wizard"], [], {"google:suggesttype": ["QUERY"]}]

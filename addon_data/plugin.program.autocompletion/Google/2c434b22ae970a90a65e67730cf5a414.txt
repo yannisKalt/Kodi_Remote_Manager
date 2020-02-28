@@ -1,0 +1,1 @@
+["k", ["klanifornia", "karpouzifetagaming", "konilo", "ksi", "kida", "karaoke", "kanye west", "katy perry", "kafe tis xaras", "kendrick lamar"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

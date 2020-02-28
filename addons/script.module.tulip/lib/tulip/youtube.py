@@ -35,7 +35,7 @@ class youtube(object):
         self.base_addon = 'plugin://plugin.video.youtube/'
         self.google_base_link = 'https://www.googleapis.com/youtube/v3/'
 
-        self.key_link = '&key={0}'.format(control.setting(api_key_setting) or key)
+        self.key_link = '&key={0}'.format(key or control.setting(api_key_setting))
 
         self.playlists_link = ''.join([self.google_base_link, 'playlists?part=snippet&maxResults=50&channelId={}'])
         self.playlist_link = ''.join([self.google_base_link, 'playlistItems?part=snippet&maxResults=50&playlistId={}'])
@@ -45,9 +45,9 @@ class youtube(object):
         self.youtube_search = ''.join([self.google_base_link, 'search?q={}'])
 
         if not replace_url:
-            self.play_link = self.base_link + 'watch?v={}'
+            self.play_link = ''.join([self.base_link, 'watch?v={}'])
         else:
-            self.play_link = self.base_addon + 'play/?video_id={}'
+            self.play_link = ''.join([self.base_addon, 'play/?video_id={}'])
 
     def playlists(self, url, limit=5):
 
@@ -220,18 +220,17 @@ class youtube(object):
 
                 duration = 0
                 try:
-                    duration += 60 * 60 * int(re.findall('(\d*)H', d)[0])
+                    duration += 60 * 60 * int(re.search(r'(\d*)H', d).group(1))
                 except Exception:
                     pass
                 try:
-                    duration += 60 * int(re.findall('(\d*)M', d)[0])
+                    duration += 60 * int(re.search(r'(\d*)M', d).group(1))
                 except Exception:
                     pass
                 try:
-                    duration += int(re.findall('(\d*)S', d)[0])
+                    duration += int(re.search(r'(\d*)S', d).group(1))
                 except Exception:
                     pass
-                duration = str(duration)
 
                 self.list[item]['duration'] = duration
             except Exception:
@@ -269,10 +268,7 @@ class youtube(object):
 
             item.setInfo(type='Video', infoLabels={'title': title})
 
-            if as_script:
-                control.player.play(url, item)
-            else:
-                directory.resolve(url, meta={'title': title}, icon=icon)
+            directory.resolve(url, meta={'title': title}, icon=icon, resolved_mode=not as_script)
 
         except Exception:
 

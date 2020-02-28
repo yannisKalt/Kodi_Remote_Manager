@@ -1,0 +1,1 @@
+["earth", ["earthquake", "earth", "earth song", "earthquake albania", "earthquake ksi", "earthgang", "earthquake bird", "eartha kitt", "earthquake turkey", "earthquake song"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

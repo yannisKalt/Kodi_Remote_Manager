@@ -1,0 +1,1 @@
+["geo", ["geo hunter", "george michael", "geo news", "george carlin", "georgiou", "geo", "geography now", "geometry dash", "georgia", "george lucas"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

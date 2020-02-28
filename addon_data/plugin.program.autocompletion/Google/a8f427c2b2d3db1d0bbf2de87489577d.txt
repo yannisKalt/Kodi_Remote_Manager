@@ -1,1 +1,1 @@
-["ht", ["html", "htv", "htc", "html tutorial", "htb", "htan meres", "htgawm", "htrk", "htc u ultra", "htc vive"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["ht", ["html", "htb", "htv", "html tutorial", "htgawm", "htc", "htc vive", "htan ena mikro karavi", "html css", "httyd"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

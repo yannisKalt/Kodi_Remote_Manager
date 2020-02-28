@@ -1,0 +1,1 @@
+["https://la", ["lalala", "last christmas", "lana del rey", "latina", "lady gaga", "lakers", "lala", "la calin", "la la land", "la vie en rose"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

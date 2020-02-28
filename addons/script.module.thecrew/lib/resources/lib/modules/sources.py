@@ -93,6 +93,10 @@ class sources:
             pass
 
     def addItem(self, title):
+        def sourcesDirMeta(metadata):
+            if metadata == None: return metadata
+            allowed = ['poster', 'fanart', 'thumb', 'title', 'year', 'tvshowtitle', 'season', 'episode', 'rating', 'director', 'plot', 'trailer', 'mediatype']
+            return {k: v for k, v in metadata.iteritems() if k in allowed}
         control.playlist.clear()
 
         items = control.window.getProperty(self.itemProperty)
@@ -104,10 +108,9 @@ class sources:
 
         meta = control.window.getProperty(self.metaProperty)
         meta = json.loads(meta)
+        meta = sourcesDirMeta(meta)
 
         # (Kodi bug?) [name,role] is incredibly slow on this directory, [name] is barely tolerable, so just nuke it for speed!
-        if 'cast' in meta:
-            del(meta['cast'])
 
         sysaddon = sys.argv[0]
 
@@ -190,7 +193,7 @@ class sources:
 
         control.content(syshandle, 'files')
         control.directory(syshandle, cacheToDisc=True)
-
+    #TC 2/01/19 started
     def playItem(self, title, source):
         try:
             meta = control.window.getProperty(self.metaProperty)
@@ -257,17 +260,29 @@ class sources:
 
                     w = workers.Thread(self.sourcesResolve, items[i])
                     w.start()
-####
-                    #### Host505 code to test.
-                    if items[i].get('source') in self.hostcapDict:
+                    '''
+                    #offset = 60 * 2 if items[i].get('source') in self.hostcapDict else 0
+                    if items[i].get('debrid').lower() == 'real-debrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'alldebrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'premiumize.me':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'linksnappy':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
+                    '''
+                    '''
+                    if items[i].get('source') in self.hostcapDict: offset = 60 * 2
+                    elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
+                    else: offset = 0
+                    m = ''
+                    '''
+                    if items[i].get('source').lower() in self.hostcapDict:
                         offset = 60 * 2
-                    elif items[i].get('source').lower() == 'torrent':
+                    elif items[i].get('source').lower() == 'torrent':  # and no_skip:
                         offset = float('inf')
                     else:
                         offset = 0
-                    #### Uncom hostcapDict bit below if ditchin.
-####
-                    #offset = 60 * 2 if items[i].get('source') in self.hostcapDict else 0
 
                     m = ''
 
@@ -445,7 +460,7 @@ class sources:
 
         for i in range(0, 4 * timeout):
             if str(pre_emp) == 'true':
-                if quality in ['0']:
+                if quality in ['0', '1']:
                     if (source_4k + d_source_4k) >= int(pre_emp_limit): break
                 elif quality in ['1']:
                     if (source_1080 + d_source_1080) >= int(pre_emp_limit): break
@@ -583,6 +598,7 @@ class sources:
                                                                                 source_total_label)
                                     print line1, line2
                                 else:
+                                    control.idle()
                                     line1 = '|'.join(
                                         pdiag_bg_format[: -1]) % (
                                         source_4k_label, d_4k_label, source_1080_label, d_1080_label, source_720_label,
@@ -596,6 +612,7 @@ class sources:
                                         string7, source_1080_label, source_720_label, source_sd_label, str(string4),
                                         source_total_label)
                                 else:
+                                    control.idle()
                                     line1 = '|'.join(
                                         pdiag_bg_format[1:]) % (
                                         source_1080_label, d_1080_label, source_720_label, d_720_label, source_sd_label,
@@ -609,6 +626,7 @@ class sources:
                                         string7, source_1080_label, source_720_label, source_sd_label, str(string4),
                                         source_total_label)
                                 else:
+                                    control.idle()
                                     line1 = '|'.join(
                                         pdiag_bg_format[1:]) % (
                                         source_1080_label, d_1080_label, source_720_label, d_720_label, source_sd_label,
@@ -620,6 +638,7 @@ class sources:
                                     line2 = (
                                         '%s:' + '|'.join(pdiag_format[2:])) % (string7, source_720_label, source_sd_label, str(string4), source_total_label)
                                 else:
+                                    control.idle()
                                     line1 = '|'.join(
                                         pdiag_bg_format[2:]) % (
                                         source_720_label, d_720_label, source_sd_label, d_sd_label, source_total_label,
@@ -631,6 +650,7 @@ class sources:
                                     line2 = ('%s:' + '|'.join(pdiag_format[3:])) % (string7,
                                                                                     source_sd_label, str(string4), source_total_label)
                                 else:
+                                    control.idle()
                                     line1 = '|'.join(
                                         pdiag_bg_format[3:]) % (
                                         source_sd_label, d_sd_label, source_total_label, d_total_label)
@@ -717,49 +737,6 @@ class sources:
             pass
         self.sourcesFilter()
         return self.sources
-
-    def getURISource(self, url):
-        u = None
-        sourceDict = self.sourceDict
-        domain = re.sub('^www\.|^www\d+\.', '', urlparse.urlparse(url.strip().lower()).netloc)
-        domains = [(i[0], i[1].domains) for i in sourceDict]
-        domains = [i[0] for i in domains if any(x in domain for x in i[1])]
-        if not domains:
-            return False
-        sourceDict = [i for i in sourceDict if i[0] == domains[0]][0]
-        source = sourceDict[0] ; call = sourceDict[1]
-        progressDialog = control.progressDialog
-        progressDialog.create(control.addonInfo('name'), control.lang(30726).encode('utf-8'))
-        progressDialog.update(0)
-        progressDialog.update(0, control.lang(30726).encode('utf-8'), control.lang(30731).encode('utf-8'))
-        self.sources = call.sources(url, self.hostDict, self.hostprDict)
-        for i in self.sources:
-            i.update({'provider': source})
-        progressDialog.update(50, control.lang(30726).encode('utf-8'), control.lang(30731).encode('utf-8'))
-        items = self.sourcesFilter()
-        filter = [i for i in items if i['source'].lower() in self.hostcapDict and i['debrid'] == '']
-        items = [i for i in items if not i in filter]
-        filter = [i for i in items if i['source'].lower() in self.hostblockDict and i['debrid'] == '']
-        items = [i for i in items if not i in filter]
-        items = [i for i in items if ('autoplay' in i and i['autoplay'] == True) or not 'autoplay' in i]
-        for i in range(len(items)):
-            try:
-                if progressDialog.iscanceled():
-                    break
-                if xbmc.abortRequested == True:
-                    return sys.exit()
-                url = self.sourcesResolve(items[i])
-                if u == None:
-                    u = url
-                if not url == None:
-                    break
-            except:
-                pass
-        try:
-            progressDialog.close()
-        except Exception:
-            pass
-
 
     def prepareSources(self):
         try:
@@ -992,11 +969,9 @@ class sources:
     def uniqueSourcesGen(self, sources):# remove duplicate links code by doko-desuka
         uniqueURLs = set()
         for source in sources:
-            url = str(source['url']).lower()
-            if url.startswith('magnet:'):
-                hash = re.findall(r'btih:(\w{40})', url)[0]# parse infohash from magnet and use that instead of url
-                if hash:
-                    url = hash
+            url = json.dumps(source['url'])
+            if 'magnet:' in url:
+                url = url.lower()[:60]
             if isinstance(url, basestring):
                 if url not in uniqueURLs:
                     uniqueURLs.add(url)
@@ -1004,7 +979,7 @@ class sources:
                 else:
                     pass # Ignore duped sources.
             else:
-                yield source # Always yield non-string url sources
+                yield source # Always yield non-string url sources.
 
     def sourcesFilter(self):
         provider = control.setting('hosts.sort.provider')
@@ -1034,6 +1009,8 @@ class sources:
         if provider == 'true':
             self.sources = sorted(self.sources, key=lambda k: k['provider'])
 
+        if not HEVC == 'true':
+            self.sources = [i for i in self.sources if not any(value in str(i['url']).lower() for value in ['hevc', 'h265', 'h.265', 'x265', 'x.265'])]
 
 #        for i in self.sources:
 #            if 'checkquality' in i and i['checkquality'] is True:
@@ -1182,14 +1159,20 @@ class sources:
             except Exception:
                 d = self.sources[i]['debrid'] = ''
 
-            if d.lower() == 'real-debrid':
-                d = 'RD'
-            if d.lower() == 'premiumize.me':
-                d = 'PM'
             if d.lower() == 'alldebrid':
                 d = 'AD'
+            if d.lower() == 'debrid-link.fr':
+                d = 'DL.FR'
             if d.lower() == 'linksnappy':
                 d = 'LS'
+            if d.lower() == 'megadebrid':
+                d = 'MD'
+            if d.lower() == 'premiumize.me':
+                d = 'PM'
+            if d.lower() == 'real-debrid':
+                d = 'RD'
+            if d.lower() == 'zevera':
+                d = 'ZVR'
             if not d == '':
                 label = '%02d | %s | %s | %s | ' % (int(i+1), d, q, p)
             else:
@@ -1349,19 +1332,31 @@ class sources:
                         if progressDialog.iscanceled():
                             break
                         progressDialog.update(int((100 / float(len(items))) * i), str(items[i]['label']), str(' '))
-                    except Exception:
+                    except:
                         progressDialog.update(int((100 / float(len(items))) * i), str(header2), str(items[i]['label']))
-
-####
-                    #### Host505 code to test.
-                    if items[i].get('source') in self.hostcapDict:
+                    '''
+                    if items[i].get('debrid').lower() == 'real-debrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('RealDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'alldebrid':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('AllDebridResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'premiumize.me':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == 'false' or control.addon('script.module.resolveurl').getSetting('PremiumizeMeResolver_cached_only') == ''
+                    if items[i].get('debrid').lower() == 'linksnappy':
+                        no_skip = control.addon('script.module.resolveurl').getSetting('LinksnappyResolver_cached_only') == 'false'
+                    '''
+                    '''
+                    if items[i].get('source') in self.hostcapDict: offset = 60 * 2
+                    elif items[i].get('source').lower() == 'torrent' and no_skip: offset = float('inf')
+                    else: offset = 0
+                    m = ''
+                    '''
+                    if items[i].get('source').lower() in self.hostcapDict:
                         offset = 60 * 2
-                    elif items[i].get('source').lower() == 'torrent':
+                    elif items[i].get('source').lower() == 'torrent':  # and no_skip:
                         offset = float('inf')
                     else:
                         offset = 0
-                    #### Uncom hostcapDict bit below if ditchin.
-####
+
                     m = ''
 
                     for x in range(3600):
@@ -1568,17 +1563,25 @@ class sources:
         except Exception:
             self.hostDict = []
 
-        self.hostprDict = ['1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net',
-                           'uploaded.to', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net']
+        self.hostprDict = [
+            '1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to', 'uploadgig.com',
+            'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net', 'multiup.org']
 
-        self.hostcapDict = ['hugefiles.net', 'kingfiles.net', 'openload.io', 'openload.co',
-                            'oload.tv', 'thevideo.me', 'vidup.me', 'streamin.to', 'torba.se']
+        self.hostcapDict = [
+            'openload.io', 'openload.co', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download', 'oload.info',
+            'oload.icu', 'oload.fun', 'oload.life', 'openload.pw', 'vev.io', 'vidup.me', 'vidup.tv', 'vidup.io',
+            'vshare.io', 'vshare.eu', 'flashx.tv', 'flashx.to', 'flashx.sx', 'flashx.bz', 'flashx.cc', 'hugefiles.net',
+            'hugefiles.cc', 'thevideo.me', 'streamin.to', 'extramovies.guru', 'extramovies.trade', 'extramovies.host' ]
 
         self.hosthqDict = [
-            'gvideo', 'google.com', 'openload.io', 'openload.co', 'oload.tv', 'thevideo.me', 'rapidvideo.com',
-            'raptu.com', 'filez.tv', 'uptobox.com', 'uptobox.com', 'uptostream.com', 'xvidstage.com', 'streamango.com']
+            'gvideo', 'google.com', 'thevideo.me', 'raptu.com', 'filez.tv', 'uptobox.com', 'uptostream.com',
+            'xvidstage.com', 'xstreamcdn.com', 'idtbox.com']
 
-        self.hostblockDict = []
+        self.hostblockDict = [
+            'zippyshare.com', 'youtube.com', 'facebook.com', 'twitch.tv', 'streamango.com', 'streamcherry.com',
+            'openload.io', 'openload.co', 'openload.pw', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download',
+            'oload.info', 'oload.icu', 'oload.fun', 'oload.life', 'oload.space', 'oload.monster', 'openload.pw',
+            'rapidvideo.com', 'rapidvideo.is', 'rapidvid.to']
 
     def getPremColor(self, n):
         if n == '0':

@@ -1,0 +1,1 @@
+["all th", ["all them witches", "all the way up", "all the stars", "all that jazz", "all that she wants", "all the things she said", "all the time", "all the good girls go to hell", "all the way", "all the single ladies"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

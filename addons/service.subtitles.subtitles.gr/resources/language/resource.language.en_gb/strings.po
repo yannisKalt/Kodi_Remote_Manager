@@ -15,6 +15,10 @@ msgctxt "#32002"
 msgid "This service is only for Greek subtitles"
 msgstr ""
 
+msgctxt "#32003"
+msgid "Cache results"
+msgstr ""
+
 msgctxt "#32211"
 msgid "Accounts"
 msgstr ""
@@ -40,13 +44,37 @@ msgid "Actions"
 msgstr ""
 
 msgctxt "#32217"
-msgid "Reset function cache"
+msgid "Delete function cache"
 msgstr ""
 
 msgctxt "#32218"
-msgid "Options"
+msgid "Domains"
 msgstr ""
 
 msgctxt "#32219"
-msgid "Use older subtitles.gr domain"
+msgid "Options"
+msgstr ""
+
+msgctxt "#32220"
+msgid "Sorting"
+msgstr ""
+
+msgctxt "#32221"
+msgid "Name"
+msgstr ""
+
+msgctxt "#32222"
+msgid "Source"
+msgstr ""
+
+msgctxt "#32223"
+msgid "Downloads"
+msgstr ""
+
+msgctxt "#32224"
+msgid "Rating"
+msgstr ""
+
+msgctxt "#32225"
+msgid "Disable for faster searches"
 msgstr ""

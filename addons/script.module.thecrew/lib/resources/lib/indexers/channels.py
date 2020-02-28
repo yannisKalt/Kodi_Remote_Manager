@@ -196,7 +196,7 @@ class channels:
         else:
             return dt
 
-
+#TC 2/01/19 started
     def channelDirectory(self, items):
         if items == None or len(items) == 0: control.idle() ; sys.exit()
 

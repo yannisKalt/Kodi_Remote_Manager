@@ -1,1 +1,1 @@
-["L", ["light", "luben", "loco contigo", "lana del rey", "lalala", "logos timis", "lady gaga", "lil pump", "linkin park", "loco"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["L", ["luben", "light", "lady gaga", "lalala", "last christmas", "life is good", "lyon juventus", "lottery", "lana del rey", "lofi"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

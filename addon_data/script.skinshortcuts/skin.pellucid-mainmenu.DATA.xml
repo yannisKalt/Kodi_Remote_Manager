@@ -86,7 +86,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(Videos,"plugin://plugin.video.scrubsv2",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.tempest",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />
@@ -111,14 +111,6 @@
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
 		<action>ActivateWindow(Videos,"plugin://plugin.video.thecrew/?action=swiftCat&amp;url=16",return)</action>
-	</shortcut>
-	<shortcut>
-		<defaultID />
-		<label>Greek-Tv</label>
-		<label2>Custom item</label2>
-		<icon>DefaultShortcut.png</icon>
-		<thumb />
-		<action>RunAddon(plugin.video.AliveGR,return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />
@@ -150,23 +142,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=xdirectory&amp;url=%24doregex%5Bmakelist%5D%7Cregex%3D8825698e186d84ff51ab38052ff1f386&amp;content=0",return)</action>
-	</shortcut>
-	<shortcut>
-		<defaultID />
-		<label>18+ (sites)</label>
-		<label2>Custom item</label2>
-		<icon>DefaultShortcut.png</icon>
-		<thumb />
-		<action>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FQfZUiJgQ&amp;content=addons",return)</action>
-	</shortcut>
-	<shortcut>
-		<defaultID />
-		<label>18+(Αναζητηση)</label>
-		<label2>Custom item</label2>
-		<icon>DefaultShortcut.png</icon>
-		<thumb />
-		<action>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FvNfLw6yY&amp;content=addons",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.adulthideout/?url=http%3A%2F%2Fwww.youjizz.com%2Fnewest-clips%2F1.html&amp;mode=2&amp;name=YouJizz+%5BCOLOR+yellow%5D+Videos%5B%2FCOLOR%5D&amp;iconimage=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.adulthideout%2Flogos%5Cyoujizz.png",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />

@@ -1,0 +1,1 @@
+["sklenarikova", ["sklenarikova", "sklenarikova legs", "\u03c3\u03ba\u03bb\u03b5\u03bd\u03b1\u03c1\u03b9\u03ba\u03bf\u03b2\u03b1 \u03ba\u03b1\u03c1\u03b5\u03bc\u03c0\u03b5", "adriana sklenarikova"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["2277", ["2277", "2277 tarak mehta", "2277 episode of tarak mehta", "22777", "2277 candy crush", "2277 wordscapes", "2277 singer sewing machine", "2277 falah", "2277 pet rescue", "2277/2"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

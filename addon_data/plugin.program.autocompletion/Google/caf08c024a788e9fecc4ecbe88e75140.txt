@@ -1,0 +1,1 @@
+["fin", ["finem", "final four", "final four greece", "final 4 greece", "finesse", "final countdown", "final 4", "finneas", "find the hidden i", "final boss"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

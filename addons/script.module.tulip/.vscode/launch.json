@@ -1,0 +1,25 @@
+{
+    "configurations": [
+    {
+        "name": "Python",
+        "type": "python",
+        "request": "launch",
+        "stopOnEntry": false,
+        "pythonPath": "${config.python.pythonPath}",
+        "program": "${file}",
+        "cwd": "${workspaceRoot}",
+        "debugOptions": [
+            "WaitOnAbnormalExit",
+            "WaitOnNormalExit",
+            "RedirectOutput"
+        ],
+        "env": {
+            "PYTHONPATH": [
+                "/media/twilight/Worker/GitHub/script.module.kodi-six/libs/",
+                "/media/twilight/Worker/GitHub/repo.twilight0.libs/script.module.tulip/lib/",
+                "/media/twilight/Worker/GitHub/Kodistubs/"
+            ]
+        }
+    }
+]
+}

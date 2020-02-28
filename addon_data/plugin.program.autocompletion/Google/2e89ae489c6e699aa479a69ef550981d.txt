@@ -1,1 +1,1 @@
-["repo", ["report tv", "report card", "report tv live", "reporter pasas", "report", "reporter", "repo man", "reported speech", "reportage", "reporters go to jail"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["repo", ["report tv", "report card", "report", "reporter pasas", "report of the week", "repo man", "repolitix", "reportage", "repo man trailer", "reporter gets high"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["https:bugar", [], [], {"google:suggesttype": []}]

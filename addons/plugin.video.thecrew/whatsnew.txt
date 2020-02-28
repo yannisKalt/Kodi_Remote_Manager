@@ -1,25 +1,35 @@
-﻿[B][COLOR deeppink]¤ [/COLOR][/B][B][COLOR white] The Crew Latest Updates [/COLOR][/B][B][COLOR deeppink] ¤[/COLOR][/B]
+﻿﻿﻿﻿﻿﻿[B][COLOR deeppink]¤ [/COLOR][/B][B][COLOR white] The Crew Latest Updates [/COLOR][/B][B][COLOR deeppink] ¤[/COLOR][/B]
 
-[B][COLOR deeppink]¤ [/COLOR][/B][B][COLOR white] Porn Password Is lol [/COLOR][/B][B][COLOR deeppink] ¤[/COLOR][/B]
+[B][COLOR orchid]¤ [/COLOR][/B][B][COLOR white] Porn Password Is lol [/COLOR][/B][B][COLOR orchid] ¤[/COLOR][/B]
 
-[B][COLOR lime]¤ [/COLOR][/B] [COLOR deeppink]CURRENT STATUS:[/COLOR] Good!
+[B][COLOR lime]¤ [/COLOR][/B] [COLOR orchid]CURRENT STATUS:[/COLOR] Good!
 
- [COLOR deeppink]**************************************************************************************[/COLOR]
+ [COLOR orchid]**************************************************************************************[/COLOR]
  
-[B][COLOR limegreen]V0.0.33[/COLOR][/B]
-[B][COLOR deeppink]¤ [/COLOR][/B] Add Food & Brews
-[B][COLOR deeppink]¤ [/COLOR][/B] Fixed TV Search Person
-[B][COLOR deeppink]¤ [/COLOR][/B] Misc. Fixes
+[B][COLOR deeppink]¤ [/COLOR][/B] Current version info:
+[B][COLOR deeppink]¤ [/COLOR][/B] plugin.program.thecrewiz	0.0.10
+[B][COLOR deeppink]¤ [/COLOR][/B] plugin.video.thecrew 		0.0.61e
+[B][COLOR deeppink]¤ [/COLOR][/B] repository.thecrewmc    	0.2.1
+[B][COLOR deeppink]¤ [/COLOR][/B] script.crew.sports    	0.0.31
+[B][COLOR deeppink]¤ [/COLOR][/B] script.module.thecrew   	0.0.61a
+[B][COLOR deeppink]¤ [/COLOR][/B] script.thecrew.artwork    0.0.25
+[B][COLOR deeppink]¤ [/COLOR][/B] script.thecrew.metadata  	0.0.5
+[B][COLOR deeppink]¤ [/COLOR][/B] Marauder                  2.0.5
+[B][COLOR deeppink]¤ [/COLOR][/B] BarnacleScrapers          1.0.2
 
  [COLOR deeppink]**************************************************************************************[/COLOR]
 
-Please join our telegram chat for support and chat by direct message to any of the following:
+Additional support or chit chat, please join our telegram chat by direct messaging any of the following:
 
-.:White_Hat:. - @thecrew_wh
-.:Blue_Hat:. - @The_CrewBH
-.:Grey_Hat:. - @The_CrewGH
-.:Black_Hat:. - @BlackHat_Tag
-.:Golden_Hat:. - @Thegoldenhat
-.:Green_Hat:. - @Greenhat1000
+.:EDB:.         - @ed_beeeee
+.:White_Hat:.   - @thecrew_wh
+.:Blue_Hat:.    - @The_CrewBH
+.:Grey_Hat:.    - @The_CrewGH
+.:ChinaCat:.    - @Chinacat90
+.:Golden_Hat:.  - @Thegoldenhat
+.:Green_Hat:.   - @Greenhat1000
+.:Black_Hat:.   - @BlackHat_Tag
+
+Adult Password = lol
 
 Thank you and enjoy!

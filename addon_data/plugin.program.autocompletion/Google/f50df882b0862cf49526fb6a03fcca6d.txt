@@ -1,0 +1,1 @@
+["tyga", ["tyga", "tyga mad clip", "tyga type beat", "tyga swish", "tyga dip", "tyga ft mad clip", "tyga haute", "tyga hookah", "tyga lightskin lil wayne", "tyga loco"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

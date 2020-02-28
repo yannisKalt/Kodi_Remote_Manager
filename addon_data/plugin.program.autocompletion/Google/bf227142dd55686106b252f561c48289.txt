@@ -1,0 +1,1 @@
+["earthquake", ["earthquake", "earthquake albania", "earthquake ksi", "earthquake bird", "earthquake turkey", "earthquake song", "earthquake live", "earthquake sound", "earthquake greece", "earthquake turkey 2020"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

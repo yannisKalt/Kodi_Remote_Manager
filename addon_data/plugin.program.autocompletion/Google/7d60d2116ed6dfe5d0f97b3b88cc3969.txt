@@ -1,0 +1,1 @@
+["sof", ["sofia", "sofie skalkosova", "sofia skalkosova", "\u03c3\u03bf\u03c6\u03b9\u03b1 \u03bc\u03bf\u03c5\u03c4\u03b9\u03b4\u03bf\u03c5", "sofie dossi", "sofi tukker", "sofia carson", "sofia moutidou gntm", "soft music", "soft rock"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -136,7 +136,7 @@ class documentary:
     def getDailyMotionStream(self, id):
         headers = {'User-Agent':'Android'}
         cookie = {'Cookie':"lang=en_US; ff=off"}
-        r = requests.get("http://www.dailymotion.com/player/metadata/video/"+id,headers=headers,cookies=cookie)
+        r = requests.get("https://www.dailymotion.com/player/metadata/video/"+id,headers=headers,cookies=cookie)
         content = r.json()
         if content.get('error') is not None:
             Error = (content['error']['title'])

@@ -1,0 +1,1 @@
+["roses", ["roses", "roses remix", "roses lyrics", "roses are red violets are blue", "roses imanbek", "roses saint jhn", "roses lithuania", "roses gashi", "roses 1 hour", "roses saint"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

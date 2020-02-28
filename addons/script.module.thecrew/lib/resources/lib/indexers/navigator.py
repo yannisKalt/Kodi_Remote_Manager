@@ -45,11 +45,14 @@ class navigator:
     HOMEPATH      = xbmc.translatePath('special://home/')
     ADDONSPATH    = os.path.join(HOMEPATH, 'addons')
     THISADDONPATH = os.path.join(ADDONSPATH, ADDON_ID)
-    NEWSFILE      = base64.b64decode(b'aHR0cDovL3RoZS1jcmV3Lnh5ei94bWxoYXQvd2hhdHNuZXcueG1s')
+    NEWSFILE      = base64.b64decode(b'aHR0cHM6Ly9iaXRidWNrZXQub3JnL3RlYW0tY3Jldy90ZXh0X2ZpbGVzL3Jhdy9tYXN0ZXIvd2hhdHNuZXcueG1s')
     LOCALNEWS     = os.path.join(THISADDONPATH, 'whatsnew.txt')
 
     def root(self):
-
+        #if self.getMenuEnabled('navi.holidays') == True:        
+            #self.addDirectoryItem(90157, 'holidaysNavigator', 'holidays.png', 'holidays.png')
+        #if self.getMenuEnabled('navi.halloween') == True:        
+            #self.addDirectoryItem(90144, 'halloweenNavigator', 'halloween.png', 'halloween.png')
         if self.getMenuEnabled('navi.movies') == True:
             self.addDirectoryItem(32001, 'movieNavigator', 'main_movies.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.tvshows') == True:
@@ -60,39 +63,41 @@ class navigator:
             self.addDirectoryItem(90007, 'whitehat', 'main_whitehat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.kids') == True:
             self.addDirectoryItem(90009, 'greyhat', 'main_greyhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.1clicks') == True:     
+            self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.purplehat') == True:         
+            self.addDirectoryItem(90189, 'purplehat', 'main_purplehat.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.standup') == True:         
+            self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.fitness') == True: 
             self.addDirectoryItem(90010, 'blackhat', 'main_blackhat.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.food') == True: 
-            self.addDirectoryItem(90143, 'food', 'food.png', 'DefaultMovies.png')            
-        if self.getMenuEnabled('navi.1clicks') == True:     
-            self.addDirectoryItem(90011, 'greenhat', 'main_greenhat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.magnets') == True:     
-            self.addDirectoryItem(90012, 'goldenhat', 'main_goldenhat.png', 'DefaultMovies.png')
-        if self.getMenuEnabled('navi.standup') == True:         
-            self.addDirectoryItem(90113, 'redhat', 'main_redhat.png', 'DefaultMovies.png')
+            self.addDirectoryItem(90143, 'food', 'food.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.radio') == True:     
+            self.addDirectoryItem(90012, 'yellowhat', 'radio.png', 'radio.png')
+        if self.getMenuEnabled('navi.add_addons') == True: 
+            self.addDirectoryItem(90181, 'nav_add_addons', 'add_addon.png', 'DefaultMovies.png')
         adult = True if control.setting('adult_pw') == 'lol' else False
         if adult == True:
             self.addDirectoryItem(90008, 'porn', 'main_pinkhat.png', 'DefaultMovies.png')
-
-       
-        if not control.setting('furk.api') == '':
+        if self.getMenuEnabled('navi.personal.list') == True:
+            self.addDirectoryItem(90167, 'plist', 'userlists.png', 'userlists.png')
+        if not control.setting('furk.ai') == '':
             self.addDirectoryItem('Furk.net', 'furkNavigator', 'movies.png', 'movies.png')
-        
         self.addDirectoryItem(32008, 'toolNavigator', 'main_tools.png', 'DefaultAddonProgram.png')
-
         downloads = True if control.setting('downloads') == 'true' and (len(control.listDir(control.setting('movie.download.path'))[0]) > 0 or len(control.listDir(control.setting('tv.download.path'))[0]) > 0) else False
         if downloads == True:
             self.addDirectoryItem(32009, 'downloadNavigator', 'downloads.png', 'DefaultFolder.png')
 
         self.addDirectoryItem(32010, 'searchNavigator', 'main_search.png', 'DefaultFolder.png')
-        self.addDirectoryItem(90000, 'newsNavigator', 'info.png', 'DefaultAddonProgram.png')
+
         self.endDirectory()
 
     def furk(self):
         self.addDirectoryItem(90001, 'furkUserFiles', 'mytvnavigator.png', 'mytvnavigator.png')
         self.addDirectoryItem(90002, 'furkSearch', 'search.png', 'search.png')
         self.endDirectory()
-    
+
     def getMenuEnabled(self, menu_title):
         is_enabled = control.setting(menu_title).strip()
         if (is_enabled == '' or is_enabled == 'false'): return False
@@ -111,7 +116,7 @@ class navigator:
                             text_file.close()
                             compfile = message
             self.showText('[COLOR dodgerblue]¤[/COLOR] [B][COLOR white]Information[/COLOR][/B] [COLOR dodgerblue]¤[/COLOR]', compfile)
-        
+
     def open_news_url(self, url):
             req = urllib2.Request(url)
             req.add_header('User-Agent', 'klopp')
@@ -139,15 +144,18 @@ class navigator:
 #######################################################################
     
     def movies(self, lite=False):
+        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(32003, 'mymovieliteNavigator', 'mymovies.png', 'DefaultVideoPlaylists.png')
         if self.getMenuEnabled('navi.moviewidget') == True:
-            self.addDirectoryItem(32005, 'movieWidget', 'latest-movies.png', 'DefaultMovies.png')    
+            self.addDirectoryItem(32005, 'movieWidget', 'latest-movies.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.movietheaters') == True:
             self.addDirectoryItem(32022, 'movies&url=theaters', 'in-theaters.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.movietrending') == True:
             self.addDirectoryItem(32017, 'movies&url=trending', 'people-watching.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.moviepopular') == True:
             self.addDirectoryItem(32018, 'movies&url=popular', 'most-popular.png', 'DefaultMovies.png') 
+        if self.getMenuEnabled('navi.disneym') == True:
+            self.addDirectoryItem(90166, 'movies&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d '% self.count, 'disney.png', 'disney.png')
         if self.getMenuEnabled('navi.traktlist') == True:
             self.addDirectoryItem(90051, 'traktlist', 'trakt.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.imdblist') == True:
@@ -216,6 +224,7 @@ class navigator:
 
 
     def tvshows(self, lite=False):
+        self.count = int(control.setting('page.item.limit'))
         self.addDirectoryItem(32004, 'mytvliteNavigator', 'mytvshows.png', 'DefaultVideoPlaylists.png')
         if self.getMenuEnabled('navi.tvAdded') == True:
             self.addDirectoryItem(32006, 'calendar&url=added', 'latest-episodes.png', 'DefaultRecentlyAddedEpisodes.png', queue=True)
@@ -227,6 +236,10 @@ class navigator:
             self.addDirectoryItem(32017, 'tvshows&url=trending', 'people-watching2.png', 'DefaultRecentlyAddedEpisodes.png')
         if self.getMenuEnabled('navi.tvPopular') == True:
             self.addDirectoryItem(32018, 'tvshows&url=popular', 'most-popular2.png', 'DefaultTVShows.png')
+        if self.getMenuEnabled('navi.disney') == True:
+            self.addDirectoryItem(90166, 'tvshows&url=https://api.trakt.tv/users/thenapolitan/lists/disneyplus/items?limit=%d '% self.count, 'disney.png', 'disney.png')
+        if self.getMenuEnabled('navi.applet') == True:
+            self.addDirectoryItem(90170, 'tvshows&url=https://api.trakt.tv/users/mediashare2000/lists/apple-tv/items?limit=%d '% self.count, 'apple.png', 'apple.png')
         self.addDirectoryItem(90015, '247tvshows', '247_shows.png', 'DefaultTVShows.png')
         self.addDirectoryItem(32700, 'docuNavigator', 'documentaries.png', 'DefaultMovies.png')
         if self.getMenuEnabled('navi.tvGenres') == True:
@@ -296,6 +309,8 @@ class navigator:
 
 
     def tools(self):
+        self.addDirectoryItem(90000, 'newsNavigator', 'info.png', 'DefaultAddonProgram.png')
+        #self.addDirectoryItem(90188, 'bugReports', 'bugs.png', 'DefaultMovies.png')
         self.addDirectoryItem(32073, 'authTrakt', 'trakt.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32609, 'ResolveUrlTorrent', 'resolveurl.png', 'DefaultAddonProgram.png')
         self.addDirectoryItem(32043, 'openSettings&query=0.0', 'tools.png', 'DefaultAddonProgram.png')
@@ -427,7 +442,7 @@ class navigator:
         from resources.lib.modules import cache
         cache.cache_clear_search()
         control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
-
+        #TC 2/01/19 started
     def clearCacheAll(self):
         control.idle()
         yes = control.yesnoDialog(control.lang(32056).encode('utf-8'), '', '')
@@ -449,37 +464,80 @@ class navigator:
         item.setArt({'icon': thumb, 'thumb': thumb})
         if not addonFanart == None: item.setProperty('Fanart_Image', addonFanart)
         control.addItem(handle=syshandle, url=url, listitem=item, isFolder=isFolder)
-    
+   
+
+    def add_addons(self):
+        if self.getMenuEnabled('navi.eyecandy') == True:         
+            self.addDirectoryItem(90164, 'eyecandy', 'eyecandy.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.retribution') == True:         
+            self.addDirectoryItem(90165, 'retribution', 'retribution.png', 'DefaultMovies.png')
+        if self.getMenuEnabled('navi.titan') == True:         
+            self.addDirectoryItem(90155, 'titan', 'titan.png', 'DefaultMovies.png')
+
+        self.endDirectory()
+
+
     def bluehat(self):
-        self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
-        self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
         self.addDirectoryItem(90025, 'nfl', 'nfl.png', 'nfl.png')
         self.addDirectoryItem(90026, 'nhl', 'nhl.png', 'nhl.png')
         self.addDirectoryItem(90027, 'nba', 'nba.png', 'nba.png')
+        self.addDirectoryItem(90024, 'mlb', 'mlb.png', 'mlb.png')
+        self.addDirectoryItem(90023, 'ncaa', 'ncaa.png', 'ncaa.png')
+        self.addDirectoryItem(90156, 'ncaab', 'ncaab.png', 'ncaab.png')
+        self.addDirectoryItem(90193, 'xfl', 'xfl.png', 'xfl.png')
         self.addDirectoryItem(90028, 'ufc', 'ufc.png', 'ufc.png')
-        self.addDirectoryItem(90046, 'fifa', 'fifa.png', 'fifa.png')
-        self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
-        self.addDirectoryItem(90136, 'tennis', 'tennis.png', 'tennis.png')
-        self.addDirectoryItem(90047, 'motogp', 'motogp.png', 'motogp.png')
         self.addDirectoryItem(90049, 'wwe', 'wwe.png', 'wwe.png')
         self.addDirectoryItem(90115, 'boxing', 'boxing.png', 'boxing.png')
+        self.addDirectoryItem(90046, 'fifa', 'fifa.png', 'fifa.png')
+        self.addDirectoryItem(90136, 'tennis', 'tennis.png', 'tennis.png')
+        self.addDirectoryItem(90047, 'motogp', 'motogp.png', 'motogp.png')
+        self.addDirectoryItem(90151, 'f1', 'f1.png', 'f1.png')
+        self.addDirectoryItem(90153, 'pga', 'pga.png', 'pga.png')
+        self.addDirectoryItem(90142, 'lfl', 'lfl.png', 'lfl.png')
         self.addDirectoryItem(90114, 'misc_sports', 'misc_sports.png', 'misc_sports.png')
-        self.addDirectoryItem(90030, 'sports_channels', 'sports_schannels.png', 'sports_schannels.png')
+        #self.addDirectoryItem(90030, 'sports_channels', 'sports_schannels.png', 'sports_schannels.png')
         self.addDirectoryItem(90031, 'sreplays', 'sports_replays.png', 'sports_replays.png')
-
+        #self.addDirectoryItem(90154, 'cricket', 'cricket.png', 'cricket.png')
+        #self.addDirectoryItem(90152, 'nascar', 'nascar.png', 'nascar.png')
         self.endDirectory()
 
     def whitehat(self):
+        self.addDirectoryItem(90013, 'swiftNavigator', 'swift.png', 'swift.png')
+        self.addDirectoryItem(90187, 'gitNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90184, 'fluxNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90185, 'stratusNavigator', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90186, 'lodgeNavigator', 'iptv.png', 'iptv.png')
+        
+        self.endDirectory()
+  
+    def iptv_fluxus(self):
         self.addDirectoryItem(90035, 'iptv', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90036, 'iptv_lodge', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90037, 'stratus', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90038, 'spanish', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90038, 'spanish', 'iptv.png', 'iptv.png')  
         self.addDirectoryItem(90039, 'faith', 'iptv.png', 'iptv.png')
         self.addDirectoryItem(90040, 'cctv', 'iptv.png', 'iptv.png')
-        self.addDirectoryItem(90013, 'swiftNavigator', 'swift.png', 'swift.png')
-
+        adult = True if control.setting('adult_pw') == 'lol' else False
+        if adult == True:
+            self.addDirectoryItem(90171, 'lust', 'main_pinkhat.png', 'DefaultMovies.png')
+       
         self.endDirectory()
-###   
+
+    def iptv_stratus(self):
+        self.addDirectoryItem(90037, 'stratus', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90179, 'arabic2', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90177, 'argentina', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90180, 'bp', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90174, 'chile', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90176, 'colombia', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90175, 'india', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90178, 'spain', 'iptv.png', 'iptv.png')
+        self.endDirectory()
+
+    def iptv_tvlodge(self):
+        self.addDirectoryItem(90036, 'iptv_lodge', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90172, 'spanish2', 'iptv.png', 'iptv.png')
+        self.addDirectoryItem(90173, 'arabic', 'iptv.png', 'iptv.png')
+        self.endDirectory()
+
 
     def imdblist(self):
 
@@ -517,6 +575,24 @@ class navigator:
 
         self.endDirectory()
 
+    def holidays(self):
+        self.addDirectoryItem(90161, 'movies&url=top50_holiday', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90162, 'movies&url=best_holiday', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90158, 'movies&url=https://api.trakt.tv/users/movistapp/lists/christmas-movies/items', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90159, 'movies&url=https://api.trakt.tv/users/cjcope/lists/hallmark-christmas/items', 'holidays.png', 'holidays.png')
+        self.addDirectoryItem(90160, 'movies&url=https://api.trakt.tv/users/mkadam68/lists/christmas-list/items', 'holidays.png', 'holidays.png')
+
+        self.endDirectory()
+
+    def halloween(self):
+        self.addDirectoryItem(90146, 'movies&url=halloween_imdb', 'halloween.png', 'halloween.png')
+        self.addDirectoryItem(90147, 'movies&url=halloween_top_100', 'halloween.png', 'halloween.png')
+        self.addDirectoryItem(90148, 'movies&url=halloween_best', 'halloween.png', 'halloween.png')
+        self.addDirectoryItem(90149, 'movies&url=halloween_great', 'halloween.png', 'halloween.png')
+        self.addDirectoryItem(90145, 'movies&url=https://api.trakt.tv/users/petermesh/lists/halloween-movies/items', 'halloween.png', 'halloween.png')
+
+        self.endDirectory()
+
     def traktlist(self):
 
         self.addDirectoryItem(90041, 'movies&url=https://api.trakt.tv/users/giladg/lists/latest-releases/items', 'fhd_releases.png', 'DefaultMovies.png')
@@ -528,7 +604,7 @@ class navigator:
         self.addDirectoryItem(90053, 'movies&url=https://api.trakt.tv/users/movistapp/lists/action/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90054, 'movies&url=https://api.trakt.tv/users/movistapp/lists/adventure/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90055, 'movies&url=https://api.trakt.tv/users/movistapp/lists/animation/items', 'trakt.png', 'DefaultMovies.png')
-        self.addDirectoryItem(90056, 'movies&url=https://api.trakt.tv/users/movistapp/lists/comedy/items', 'trakt.png', 'DefaultMovies.png')
+        self.addDirectoryItem(90056, 'movies&url=https://api.trakt.tv/users/ljransom/lists/comedy-movies/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90057, 'movies&url=https://api.trakt.tv/users/movistapp/lists/crime/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90058, 'movies&url=https://api.trakt.tv/users/movistapp/lists/drama/items', 'trakt.png', 'DefaultMovies.png')
         self.addDirectoryItem(90059, 'movies&url=https://api.trakt.tv/users/movistapp/lists/family/items', 'trakt.png', 'DefaultMovies.png')

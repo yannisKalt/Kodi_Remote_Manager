@@ -1,0 +1,1 @@
+["r", ["roxanne", "roses", "rap god", "ride it", "rihanna", "roses imanbek remix", "relaxing music", "renegade", "ritmo", "rockstar"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

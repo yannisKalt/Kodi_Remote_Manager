@@ -1,0 +1,1 @@
+["fig", ["fight club 2.0", "fight song", "fight club", "fight back", "figgaz", "fighting gold", "figaro", "fighter", "figure skating", "fight music"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

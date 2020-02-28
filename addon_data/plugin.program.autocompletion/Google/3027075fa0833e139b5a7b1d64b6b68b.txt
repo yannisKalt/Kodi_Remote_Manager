@@ -1,0 +1,1 @@
+["queen", ["queen", "queens of the stone age", "queen of mean", "queen elizabeth", "queensryche", "queen live", "queen mama", "queen of the night", "queen songs", "queen i want it all"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["https://dobbe", ["doberman", "doberman trailer", "doberman training", "doberman big", "dobbe", "dobbelt beg\u00e6r", "dobber", "dobbelt", "doberman dog", "dobber beverly"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

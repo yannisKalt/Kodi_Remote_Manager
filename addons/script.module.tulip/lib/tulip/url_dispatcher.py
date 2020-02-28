@@ -20,7 +20,7 @@
 '''
 
 
-class URL_Dispatcher:
+class URLDispatcher:
 
     def __init__(self):
 

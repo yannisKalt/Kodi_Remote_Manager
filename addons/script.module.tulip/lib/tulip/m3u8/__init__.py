@@ -4,17 +4,25 @@
 # license that can be found in the LICENSE file.
 
 import sys
+import ssl
 import os
 import posixpath
 
-from tulip.m3u8.model import M3U8, Playlist, IFramePlaylist, Media, Segment
+from tulip.compat import urlopen, Request, HTTPError, urlparse, urljoin
+
+from tulip.m3u8.model import (
+    M3U8, Segment, SegmentList, PartialSegment, PartialSegmentList, Key, Playlist, IFramePlaylist, Media, MediaList,
+    PlaylistList, Start, RenditionReport, RenditionReportList, ServerControl, Skip, PartInformation
+)
 from tulip.m3u8.parser import parse, is_url, ParseError
-from tulip.compat import urlopen, Request, urljoin, urlparse
 
 PYTHON_MAJOR_VERSION = sys.version_info
 
-__all__ = ('M3U8', 'Playlist', 'IFramePlaylist', 'Media', 'Segment', 'loads', 'load', 'parse', 'ParseError')
-
+__all__ = (
+    'M3U8', 'Segment', 'SegmentList', 'PartialSegment', 'PartialSegmentList', 'Key', 'Playlist', 'IFramePlaylist',
+    'Media', 'MediaList', 'PlaylistList', 'Start', 'RenditionReport', 'RenditionReportList', 'ServerControl', 'Skip',
+    'PartInformation', 'loads', 'load', 'parse', 'ParseError'
+)
 
 def loads(content, uri=None, custom_tags_parser=None):
     '''
@@ -30,24 +38,29 @@ def loads(content, uri=None, custom_tags_parser=None):
         return M3U8(content, base_uri=base_uri, custom_tags_parser=custom_tags_parser)
 
 
-def load(uri, timeout=None, headers={}, custom_tags_parser=None):
+def load(uri, timeout=None, headers={}, custom_tags_parser=None, verify_ssl=True):
+
     '''
     Retrieves the content from a given URI and returns a M3U8 object.
     Raises ValueError if invalid content or IOError if request fails.
     Raises socket.timeout(python 2.7+) or urllib2.URLError(python 2.6) if
     timeout happens when loading from uri
     '''
+
     if is_url(uri):
-        return _load_from_uri(uri, timeout, headers, custom_tags_parser)
+        return _load_from_uri(uri, timeout, headers, custom_tags_parser, verify_ssl)
     else:
         return _load_from_file(uri, custom_tags_parser)
 
 # Support for python3 inspired by https://github.com/szemtiv/m3u8/
 
 
-def _load_from_uri(uri, timeout=None, headers={}, custom_tags_parser=None):
+def _load_from_uri(uri, timeout=None, headers={}, custom_tags_parser=None, verify_ssl=True):
     request = Request(uri, headers=headers)
-    resource = urlopen(request, timeout=timeout)
+    context = None
+    if not verify_ssl:
+        context = ssl._create_unverified_context()
+    resource = urlopen(request, timeout=timeout, context=context)
     base_uri = _parsed_url(resource.geturl())
     if PYTHON_MAJOR_VERSION < (3,):
         content = _read_python2x(resource)
@@ -74,10 +87,7 @@ def _read_python3x(resource):
 
 
 def _load_from_file(uri, custom_tags_parser=None):
-
     with open(uri) as fileobj:
         raw_content = fileobj.read().strip()
-
     base_uri = os.path.dirname(uri)
-
     return M3U8(raw_content, base_uri=base_uri, custom_tags_parser=custom_tags_parser)

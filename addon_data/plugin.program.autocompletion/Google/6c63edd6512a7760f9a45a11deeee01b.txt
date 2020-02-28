@@ -1,0 +1,1 @@
+["chernobyl", ["chernobyl", "chernobyl soundtrack", "chernobylite", "chernobyl explosion", "chernobylite gameplay", "chernobyl hbo", "chernobyl amara", "chernobyl attack", "chernobyl scene", "chernobyl reaction"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

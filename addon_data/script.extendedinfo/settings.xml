@@ -1,0 +1,9 @@
+<settings>
+    <setting id="LanguageID" value="en" />
+    <setting id="autocomplete_lang" value="en" />
+    <setting id="autocomplete_lang_local" value="en" />
+    <setting id="autocomplete_provider" value="youtube" />
+    <setting id="classic_search" value="false" />
+    <setting id="first_start_infodialog" value="True" />
+    <setting id="infodialog_onclick" value="true" />
+</settings>

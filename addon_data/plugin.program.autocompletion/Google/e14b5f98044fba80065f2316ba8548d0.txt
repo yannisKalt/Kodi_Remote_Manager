@@ -1,0 +1,1 @@
+["ba", ["bad guy", "baby shark", "bass boosted", "baby yoda", "bandit", "barbie", "barcelona", "bad karma", "baby", "bass"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

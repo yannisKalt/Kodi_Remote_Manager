@@ -1,0 +1,1 @@
+["kat", ["katy perry", "kathimerini", "kate yup", "katerinaop", "katyusha", "katara", "katerina", "katatonia", "kata", "kasia gntm"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

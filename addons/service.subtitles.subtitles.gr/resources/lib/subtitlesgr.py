@@ -15,39 +15,33 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-from xbmcvfs import rename, File as openFile
+from __future__ import print_function
+
+from contextlib import closing
 from os.path import basename, split as os_split
 from resources.lib.tools import multichoice
-import zipfile, re
+import zipfile, re, sys, traceback
 from tulip import control, client, log
 from tulip.compat import unquote_plus, quote_plus, StringIO, urlopen, quote
 
 
-class subtitlesgr:
+class Subtitlesgr:
 
     def __init__(self):
 
         self.list = []
+        self.base_link = 'http://gr.greek-subtitles.com'
+        self.download_link = 'http://www.greeksubtitles.info'
 
     def get(self, query):
 
         try:
 
-            filtered = ['freeprojectx', 'subs4series', u'Εργαστήρι Υποτίτλων']
+            query = ' '.join(unquote_plus(re.sub(r'%\w\w', ' ', quote_plus(query))).split())
 
-            query = ' '.join(unquote_plus(re.sub('%\w\w', ' ', quote_plus(query))).split())
+            url = ''.join([self.base_link, '/search.php?name={0}'.format(quote_plus(query))])
 
-            if control.setting('subtitlesgr') == 'true':
-
-                url = 'http://www.subtitles.gr/search.php?name={0}'.format(quote_plus(query))
-
-            else:
-
-                url = 'http://www.findsubtitles.eu/search.php?text={0}&lang=Greek&button=Search'.format(quote_plus(query))
-
-            url = client.request(url, output='geturl')
-
-            result = client.request(url.replace('www', 'gr'))
+            result = client.request(url)
 
             try:
                 result = result.decode('utf-8', errors='replace')
@@ -57,6 +51,10 @@ class subtitlesgr:
             items = client.parseDOM(result, 'tr', attrs={'on.+?': '.+?'})
 
         except Exception as e:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
 
             log.log('Subtitles.gr failed at get function, reason: ' + str(e))
 
@@ -71,19 +69,17 @@ class subtitlesgr:
                     continue
 
                 try:
-
                     uploader = client.parseDOM(item, 'a', attrs={'class': 'link_from'})[0].strip()
-                    try:
-                        uploader = uploader.decode('utf-8')
-                    except AttributeError:
-                        pass
-                    if uploader == '':
-                        raise Exception
-                    if uploader in filtered:
-                        continue
+                    uploader = client.replaceHTMLCodes(uploader)
+                except IndexError:
+                    uploader = ''
 
-                except Exception:
+                try:
+                    uploader = uploader.decode('utf-8')
+                except AttributeError:
+                    pass
 
+                if not uploader:
                     uploader = 'other'
 
                 try:
@@ -95,9 +91,8 @@ class subtitlesgr:
 
                 name = client.parseDOM(item, 'a', attrs={'onclick': 'runme.+?'})[0]
                 name = ' '.join(re.sub('<.+?>', '', name).split())
-                name = u'[{0}] {1} [{2} DLs]'.format(uploader, name, downloads)
                 name = client.replaceHTMLCodes(name)
-                # name = name.encode('utf-8')
+                label = u'[{0}] {1} [{2} DLs]'.format(uploader, name, downloads)
 
                 url = client.parseDOM(item, 'a', ret='href', attrs={'onclick': 'runme.+?'})[0]
                 url = url.split('"')[0].split('\'')[0].split(' ')[0]
@@ -106,11 +101,18 @@ class subtitlesgr:
 
                 rating = self._rating(downloads)
 
-                self.list.append({'name': name, 'url': url, 'source': 'subtitlesgr', 'rating': rating})
-
-                self.list.sort(key=lambda k: k['rating'], reverse=True)
+                self.list.append(
+                    {
+                        'name': label, 'url': url, 'source': 'subtitlesgr', 'rating': rating, 'title': name,
+                        'downloads': downloads
+                    }
+                )
 
             except Exception as e:
+
+                _, __, tb = sys.exc_info()
+
+                print(traceback.print_tb(tb))
 
                 log.log('Subtitles.gr failed at self.list formation function, reason: ' + str(e))
 
@@ -143,134 +145,146 @@ class subtitlesgr:
 
     def download(self, path, url):
 
-        # try:
+        try:
 
-        url = re.findall('/(\d+)/', url + '/', re.I)[-1]
-        url = 'http://www.greeksubtitles.info/getp.php?id={0}'.format(url)
-        url = client.request(url, output='geturl')
+            url = re.findall(r'/(\d+)/', url + '/', re.I)[-1]
+            url = ''.join([self.download_link, '/getp.php?id={0}'.format(url)])
+            url = client.request(url, output='geturl')
 
-        data = urlopen(url, timeout=20).read()
-        zip_file = zipfile.ZipFile(StringIO(data))
-        files = zip_file.namelist()
-        files = [i for i in files if i.startswith('subs/')]
+            data = urlopen(url, timeout=20).read()
+            zip_file = zipfile.ZipFile(StringIO(data))
+            files = zip_file.namelist()
+            files = [i for i in files if i.startswith('subs/')]
 
-        srt = [i for i in files if i.endswith(('.srt', '.sub'))]
-        archive = [i for i in files if i.endswith(('.rar', '.zip'))]
+            srt = [i for i in files if i.endswith(('.srt', '.sub'))]
+            archive = [i for i in files if i.endswith(('.rar', '.zip'))]
 
-        if len(srt) > 0:
+            if len(srt) > 0:
 
-            if len(srt) > 1:
-                srt = multichoice(srt)
-            else:
-                srt = srt[0]
-
-            result = zip_file.open(srt).read()
-
-            subtitle = basename(srt)
-
-            try:
-                subtitle = control.join(path, subtitle.decode('utf-8'))
-            except Exception:
-                subtitle = control.join(path, subtitle)
-
-            with open(subtitle, 'wb') as subFile:
-                subFile.write(result)
-
-            return subtitle
-
-        elif len(archive) > 0:
-
-            if len(archive) > 1:
-                archive = multichoice(archive)
-            else:
-                archive = archive[0]
-
-            result = zip_file.open(archive).read()
-
-            f = control.join(path, os_split(url)[1])
-
-            with open(f, 'wb') as subFile:
-                subFile.write(result)
-
-            dirs, files = control.listDir(path)
-
-            if len(files) == 0:
-                return
-
-            if zipfile.is_zipfile(f):
-
-                # try:
-                #     zipped = zipfile.ZipFile(f)
-                #     zipped.extractall(path)
-                # except Exception:
-                control.execute('Extract("{0}","{0}")'.format(f, path))
-
-            if not zipfile.is_zipfile(f):
-
-                if control.infoLabel('System.Platform.Windows'):
-                    uri = "rar://{0}/".format(quote(f))
+                if len(srt) > 1:
+                    srt = multichoice(srt)
                 else:
-                    uri = "rar://{0}/".format(quote_plus(f))
+                    srt = srt[0]
 
-                dirs, files = control.listDir(uri)
+                result = zip_file.open(srt).read()
 
-            else:
+                subtitle = basename(srt)
+
+                try:
+                    subtitle = control.join(path, subtitle.decode('utf-8'))
+                except Exception:
+                    subtitle = control.join(path, subtitle)
+
+                with open(subtitle, 'wb') as subFile:
+                    subFile.write(result)
+
+                return subtitle
+
+            elif len(archive) > 0:
+
+                if len(archive) > 1:
+                    archive = multichoice(archive)
+                else:
+                    archive = archive[0]
+
+                result = zip_file.open(archive).read()
+
+                f = control.join(path, os_split(url)[1])
+
+                with open(f, 'wb') as subFile:
+                    subFile.write(result)
 
                 dirs, files = control.listDir(path)
 
-            if dirs and not zipfile.is_zipfile(f):
+                if len(files) == 0:
+                    return
 
-                for dir in dirs:
+                if zipfile.is_zipfile(f):
 
-                    _dirs, _files = control.listDir(control.join(uri, dir))
+                    try:
+                        zipped = zipfile.ZipFile(f)
+                        zipped.extractall(path)
+                    except Exception:
+                        control.execute('Extract("{0}","{1}")'.format(f, path))
 
-                    [files.append(control.join(dir, i)) for i in _files]
+                if not zipfile.is_zipfile(f):
 
-                    if _dirs:
+                    if control.infoLabel('System.Platform.Windows'):
+                        uri = "rar://{0}/".format(quote(f))
+                    else:
+                        uri = "rar://{0}/".format(quote_plus(f))
 
-                        for _dir in _dirs:
+                    dirs, files = control.listDir(uri)
 
-                            _dir = control.join(_dir, dir)
+                else:
 
-                            __dirs, __files = control.listDir(
-                                control.join(uri, _dir)
-                            )
+                    dirs, files = control.listDir(path)
 
-                            [files.append(control.join(_dir, i)) for i in __files]
+                if dirs and not zipfile.is_zipfile(f):
 
-            filenames = [i for i in files if i.endswith(('.srt', '.sub'))]
+                    for dir in dirs:
 
-            filename = multichoice(filenames)
+                        _dirs, _files = control.listDir(control.join(uri, dir))
 
-            try:
+                        [files.append(control.join(dir, i)) for i in _files]
 
-                filename = filename.decode('utf-8')
+                        if _dirs:
 
-            except Exception:
+                            for _dir in _dirs:
 
-                pass
+                                _dir = control.join(_dir, dir)
 
-            if not control.exists(control.join(path, os_split(filename)[0])) and not zipfile.is_zipfile(f):
-                control.makeFiles(control.join(path, os_split(filename)[0]))
+                                __dirs, __files = control.listDir(
+                                    control.join(uri, _dir)
+                                )
 
-            subtitle = control.join(path, filename)
+                                [files.append(control.join(_dir, i)) for i in __files]
 
-            if not zipfile.is_zipfile(f):
+                filenames = [i for i in files if i.endswith(('.srt', '.sub'))]
 
-                content = openFile(uri + filename).read()
+                filename = multichoice(filenames)
 
-                with open(subtitle, 'wb') as subFile:
-                    subFile.write(content)
+                try:
 
-            fileparts = os_split(subtitle)[1].split('.')
-            result = control.join(os_split(subtitle)[0], 'subtitles.' + fileparts[len(fileparts)-1])
+                    filename = filename.decode('utf-8')
 
-            rename(subtitle, result)
+                except Exception:
 
-            return result
+                    pass
 
-        # except Exception as e:
-        #
-        #     log.log('Subtitles.gr subtitle download failed for the following reason: ' + str(e))
-        #
-        #     return
+                if not control.exists(control.join(path, os_split(filename)[0])) and not zipfile.is_zipfile(f):
+                    control.makeFiles(control.join(path, os_split(filename)[0]))
+
+                subtitle = control.join(path, filename)
+
+                if not zipfile.is_zipfile(f):
+
+                    with closing(control.openFile(uri + filename)) as fn:
+
+                        try:
+                            output = bytes(fn.readBytes())
+                        except Exception:
+                            output = bytes(fn.read())
+
+                    content = output.decode('utf-16')
+
+                    with closing(control.openFile(subtitle, 'w')) as subFile:
+                        subFile.write(bytearray(content.encode('utf-8')))
+
+                fileparts = os_split(subtitle)[1].split('.')
+                # noinspection PyTypeChecker
+                result = control.join(os_split(subtitle)[0], 'subtitles.' + fileparts[len(fileparts)-1])
+
+                control.rename(subtitle, result)
+
+                return result
+
+        except Exception as e:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
+
+            log.log('Subtitles.gr subtitle download failed for the following reason: ' + str(e))
+
+            return

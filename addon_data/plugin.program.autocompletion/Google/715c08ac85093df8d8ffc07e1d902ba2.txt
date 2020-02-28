@@ -1,0 +1,1 @@
+["ram", ["ramones", "rambo", "rammstein sonne", "ramona vladi", "rammstein live", "rambo 5", "rambo last blood", "ramona", "ramson", "rammstein engel"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

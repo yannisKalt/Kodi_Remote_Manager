@@ -1,0 +1,1 @@
+["https://dobbeli", ["dabeli", "dabeli recipe", "dabeli banavani rit", "dabeli masala", "dabeli recipe in marathi", "dabeli chutney", "dabeli recipe madhura", "dabeli banane ki rit", "dabeli ki chatni", "dabeli ka masala kaise banate hain"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["q", ["queen", "que calor", "qawwali", "quran tilawat", "quavo", "quran", "que pena", "queens of the stone age", "queen of mean", "que te la pongo"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

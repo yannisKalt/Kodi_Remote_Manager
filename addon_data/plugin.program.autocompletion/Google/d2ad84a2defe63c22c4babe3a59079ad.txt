@@ -1,0 +1,1 @@
+["bad boy", ["bad boy", "bad boys 3", "bad boys for life", "bad boys blue", "bad boys trailer", "bad boys 2", "bad boy song", "bad boys for life song", "bad boys remix", "bad boys 3 trailer"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

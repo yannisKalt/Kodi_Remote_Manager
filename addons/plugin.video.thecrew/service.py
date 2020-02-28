@@ -38,14 +38,20 @@ from xbmc import (LOGDEBUG, LOGERROR, LOGFATAL, LOGINFO,
 
 addon_name = 'The Crew'
 addon_icon = xbmcaddon.Addon().getAddonInfo('icon')
-addon_path = xbmc.translatePath(('special://home/addons/plugin.video.thecrew')).decode('utf-8')
-module_path = xbmc.translatePath(('special://home/addons/script.module.thecrew')).decode('utf-8')
+addon_path = xbmc.translatePath(
+    ('special://home/addons/plugin.video.thecrew')).decode('utf-8')
+module_path = xbmc.translatePath(
+    ('special://home/addons/script.module.thecrew')).decode('utf-8')
 
-control.execute('RunPlugin(plugin://%s)' % control.get_plugin_url({'action': 'service'}))
+control.execute('RunPlugin(plugin://%s)' %
+                control.get_plugin_url({'action': 'service'}))
+
 
 def main():
-    fum_ver = xbmcaddon.Addon(id='script.module.thecrew').getAddonInfo('version')
-    updated = xbmcaddon.Addon(id='plugin.video.thecrew').getSetting('module_base')
+    fum_ver = xbmcaddon.Addon(
+        id='script.module.thecrew').getAddonInfo('version')
+    updated = xbmcaddon.Addon(
+        id='plugin.video.thecrew').getSetting('module_base')
     if updated == '' or updated is None:
         updated = '0'
 
@@ -76,7 +82,8 @@ def main():
     xml = xml.replace('<category label="32345"></category>', str(new_settings))
     savefile(settings_xml_path, xml)
 
-    xbmcaddon.Addon(id='plugin.video.thecrew').setSetting('module_base', fum_ver)
+    xbmcaddon.Addon(id='plugin.video.thecrew').setSetting(
+        'module_base', fum_ver)
     xbmcgui.Dialog().notification(addon_name, 'Free Providers Updated', addon_icon)
 
 ####REALDEBRID####
@@ -104,13 +111,15 @@ def main():
     xml = xml.replace('<category label="90004"></category>', str(new_settings))
     savefile(settings_xml_path, xml)
 
-    xbmcaddon.Addon(id='plugin.video.thecrew').setSetting('module_base', fum_ver)
+    xbmcaddon.Addon(id='plugin.video.thecrew').setSetting(
+        'module_base', fum_ver)
     xbmcgui.Dialog().notification(addon_name, 'Debrid Providers Updated', addon_icon)
 
 ####TORRENT####
     xbmcgui.Dialog().notification(addon_name, 'Preparing Torrent Providers', addon_icon)
     settings_xml_path = os.path.join(addon_path, 'resources/settings.xml')
-    scraper_path = os.path.join(module_path, 'lib/resources/lib/sources/en_tor')
+    scraper_path = os.path.join(
+        module_path, 'lib/resources/lib/sources/en_tor')
     log('The Crew Scraper Path: %s' % (str(scraper_path)), LOGINFO)
     try:
         xml = openfile(settings_xml_path)
@@ -132,8 +141,10 @@ def main():
     xml = xml.replace('<category label="90005"></category>', str(new_settings))
     savefile(settings_xml_path, xml)
 
-    xbmcaddon.Addon(id='plugin.video.thecrew').setSetting('module_base', fum_ver)
+    xbmcaddon.Addon(id='plugin.video.thecrew').setSetting(
+        'module_base', fum_ver)
     xbmcgui.Dialog().notification(addon_name, 'Torrent Providers Updated', addon_icon)
+
 
 def openfile(path_to_the_file):
     try:
@@ -143,8 +154,10 @@ def openfile(path_to_the_file):
         return contents
     except Exception:
         failure = traceback.format_exc()
-        print('Service Open File Exception - %s \n %s' % (path_to_the_file, str(failure)))
+        print('Service Open File Exception - %s \n %s' %
+              (path_to_the_file, str(failure)))
         return None
+
 
 def savefile(path_to_the_file, content):
     try:
@@ -153,7 +166,8 @@ def savefile(path_to_the_file, content):
         fh.close()
     except Exception:
         failure = traceback.format_exc()
-        print('Service Save File Exception - %s \n %s' % (path_to_the_file, str(failure)))
+        print('Service Save File Exception - %s \n %s' %
+              (path_to_the_file, str(failure)))
 
 
 DEBUGPREFIX = '[COLOR red][ The Crew DEBUG ][/COLOR]'
@@ -171,23 +185,28 @@ def log(msg, level=LOGNOTICE):
         except Exception:
             pass
 
+
 if __name__ == '__main__':
     main()
-    
+
+
 def syncTraktLibrary():
     control.execute(
         'RunPlugin(plugin://%s)' % 'plugin.video.thecrew/?action=tvshowsToLibrarySilent&url=traktcollection')
     control.execute(
         'RunPlugin(plugin://%s)' % 'plugin.video.thecrew/?action=moviesToLibrarySilent&url=traktcollection')
 
+
 if control.setting('autoTraktOnStart') == 'true':
     syncTraktLibrary()
 
 if int(control.setting('schedTraktTime')) > 0:
-    log_utils.log('###############################################################', log_utils.LOGNOTICE)
-    log_utils.log('#################### STARTING TRAKT SCHEDULING ################', log_utils.LOGNOTICE)
-    log_utils.log('#################### SCHEDULED TIME FRAME '+ control.setting('schedTraktTime')  + ' HOURS ################', log_utils.LOGNOTICE)
+    log_utils.log(
+        '###############################################################', log_utils.LOGNOTICE)
+    log_utils.log(
+        '#################### STARTING TRAKT SCHEDULING ################', log_utils.LOGNOTICE)
+    log_utils.log('#################### SCHEDULED TIME FRAME ' + control.setting(
+        'schedTraktTime') + ' HOURS ################', log_utils.LOGNOTICE)
     timeout = 3600 * int(control.setting('schedTraktTime'))
     schedTrakt = threading.Timer(timeout, syncTraktLibrary)
     schedTrakt.start()
-

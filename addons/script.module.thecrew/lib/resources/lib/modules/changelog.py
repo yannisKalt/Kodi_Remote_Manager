@@ -39,5 +39,3 @@ def get():
                 return
             except:
                 pass
-
-

@@ -128,7 +128,7 @@ def addDownload(name, url, image, provider=None):
 
     control.infoDialog('Item Added to Queue', name)
 
-
+#TC 2/01/19 started
 def removeDownload(url):
     try:
         def download(): return []

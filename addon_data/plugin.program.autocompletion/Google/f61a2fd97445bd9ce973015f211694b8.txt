@@ -1,0 +1,1 @@
+["ear", ["earned it", "earthquake", "earth", "earfquake", "earth song", "earl sweatshirt", "earthquake albania", "ear cleaning", "earthquake ksi", "earthgang"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

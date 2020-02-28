@@ -1,0 +1,1 @@
+["alt", ["altin sulku", "alt j", "altin shira", "alter bridge", "altin ranxha", "altin basho", "alternative rock", "altin myftari", "alter ego", "altered carbon"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

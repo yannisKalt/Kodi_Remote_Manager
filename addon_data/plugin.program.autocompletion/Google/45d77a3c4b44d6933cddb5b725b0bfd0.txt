@@ -1,0 +1,1 @@
+["https:bugats", [], [], {"google:suggesttype": []}]

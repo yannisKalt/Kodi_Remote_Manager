@@ -105,7 +105,7 @@ def __get_attribs(element):
         attribs[match['key'].lower().strip()] = value
     return attribs
 
-
+#TC 2/01/19 started
 def parse_dom(html, name='', attrs=None, req=False, exclude_comments=False):
     if attrs is None: attrs = {}
     name = name.strip()

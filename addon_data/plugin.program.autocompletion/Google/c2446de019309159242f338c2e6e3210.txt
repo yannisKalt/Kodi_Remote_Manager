@@ -1,0 +1,1 @@
+["https://lazyk", ["lazykore", "lazy kumo", "lazy kills", "lazyk", "lazy killer", "lazy king", "lazy killer gaming", "lazy kun", "lazy kim", "lazykurty"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

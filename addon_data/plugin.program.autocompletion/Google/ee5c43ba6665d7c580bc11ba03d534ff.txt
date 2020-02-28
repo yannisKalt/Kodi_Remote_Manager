@@ -1,0 +1,1 @@
+["bad", ["bad guy", "bad karma", "bad liar", "bad romance", "bad bunny", "bad boy", "bad", "bad boys 3", "bad company", "bad to the bone"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

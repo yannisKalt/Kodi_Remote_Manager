@@ -1,0 +1,1 @@
+["sta", ["stars", "stand by me", "stavento", "star wars", "star tv", "stanga", "stay", "starboy", "stand up comedy greek", "stairway to heaven"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["figh", ["fight club 2.0", "fight song", "fight club", "fight back", "fighting gold", "fighter", "fight music", "fight scene", "fight club trailer", "fight fire with fire"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

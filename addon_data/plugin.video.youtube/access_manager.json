@@ -1,7 +1,14 @@
 {
     "access_manager": {
         "current_user": "0", 
-        "developers": {}, 
+        "developers": {
+            "plugin.video.Toronto-Channels": {
+                "access_token": "", 
+                "last_key_hash": "", 
+                "refresh_token": "", 
+                "token_expires": -1
+            }
+        }, 
         "last_origin": "plugin.video.youtube", 
         "users": {
             "0": {

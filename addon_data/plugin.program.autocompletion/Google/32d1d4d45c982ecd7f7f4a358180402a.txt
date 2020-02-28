@@ -1,0 +1,1 @@
+["male", ["maleficent", "maleficent 1", "maleviziotis", "maleficent 2 trailer", "malec", "maleficent song", "maleek berry", "malevolent creation", "maleficent trailer", "male model"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

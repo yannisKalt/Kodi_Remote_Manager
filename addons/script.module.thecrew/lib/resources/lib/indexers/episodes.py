@@ -34,6 +34,7 @@ from resources.lib.modules import views
 from resources.lib.modules import utils
 
 import os,sys,re,json,zipfile,StringIO,urllib,urllib2,urlparse,datetime
+import requests 
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?',''))) if len(sys.argv) > 1 else dict()
 
@@ -44,6 +45,7 @@ action = params.get('action')
 
 class seasons:
     def __init__(self):
+        self.count = int(control.setting('page.item.limit'))
         self.list = []
 
         self.lang = control.apiLanguage()['tvdb']
@@ -55,12 +57,13 @@ class seasons:
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
-            self.tvdb_key = '1D62F2F90030C444'
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
-        self.tvdb_by_imdb = 'http://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
-        self.tvdb_by_query = 'http://thetvdb.com/api/GetSeries.php?seriesname=%s'
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+            self.tvdb_key = '27bef29779bbffe947232dc310a91f0c'
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
+            self.tvdb_key, '%s', '%s')
+        self.tvdb_by_imdb = 'https://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
+        self.tvdb_by_query = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s'
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
 
     def get(self, tvshowtitle, year, imdb, tvdb, idx=True, create_directory=True):
@@ -92,7 +95,8 @@ class seasons:
             if tvdb == '0' and not imdb == '0':
                 url = self.tvdb_by_imdb % imdb
 
-                result = client.request(url, timeout='10')
+                #result = client.request(url, timeout='10')
+                result = requests.get(url).content
 
                 try: tvdb = client.parseDOM(result, 'seriesid')[0]
                 except: tvdb = '0'
@@ -110,7 +114,8 @@ class seasons:
 
                 years = [str(year), str(int(year)+1), str(int(year)-1)]
 
-                tvdb = client.request(url, timeout='10')
+                #tvdb = client.request(url, timeout='10')
+                tvdb = requests.get(url).content
                 tvdb = re.sub(r'[^\x00-\x7F]+', '', tvdb)
                 tvdb = client.replaceHTMLCodes(tvdb)
                 tvdb = client.parseDOM(tvdb, 'Series')
@@ -129,10 +134,11 @@ class seasons:
             if tvdb == '0': return
 
             url = self.tvdb_info_link % (tvdb, 'en')
-            data = urllib2.urlopen(url, timeout=30).read()
-
-            zip = zipfile.ZipFile(StringIO.StringIO(data))
-            result = zip.read('%s.xml' % 'en')
+            #data = urllib2.urlopen(url, timeout=30).read()
+            #zip = zipfile.ZipFile(StringIO.StringIO(data))
+            data = requests.get(url)
+            zip = zipfile.ZipFile(StringIO.StringIO(data.content))
+            result = zip.read('en.xml')
             artwork = zip.read('banners.xml')
             zip.close()
 
@@ -141,25 +147,25 @@ class seasons:
 
             if len(dupe) > 0:
                 tvdb = str(dupe[0]).encode('utf-8')
-
                 url = self.tvdb_info_link % (tvdb, 'en')
-                data = urllib2.urlopen(url, timeout=30).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
-                result = zip.read('%s.xml' % 'en')
+                #data = urllib2.urlopen(url, timeout=30).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
+                result = zip.read('en.xml')
                 artwork = zip.read('banners.xml')
                 zip.close()
 
             if not lang == 'en':
                 url = self.tvdb_info_link % (tvdb, lang)
-                data = urllib2.urlopen(url, timeout=30).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
+                #data = urllib2.urlopen(url, timeout=30).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
                 result2 = zip.read('%s.xml' % lang)
                 zip.close()
             else:
                 result2 = result
-
 
             artwork = artwork.split('<Banner>')
             artwork = [i for i in artwork if '<Language>en</Language>' in i and '<BannerType>season</BannerType>' in i]
@@ -401,12 +407,13 @@ class seasons:
                 except: pass
 
                 self.list.append({'title': title, 'label': label, 'season': season, 'episode': episode, 'tvshowtitle': tvshowtitle, 'year': year, 'premiered': premiered, 'status': status, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': episodeplot, 'imdb': imdb, 'tvdb': tvdb, 'poster': poster, 'banner': banner, 'fanart': fanart, 'thumb': thumb, 'unaired': unaired})
+                self.list = sorted(self.list, key=lambda k: (int(k['season']), int(k['episode'])))
             except:
                 pass
 
         return self.list
 
-
+#TC 2/01/19 started
     def seasonDirectory(self, items):
         if items == None or len(items) == 0: control.idle() ; sys.exit()
 
@@ -520,7 +527,7 @@ class seasons:
 
                 item.setArt(art)
                 item.addContextMenuItems(cm)
-                item.setInfo(type='Video', infoLabels = meta)
+                item.setInfo(type='Video', infoLabels = control.metadataClean(meta))
 
                 video_streaminfo = {'codec': 'h264'}
                 item.addStreamInfo('video', video_streaminfo)
@@ -539,13 +546,14 @@ class seasons:
 
 class episodes:
     def __init__(self):
+        self.count = int(control.setting('page.item.limit'))
         self.list = []
 
-        self.trakt_link = 'http://api.trakt.tv'
-        self.tvmaze_link = 'http://api.tvmaze.com'
+        self.trakt_link = 'https://api.trakt.tv'
+        self.tvmaze_link = 'https://api.tvmaze.com'
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
-            self.tvdb_key = '1D62F2F90030C444'
+            self.tvdb_key = '27bef29779bbffe947232dc310a91f0c'
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.systime = (self.datetime).strftime('%Y%m%d%H%M%S%f')
         self.today_date = (self.datetime).strftime('%Y-%m-%d')
@@ -553,22 +561,23 @@ class episodes:
         self.lang = control.apiLanguage()['tvdb']
         self.showunaired = control.setting('showunaired') or 'true'
 
-        self.tvdb_info_link = 'http://thetvdb.com/api/%s/series/%s/all/%s.zip' % (self.tvdb_key, '%s', '%s')
-        self.tvdb_image = 'http://thetvdb.com/banners/'
-        self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/all/%s.zip' % (
+            self.tvdb_key, '%s', '%s')
+        self.tvdb_image = 'https://thetvdb.com/banners/'
+        self.tvdb_poster = 'https://thetvdb.com/banners/_cache/'
 
-        self.added_link = 'http://api.tvmaze.com/schedule'
+        self.added_link = 'https://api.tvmaze.com/schedule'
         #https://api.trakt.tv/calendars/all/shows/date[30]/31 #use this for new episodes?
-        #self.mycalendar_link = 'http://api.trakt.tv/calendars/my/shows/date[29]/60/'
-        self.mycalendar_link = 'http://api.trakt.tv/calendars/my/shows/date[30]/31/' #go back 30 and show all shows aired until tomorrow
-        self.trakthistory_link = 'http://api.trakt.tv/users/me/history/shows?limit=300'
-        self.progress_link = 'http://api.trakt.tv/users/me/watched/shows'
-        self.hiddenprogress_link = 'http://api.trakt.tv/users/hidden/progress_watched?limit=1000&type=show'
-        self.calendar_link = 'http://api.tvmaze.com/schedule?date=%s'
-        self.onDeck_link = 'http://api.trakt.tv/sync/playback/episodes?extended=full&limit=10'
-        self.traktlists_link = 'http://api.trakt.tv/users/me/lists'
-        self.traktlikedlists_link = 'http://api.trakt.tv/users/likes/lists?limit=1000000'
-        self.traktlist_link = 'http://api.trakt.tv/users/%s/lists/%s/items'
+        #self.mycalendar_link = 'https://api.trakt.tv/calendars/my/shows/date[29]/60/'
+        self.mycalendar_link = 'https://api.trakt.tv/calendars/my/shows/date[30]/31/' #go back 30 and show all shows aired until tomorrow
+        self.trakthistory_link = 'https://api.trakt.tv/users/me/history/shows?limit=%d' % self.count
+        self.progress_link = 'https://api.trakt.tv/users/me/watched/shows'
+        self.hiddenprogress_link = 'https://api.trakt.tv/users/hidden/progress_watched?limit=%d&type=show' % self.count
+        self.calendar_link = 'https://api.tvmaze.com/schedule?date=%s'
+        self.onDeck_link = 'https://api.trakt.tv/sync/playback/episodes?extended=full&limit=10'
+        self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
+        self.traktlikedlists_link = 'https://api.trakt.tv/users/likes/lists?limit=%d' % self.count
+        self.traktlist_link = 'https://api.trakt.tv/users/%s/lists/%s/items'
 
 
     def get(self, tvshowtitle, year, imdb, tvdb, season=None, episode=None, idx=True, create_directory=True):
@@ -726,9 +735,7 @@ class episodes:
             itemlist = []
             items = trakt.getTraktAsJson(u)
         except:
-            print("Unexpected error in info builder script:", sys.exc_info()[0])
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(exc_type, exc_tb.tb_lineno)
+
             return
 
         for item in items:
@@ -877,22 +884,23 @@ class episodes:
 
             try:
                 url = self.tvdb_info_link % (i['tvdb'], lang)
-                data = urllib2.urlopen(url, timeout=10).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
+                #data = urllib2.urlopen(url, timeout=10).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
                 result = zip.read('%s.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()
 
                 result = result.split('<Episode>')
-                item = [x for x in result if '<EpisodeNumber>' in x]
+                item = [x for x in result if '<EpisodeNumber>' in x and not '<SeasonNumber>0</SeasonNumber>' in x]
                 item2 = result[0]
 
                 num = [x for x,y in enumerate(item) if re.compile('<SeasonNumber>(.+?)</SeasonNumber>').findall(y)[0] == str(i['snum']) and re.compile('<EpisodeNumber>(.+?)</EpisodeNumber>').findall(y)[0] == str(i['enum'])][-1]
                 item = [y for x,y in enumerate(item) if x > num][0]
 
-                print lang
-                print item
+
+
 
                 premiered = client.parseDOM(item, 'FirstAired')[0]
                 if premiered == '' or '-00' in premiered: premiered = '0'
@@ -1079,17 +1087,21 @@ class episodes:
 
             try:
                 url = self.tvdb_info_link % (i['tvdb'], lang)
-                data = urllib2.urlopen(url, timeout=10).read()
-
-                zip = zipfile.ZipFile(StringIO.StringIO(data))
+                #data = urllib2.urlopen(url, timeout=10).read()
+                #zip = zipfile.ZipFile(StringIO.StringIO(data))
+                data = requests.get(url)
+                zip = zipfile.ZipFile(StringIO.StringIO(data.content))
                 result = zip.read('%s.xml' % lang)
                 artwork = zip.read('banners.xml')
                 zip.close()
 
                 result = result.split('<Episode>')
-                item = [(re.findall('<SeasonNumber>%01d</SeasonNumber>' % int(i['season']), x), re.findall('<EpisodeNumber>%01d</EpisodeNumber>' % int(i['episode']), x), x) for x in result]
-                item = [x[2] for x in item if len(x[0]) > 0 and len(x[1]) > 0][0]
+                item = [x for x in result if '<EpisodeNumber>' in x and not '<SeasonNumber>0</SeasonNumber>' in x]
                 item2 = result[0]
+                num = [x for x, y in enumerate(item)
+                       if re.compile('<SeasonNumber>(.+?)</SeasonNumber>').findall(y)[0] == str(i['snum']) and
+                       re.compile('<EpisodeNumber>(.+?)</EpisodeNumber>').findall(y)[0] == str(i['enum'])][-1]
+                item = [y for x, y in enumerate(item) if x > num][0]
 
                 premiered = client.parseDOM(item, 'FirstAired')[0]
                 if premiered == '' or '-00' in premiered: premiered = '0'
@@ -1111,6 +1123,8 @@ class episodes:
                 season = '%01d' % int(season)
                 season = season.encode('utf-8')
 
+                if int(season) == 0:
+                    raise Exception()
                 episode = client.parseDOM(item, 'EpisodeNumber')[0]
                 episode = re.sub('[^0-9]', '', '%01d' % int(episode))
                 episode = episode.encode('utf-8')
@@ -1545,7 +1559,7 @@ class episodes:
                 item.setArt(art)
                 item.addContextMenuItems(cm)
                 item.setProperty('IsPlayable', isPlayable)
-                item.setInfo(type='Video', infoLabels = meta)
+                item.setInfo(type='Video', infoLabels = control.metadataClean(meta))
 
                 video_streaminfo = {'codec': 'h264'}
                 item.addStreamInfo('video', video_streaminfo)

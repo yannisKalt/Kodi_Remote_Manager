@@ -1,0 +1,1 @@
+["escap", ["escape from tarkov", "escape room", "escape the fate", "escape", "escape from tarkov gameplay", "escape plan", "escapist", "escape from tarkov trailer", "escape from tarkov review", "escape from tarkov shroud"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -33,7 +33,7 @@ import xbmcplugin
 from resources.lib.modules import control, log_utils
 
 HOME = xbmc.translatePath('special://home/')
-FILENAME = os.path.join(HOME, 'userdata/addon_data/plugin.video.13clowns/bookmarks.json')
+FILENAME = os.path.join(HOME, 'userdata/addon_data/plugin.video.thecrew/bookmarks.json')
 
 defaults = {'Channels': {},
             'Documentaries': {},
@@ -143,7 +143,7 @@ class jsonBookmarks(object):
         except Exception:
             failure = traceback.format_exc()
             log_utils.log('Bookmarks - Add Podcast Exception: \n' + str(failure))
-
+#TC 2/01/19 started
     def rem_podcast(self, dbase):
         temp = dbase.decode('base64').split('|')
         show_id = temp[1]

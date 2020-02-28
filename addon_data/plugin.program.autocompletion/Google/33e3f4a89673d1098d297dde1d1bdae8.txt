@@ -1,0 +1,1 @@
+["bts", ["bts", "bts carpool karaoke", "bts on", "bts black swan", "bts jimmy fallon", "bts interview", "bts fake love", "bts live", "bts songs", "bts mic drop"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

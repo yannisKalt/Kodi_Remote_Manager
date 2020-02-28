@@ -50,7 +50,7 @@ UA='Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.
 UAX='Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'
 UAiphone='Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1'
 s = requests.Session()
-def add_item(url, name, image, folder, mode, infoLabels=False,pusto=False,fanart=FANART):	
+def add_item(url, name, image, folder, mode, infoLabels=False,pusto=False,odtworz=True,fanart=FANART):	
 	if not image:
 		image=RESOURCES+'empty.png'
 	if pusto:
@@ -73,7 +73,10 @@ def add_item(url, name, image, folder, mode, infoLabels=False,pusto=False,fanart
 		if folder:
 			list_item.setProperty("IsPlayable", 'false')
 		else:
-			list_item.setProperty("IsPlayable", 'true')
+			if odtworz:
+				list_item.setProperty("IsPlayable", 'true')
+			else:
+				list_item.setProperty("IsPlayable", 'false')
 		if not infoLabels:
 			infoLabels={"title": name,'plot':name}
 		list_item.setInfo(type="video", infoLabels=infoLabels)	
@@ -149,16 +152,280 @@ def home():
 	import rtmpcheck as rtc
 	#aa=rtc.get_addon()
 	ab=rtc.get_addon('inputstream.adaptive')
+	ac=rtc.get_addon('inputstream.rtmp')
 	setUnblockKuk()
-	addDir('Sport365 LIVE', ex_link='', params2={'_service':'sport365','_act':'ListChannels'}, mode='site2', iconImage=RESOURCES+'sport365.png', fanart=FANART)
+	addDir('Sport365 LIVE [COLOR red] (nie działa) [/COLOR]', ex_link='', params2={'_service':'sport365','_act':'ListChannels'}, mode='xxx', iconImage=RESOURCES+'sport365.png', fanart=FANART)
 	add_item('http://livelooker.com/pl/dzisiaj.html', 'LiveLooker', RESOURCES+'looker.jpg', True, "livelooker", infoLabels=False)
 	add_item('http://livetv.sx/enx/allupcoming/', 'LiveTV.sx', RESOURCES+'livetv.png', True, "livetvsx", infoLabels=False)
 	add_item('https://sport.tvp.pl/transmisje', 'TVP Sport - Transmisje', RESOURCES+'tvpsport.png', True, "listTVP")	
 	add_item('cricfree', 'Crickfree', RESOURCES+'crfree.png', True, 'scheduleCR')	
-	add_item('http://strims.world', 'Strims World', RESOURCES+'sworld.png', True, 'scheduleSW')		
+	add_item('http://strims.world', 'Strims World', RESOURCES+'sworld.png', True, 'scheduleSW')	
+	
+	add_item('http://strims.world', 'LiveSport.ws', RESOURCES+'logoc.png', True, 'livesportws')	
+	add_item('http://strims.world', 'SportsBay', RESOURCES+'logosb.png', True, 'getsportsbay')	
+	add_item('https://www.tvcom.pl/', 'TVCOM', RESOURCES+'tvcom.png', True, 'gettvcom')	
+	
 	#add_item('http://strims.world', 'Soccer Streams', RESOURCES+'sworld.png', True, 'scheduleSstreams')	
 	add_item('', 'Live channels', RESOURCES+'chan2.png', True, "liveChannels")		
 	xbmcplugin.endOfDirectory(addon_handle)
+
+	
+def gettvcom():
+	url = params.get('url', None)
+	links = se.ListTVCOM1(url)	
+	add_item(url, 'Transmisje z dni', RESOURCES+'tvcom.png', True, 'gettvcomdzis')	
+	if links:
+		for f in links:
+			add_item(f.get('href'), f.get('title'), RESOURCES+'tvcom.png', True, 'gettvcom2')	
+	xbmcplugin.endOfDirectory(addon_handle)
+
+def gettvcom2():
+	url = params.get('url', None)
+	links = se.ListTVCOM2(url)	
+
+	if links:
+		for f in links:
+			add_item(f.get('href'), f.get('title'), RESOURCES+'tvcom.png', True, 'gettvcomdysc')	
+	xbmcplugin.endOfDirectory(addon_handle)
+
+def gettvcomdzis():
+	url = params.get('url', None)
+
+	links = se.ListTVCOMdzis(url)	
+	if links:
+		items = len(links)
+		if links:
+			t = [ x.get('title') for x in links]
+			h = [ x.get('href') for x in links]
+			al = "Dzień - (nagrania, live, wkrótce)"	
+		
+			select = xbmcgui.Dialog().select(al, t)
+			if select>-1:
+
+				href=h[select]
+				linki=se.ListTVCOMlinks(href)
+
+				if linki:
+					for f in linki:
+						add_item(f.get('href'), f.get('title'), RESOURCES+'tvcom.png', False, 'playtvcom',infoLabels={'code':f.get('code'),'plot':f.get('plot'),})	
+					xbmcplugin.setContent(addon_handle, 'videos')
+					xbmcplugin.endOfDirectory(addon_handle)
+				else:
+					xbmcgui.Dialog().notification('[COLOR red][B]Uwaga[/B][/COLOR]', '[COLOR red][B] Brak wydarzeń z tego dnia[/B][/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000,False)
+
+					
+def gettvcomdysc():
+	url = params.get('url', None)	
+	headersok = {
+	'User-Agent': UA,
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+	'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+	'Connection': 'keep-alive',
+	'Upgrade-Insecure-Requests': '1',
+	'TE': 'Trailers',}	
+	html=requests.get(url,headers=headersok,verify=False,timeout=30).text
+	html=html.replace("\'",'"')	
+	sportid,sportlig=re.findall('CalendarLeagueVideos\("(.+?)",\s*"(.+?)"',html)[0]
+	seas = parseDOM(html,'select', attrs={'id': "season"})[0]
+	sez=re.findall('option value="(.+?)"',seas)[0]
+	url='https://json.2017.tvcom.cz/Json/Web2017/BottomCalendarSportLeaguePL.aspx?sportId=%s&sportLeagueId=%s&yearId=%s'%(sportid,sportlig,sez)
+	linki=se.ListTVCOMlinksDysc(url)
+	if len(linki)>10:
+
+		for f in linki:	
+			add_item(f.get('href'), f.get('title'), RESOURCES+'tvcom.png', False, 'playtvcom')	
+		xbmcplugin.endOfDirectory(addon_handle)
+	else:
+		linki=se.ListTVCOMlinksDysc2(html)
+		if linki:
+			for f in linki:	
+				add_item(f.get('href'), f.get('title'), f.get('imag'), False, 'playtvcom')	
+		xbmcplugin.endOfDirectory(addon_handle)
+					
+					
+def PlayTVCOM():
+	url = params.get('url', None)
+	stream_url = se.getTVCOMstream(url)
+	if stream_url:	
+		xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream_url))
+
+	
+def getsportsbay():
+
+	add_item('https://sportsbay.org/page/1', 'All events', RESOURCES+'calendar.png', True, 'getsportsbayschedule')	
+	add_item('', 'Most popular', RESOURCES+'soccer.png', True, 'getsportsbaypopular')
+	add_item('https://sportsbay.org/sports/football/1', 'Football', RESOURCES+'soccer.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/nfl-football/1', 'NFL', RESOURCES+'football.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/sports/basketball/1', 'Basketball', RESOURCES+'basketball.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/sports/baseball/1', 'Baseball', RESOURCES+'baseball.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/ncaa-football/1', 'NCAA', RESOURCES+'basketball.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/sports/tennis/1', 'Tennis', RESOURCES+'tennis.png', True, 'getsportsbayschedule')
+	add_item('https://sportsbay.org/sports/cricket/1', 'Cricket', RESOURCES+'cricket.png', True, 'getsportsbayschedule')
+	add_item('https://sportsbay.org/sports/motorsports/1', 'Motorsport', RESOURCES+'f1.png', True, 'getsportsbayschedule')	
+	xbmcplugin.endOfDirectory(addon_handle)	
+	
+def getsportsbayschedule():
+	url = params.get('url', None)
+	headersok = {
+	'User-Agent': UA,
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+	'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+	'Connection': 'keep-alive',
+	'Upgrade-Insecure-Requests': '1',
+	'TE': 'Trailers',}	
+	html=requests.get(url,headers=headersok,verify=False,timeout=30).text
+	html=html.replace("\'",'"')	
+	result = parseDOM(html,'tbody')[0]
+	links = parseDOM(result,'tr')
+	npage = parseDOM(html,'div', attrs={'class': "loadmore"})
+
+	for link in links:
+		dt = parseDOM(link,'th')
+		if dt:
+			data = dt[0]
+			title='[B][COLOR blue]                        %s[/B][/COLOR]'%data
+			add_item('', title, RESOURCES+'calendar.png', True, '', infoLabels=False, pusto=True)
+			continue
+		czas = parseDOM((parseDOM(link,'td', attrs={'class': "time dtstart"})[0]),'span')[0]
+		czas=czas.split(':')
+
+		hrs =int(czas[0])+6
+		min=int(czas[1])
+		if hrs >23:
+			hrs = hrs-24
+			czas =".%02d:%02d" % (hrs, min)
+		else:
+			czas ="%02d:%02d" % (hrs, min)
+
+		imagi = parseDOM((parseDOM(link,'td', attrs={'class': "type"})[0]),'img',ret='src')[0]
+
+		ikona=ikony(imagi)
+		if 'american football' in imagi.lower():
+			ikona = RESOURCES+'football.png'
+
+		competition = parseDOM((parseDOM(link,'td', attrs={'class': "competition"})[0]),'a')[0] #<td class="competition">
+		event = parseDOM((parseDOM(link,'td', attrs={'class': "event"})[0]),'span',ret='title')[0]#<td class="event">
+		href = parseDOM((parseDOM(link,'td', attrs={'class': "play"})[0]),'a',ret='href')[0]#<td class="play">
+		tytul = u'[B]%s [COLOR gold]%s[/COLOR][COLOR khaki] - %s [/COLOR][/B]'%(czas,event,competition)
+		add_item('https://sportsbay.org'+href, tytul, ikona, True, 'getsportsbayLinks')
+	
+	if npage:
+		href = 'https://sportsbay.org'+parseDOM(npage[0],'a',ret='href')[0]
+		add_item(href, 'Next page', RESOURCES+'nextpage.png', True, 'getsportsbayschedule')
+	xbmcplugin.endOfDirectory(addon_handle)	
+
+def getsportsbaypopular():
+	add_item('https://sportsbay.org/competition/english-premier-league/1', 'English Premier League', 'https://github.com/Proximus2000/mb-support/raw/master/flags/prlig.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/uefa-champions-league/1', 'UEAFA Champions League', 'https://github.com/Proximus2000/mb-support/raw/master/flags/champlig.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/uefa-europa-league/1', 'UEAFA Europa League', 'https://github.com/Proximus2000/mb-support/raw/master/flags/eurlig.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/germany-bundesliga/1', 'Germany Bundesliga', 'https://github.com/Proximus2000/mb-support/raw/master/flags/bundesli.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/french-ligue-1/1', 'French Ligue 1', 'https://github.com/Proximus2000/mb-support/raw/master/flags/lig1.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/primera-division-espana/1', 'Spain Primera Division', 'https://github.com/Proximus2000/mb-support/raw/master/flags/lalig.png', True, 'getsportsbayschedule')	
+	add_item('https://sportsbay.org/competition/italy-serie-a/1', 'Italy Serie A', 'https://github.com/Proximus2000/mb-support/raw/master/flags/seriea.png', True, 'getsportsbayschedule')	
+	xbmcplugin.endOfDirectory(addon_handle)
+	
+def getSportsbaychan():
+	url = params.get('url', None)
+	headersok = {
+	'User-Agent': UA,
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+	'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+	'Connection': 'keep-alive',
+	'Upgrade-Insecure-Requests': '1',
+	'TE': 'Trailers',}	
+	html=requests.get(url,headers=headersok,verify=False,timeout=10).text
+	html=html.replace("\'",'"')	
+	links=parseDOM(html,'tr', attrs={'class': "vevent"})#<tr id="45711" class="vevent"
+	
+	for link in links:
+		kraj=''
+		try:
+			kraj = parseDOM((parseDOM(link,'td', attrs={'class': "country"})[0]),'span', attrs={'title': ".+?"},ret='title')[0]
+		except:
+			pass
+		event = parseDOM(link,'td', attrs={'class': "event"})[0]
+		tyt = parseDOM(event,'a', ret='title')[1]
+		href = parseDOM(event,'a', ret='href')[0]
+		imag = parseDOM(event,'img', ret='src')[0]
+		imag = 'https:'+imag if imag.startswith('//') else imag#<img src="//1079020916.rsc.cdn77.org/images/teams/Logo-The-Tennis-Channel.png"
+		tytul = u'[B][COLOR gold]%s[/B][/COLOR][COLOR khaki] (%s)[/COLOR]'%(tyt,kraj)
+
+		add_item('https://sportsbay.org'+href, tytul, imag, True, 'getsportsbayLinks')
+	
+	xbmcplugin.endOfDirectory(addon_handle)		
+
+def getsportsbayLinks():
+
+	url = params.get('url', None)
+	headersok = {
+	'User-Agent': UA,
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+	'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+	'Connection': 'keep-alive',
+	'Upgrade-Insecure-Requests': '1',
+	'TE': 'Trailers',}	
+	html=requests.get(url,headers=headersok,verify=False,timeout=10).text
+	html=html.replace("\'",'"')	
+	result=parseDOM(html,'div', attrs={'id': 'content'})[0] #<div id="content" class="vevent streamview">
+	imag = parseDOM(result,'img', ret='src')[0]
+	imag = 'https:'+imag if imag.startswith('//') else imag
+	tyt = parseDOM(result,'span', ret='title')[0]
+	links =parseDOM(result,'p', attrs={'class': 'buttons'})#[0]
+	if links:
+		links = links[0]
+
+		zrodla = re.findall("""a href=['"](.+?)['"]""",links)
+	else:
+		links = parseDOM(result,'div', attrs={'class': 'player'})[0]
+		zrodla = parseDOM(result,'iframe', ret='src')#attrs={'class': 'player'})[0]
+	#<div class='player'>
+	co=1
+	for href in zrodla:
+		if href.startswith('/'): href = 'https://sportsbay.org'+href
+		#href='https://sportsbay.org'+href
+		tytul = '%s - Link %s'%(tyt,co)
+		add_item(href, u'[COLOR lime]► [/COLOR][B][COLOR gold]'+tytul+'[/B][/COLOR]', imag, False, 'playsportsbaytv')
+		co+=1	
+	xbmcplugin.endOfDirectory(addon_handle)		
+	
+def playsportsbaytv():
+	url = params.get('url', None)
+	headersok = {
+	'User-Agent': UA,
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+	'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',}
+	html=requests.get(url,headers=headersok,verify=False,timeout=30).text
+	html=html.replace("\'",'"')	
+	src = clappr.findall(html)#[0]
+
+	if src:
+
+		stream=src[0]+'|User-Agent='+UA+'&Referer='+url	
+		xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream))
+		return# ok
+	else:
+		src = re.findall('var source = "(.+?)"',html)#clappr.findall(html)#[0]
+		if src:
+
+			stream=src[0]+'|User-Agent='+UA+'&Referer='+url	
+			xbmc.log('Blad w : %s' % stream, xbmc.LOGNOTICE)
+			play_item = xbmcgui.ListItem(path=stream)
+
+			xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+			return 
+		else:
+			import mydecode
+			stream = mydecode.decode(url,html)
+			play_item = xbmcgui.ListItem(path=stream)
+
+			xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+			return 
+	if src:
+
+		stream=src[0]+'|User-Agent='+UA+'&Referer='+url	
+		xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream))
+	else:
+		xbmcgui.Dialog().notification('[COLOR red][B]Error[/B][/COLOR]', '[COLOR red][B]This video is not available at the moment.[/B][/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
 
 def LiveSched():
 	add_item('cricfree', 'Crickfree', RESOURCES+'crfree.png', True, 'scheduleCR')	
@@ -167,10 +434,8 @@ def LiveSched():
 	
 def LiveChannels():
 	links=[]
-	links.append({'href':'http://canalesportivo.xyz/',	'title':'CanaleSportivo',	'img':RESOURCES+'esportivo.png',	'mode':"canalespo"	})
-	links.append({'href':'http://canalesportivo.xyz/',	'title':'Super Sportowo',	'img':RESOURCES+'logoss.png',	'mode':"supersport"	})	
 	links.append({'href':'cricfree', 					'title':'Crickfree',		'img':RESOURCES+'crfree.png',		'mode':'channelsCR'	})	
-	links.append({'href':'http://strims.world',			'title':'Strims World',		'img':RESOURCES+'sworld.png',		'mode':'channelsSW'	})		
+	links.append({'href':'http://strims.world',			'title':'Strims World',		'img':RESOURCES+'sworld.png',		'mode':'channelsSW'	})	
 	links.append({'href':'http://unblocked.is/tv',		'title':'Unblocked.is',		'img':RESOURCES+'unbl.png',			'mode':"unblocked"	})	
 	for f in links:
 		add_item(f.get('href'), f.get('title'), f.get('img'), True, f.get('mode'))	
@@ -226,9 +491,10 @@ def getSuperSport():
 	add_item('https://supersportowo.com/stream10.html', '[COLOR lime]► [/COLOR] [B][COLOR gold]Eleven Sports 3 HD[/COLOR][/B]', "https://i.imgur.com/FQkKANW.png", False, "playsupersportowo")	
 	add_item('https://supersportowo.com/stream11.html', '[COLOR lime]► [/COLOR] [B][COLOR gold]Polsat Sport HD[/COLOR][/B]', "https://i.imgur.com/VkY8zNV.png", False, "playsupersportowo")	
 
-def getScheduleSW():
-
-	links = se.getScheduleSW()
+	
+	
+def getLiveSport():
+	links = se.getLiveSport()
 	if links:
 		for f in links:
 			if 'kiedy' in f.get('href'):
@@ -237,7 +503,85 @@ def getScheduleSW():
 				add_item('', title, RESOURCES+'calendar.png', True, '', infoLabels=False, pusto=True)
 			else:
 				ikona=ikony(f.get('image'))
-				add_item(f.get('href'), f.get('title'), ikona, False, 'streamsSW')				
+				add_item(f.get('href'), f.get('title'), ikona, False,'getLinksLiveSport', infoLabels={'plot':f.get('title'),'code':f.get('code')},odtworz=False)			
+
+		xbmcplugin.setContent(addon_handle, 'videos')	
+		xbmcplugin.endOfDirectory(addon_handle)	
+		
+def getLinksLiveSport():
+
+	
+	url = params.get('url', None)
+	tytul = params.get('title', None)
+	links = se.getLinksLiveSport(url,tytul)
+	
+	
+
+    
+	items = len(links)
+	if links:
+		t = [ x.get('title') for x in links]
+		u = [ x.get('href') for x in links]
+		al = "Links"	
+    
+		if items>1:	
+			select = xbmcgui.Dialog().select(al, t)
+			
+			if select > -1:
+				link = u[select];	
+				stream_url = se.getStreamLiveSport(link)	
+    
+			else:
+				quit()
+		else:
+			link = u[0];
+			stream_url = se.getStreamLiveSport(link)	
+		if stream_url:
+			if 'youtube.com' in stream_url or 'youtu.be' in stream_url:
+				stream_url = resolveurl.resolve(stream_url)
+			play_item = xbmcgui.ListItem(path=stream_url,label=tytul)
+			play_item.setInfo(type="Video", infoLabels={"title": tytul,'plot':tytul})
+			play_item.setProperty("IsPlayable", "true")
+			play_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+			play_item.setMimeType('application/vnd.apple.mpegurl')
+			play_item.setContentLookup(False)
+
+			xbmc.Player().play(stream_url,play_item)
+		else:
+			xbmcgui.Dialog().notification('[COLOR red][B]Error[/B][/COLOR]', '[COLOR red][B]This video is not available at the moment.[/B][/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
+			return	
+	else:
+		xbmcgui.Dialog().notification('[COLOR red][B]Error[/B][/COLOR]', '[COLOR red][B]No links available.[/B][/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)	
+		return	
+	return
+
+def PlayLiveSport():
+	url = params.get('url', None)
+	tytul = params.get('title', None)
+	stream_url = se.getStreamLiveSport(url)	
+
+	is_helper = inputstreamhelper.Helper('hls')
+	if is_helper.check_inputstream():
+		play_item = xbmcgui.ListItem(path=stream_url)
+		play_item.setProperty('inputstreamaddon', is_helper.inputstream_addon)
+		play_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+		play_item.setMimeType('application/x-mpegurl')
+		play_item.setContentLookup(False)
+		xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+
+def getScheduleSW():
+
+	links = se.getScheduleSW()
+	#add_item('http://strims.world/KSW50.php', '[B][COLOR gold]KSW[/B][/COLOR]', '', False,'streamsSW', odtworz=False)
+	if links:
+		for f in links:
+			if 'kiedy' in f.get('href'):
+				title=(f.get('href')).split('|')[1]
+				title='[B][COLOR blue]                        %s[/B][/COLOR]'%title
+				add_item('', title, RESOURCES+'calendar.png', True, '', infoLabels=False, pusto=True)
+			else:
+				ikona=ikony(f.get('image'))
+				add_item(f.get('href'), f.get('title'), ikona, False,'streamsSW', odtworz=False)				
 
 		xbmcplugin.setContent(addon_handle, 'videos')	
 		xbmcplugin.endOfDirectory(addon_handle)	
@@ -281,20 +625,81 @@ def getScheduleCR():
 
 
 def getChannelsSW():
-	add_item("http://strims.world/live/realtv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Real TV[/COLOR][/B]', "https://i.imgur.com/ofDzqEz.png", False, 'linksSW')	
-	add_item("http://strims.world/live/sevillatv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Sevilla TV[/COLOR][/B]', "https://i.imgur.com/mggF1cB.png", False, 'linksSW')	
-	add_item("http://strims.world/live/lfctv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Liverpool TV[/COLOR][/B]', "https://i.imgur.com/3UZFS9c.png", False, 'linksSW')	
-	add_item("http://strims.world/live/mutv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]MUTV[/COLOR][/B]', "https://i.imgur.com/zg16NiQ.png", False, 'linksSW')			
-	add_item("http://strims.world/live/chelseatv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Chelsea TV[/COLOR][/B]', "https://i.imgur.com/HQFgiYi.png", False, 'linksSW')	
-	add_item("http://strims.world/live/nbatv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]NBA TV[/COLOR][/B]', "https://i.imgur.com/IooE7PF.png", False, 'linksSW')			
-	add_item("http://strims.world/live/f1base.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]F1 Base[/COLOR][/B]', "https://i.imgur.com/K5scJB9.png", False, 'streamsSW')		
-	add_item("http://strims.world/live/f1base.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]F1 FULL VIDEO REPLAYS [/COLOR][/B]', "https://i.imgur.com/K5scJB9.png", True, 'channF1')		
+	add_item("http://strims.world/tv/canalsport.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]Canal + Sport[/COLOR][/B]', "http://epg.ovh/logo/Canal++Sport.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/polsatsport.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]Polsat Sport[/COLOR][/B]', "http://epg.ovh/logo/Polsat+Sport.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/polsatsportextra.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]Polsat Sport Extra[/COLOR][/B]', "http://epg.ovh/logo/Polsat+Sport+Extra.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/eurosport.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]Eurosport[/COLOR][/B]', "http://epg.ovh/logo/Eurosport.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/eurosport2.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]Eurosport 2[/COLOR][/B]', "http://epg.ovh/logo/Eurosport+2.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/espn.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]ESPN[/COLOR][/B]', "http://epg.ovh/logo/ESPN.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/espn2.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]ESPN 2[/COLOR][/B]', "http://epg.ovh/logo/ESPN+2.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/espnu.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]ESPN U[/COLOR][/B]', "http://epg.ovh/logo/ESPN+US.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/skysportnews.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]SKY SPORT NEWS[/COLOR][/B]', "http://epg.ovh/logo/Sky+Sports+News.png", False, 'streamsSW2', odtworz=False)	
+	add_item("http://strims.world/tv/nbcsn.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]NBCSN[/COLOR][/B]', "https://i.imgur.com/vcqi9Hb.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/nbatv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]NBA TV[/COLOR][/B]', "https://i.imgur.com/IooE7PF.png", False, 'streamsSW')			
+	add_item("http://strims.world/tv/tennistv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Tennis TV[/COLOR][/B]', "https://i.imgur.com/JTWxqrd.png", False, 'streamsSW')			
+	add_item("http://strims.world/tv/mlbnetwork.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]MLB TV[/COLOR][/B]', "https://i.imgur.com/Jlju3ox.png", False, 'streamsSW2', odtworz=False)		
+	add_item("http://strims.world/tv/golftv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]GOLF TV[/COLOR][/B]', "https://i.imgur.com/uOfnnEz.png", False, 'streamsSW2', odtworz=False)			
 
+	add_item("http://strims.world/tv/nhlnetwork.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]NHL TV[/COLOR][/B]', "https://i.imgur.com/U3BgbZH.png", False, 'linksSW')	
+	add_item("http://strims.world/tv/realtv.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Real TV[/COLOR][/B]', "https://i.imgur.com/ofDzqEz.png", False, 'linksSW')	
 
+	add_item("http://strims.world/tv/f1base.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]F1 Base[/COLOR][/B]', "https://i.imgur.com/K5scJB9.png", False, 'streamsSW')		
+	add_item("http://strims.world/tv/f1base.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]F1 FULL VIDEO REPLAYS [/COLOR][/B]', "https://i.imgur.com/K5scJB9.png", True, 'channF1')		
+	add_item("http://strims.world/tv/f1base.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]KSW & FAME MMA [/COLOR][/B]', "https://i.imgur.com/BS0tUI0.png", True, 'chanksw')	
+	add_item("http://strims.world/tv/redbulltv.php", '[COLOR lime] ► [/COLOR] [B][COLOR gold]RED BULL TV[/COLOR][/B]', "https://i.imgur.com/40jXktK.png", False, 'streamsSW2', odtworz=False)		
+
+	
 #F1 FULL VIDEO REPLAYS 
-	add_item("http://strims.world/live/tennistv2.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Tennis TV[/COLOR][/B]', "https://i.imgur.com/JTWxqrd.png", False, 'streamsSW')			
+#	add_item("http://strims.world/live/tennistv2.php", '[COLOR lime]► [/COLOR] [B][COLOR gold]Tennis TV[/COLOR][/B]', "https://i.imgur.com/JTWxqrd.png", False, 'streamsSW')			
 	xbmcplugin.setContent(addon_handle, 'videos')	
 	xbmcplugin.endOfDirectory(addon_handle)	
+	
+def StrimsTv():
+	add_item('http://strims.tv/tv5/cs.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Canal+ Sport[/COLOR][/B]', "https://i.imgur.com/mqnZ2Io.png", False, 'playStrimsTv')		
+	add_item('http://strims.tv/tv5/cs2.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Canal+ Sport 2[/COLOR][/B]', "https://i.imgur.com/UYxVd2W.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/e1.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Eleven Sports 1[/COLOR][/B]', "https://i.imgur.com/6KvZtpg.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/e2.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Eleven Sports 2[/COLOR][/B]', "https://i.imgur.com/yt3tfHm.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/e3.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Eleven Sports 3[/COLOR][/B]', "https://i.imgur.com/FQkKANW.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/ps.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Polsat Sport[/COLOR][/B]', "https://i.imgur.com/VkY8zNV.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/pse.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Polsat Sport EXTRA[/COLOR][/B]', "https://i.imgur.com/PBOxzIJ.png", False, 'playStrimsTv')	
+	
+	add_item('http://strims.tv/tv5/psp1.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Polsat Sport Premium 1[/COLOR][/B]', "https://i.imgur.com/mQXMgAD.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/psp2.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Polsat Sport Premium 2[/COLOR][/B]', "https://i.imgur.com/3m0RZFs.png", False, 'playStrimsTv')	
+	
+	
+	add_item('http://strims.tv/tv5/es1.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Eurosport[/COLOR][/B]', "https://i.imgur.com/yCgj02s.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/es2.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Eurosport 2[/COLOR][/B]', "https://i.imgur.com/3IA1QAd.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/ns.php  ', '[COLOR lime]► [/COLOR] [B][COLOR gold]nSport+[/COLOR][/B]', "https://i.imgur.com/GDTICof.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/tvps.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]TVP Sport[/COLOR][/B]', "https://i.imgur.com/A34dfve.png", False, 'playStrimsTv')	
+	add_item('http://strims.tv/tv5/sp.php', '[COLOR lime]► [/COLOR] [B][COLOR gold]Super Polsat[/COLOR][/B]', "https://i.imgur.com/WMM1NnQ.png", False, 'playStrimsTv')	
+	xbmcplugin.setContent(addon_handle, 'videos')	
+	xbmcplugin.endOfDirectory(addon_handle)	
+
+
+def chanksw():
+	#url = params.get('url', None)
+	channels = se.KSWchannels()
+	if channels:
+		for f in channels:
+			add_item(f.get('href'), f.get('title'), RESOURCES+'chan2.png', False,'streamsSW')	
+	xbmcplugin.setContent(addon_handle, 'videos')	
+	xbmcplugin.endOfDirectory(addon_handle)	
+	
+def PlayStrimsTv():
+	url = params.get('url', None)
+	#url = params.get('url', None)
+	
+	#r = requests.get(
+	#	url, 
+	#	verify=False)	
+	data=''
+	import mydecode
+	stream_url = mydecode._strimstv(url,data,url)
+	if stream_url:
+		play_item = xbmcgui.ListItem(path=stream_url)
+		xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+	
+	
 	
 def getChannelsCR():
 	channels = se.getChannelsCR()
@@ -381,9 +786,53 @@ def getF1channels():
 	xbmcplugin.setContent(addon_handle, 'videos')	
 	xbmcplugin.endOfDirectory(addon_handle)	
 
+	
+def getStreamsSW2():
+	stream_url=''
+	url = params.get('url', None)
+	tytul = params.get('title', None)
+	stream_url=se.resolvingCR(url,url)
+	if stream_url:
+		if 'video.assia' in stream_url: 
+			
+			is_helper = inputstreamhelper.Helper('hls')
+			if is_helper.check_inputstream():
+				play_item = xbmcgui.ListItem(path=stream_url,label=tytul)
+				play_item.setInfo(type="Video", infoLabels={"title": tytul,'plot':tytul})
+				play_item.setProperty("IsPlayable", "true")
+				play_item.setProperty('inputstreamaddon', is_helper.inputstream_addon)
+				play_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+				
+				play_item.setMimeType('application/vnd.apple.mpegurl')
+				play_item.setContentLookup(False)
+				xbmc.Player().play(stream_url,play_item)
+
+			
+		elif 'us/ingest' in stream_url:
+
+			play_item = xbmcgui.ListItem(path=stream_url)
+		
+			xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+	
+	
+		else:	
+			play_item = xbmcgui.ListItem(path=stream_url,label=tytul)
+			play_item.setInfo(type="Video", infoLabels={"title": tytul,'plot':tytul})
+			play_item.setProperty("IsPlayable", "true")
+			xbmc.Player().play(stream_url,play_item)
+	
+			
+	else:
+		xbmcgui.Dialog().notification('[COLOR orangered][B]Error[/B][/COLOR]', '[COLOR orangered][B]This link is NOT working[/B][/COLOR]', blad, 5000)
+		play_item = xbmcgui.ListItem(path=stream_url)
+		play_item.setProperty("IsPlayable", "false")
+		xbmcplugin.setResolvedUrl(addon_handle, False, listitem=play_item)
+		return
+		
 def getStreamsSW():
 	stream_url=''
 	url = params.get('url', None)
+	tytul = params.get('title', None)
 	links=se.getSWstreams(url)	
 	items = len(links)
 	if links:
@@ -405,18 +854,49 @@ def getStreamsSW():
 			link = u[0];
 			stream_url=se.resolvingCR(link,url)
 		if stream_url:
+			
+			if 'video.assia' in stream_url: 
+				
+				is_helper = inputstreamhelper.Helper('hls')
+				if is_helper.check_inputstream():
+					play_item = xbmcgui.ListItem(path=stream_url,label=tytul)
+					play_item.setInfo(type="Video", infoLabels={"title": tytul,'plot':tytul})
+					play_item.setProperty("IsPlayable", "true")
+					play_item.setProperty('inputstreamaddon', is_helper.inputstream_addon)
+					play_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+					
+					play_item.setMimeType('application/vnd.apple.mpegurl')
+					play_item.setContentLookup(False)
+					xbmc.Player().play(stream_url,play_item)
+
+				
+			elif 'us/ingest' in stream_url:
+
+				play_item = xbmcgui.ListItem(path=stream_url)
+			
+				xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
 		
-			play_item = xbmcgui.ListItem(path=stream_url)
-			xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+	
+			else:	
+				play_item = xbmcgui.ListItem(path=stream_url)
+			
+				xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+				#play_item = xbmcgui.ListItem(path=stream_url,label=tytul)
+				#play_item.setInfo(type="Video", infoLabels={"title": tytul,'plot':tytul})
+				#play_item.setProperty("IsPlayable", "true")
+				#xbmc.Player().play(stream_url,play_item)
+
+				
 		else:
 			xbmcgui.Dialog().notification('[COLOR orangered][B]Error[/B][/COLOR]', '[COLOR orangered][B]This link is NOT working[/B][/COLOR]', blad, 5000)
 			play_item = xbmcgui.ListItem(path=stream_url)
+			play_item.setProperty("IsPlayable", "false")
 			xbmcplugin.setResolvedUrl(addon_handle, False, listitem=play_item)
 			return
 	else:
 		xbmcgui.Dialog().notification('[COLOR red][B]Error[/B][/COLOR]', '[COLOR red][B]This video is not available at the moment.[/B][/COLOR]', xbmcgui.NOTIFICATION_INFO, 5000)
 		return			
-	
+	return
 def getF1stream():
 	stream_url=''
 	url = params.get('url', None)
@@ -494,7 +974,7 @@ def getLinksSW():
 
 def getLinksSW2():
 	url = params.get('url', None)
-	link,playt=se.getSWlink2(url)
+	link,playt=se.getSWlink2(url) 
 	if link:
 		if playt:
 			is_helper = inputstreamhelper.Helper('hls')
@@ -624,6 +1104,7 @@ def getDysc(imag):
 		return RESOURCES+'looker.jpg',''
 
 def categories(html):
+
 	cats = re.findall('<tr>\s*<[^<]*<a class="main" href="([^"]*allupcomingsports/(\d+)/)"><img[^>]*src="([^"]+)"></a></td>\s*<td align="left">[^<]*<a[^<]*<b>([^<]*)</b></a>\s*</td>\s*<td width=\d+ align="center">\s*<a [^<]*<b>\+(\d+)</b></a>\s*</td>\s*</tr>', html)
 	cats = __prepare_cats(cats)
 	return cats
@@ -633,16 +1114,17 @@ def events(url):
 	import requests
 	html = requests.get(url).text
 	main = parseDOM(html,'table',attrs = {'class':'main'})
+	
 	events = parseDOM(main,'td',attrs = { 'colspan':'2', 'height':'38'})
 	events = __prepare_events(events)
 	return events
 
-def links(url):
+def links(url,tyt):
 	import requests
 	html = requests.get(url).text
 	links = parseDOM(html, "table", attrs = { "class": "lnktbj" })
 	
-	links = __prepare_links(links)
+	links = __prepare_links(links,tyt)
 	return links	
 	
 def __prepare_cats(cats):
@@ -656,7 +1138,7 @@ def __prepare_cats(cats):
 
 	return new	
 
-def __prepare_links(links):
+def __prepare_links(links,tyt):
 	new = []
 	for link in links:
 		try:
@@ -673,15 +1155,23 @@ def __prepare_links(links):
 				lang = ' '
 			health = re.findall('&nbsp;(\d+)',link)#[0]
 			health =health[0] if health else ''
-			link=link.replace("\'",'"')	
-			streamer_tmp,video,eid,lid,ci,si,jj,url = re.findall('show_webplayer\("(\w+)",\s*"(\w+)",\s*(\w+),\s*(\w+),\s*(\w+),\s*(\w+),\s*"(\w+)"\).+?href="(.+?)">',link)[0]
-			
-			streamer_tmp= re.findall('show_webplayer\("(\w+)",',link)[0]
 
+			try:
+				streamer_tmp,video,eid,lid,ci,si,jj,url = re.findall('show_webplayer\("(\w+)",\s*"(\w+)",\s*(\w+),\s*(\w+),\s*(\w+),\s*(\w+),\s*"(\w+)"\).+?href="(.+?)">',link)[0]
+				
+				streamer_tmp= re.findall('show_webplayer\("(\w+)",',link)[0]
+			except:
+				url=re.findall('href="([^"]+)"><img OnMouseOver',link,re.DOTALL)#[0]
+				streamer_tmp='flash'
+				if url:
+					url=url[0]
+				else:
+					url=re.findall('href="([^"]+)">',link,re.DOTALL)[0]
+					streamer_tmp='youtube'
 
 			title = "%s (health %s%%) %s %s"%(streamer_tmp,health,lang, bitrate)
 			if 'cast3d' not in title and 'acestream' not in title and 'sopcast' not in title:
-				new.append((url,title.replace('ifr','flash')))
+				new.append((url+'|'+tyt,title.replace('ifr','flash')))
 		except:
 			pass
 	return new
@@ -695,9 +1185,13 @@ def get_id(id):
 def __prepare_events(events):
 	new=[]
 	for ev in events:
+	
+	
+	
+
 		url= base+ str(parseDOM(ev, 'a', ret='href')[0])		
 		event= str(parseDOM(ev, 'a')[0])		
-		info = str(parseDOM(ev, "span", attrs = { "class": "evdesc" })) #= ev.find('span',{'class':'evdesc'}).getText()
+		info = str(parseDOM(ev, "span", attrs = { "class": "evdesc" }))
 		try:
 			league = re.findall('\((.+?)\)',info)[0]
 		except:
@@ -738,7 +1232,8 @@ def getLiveEvents():
 	
 def getLinks():
 	url = params.get('url', None)
-	link=links(url)
+	tyt = params.get('title', None)
+	link=links(url,tyt)
 	for new in link:
 		add_item('http:'+new[0], new[1], RESOURCES+'play.png', False, 'playlivetvsx')
 	xbmcplugin.endOfDirectory(addon_handle)		
@@ -817,7 +1312,20 @@ def getLivelooker():
 				count+=1
 				host = urlparse.urlparse(url).netloc
 				tytul= '-    Link %s (%s)'%(str(count),host) 
-				out.append({'title':tytul,'href':url,'mode':'playUstreamix'})				
+				out.append({'title':tytul,'href':url,'mode':'playUstreamix'})	
+			#elif 'ustreamyx' in url:
+			#	count+=1
+			#	host = urlparse.urlparse(url).netloc
+			#	tytul= '-    Link %s (%s)'%(str(count),host) 
+			#	out.append({'title':tytul,'href':url,'mode':'playUstreamix'})	
+           #
+			elif 'drhtv.com.pl' in url:
+				count+=1
+				host = urlparse.urlparse(url).netloc
+				tytul= '-    Link %s (%s)'%(str(count),host) 
+				out.append({'title':tytul,'href':url,'mode':'playDRhtv'})	
+
+				
 		add_item(urllib.quote(str(out)),live+'[B][COLOR khaki]'+godz+'[/COLOR] [/B]''[B][COLOR khaki] : [/COLOR] [/B]'+'[B][COLOR gold]'+title+'[/COLOR] [/B]', imag, False, 'dal2',infoLabels={'code':'[B][COLOR lightgreen]'+dysc+'[/COLOR][/B]','plot':godz+' : '+'[B][COLOR gold]'+title+'[/COLOR] [/B]'}) 
 
 	xbmcplugin.setContent(addon_handle, 'videos')
@@ -838,6 +1346,8 @@ def ikony(imag):
 	if "pi\xc5\x82ka no\xc5\xbcna" in imag.lower() or 'yFgOa2K.png' in imag: 
 		return RESOURCES+'soccer.png'
 	elif "soccer" in imag.lower() or 'pilkanozna' in imag.lower():
+		return RESOURCES+'soccer.png'
+	elif "football" in imag.lower():
 		return RESOURCES+'soccer.png'
 	elif "GPAn874.png" in imag: 
 		return RESOURCES+'ski_jumping.png'		
@@ -887,6 +1397,16 @@ def ikony(imag):
 	else:
 		return RESOURCES+'play.png'
 
+def playDRhtv(newurl):	
+	import mydecode
+	r = requests.get(newurl,verify=False)
+	html=r.content
+	src = mydecode.decode(newurl,html)
+	if src:
+		play_item = xbmcgui.ListItem(path=src)
+		xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
+
+		
 def playUstreamix(newurl):
 	headers = {
 		'Host': 'ssl.ustreamix.com',
@@ -958,20 +1478,35 @@ def playSupersportowo(newurl=None):
 
 def playLivetvsx():
 	url = params.get('url', None)
+	tyt = url.split('|')[1]
+	url =url.split('|')[0]
+
 	r = requests.get(
 		url,
 		verify=False)
 	content=r.content
 	
 	streamurl=getLivetvsxStream(content,url)
-	play_item = xbmcgui.ListItem(path=streamurl)
-	xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)	
+	#
+	if streamurl:
 
+		play_item = xbmcgui.ListItem(path=streamurl,label=tyt)
+
+		play_item.setInfo(type="Video", infoLabels={"title": tyt,'plot':tyt})
+
+		xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)	
+
+	else:
+		xbmcgui.Dialog().notification('[COLOR orangered][B]Error[/B][/COLOR]', '[COLOR orangered][B]This link is NOT working[/B][/COLOR]', blad, 5000)
 def getLivetvsxStream(content,url):
 	src=''
+	
 	iframes = parseDOM(content, 'iframe', ret='src')#[0]	
+	
 	for iframe in iframes:
+		
 		if'live.php' in iframe:
+			iframe=iframe.replace('\r ','')
 			nxturl=iframe
 			nxturl = 'https:'+nxturl if nxturl.startswith('//') else nxturl		
 			headers = {
@@ -981,13 +1516,56 @@ def getLivetvsxStream(content,url):
 			'Referer': url,
 			'Connection': 'keep-alive',}			
 			result = requests.get(nxturl,headers=headers,verify=False).content
-			src=re.findall("source: '(.+?)'",result,re.DOTALL)[0]	
+			result=result.replace("\'",'"')
+
+			try:
+				src=re.findall("source: '(.+?)'",result,re.DOTALL)[0]	
+			except:
+				src=re.findall('\.init\("([^"]+)"',result,re.DOTALL)[0]	
+			#
 			src=src+'|User-Agent='+urllib.quote(UA)+'&Referer='+nxturl			
 			break
 		elif 'youtube.com' in iframe:
 			src = resolveurl.resolve(iframe)
+			break
+		elif 'livestream.com/accounts' in iframe:
+			headers = {
+			'User-Agent': UA,
+			'Accept': '*/*',
+			'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+			'Referer': url,
+			'Connection': 'keep-alive',}	
+			nxturl=iframe
+			nxturl = 'https:'+nxturl if nxturl.startswith('//') else nxturl	
+			result = requests.get(nxturl,headers=headers,verify=False).content
+			result=result.replace("\'",'"')
+			src = re.findall('m3u8_url":"([^"]+)"',result,re.DOTALL)[0]
+			src=src+'|User-Agent='+urllib.quote(UA)+'&Referer='+nxturl	
+			break
+		elif 'streameast.live' in iframe:
+			headers = {
+			'User-Agent': UA,
+			'Accept': '*/*',
+			'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+			'Referer': url,
+			'Connection': 'keep-alive',}	
+			nxturl=iframe
+			nxturl = 'https:'+nxturl if nxturl.startswith('//') else nxturl	
+			result = requests.get(nxturl,headers=headers,verify=False).content
+			result=result.replace("\'",'"')
+			try:
+				src=re.findall("""source:\s*['"](.+?)['"]""",result,re.DOTALL)[0]	
+			except:
+				src=re.findall('\.init\("([^"]+)"',result,re.DOTALL)[0]	
+			#
+			src=src+'|User-Agent='+urllib.quote(UA)+'&Referer='+nxturl			
+			break
 		else:
-			continue
+
+			import mydecode
+			src = mydecode.decode(url,content)
+			break
+
 
 	return src
 
@@ -1007,7 +1585,9 @@ def getTelerium(content2,strona):
 	except:		
 		url = parseDOM(content2, 'iframe', ret='src')
 		embedd=url[0]
-	str=resolve(embedd,strona)
+	#str = _telerium(query,data,url)
+	import mydecode
+	str=mydecode._telerium(embedd,data,strona)
 	return str
 def rev(a_string):
     return a_string[::-1]	
@@ -1066,7 +1646,7 @@ def getDecodeSaw(content):
 	mainsaw='http://www.sawlive.tv/embed/stream/'
 
 	var = re.compile("""var\s+\w+\s+=\s*['"](.*?)['"]""").findall(content) #[0][1]
-	print var
+	#print var
 
 	vars=var[0].split(';')
 	var1=vars[0]
@@ -1304,12 +1884,10 @@ def PlayChan():
 	'TE': 'Trailers',}	
 	html=requests.get(url,headers=headersok,verify=False).text
 	html=html.replace("\'",'"')	
-	
 	src=re.findall('source:*"(.+?)"',html,re.DOTALL)#[0]
 	src2=re.findall('<source(.+?)</video>',html,re.DOTALL)#[0]
 	src3 = re.findall('(path to the HLS m3u8)',html,re.DOTALL)#[0]
 	src4 = re.findall("""window.atob\(['"]([^"]+)['"]""",html,re.DOTALL)
-
 	if src:
 		stream=src[0]+'|User-Agent='+UA+'&Referer='+url	
 		xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream))	
@@ -1317,6 +1895,8 @@ def PlayChan():
 		src = re.findall("""src=['"](.+?)['"]""",src2[0])
 		if src:
 			stream=src[0]+'|User-Agent='+UA+'&Referer='+url	
+			if stream.startswith("/live/"):
+				stream = 'https://www.vipsportslive.eu'+stream
 			xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream))
 	elif src3:
 		dan = re.findall("sources: (\[.+?\])",html,re.DOTALL)[0]
@@ -1333,7 +1913,6 @@ def PlayChan():
 			play_item.setMimeType('video/mp4')
 			play_item.setContentLookup(False)
 			xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
-
 		else:
 			stream=src+'|User-Agent='+UA+'&Referer='+url
 			xbmcplugin.setResolvedUrl(addon_handle, True, xbmcgui.ListItem(path=stream))
@@ -1422,7 +2001,8 @@ def take_stream(params2):
 		liz.setInfo(type="Video", infoLabels={"title": orig_title})
 		liz.setProperty("IsPlayable", "true")
 		if addon.getSetting('sport365') == 'Inputstream':
-			stream_url = stream_url.replace('/i', '/master.m3u8')
+			stream_url, hdrs = stream_url.split('|')
+			stream_url = stream_url.replace('/i', '/index.m3u8')
 			liz.setPath(stream_url)
 			if float(xbmc.getInfoLabel('System.BuildVersion')[0:4]) >= 17.5:
 				liz.setMimeType('application/vnd.apple.mpegurl')
@@ -1433,19 +2013,29 @@ def take_stream(params2):
 				liz.setContentLookup(True)
 	
 			idle()
+
 			try:
 				import threading
 				thread = threading.Thread(name='sport356Thread', target=sport356Thread2, args=[url, header])
 				thread.start()
 				xbmc.Player().play(stream_url, liz)
 			except BaseException:
+
 				pass
-		else:
-		#elif addon.getSetting('sport365') == 'Streamlink':
+				
+				
+		elif addon.getSetting('sport365') == 'Streamlink':
+		#else:
+			stream_url, hdrs = stream_url.split('|')
 			import streamlink.session
 			session = streamlink.session.Streamlink()
-			stream_url, hdrs = stream_url.split('|')
-			stream_url = 'hls://' + stream_url.replace('/i', '/master.m3u8')
+			session.set_option('hls-live-edge', 15) 
+			#session.set_option('hls-playlist-reload-attempts',15)
+			#session.set_option('hls-live-restart',1)
+			#stream_url, hdrs = stream_url.split('|')
+			#stream_url = 'hls://' + stream_url
+			stream_url = 'hls://' + stream_url.replace('/i', '/index.m3u8')
+			
 			hdrs += '&Origin=http://h5.adshell.net'
 			session.set_option("http-headers", hdrs)
 	
@@ -1454,18 +2044,21 @@ def take_stream(params2):
 	
 			liz.setPath(stream_url)
 			idle()
+			import threading
+			thread = threading.Thread(name='sport356Thread', target=sport356Thread2, args=[url, header])
+			thread.start()
 			xbmc.Player().play(stream_url, liz)
 	
-		#else:
-	    #
-		#	stream_url = 'plugin://plugin.video.f4mTester/?streamtype=HLSRETRY&url={0}&name={1}'.format(
-		#		urllib.quote_plus(stream_url), urllib.quote_plus(orig_title))
-		#	liz.setPath(stream_url)
-		#	idle()
-		#	try:
-		#		xbmc.executebuiltin('RunPlugin(' + stream_url + ')')
-		#	except BaseException:
-		#		pass
+		else:
+	    
+			stream_url = 'plugin://plugin.video.f4mTester/?streamtype=HLSRETRY&url={0}&name={1}'.format(
+				urllib.quote_plus(stream_url), urllib.quote_plus(orig_title))
+			liz.setPath(stream_url)
+			idle()
+			try:
+				xbmc.executebuiltin('RunPlugin(' + stream_url + ')')
+			except BaseException:
+				pass
 	
 	else:
 		xbmcgui.Dialog().ok("Sorry for that", 'plz contact Dev')
@@ -1479,7 +2072,7 @@ def sport356Thread2(url, header):
 
     while player.isPlaying():
         ##########################
-        print 'sport356Thread: KODI IS PLAYING, sleeping 4s'
+       #print 'sport356Thread: KODI IS PLAYING, sleeping 4s'
         a, c = s.getUrlc(url, header=header, usecookies=True)
         banner = re.compile('url:["\'](.*?)[\'"]').findall(a)[0]
         xbmc.log(banner)
@@ -1537,6 +2130,9 @@ if __name__ == '__main__':
 		getChan()	
 	elif mode == 'supersport':
 		getChanx()	
+		
+	elif mode == 'strimstv':
+		StrimsTv()	
 		
 	elif mode == 'listTVP':
 		ListTVP()
@@ -1607,7 +2203,10 @@ if __name__ == '__main__':
 		getScheduleSW()	
 	elif mode == 'scheduleSstreams':
 		getScheduleSstreams()	
-
+	
+	
+	elif mode=='livesportws':
+		getLiveSport()
 
 
 		
@@ -1621,13 +2220,25 @@ if __name__ == '__main__':
 	elif mode == 'liveSched':
 		LiveSched()	
 
-		
+	elif mode == 'playStrimsTv'	:
+		PlayStrimsTv()
 #getF1channels	
 	elif mode == 'channF1':
 		getF1channels	()		
 		
+	elif mode == 'chanksw':
+		chanksw()	
+		
+		
+		
 	elif mode == 'streamsSW':
 		getStreamsSW()	
+	
+	elif mode == 'streamsSW2':
+		getStreamsSW2()	
+	
+	
+	
 	
 	elif mode == 'F1stream':
 		getF1stream()	
@@ -1654,7 +2265,35 @@ if __name__ == '__main__':
 		#xbmcplugin.endOfDirectory(addon_handle)
 	elif mode == 'get_streams_play':
 		get_streams_play(params2,imig,tit)
+	elif mode == 'getLinksLiveSport':
+		getLinksLiveSport()
+	elif mode == 'playLiveSport':
+		PlayLiveSport()
+	elif mode == 'sportsbaychan':
+		getSportsbaychan()	
+	elif mode == 'getsportsbayLinks':
+		getsportsbayLinks()		
+	elif mode == 'playsportsbaytv':
+		playsportsbaytv()		
+	elif mode == 'getsportsbay':
+		getsportsbay()
+	elif mode == 'getsportsbaypopular':
+		getsportsbaypopular()
+	elif mode == 'getsportsbayschedule':
+		getsportsbayschedule()	
 		
+	elif mode == 'gettvcom':
+		gettvcom()
+	elif mode == 'gettvcom2':
+		gettvcom2()	
+
+	elif mode == 'gettvcomdzis':
+		gettvcomdzis()	
+	elif mode == 'playtvcom':
+		PlayTVCOM()	
+	elif mode == 'gettvcomdysc'	:
+		gettvcomdysc()	
+
 	
 else:
 	pass

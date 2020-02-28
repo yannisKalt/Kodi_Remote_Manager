@@ -1,0 +1,1 @@
+["roxanne", ["roxanne", "roxanne tango", "roxanne remix", "roxanne roxanne", "roxanne cover", "roxanne song", "roxanne police", "roxanne greek", "roxanne the voice", "roxanne karaoke"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["zylie", ["zylie", "kylie jenner", "kylie minogue", "kylie minogue christmas", "kylie jenner song", "kylie minogue slow", "kylie skin", "kylie rise and shine", "kylie jenner singing", "kylie cosmetics"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

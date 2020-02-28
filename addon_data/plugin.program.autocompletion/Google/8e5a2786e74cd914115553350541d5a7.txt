@@ -1,0 +1,1 @@
+["l", ["last christmas", "lacta", "la la la", "life is good", "lec", "laa", "lottery", "lol esports", "lana del rey", "lil peep"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

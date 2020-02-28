@@ -1,0 +1,1 @@
+["bad b", ["bad bunny", "bad boy", "bad boys 3", "bad blood", "bad bad bad", "bad boys for life", "bad boys blue", "bad boys trailer", "bad brains", "bad boys 2"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

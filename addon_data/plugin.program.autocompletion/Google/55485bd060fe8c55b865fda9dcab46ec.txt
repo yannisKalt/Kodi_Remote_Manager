@@ -1,0 +1,1 @@
+["2647", ["2647", "26470st", "26470or", "2647 episode taarak mehta ka ooltah chashmah", "26470io", "2647 tarak mehta ka ooltah chashmah", "26470", "26470so", "2647 tmkoc", "2647 tarak mehta"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["22", ["223", "221", "22", "220 \u03b2\u03bf\u03bb\u03c4", "22 jump street", "223s ynw melly", "22gz", "222", "22 july", "221 mente"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

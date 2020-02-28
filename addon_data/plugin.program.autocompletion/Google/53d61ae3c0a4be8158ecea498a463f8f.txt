@@ -1,0 +1,1 @@
+["ri", ["ride it", "rihanna", "ritmo", "rina", "ricegum", "rise", "river", "rick and morty", "rita ora", "ricky gervais golden globes 2020"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

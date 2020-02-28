@@ -1,0 +1,1 @@
+["http://star", ["stars", "star wars", "star tv", "starboy", "star wars theme", "stargazing", "star wars music", "star shopping", "starry night", "star system"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

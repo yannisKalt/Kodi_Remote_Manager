@@ -1,0 +1,1 @@
+["escape room", ["escape room", "escape room 2", "escape room fortnite", "escape room athens", "escape room greece", "escape room game", "escape room movie", "escape room 2019", "escape room 2017", "escape room music"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,3 +1,18 @@
+[B]2.5.X[/B]
+- Tweaks in client module (updated cfscrape & some minor other tweaks)
+- Added the parsers module
+- Moved parseDOM into parsers module, retained import
+- Moved replaceHTMLCodes into cleantitle module
+- Added the boolean to disable verification of certificate in directory.resolve function
+- Various other tweaks
+
+[B]2.4.X[/B]
+- User agents module tweaks
+- Addition of ability to autoplay through a playlist mode
+- Added some debug logging for client.request and directory.add
+- Removed some unused functions
+- Minor other tweaks
+
 [B]2.3.X[/B]
 - Add function (directory) can now set plugin category for skins to display
 - Changed all "BaseException" into "Exception"

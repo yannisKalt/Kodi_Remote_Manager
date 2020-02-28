@@ -1,0 +1,1 @@
+["shini", ["shining", "shinigami", "shining on my ex", "shining trailer", "shining star", "shining band", "shining heart", "shinichi 511", "shining 2", "shining justice"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

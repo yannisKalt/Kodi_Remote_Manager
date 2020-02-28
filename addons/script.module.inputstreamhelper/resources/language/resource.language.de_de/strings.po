@@ -30,8 +30,8 @@ msgid "An error occurred while installing [B]Widevine CDM[/B]. Please enable deb
 msgstr "Während der Installation der [B]Widevine CDM[/B] Bibliothek ist ein Fehler aufgetreten. Bitte Debug-Logging aktivieren und den Fehler melden:[CR][CR]github.com/emilsvennesson/script.module.inputstreamhelper"
 
 msgctxt "#30006"
-msgid "Due to distribution rights, [B]Widevine CDM[/B] has to be extracted from a ChromeOS recovery image. This process requires at least [B]{diskspace}[/B] of free disk space. Do you wish to continue?"
-msgstr "Wegen lizenzrechtlicher Reglementierungen muss die [B]Widevine CDM[/B] Bibliothek aus einem ChromeOS Image extrahiert werden. Dafür sind mindestens [B]{diskspace}[/B] freier Festplattenspeicher notwendig. Soll der Vorgang fortgesetzt werden?"
+msgid "Due to distribution rights, [B]Widevine CDM[/B] has to be extracted from a Chrome OS recovery image. This process requires at least [B]{diskspace}[/B] of free disk space. Do you wish to continue?"
+msgstr "Wegen lizenzrechtlicher Reglementierungen muss die [B]Widevine CDM[/B] Bibliothek aus einem Chrome OS Image extrahiert werden. Dafür sind mindestens [B]{diskspace}[/B] freier Festplattenspeicher notwendig. Soll der Vorgang fortgesetzt werden?"
 
 msgctxt "#30007"
 msgid "[B]Widevine CDM[/B] is unfortunately not available on this system architecture."
@@ -94,8 +94,8 @@ msgid "[B]'{command}'[/B] command needs to exist on system to extract the [B]Wid
 msgstr "Der Befehl [B]'{command}'[/B] muss verfügbar sein, um die [B]Widevine CDM[/B] Bibliothek zu extrahieren."
 
 msgctxt "#30022"
-msgid "Downloading the ChromeOS recovery image..."
-msgstr "Download des ChromeOS Recovery Images..."
+msgid "Downloading the Chrome OS recovery image..."
+msgstr "Download des Chrome OS Recovery Images..."
 
 msgctxt "#30023"
 msgid "Download completed!"
@@ -103,7 +103,7 @@ msgstr "Download erfolgreich abgeschlossen!"
 
 msgctxt "#30024"
 msgid "The installation now needs to unzip, mount and extract [B]Widevine CDM[/B] from the recovery image.[CR][CR]This process may take up to ten minutes to complete."
-msgstr "Das ChromeOS Recovery Image wird nun extrahiert und gemountet, um die [B]Widevine CDM[/B] Bibliothek zu extrahieren.[CR][CR]Dieser Prozess kann bis zu zehn Minuten dauern."
+msgstr "Das Chrome OS Recovery Image wird nun extrahiert und gemountet, um die [B]Widevine CDM[/B] Bibliothek zu extrahieren.[CR][CR]Dieser Prozess kann bis zu zehn Minuten dauern."
 
 msgctxt "#30025"
 msgid "Acquiring EULA."
@@ -223,76 +223,88 @@ msgstr "[B]Widevine CDM[/B] wurde nicht gefunden."
 
 msgctxt "#30054"
 msgid "disabled"
-msgstr ""
+msgstr "Deaktiviert"
+
+msgctxt "#30055"
+msgid "There is not enough free disk space in the current temporary directory. Would you like to specify a different one to temporarily use for the Chrome OS Recovery Image (e.g. on a USB)?"
+msgstr "Es ist nicht genügend Speicher im aktuellen temporären Verzeichnis vorhanden. Möchten Sie ein anderes angeben, welches temporär für das Chrome OS Recovery Image verwendet wird (z.B. auf einem USB Stick)?"
 
 
 ### INFORMATION DIALOG
 msgctxt "#30800"
 msgid "[B]Kodi information[/B]"
-msgstr ""
+msgstr "[B]Kodi Informationen[/B]"
 
 msgctxt "#30801"
 msgid "Kodi version: [B]{version}[/B]"
-msgstr ""
+msgstr "Kodi Version: [B]{version}[/B]"
 
 msgctxt "#30802"
 msgid "Kodi platform/architecture: [B]{platform}[/B]/[B]{arch}[/B]"
-msgstr ""
+msgstr "Kodi Plattform/Architektur: [B]{platform}[/B]/[B]{arch}[/B]"
 
 msgctxt "#30810"
 msgid "[B]InputStream information[/B]"
-msgstr ""
+msgstr "[B]InputStream Informationen[/B]"
 
 msgctxt "#30811"
 msgid "InputStream Helper version: [B]{version}[/B] {state}"
-msgstr ""
+msgstr "InputStream Helper Version: [B]{version}[/B] {state}"
 
 msgctxt "#30812"
 msgid "InputStream Adaptive version: [B]{version}[/B] {state}"
-msgstr ""
+msgstr "InputStream Adaptive Version: [B]{version}[/B] {state}"
 
 msgctxt "#30820"
 msgid "[B]Widevine information[/B]"
-msgstr ""
+msgstr "[B]Widevine Informationen[/B]"
 
 msgctxt "#30821"
 msgid "Widevine version: [B]{version}[/B] [COLOR gray](last updated on [B]{date}[/B])[/COLOR]"
-msgstr ""
+msgstr "Widevine Version: [B]{version}[/B] [COLOR gray](zuletzt aktualisiert am [B]{date}[/B])[/COLOR]"
 
 msgctxt "#30822"
 msgid "Widevine CDM path: [B]{path}[/B]"
-msgstr ""
+msgstr "Widevine CDM Pfad: [B]{path}[/B]"
 
 msgctxt "#30823"
-msgid "ChromeOS version: [B]{version}[/B]"
-msgstr ""
+msgid "Chrome OS version: [B]{version}[/B]"
+msgstr "Chrome OS Version: [B]{version}[/B]"
 
 msgctxt "#30830"
-msgid "Please report issues to:\n - [B]{url}[/B]"
-msgstr ""
+msgid "Please report issues to:\n - [COLOR yellow]{url}[/COLOR]"
+msgstr "Bitte melden Sie Fehler hier:\n - [COLOR yellow]{url}[/COLOR]"
 
 
 ### SETTINGS
 msgctxt "#30900"
-msgid "Troubleshooting"
-msgstr "Fehlerbehebung"
+msgid "Expert"
+msgstr "Experte"
 
 msgctxt "#30901"
 msgid "InputStream Helper information"
-msgstr ""
+msgstr "InputStream Helper Informationen"
 
 msgctxt "#30903"
 msgid "Disable InputStream Helper"
 msgstr "InputStream Helper deaktivieren"
 
 msgctxt "#30904"
-msgid "When disabled, DRM playback may fail!"
-msgstr "Bei Deaktivierung könnte DRM Wiedergabe fehlschlagen!"
+msgid "[I]When disabled, DRM playback may fail![/I]"
+msgstr "[I]Bei Deaktivierung könnte DRM Wiedergabe fehlschlagen![/I]"
 
 msgctxt "#30905"
+msgid "Update frequency in days"
+msgstr "Updatefrequenz in Tagen"
+
+msgctxt "#30907"
+msgid "Temporary download directory"
+msgstr "Temporäres Downloadverzeichnis"
+
+msgctxt "#30909"
 msgid "(Re)install Widevine CDM library..."
 msgstr "Widevine CDM Bibliothek (erneut) installieren..."
 
-msgctxt "#30907"
+msgctxt "#30911"
 msgid "Remove Widevine CDM library..."
 msgstr "Entferne die Widevine CDM Bibliothek..."

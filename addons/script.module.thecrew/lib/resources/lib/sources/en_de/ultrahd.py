@@ -15,11 +15,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import re,urllib,urlparse
+import re, urllib, urlparse
 
 from resources.lib.modules import client
-from resources.lib.modules import debrid
 from resources.lib.modules import dom_parser2
+from resources.lib.modules import source_utils
 
 
 class source:
@@ -27,7 +27,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['ultrahdindir.com']
-        self.base_link = 'http://ultrahdindir.com'
+        self.base_link = 'https://ultrahdindir.com/'
         self.post_link = '/index.php?do=search'
 
     def movie(self, imdb, title, localtitle, aliases, year):
@@ -35,16 +35,15 @@ class source:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except:
+        except Exception:
             return
 
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
 
-            if url is None: return sources
-
-            if debrid.status() is False: raise Exception()
+            if url is None:
+                return sources
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
@@ -76,47 +75,38 @@ class source:
                     data = dom_parser2.parse_dom(data, 'div', attrs={'id': 'r-content'})
                     data = re.findall('\s*<b><a href="(.+?)".+?</a></b>', data[0].content, re.DOTALL)
                     for url in data:
+                        url = client.replaceHTMLCodes(url)
+                        url = url.encode('utf-8')
+
+                        if 'turbobit' not in url:
+                            continue
+                        valid, host = source_utils.is_host_valid(url, hostDict)
+                        if not valid:
+                            continue
                         try:
                             qual = client.request(url)
                             quals = re.findall('span class="file-title" id="file-title">(.+?)</span', qual)
                             for quals in quals:
-                                if '4K' in quals:
-                                    quality = '4K'
-                                elif '2160p' in quals:
-                                    quality = '4K'
-                                elif '1080p' in quals:
-                                    quality = '1080p'
-                                elif '720p' in quals:
-                                    quality = '720p'
-                                elif any(i in ['dvdscr', 'r5', 'r6'] for i in quals):
-                                    quality = 'SCR'
-                                elif any(i in ['camrip', 'tsrip', 'hdcam', 'hdts', 'dvdcam', 'dvdts', 'cam', 'telesync', 'ts']
-                                         for i in quals):
-                                    quality = 'CAM'
-                                else: quality = '720p'
+                                quality = source_utils.check_sd_url(quals)
 
                             info = []
-                            if '3D' in name or '.3D.' in quals: info.append('3D'); quality = '1080p'
-                            if any(i in ['hevc', 'h265', 'x265'] for i in quals): info.append('HEVC')
+                            if '3D' in name or '.3D.' in quals:
+                                info.append('3D')
+                                quality = '1080p'
+                            if any(i in ['hevc', 'h265', 'x265'] for i in quals):
+                                info.append('HEVC')
 
                             info = ' | '.join(info)
 
-                            url = client.replaceHTMLCodes(url)
-                            url = url.encode('utf-8')
-                            if any(x in url for x in ['.rar', '.zip', '.iso']): raise Exception()
-                            if not 'turbobit' in url: continue
-                            sources.append({'source': 'turbobit', 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': True, 'debridonly': True})
-
+                            sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': True, 'debridonly': False})
                         except:
                             pass
-                except:
+                except Exception:
                     pass
 
             return sources
-        except:
+        except Exception:
             return sources
 
     def resolve(self, url):
         return url
-
-

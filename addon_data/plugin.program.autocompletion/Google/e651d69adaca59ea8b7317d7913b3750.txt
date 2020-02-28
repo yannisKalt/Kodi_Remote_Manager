@@ -1,0 +1,1 @@
+["all", ["all i want", "all of me", "all i want for christmas", "all star game 2020 greece", "all around the world", "all star", "allah ditta lonay wala", "allakse ta ola", "all time low", "all in"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["adult", ["adult life cycle", "adult education", "adulting", "adult swim star wars", "adult gohan combos", "adult swim bump", "adult adhd", "adult swim music", "adult acne", "adult boruto"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["ip", ["iphone 11", "ip man 4", "iphone 11 pro", "iphone xr", "iphone 12", "iphone", "iphone xs", "iphone 7", "ip man", "iphone 8"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

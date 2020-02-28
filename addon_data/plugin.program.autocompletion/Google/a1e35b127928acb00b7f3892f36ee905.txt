@@ -1,0 +1,1 @@
+["el", ["ela ela", "elvana gjata", "eleni foureira", "elvis presley", "ellen", "elon musk", "elton john", "elefantaki", "el camino", "electroboom"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["zappit", ["zappit", "zappit tv", "zappiti", "zappiti duo 4k hdr", "zappiti one 4k hdr", "zappit gntm", "zappity zap zap", "zappiti 4k", "zappiti one se", "zappiti mini"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

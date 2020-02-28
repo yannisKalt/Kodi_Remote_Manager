@@ -1,0 +1,1 @@
+["sh", ["shakira", "share my story", "shallow", "shawn mendes", "shape of you", "shroud", "shameless", "shane", "shotta flow", "shakti"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

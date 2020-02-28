@@ -1,33 +1,33 @@
 <settings>
-    <setting id="SkinHelper.EnableDayNightThemes" type="bool">false</setting>
-    <setting id="SkinHelper.EnableExtraFanart" type="bool">false</setting>
-    <setting id="SmartShortcuts.playlists" type="bool">false</setting>
-    <setting id="SkinHelper.ForcedViews.Enabled" type="bool">false</setting>
-    <setting id="SkinHelper.EnableMusicArt" type="bool">false</setting>
-    <setting id="SmartShortcuts.plex" type="bool">false</setting>
-    <setting id="SkinHelper.DisableScreenSaverOnFullScreenMusic" type="bool">false</setting>
-    <setting id="SkinHelper.EnableWallBackgrounds" type="bool">false</setting>
-    <setting id="SkinHelper.EnablePVRThumbs" type="bool">false</setting>
-    <setting id="lowPowerMode" type="bool">true</setting>
-    <setting id="DebugInfo" type="bool">false</setting>
-    <setting id="stopVideoOnMenu" type="bool">true</setting>
-    <setting id="SmartShortcuts.favorites" type="bool">false</setting>
-    <setting id="SkinHelper.EnableExtendedArt" type="bool">false</setting>
-    <setting id="enable.smartish.widgets" type="bool">false</setting>
-    <setting id="disableExtendedFanart" type="bool">false</setting>
-    <setting id="SkinShortcuts-FullMenu" type="bool">true</setting>
-    <setting id="SkinHelper.EnableAnimatedPosters" type="bool">false</setting>
-    <setting id="SmartShortcuts.emby" type="bool">false</setting>
-    <setting id="DebugGrid" type="bool">false</setting>
     <setting id="exitFirst" type="bool">false</setting>
-    <setting id="SkinHelper.ColorTheme.Day.time" type="string"></setting>
-    <setting id="SkinHelper.AutoCloseVideoOSD" type="string"></setting>
-    <setting id="SkinHelper.ShowInfoAtPlaybackStart" type="string"></setting>
-    <setting id="SkinHelper.AutoCloseMusicOSD" type="string"></setting>
-    <setting id="SkinHelper.StudioLogos.Path" type="string"></setting>
+    <setting id="SmartShortcuts.favorites" type="bool">false</setting>
+    <setting id="DebugGrid" type="bool">false</setting>
+    <setting id="stopVideoOnMenu" type="bool">true</setting>
+    <setting id="SkinHelper.EnableWallBackgrounds" type="bool">false</setting>
+    <setting id="SkinHelper.EnableExtraFanart" type="bool">false</setting>
+    <setting id="SkinHelper.ForcedViews.Enabled" type="bool">false</setting>
+    <setting id="DebugInfo" type="bool">false</setting>
+    <setting id="SmartShortcuts.plex" type="bool">false</setting>
+    <setting id="SmartShortcuts.playlists" type="bool">false</setting>
+    <setting id="SkinHelper.EnableDayNightThemes" type="bool">false</setting>
+    <setting id="SkinHelper.EnableMusicArt" type="bool">false</setting>
+    <setting id="lowPowerMode" type="bool">true</setting>
+    <setting id="SkinHelper.EnableAnimatedPosters" type="bool">false</setting>
+    <setting id="enable.smartish.widgets" type="bool">false</setting>
+    <setting id="SkinShortcuts-FullMenu" type="bool">true</setting>
+    <setting id="SkinHelper.EnableExtendedArt" type="bool">false</setting>
+    <setting id="SkinHelper.DisableScreenSaverOnFullScreenMusic" type="bool">false</setting>
+    <setting id="disableExtendedFanart" type="bool">false</setting>
+    <setting id="SkinHelper.EnablePVRThumbs" type="bool">false</setting>
+    <setting id="SmartShortcuts.emby" type="bool">false</setting>
     <setting id="homeBackground" type="string">/storage/.kodi/addons/Thumbs/</setting>
-    <setting id="SkinHelper.ColorTheme.Night.time" type="string"></setting>
-    <setting id="recentitems" type="string">video</setting>
+    <setting id="SkinHelper.ShowInfoAtPlaybackStart" type="string"></setting>
     <setting id="SkinHelper.RandomFanartDelay" type="string"></setting>
+    <setting id="SkinHelper.AutoCloseMusicOSD" type="string"></setting>
+    <setting id="SkinHelper.AutoCloseVideoOSD" type="string"></setting>
+    <setting id="recentitems" type="string">video</setting>
+    <setting id="SkinHelper.ColorTheme.Night.time" type="string"></setting>
+    <setting id="SkinHelper.StudioLogos.Path" type="string"></setting>
     <setting id="skinshortcuts-sharedmenu" type="string">true</setting>
+    <setting id="SkinHelper.ColorTheme.Day.time" type="string"></setting>
 </settings>

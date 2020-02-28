@@ -139,7 +139,7 @@ def resolve(regex):
             return r[0]
     except Exception:
         return
-
+#TC 2/01/19 started
 
 class NoRedirection(urllib2.HTTPErrorProcessor):
     def http_response(self, request, response):

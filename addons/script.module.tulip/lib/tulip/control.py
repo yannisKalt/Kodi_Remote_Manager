@@ -72,12 +72,12 @@ image = xbmcgui.ControlImage
 alphanum_input = xbmcgui.INPUT_ALPHANUM
 password_input = xbmcgui.INPUT_PASSWORD
 hide_input = xbmcgui.ALPHANUM_HIDE_INPUT
+input_date = xbmcgui.INPUT_DATE
+input_time = xbmcgui.INPUT_TIME
 verify = xbmcgui.PASSWORD_VERIFY
 item = xbmcgui.ListItem
 
 openFile = xbmcvfs.File
-read = openFile.read
-readbytes = openFile.readBytes
 makeFile = xbmcvfs.mkdir
 makeFiles = xbmcvfs.mkdirs
 deleteFile = xbmcvfs.delete
@@ -93,6 +93,14 @@ bookmarksFile = os.path.join(dataPath, 'bookmarks.db')
 cacheFile = os.path.join(dataPath, 'cache.db')
 
 
+def enum(**enums):
+
+    try:
+        return type(b'Enum', (), enums)
+    except TypeError:
+        return type('Enum', (), enums)
+
+
 def name():
 
     return addonInfo('name')
@@ -101,6 +109,17 @@ def name():
 def version():
 
     return addonInfo('version')
+
+
+def kodi_version():
+
+    """
+    Get kodi version as a float. Useful for various conditionals,
+    especially when doing operations that old versions do not support
+    :return: float
+    """
+
+    return float(addon('xbmc.addon').getAddonInfo('version')[:4])
 
 
 def fanart():
@@ -315,68 +334,19 @@ class CountdownDialog(object):
             self.pd.update(percent, line1, line2, line3)
 
 
-class Player(player):
-
-    def __init__(self):
-
-        player.__init__(self)
-
-    def play(self, item='', listitem=None, windowed=False, startpos=-1):
-
-        return self
-
-    def onPlayBackStarted(self):
-
-        pass
-
-    def onPlayBackEnded(self):
-
-        pass
-
-    def onPlayBackStopped(self):
-
-        pass
-
-    def onPlayBackError(self):
-
-        pass
-
-    def isPlaying(self):
-
-        pass
-
-
-class Monitor(monitor):
-
-    def __init__(self):
-
-        monitor.__init__(self)
-
-    def onSettingsChanged(self):
-
-        pass
-
-    def onAbortRequested(self):
-
-        pass
-
-    def onNotification(self, sender, method, data):
-
-        pass
-
-    def waitForAbort(self, timeout=-1):
-
-        pass
-        # return self
-
-    def abortRequested(self):
-
-        pass
-        # return self
-
 def per_cent(count, total):
 
     return min(int(round(count * 100 / total)), 100)
+
+
+def read(file_, numBytes=0):
+
+    return openFile(file_).read(numBytes)
+
+
+def readbytes(file_, numBytes=0):
+
+    return openFile(file_).readBytes(numBytes)
 
 
 def openSettings(query=None, id=addonInfo('id')):
@@ -389,7 +359,7 @@ def openSettings(query=None, id=addonInfo('id')):
         try:
 
             c, f = query.split('.')
-            if float(addon('xbmc.addon').getAddonInfo('version')[:4]) > 17.6:
+            if kodi_version() > 17.6:
                 execute('SetFocus(-{0})'.format(100 - int(c)))
                 if int(f):
                     execute('SetFocus(-{0})'.format(80 - int(f)))
@@ -442,7 +412,7 @@ def refresh():
 
 def idle():
 
-    if float(addon('xbmc.addon').getAddonInfo('version')[:4]) > 17.6:
+    if kodi_version() > 17.6:
         execute('Dialog.Close(busydialognocancel)')
     else:
         execute('Dialog.Close(busydialog)')
@@ -450,10 +420,15 @@ def idle():
 
 def busy():
 
-    if float(addon('xbmc.addon').getAddonInfo('version')[:4]) > 17.6:
+    if kodi_version() > 17.6:
         execute('ActivateWindow(busydialognocancel)')
     else:
         execute('ActivateWindow(busydialog)')
+
+
+def close_all():
+
+    execute('Dialog.Close(all)')
 
 
 def set_view_mode(view_mode):

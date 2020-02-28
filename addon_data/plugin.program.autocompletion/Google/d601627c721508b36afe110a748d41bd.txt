@@ -1,0 +1,1 @@
+["love t", ["love the way you lie", "love talk", "love to hate you", "love train", "love tik tok", "love theme", "love the way you lie karaoke", "love the way you lie live", "love to love", "love to love you baby"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

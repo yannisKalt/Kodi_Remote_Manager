@@ -1,0 +1,1 @@
+["adu", ["adut akech", "adum and pals", "adult life cycle", "adult education", "adulting", "adult swim star wars", "adult gohan combos", "adult swim bump", "adum and pals oscars", "adynamia"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

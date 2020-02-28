@@ -1,0 +1,1 @@
+["http://kodiadictos.org/k", ["http://kodiadictos.org/kodiadictos"], [], {"google:suggesttype": ["QUERY"]}]

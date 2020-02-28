@@ -1,0 +1,1 @@
+["87", ["87", "8700k vs 9700k", "8700k vs 3700x", "87.7 en lefko", "876tv", "87 91", "87-74", "87 bpm", "8700k vs 3600x", "8700k vs 2700x"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

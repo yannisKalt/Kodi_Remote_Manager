@@ -189,7 +189,7 @@ class player(xbmc.Player):
 
         poster, thumb, meta = '', '', {'title': self.name}
         return (poster, thumb, meta)
-
+#TC 2/01/19 started
     def keepPlaybackAlive(self):
 
         pname = '%s.player.overlay' % control.addonInfo('id')

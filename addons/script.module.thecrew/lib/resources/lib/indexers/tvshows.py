@@ -36,6 +36,7 @@ from resources.lib.modules import utils
 from resources.lib.indexers import navigator
 
 import os,sys,re,json,urllib,urlparse,datetime
+import requests
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?',''))) if len(sys.argv) > 1 else dict()
 
@@ -45,6 +46,7 @@ action = params.get('action')
 
 class tvshows:
     def __init__(self):
+        self.count = int(control.setting('page.item.limit'))
         self.list = []
 
         self.imdb_link = 'https://www.imdb.com'
@@ -53,7 +55,7 @@ class tvshows:
         self.logo_link = 'https://i.imgur.com/'
         self.tvdb_key = control.setting('tvdb.user')
         if self.tvdb_key == '' or self.tvdb_key == None:
-            self.tvdb_key = '1D62F2F90030C444'
+            self.tvdb_key = '27bef29779bbffe947232dc310a91f0c'
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         self.trakt_user = control.setting('trakt.user').strip()
         self.imdb_user = control.setting('imdb.user').replace('ur', '')
@@ -63,27 +65,27 @@ class tvshows:
 
         self.search_link = 'https://api.trakt.tv/search/show?limit=20&page=1&query='
         self.tvmaze_info_link = 'https://api.tvmaze.com/shows/%s'
-        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/%s.xml' % (self.tvdb_key, '%s', self.lang)
+        self.tvdb_info_link = 'https://thetvdb.com/api/%s/series/%s/%s.zip.xml' % (self.tvdb_key, '%s', self.lang)
         self.fanart_tv_art_link = 'https://webservice.fanart.tv/v3/tv/%s'
         self.fanart_tv_level_link = 'https://webservice.fanart.tv/v3/level'
         self.tvdb_by_imdb = 'https://thetvdb.com/api/GetSeriesByRemoteID.php?imdbid=%s'
         self.tvdb_by_query = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s'
         self.tvdb_image = 'https://thetvdb.com/banners/'
 
-        self.persons_link = 'https://www.imdb.com/search/name?count=100&name='
-        self.personlist_link = 'https://www.imdb.com/search/name?count=100&gender=male,female'
-        self.popular_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=100,&release_date=,date[0]&sort=moviemeter,asc&count=40&start=1'
-        self.airing_link = 'https://www.imdb.com/search/title?title_type=tv_episode&release_date=date[1],date[0]&sort=moviemeter,asc&count=40&start=1'
-        self.active_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=10,&production_status=active&sort=moviemeter,asc&count=40&start=1'
-        #self.premiere_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&languages=en&num_votes=10,&release_date=date[60],date[0]&sort=moviemeter,asc&count=40&start=1'
-        self.premiere_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&languages=en&num_votes=10,&release_date=date[60],date[0]&sort=release_date,desc&count=40&start=1'
-        self.rating_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=5000,&release_date=,date[0]&sort=user_rating,desc&count=40&start=1'
-        self.views_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=100,&release_date=,date[0]&sort=num_votes,desc&count=40&start=1'
-        self.person_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&role=%s&sort=year,desc&count=40&start=1'
-        self.genre_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&genres=%s&sort=moviemeter,asc&count=40&start=1'
-        self.keyword_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&keywords=%s&sort=moviemeter,asc&count=40&start=1'
-        self.language_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=100,&production_status=released&primary_language=%s&sort=moviemeter,asc&count=40&start=1'
-        self.certification_link = 'https://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&certificates=us:%s&sort=moviemeter,asc&count=40&start=1'
+        self.imdb_link = 'http://www.imdb.com'
+        self.persons_link = 'http://www.imdb.com/search/name?count=100&name='
+        self.personlist_link = 'http://www.imdb.com/search/name?count=100&gender=male,female'
+        self.popular_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=100,&release_date=,date[0]&sort=moviemeter,asc&count=%d&start=1' % self.count
+        self.airing_link = 'http://www.imdb.com/search/title?title_type=tv_episode&release_date=date[1],date[0]&sort=moviemeter,asc&count=%d&start=1' % self.count
+        self.active_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=10,&production_status=active&sort=moviemeter,asc&count=%d&start=1' % self.count
+        self.premiere_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&languages=en&num_votes=10,&release_date=date[60],date[0]&sort=release_date,desc&count=%d&start=1' % self.count
+        self.rating_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=5000,&release_date=,date[0]&sort=user_rating,desc&count=%d&start=1' % self.count
+        self.views_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=100,&release_date=,date[0]&sort=num_votes,desc&count=%d&start=1' % self.count
+        self.person_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&role=%s&sort=year,desc&count=%d&start=1' % ('%s', self.count)
+        self.genre_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&genres=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
+        self.keyword_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&keywords=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
+        self.language_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&num_votes=100,&production_status=released&primary_language=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
+        self.certification_link = 'http://www.imdb.com/search/title?title_type=tv_series,mini_series&release_date=,date[0]&certificates=%s&sort=moviemeter,asc&count=%d&start=1' % ('%s', self.count)
         self.trending_link = 'https://api.trakt.tv/shows/trending?limit=40&page=1'
 
         self.traktlists_link = 'https://api.trakt.tv/users/me/lists'
@@ -97,6 +99,7 @@ class tvshows:
         self.imdblist2_link = 'https://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=tvSeries,miniSeries&start=1'
         self.imdbwatchlist_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=alpha,asc' % self.imdb_user
         self.imdbwatchlist2_link = 'https://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user
+
 
     def get(self, url, idx=True, create_directory=True):
         try:
@@ -153,7 +156,7 @@ class tvshows:
             return self.list
         except Exception:
             pass
-
+#TC 2/01/19 started
     def search(self):
         navigator.navigator().addDirectoryItem(32603, 'tvSearchnew', 'search.png', 'DefaultTVShows.png')
         try:
@@ -258,31 +261,32 @@ class tvshows:
 
     def genres(self):
         genres = [
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Action[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'action', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Adventure[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'adventure', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Animation[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'animation', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Anime[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'anime', False),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Biography[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'biography', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Comedy[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'comedy', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Crime[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'crime', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Drama[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'drama', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Family[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'family', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Fantasy[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'fantasy', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Game-Show[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'game_show', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]History[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'history', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Horror[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'horror', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Music[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'music', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Musical[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'musical', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Mystery[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'mystery', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]News[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'news', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Reality-TV[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'reality_tv', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Romance[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'romance', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Science Fiction[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'sci_fi', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Sport[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'sport', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Talk-Show[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'talk_show', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Thriller[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'thriller', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]War[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'war', True),
-            ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Western[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', 'western', True)
+            ('Action', 'action', True),
+            ('Adventure', 'adventure', True),
+            ('Animation', 'animation', True),
+            ('Anime', 'anime', False),
+            ('Biography', 'biography', True),
+            ('Comedy', 'comedy', True),
+            ('Crime', 'crime', True),
+            ('Drama', 'drama', True),
+            ('Family', 'family', True),
+            ('Fantasy', 'fantasy', True),
+            ('Game-Show', 'game_show', True),
+            ('History', 'history', True),
+            ('Horror', 'horror', True),
+            ('Music ', 'music', True),
+            ('Musical', 'musical', True),
+            ('Mystery', 'mystery', True),
+            ('News', 'news', True),
+            ('Reality-TV', 'reality_tv', True),
+            ('Romance', 'romance', True),
+            ('Science Fiction', 'sci_fi', True),
+            ('Sport', 'sport', True),
+            ('Talk-Show', 'talk_show', True),
+            ('Thriller', 'thriller', True),
+            ('War', 'war', True),
+            ('Western', 'western', True)
+
         ]
 
         for i in genres: self.list.append(
@@ -327,6 +331,7 @@ class tvshows:
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Discovery Channel[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/66/discovery-channel', 'https://i.imgur.com/8UrXnAB.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Discovery ID[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/89/investigation-discovery', 'https://i.imgur.com/07w7BER.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Disney Channel[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/78/disney-channel', 'https://i.imgur.com/ZCgEkp6.png'),
+        ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Disney +[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/webchannels/287/disney', 'https://static.tvmaze.com/uploads/images/large_landscape/174/435560.jpg'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]Disney XD[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/25/disney-xd', 'https://i.imgur.com/PAJJoqQ.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]E! Entertainment[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/43/e', 'https://i.imgur.com/3Delf9f.png'),
         ('[COLOR dodgerblue][B]¤[/B][/COLOR] [B][COLOR white]E4[/COLOR][/B] [COLOR dodgerblue][B]¤[/B][/COLOR]', '/networks/41/e4', 'https://i.imgur.com/frpunK8.png'),
@@ -1001,7 +1006,8 @@ class tvshows:
             if tvdb == '0' and not imdb == '0':
                 url = self.tvdb_by_imdb % imdb
 
-                result = client.request(url, timeout='10')
+                #result = client.request(url, timeout='10')
+                result = requests.get(url).content
 
                 try:
                     tvdb = client.parseDOM(result, 'seriesid')[0]
@@ -1024,7 +1030,8 @@ class tvshows:
 
                 years = [str(self.list[i]['year']), str(int(self.list[i]['year'])+1), str(int(self.list[i]['year'])-1)]
 
-                tvdb = client.request(url, timeout='10')
+                #tvdb = client.request(url, timeout='10')
+                tvdb = requests.get(url).content
                 tvdb = re.sub(r'[^\x00-\x7F]+', '', tvdb)
                 tvdb = client.replaceHTMLCodes(tvdb)
                 tvdb = client.parseDOM(tvdb, 'Series')
@@ -1038,7 +1045,8 @@ class tvshows:
                     tvdb = '0'
 
             url = self.tvdb_info_link % tvdb
-            item = client.request(url, timeout='10')
+            #item = client.request(url, timeout='10')
+            item = requests.get(url).content
             if item is None:
                 raise Exception()
 
@@ -1405,7 +1413,7 @@ class tvshows:
 
                 item.setArt(art)
                 item.addContextMenuItems(cm)
-                item.setInfo(type='Video', infoLabels = meta)
+                item.setInfo(type='Video', infoLabels=control.metadataClean(meta))
 
                 video_streaminfo = {'codec': 'h264'}
                 item.addStreamInfo('video', video_streaminfo)

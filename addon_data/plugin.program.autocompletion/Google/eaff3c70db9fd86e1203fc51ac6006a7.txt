@@ -1,0 +1,1 @@
+["s", ["senorita", "smg", "slipknot", "shane dawson", "someone you loved", "sasuke", "shopping star", "star wars", "skai", "selena gomez"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

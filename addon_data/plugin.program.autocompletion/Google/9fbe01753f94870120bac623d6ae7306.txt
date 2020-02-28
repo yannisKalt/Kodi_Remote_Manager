@@ -1,0 +1,1 @@
+["maleficent", ["maleficent", "maleficent 1", "maleficent 2 trailer", "maleficent song", "maleficent trailer", "maleficent 2 song", "maleficent soundtrack", "maleficent 2 ending", "maleficent 1 full movie", "maleficent curse"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

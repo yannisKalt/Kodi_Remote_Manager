@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<category label="32218">
-		<setting id="subtitlesgr" label="32219" type="bool" default="false"/>
+		<setting type="lsep" label="32225"/>
+		<setting id="subtitles" label="Subtitles.gr" type="bool" default="true"/>
+		<setting id="xsubs" label="Xsubs.tv" type="bool" default="true"/>
+		<setting id="podnapisi" label="Podnapisi.net" type="bool" default="true"/>
+		<setting id="subs4free" label="Subs4free.info" type="bool" default="false"/>
+	</category>
+	<category label="32219">
+        <setting id="sorting" type="select" label="32220" lvalues="32221|32222|32223|32224" default="1"/>
+		<setting id="cache" label="32003" type="bool" default="true"/>
 	</category>
 	<category label="32211">
 		<setting type="lsep" label="xsubs.tv" />

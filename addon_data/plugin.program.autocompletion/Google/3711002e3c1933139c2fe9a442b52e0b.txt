@@ -1,0 +1,1 @@
+["pansom", ["ransom", "ransom lil tecca", "ransom remix", "ransom lyrics", "ransom 1 hour", "ransom lofi", "ransom parody", "ransom live", "ransomware", "ransom indian"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

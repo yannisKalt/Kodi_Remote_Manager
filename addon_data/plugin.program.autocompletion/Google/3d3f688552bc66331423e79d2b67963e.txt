@@ -1,0 +1,1 @@
+["elly mangat", ["elly mangat", "elly mangat songs", "elly mangat new song", "elly mangat all song", "elly mangat news", "elly mangat new song 2019", "elly mangat new interview", "elly mangat status", "elly mangat new song status", "elly mangat fight"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

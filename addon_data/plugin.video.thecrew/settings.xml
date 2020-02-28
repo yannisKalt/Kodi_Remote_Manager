@@ -25,6 +25,8 @@
     <setting id="furk.user_pass" value="" />
     <setting id="gostream.pass" value="" />
     <setting id="gostream.user" value="" />
+    <setting id="hidecinema" value="false" />
+    <setting id="hidecinema.rollback" value="6" />
     <setting id="hosts.captcha" value="true" />
     <setting id="hosts.mode" value="1" />
     <setting id="hosts.quality" value="0" />
@@ -43,14 +45,22 @@
     <setting id="library.tv" value="special://userdata/addon_data/plugin.video.thecrew/TVShows" />
     <setting id="library.update" value="true" />
     <setting id="lists.widget" value="1" />
-    <setting id="module_base" value="0.0.34" />
+    <setting id="module_base" value="0.0.66i" />
     <setting id="movie.download.path" value="" />
     <setting id="movie.widget" value="1" />
     <setting id="navi.1clicks" value="true" />
     <setting id="navi.247movies" value="true" />
+    <setting id="navi.absolution" value="true" />
+    <setting id="navi.add_addons" value="true" />
+    <setting id="navi.applet" value="true" />
     <setting id="navi.collections" value="true" />
+    <setting id="navi.disney" value="true" />
+    <setting id="navi.disneym" value="true" />
+    <setting id="navi.eyecandy" value="true" />
     <setting id="navi.fitness" value="true" />
     <setting id="navi.food" value="true" />
+    <setting id="navi.holiday" value="true" />
+    <setting id="navi.holidays" value="true" />
     <setting id="navi.imdblist" value="true" />
     <setting id="navi.iptv" value="true" />
     <setting id="navi.kids" value="true" />
@@ -68,8 +78,13 @@
     <setting id="navi.movieviews" value="true" />
     <setting id="navi.moviewidget" value="true" />
     <setting id="navi.movieyears" value="true" />
+    <setting id="navi.personal.list" value="false" />
+    <setting id="navi.purplehat" value="true" />
+    <setting id="navi.radio" value="true" />
+    <setting id="navi.retribution" value="true" />
     <setting id="navi.sports" value="true" />
     <setting id="navi.standup" value="true" />
+    <setting id="navi.titan" value="true" />
     <setting id="navi.traktlist" value="true" />
     <setting id="navi.tvActive" value="true" />
     <setting id="navi.tvAdded" value="true" />
@@ -85,6 +100,8 @@
     <setting id="navi.tvTrending" value="true" />
     <setting id="navi.tvViews" value="true" />
     <setting id="navi.tvshows" value="true" />
+    <setting id="page.item.limit" value="20" />
+    <setting id="personal.list" value="https://" />
     <setting id="preemptive.limit" value="10" />
     <setting id="preemptive.termination" value="false" />
     <setting id="prem.identify" value="3" />
@@ -101,10 +118,15 @@
     <setting id="provider.alltube" value="true" />
     <setting id="provider.allucfr" value="true" />
     <setting id="provider.allucit" value="true" />
+    <setting id="provider.allucxyz" value="true" />
     <setting id="provider.animetoon" value="true" />
+    <setting id="provider.badshah" value="true" />
+    <setting id="provider.bitlord" value="true" />
     <setting id="provider.bnwmovies" value="true" />
+    <setting id="provider.btdb" value="true" />
     <setting id="provider.btscene" value="true" />
     <setting id="provider.cartoonhd" value="true" />
+    <setting id="provider.cartoonhdto" value="true" />
     <setting id="provider.cinemay" value="true" />
     <setting id="provider.cmovieshd" value="true" />
     <setting id="provider.coolmoviezone" value="true" />
@@ -117,18 +139,23 @@
     <setting id="provider.dramabus" value="true" />
     <setting id="provider.dramacool" value="true" />
     <setting id="provider.dramafire" value="true" />
+    <setting id="provider.ettv" value="true" />
     <setting id="provider.exfs" value="true" />
     <setting id="provider.extramovies" value="true" />
     <setting id="provider.eztv" value="true" />
     <setting id="provider.filmenstreaminghd" value="true" />
     <setting id="provider.filmix" value="true" />
+    <setting id="provider.filmxy" value="true" />
+    <setting id="provider.fmovies" value="true" />
     <setting id="provider.freefmovies" value="true" />
     <setting id="provider.fullmoviz" value="true" />
     <setting id="provider.fullstream" value="true" />
     <setting id="provider.furk" value="true" />
     <setting id="provider.gamatotv" value="true" />
     <setting id="provider.ganool" value="true" />
+    <setting id="provider.ganoolcam" value="true" />
     <setting id="provider.geektv" value="true" />
+    <setting id="provider.genvideos" value="true" />
     <setting id="provider.glodls" value="true" />
     <setting id="provider.gomoviesink" value="true" />
     <setting id="provider.gowatchseries" value="true" />
@@ -146,15 +173,20 @@
     <setting id="provider.liomenoi" value="true" />
     <setting id="provider.magnetdl" value="true" />
     <setting id="provider.maxrls" value="true" />
+    <setting id="provider.mkvcagetor" value="true" />
+    <setting id="provider.mkvhub" value="true" />
     <setting id="provider.moonwalk" value="true" />
     <setting id="provider.movie4kis" value="true" />
+    <setting id="provider.moviescouch" value="true" />
     <setting id="provider.mvrls" value="true" />
     <setting id="provider.myasiantv" value="true" />
+    <setting id="provider.myvideolinks" value="true" />
     <setting id="provider.newkino" value="true" />
     <setting id="provider.onlineseries" value="true" />
     <setting id="provider.ororo" value="true" />
     <setting id="provider.peliculasdk" value="true" />
     <setting id="provider.piratebay" value="true" />
+    <setting id="provider.pirateiro" value="true" />
     <setting id="provider.plockers" value="true" />
     <setting id="provider.primewire" value="true" />
     <setting id="provider.projectfreetv" value="true" />
@@ -165,6 +197,7 @@
     <setting id="provider.sceneddl" value="true" />
     <setting id="provider.scenerls" value="true" />
     <setting id="provider.scenerlscom" value="true" />
+    <setting id="provider.scnsrc" value="true" />
     <setting id="provider.seehd" value="true" />
     <setting id="provider.series9" value="true" />
     <setting id="provider.seriesonline" value="true" />
@@ -177,20 +210,29 @@
     <setting id="provider.tainiesonline" value="true" />
     <setting id="provider.tainiomania" value="true" />
     <setting id="provider.timewatch" value="true" />
+    <setting id="provider.topnow" value="true" />
+    <setting id="provider.torlock" value="true" />
     <setting id="provider.torrentapi" value="true" />
     <setting id="provider.torrentdownloads" value="true" />
     <setting id="provider.torrentgalaxy" value="true" />
+    <setting id="provider.torrentquest" value="true" />
+    <setting id="provider.torrentz" value="true" />
     <setting id="provider.tvbox" value="true" />
+    <setting id="provider.tvdownload" value="true" />
+    <setting id="provider.tvmovieflix" value="true" />
     <setting id="provider.ultrahd" value="true" />
+    <setting id="provider.vikv" value="true" />
     <setting id="provider.warezmovies" value="true" />
     <setting id="provider.watch32" value="true" />
     <setting id="provider.watchepisodes" value="true" />
+    <setting id="provider.watchseriesru" value="true" />
     <setting id="provider.wsunblock" value="true" />
     <setting id="provider.xrysoi" value="true" />
     <setting id="provider.xwatchseries" value="true" />
     <setting id="provider.yesmoviesgg" value="true" />
     <setting id="provider.yify" value="true" />
     <setting id="provider.yifyddl" value="true" />
+    <setting id="provider.zmovies" value="true" />
     <setting id="provider.zoogle" value="true" />
     <setting id="providers.lang" value="English" />
     <setting id="remove.dups" value="true" />
@@ -199,6 +241,7 @@
     <setting id="scrapers.timeout.1" value="30" />
     <setting id="serienstream.pass" value="" />
     <setting id="serienstream.user" value="" />
+    <setting id="showunaired" value="false" />
     <setting id="sourcelist.multiline" value="false" />
     <setting id="sources.extrainfo" value="true" />
     <setting id="subtitles" value="true" />
@@ -221,6 +264,7 @@
     <setting id="tv.swift.filtersports" value="false" />
     <setting id="tv.swift.filtertv" value="false" />
     <setting id="tv.swift.inputstream" value="false" />
+    <setting id="tv.swift.sort_the_crew" value="true" />
     <setting id="tv.swift.sorttheclowns" value="true" />
     <setting id="tv.widget" value="1" />
     <setting id="tv.widget.alt" value="2" />

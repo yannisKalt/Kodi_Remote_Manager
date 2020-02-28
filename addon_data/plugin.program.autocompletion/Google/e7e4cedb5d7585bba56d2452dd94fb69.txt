@@ -1,0 +1,1 @@
+["fina", ["final four", "final four greece", "final 4 greece", "final countdown", "final 4", "final boss", "final four \u03b2\u03b1\u03c1\u03b2\u03b1\u03c1\u03b1", "final fantasy", "final fantasy 7 remake", "final four ant1"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

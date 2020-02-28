@@ -195,7 +195,7 @@ def vk(url):
         except:
             oid, video_id = re.findall('\/video(.*)_(.*)', url)[0]
 
-        sources_url = 'http://vk.com/al_video.php?act=show_inline&al=1&video=%s_%s' % (oid, video_id)
+        sources_url = 'https://vk.com/al_video.php?act=show_inline&al=1&video=%s_%s' % (oid, video_id)
         html = client.request(sources_url)
         html = re.sub(r'[^\x00-\x7F]+', ' ', html)
 
@@ -239,7 +239,7 @@ def odnoklassniki(url):
     try:
         media_id = re.compile('//.+?/.+?/([\w]+)').findall(url)[0]
 
-        result = client.request('http://ok.ru/dk', post={'cmd': 'videoPlayerMetadata', 'mid': media_id})
+        result = client.request('https://ok.ru/dk', post={'cmd': 'videoPlayerMetadata', 'mid': media_id})
         result = re.sub(r'[^\x00-\x7F]+', ' ', result)
         result = json.loads(result).get('videos', [])
 

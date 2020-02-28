@@ -1,0 +1,1 @@
+["love", ["love songs", "love", "love actually", "love story", "love me", "love yourself", "love on the brain", "love island", "liver", "love sosa"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

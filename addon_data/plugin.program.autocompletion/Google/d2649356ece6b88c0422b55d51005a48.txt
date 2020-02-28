@@ -1,0 +1,1 @@
+["katrina", ["katrina kaif", "katrina", "katrina tsantali", "katrina velarde", "katrina kaif songs", "katrina kaif dance", "katrina stuart", "katrina song", "katrina law", "katrina kaif movies"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

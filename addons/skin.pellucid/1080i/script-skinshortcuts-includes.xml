@@ -163,13 +163,13 @@
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="labelID">plugin.video.scrubsv2</property>
+			<property name="labelID">plugin.video.tempest</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.scrubsv2",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.scrubsv2",return)</property>
-			<property name="list">plugin://plugin.video.scrubsv2</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.tempest",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.tempest",return)</property>
+			<property name="list">plugin://plugin.video.tempest</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">plugin-video-scrubsv2</property>
+			<property name="submenuVisibility">plugin-video-tempest</property>
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
@@ -223,22 +223,6 @@
 		</item>
 		<item id="14">
 			<property name="id">$NUMBER[14]</property>
-			<label>Greek-Tv</label>
-			<label2>Custom item</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb />
-			<property name="labelID">greek-tv</property>
-			<property name="defaultID" />
-			<onclick>RunAddon(plugin.video.AliveGR,return)</onclick>
-			<property name="path">RunAddon(plugin.video.AliveGR,return)</property>
-			<property name="list">RunAddon(plugin.video.AliveGR,return)</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">greek-tv</property>
-			<property name="group">mainmenu</property>
-			<property name="hasSubmenu">False</property>
-		</item>
-		<item id="15">
-			<property name="id">$NUMBER[15]</property>
 			<label>Αθλητικα Καναλια</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -253,8 +237,8 @@
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
-		<item id="16">
-			<property name="id">$NUMBER[16]</property>
+		<item id="15">
+			<property name="id">$NUMBER[15]</property>
 			<label>Live Αγωνες</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -269,8 +253,8 @@
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
-		<item id="17">
-			<property name="id">$NUMBER[17]</property>
+		<item id="16">
+			<property name="id">$NUMBER[16]</property>
 			<label>Live Αγωνες 2</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -285,56 +269,24 @@
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
-		<item id="18">
-			<property name="id">$NUMBER[18]</property>
+		<item id="17">
+			<property name="id">$NUMBER[17]</property>
 			<label>18+ </label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
 			<property name="labelID">18</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=xdirectory&amp;url=%24doregex%5Bmakelist%5D%7Cregex%3D8825698e186d84ff51ab38052ff1f386&amp;content=0",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=xdirectory&amp;url=%24doregex%5Bmakelist%5D%7Cregex%3D8825698e186d84ff51ab38052ff1f386&amp;content=0",return)</property>
-			<property name="list">plugin://plugin.video.jizzplanet/?action=xdirectory&amp;url=%24doregex%5Bmakelist%5D%7Cregex%3D8825698e186d84ff51ab38052ff1f386&amp;content=0</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.adulthideout/?url=http%3A%2F%2Fwww.youjizz.com%2Fnewest-clips%2F1.html&amp;mode=2&amp;name=YouJizz+%5BCOLOR+yellow%5D+Videos%5B%2FCOLOR%5D&amp;iconimage=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.adulthideout%2Flogos%5Cyoujizz.png",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.adulthideout/?url=http%3A%2F%2Fwww.youjizz.com%2Fnewest-clips%2F1.html&amp;mode=2&amp;name=YouJizz+%5BCOLOR+yellow%5D+Videos%5B%2FCOLOR%5D&amp;iconimage=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.adulthideout%2Flogos%5Cyoujizz.png",return)</property>
+			<property name="list">plugin://plugin.video.adulthideout/?url=http%3A%2F%2Fwww.youjizz.com%2Fnewest-clips%2F1.html&amp;mode=2&amp;name=YouJizz+%5BCOLOR+yellow%5D+Videos%5B%2FCOLOR%5D&amp;iconimage=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.adulthideout%2Flogos%5Cyoujizz.png</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="submenuVisibility">num-18</property>
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
-		<item id="19">
-			<property name="id">$NUMBER[19]</property>
-			<label>18+ (sites)</label>
-			<label2>Custom item</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb />
-			<property name="labelID">18-sites</property>
-			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FQfZUiJgQ&amp;content=addons",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FQfZUiJgQ&amp;content=addons",return)</property>
-			<property name="list">plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FQfZUiJgQ&amp;content=addons</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">18-sites</property>
-			<property name="group">mainmenu</property>
-			<property name="hasSubmenu">False</property>
-		</item>
-		<item id="20">
-			<property name="id">$NUMBER[20]</property>
-			<label>18+(Αναζητηση)</label>
-			<label2>Custom item</label2>
-			<icon>DefaultShortcut.png</icon>
-			<thumb />
-			<property name="labelID">18-anazetese</property>
-			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FvNfLw6yY&amp;content=addons",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FvNfLw6yY&amp;content=addons",return)</property>
-			<property name="list">plugin://plugin.video.jizzplanet/?action=directory&amp;url=https%3A%2F%2Fpastebin.com%2Fraw%2FvNfLw6yY&amp;content=addons</property>
-			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">18-anazetese</property>
-			<property name="group">mainmenu</property>
-			<property name="hasSubmenu">False</property>
-		</item>
-		<item id="21">
-			<property name="id">$NUMBER[21]</property>
+		<item id="18">
+			<property name="id">$NUMBER[18]</property>
 			<label>Update</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -587,7 +539,7 @@
 		</item>
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Common menu item</label2>
 			<icon>DefaultAddon.png</icon>
@@ -605,7 +557,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31215]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -623,7 +575,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31112]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -641,7 +593,7 @@
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31165]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -659,7 +611,7 @@
 		</item>
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -677,7 +629,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31031]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -695,7 +647,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31059]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -713,7 +665,7 @@
 		</item>
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">24</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[744]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -730,7 +682,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">24</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[1039]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1260,10 +1212,10 @@
 	<include name="skinshortcuts-group-alt-plugin-video-exodusredux">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-plugin-video-scrubsv2">
+	<include name="skinshortcuts-group-plugin-video-tempest">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-alt-plugin-video-scrubsv2">
+	<include name="skinshortcuts-group-alt-plugin-video-tempest">
 		<description>No items</description>
 	</include>
 	<include name="skinshortcuts-group-plugin-video-youtube">
@@ -1282,12 +1234,6 @@
 		<description>No items</description>
 	</include>
 	<include name="skinshortcuts-group-alt-sci-tv">
-		<description>No items</description>
-	</include>
-	<include name="skinshortcuts-group-greek-tv">
-		<description>No items</description>
-	</include>
-	<include name="skinshortcuts-group-alt-greek-tv">
 		<description>No items</description>
 	</include>
 	<include name="skinshortcuts-group-athletikakanalia">
@@ -1314,18 +1260,6 @@
 	<include name="skinshortcuts-group-alt-num-18">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-18-sites">
-		<description>No items</description>
-	</include>
-	<include name="skinshortcuts-group-alt-18-sites">
-		<description>No items</description>
-	</include>
-	<include name="skinshortcuts-group-18-anazetese">
-		<description>No items</description>
-	</include>
-	<include name="skinshortcuts-group-alt-18-anazetese">
-		<description>No items</description>
-	</include>
 	<include name="skinshortcuts-group-script-program-update">
 		<description>No items</description>
 	</include>
@@ -1335,7 +1269,7 @@
 	<include name="skinshortcuts-group-videosubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Common menu item</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1353,7 +1287,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31215]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1371,7 +1305,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31112]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1389,7 +1323,7 @@
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31165]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1409,7 +1343,7 @@
 	<include name="skinshortcuts-group-alt-videosubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Common menu item</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1427,7 +1361,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31215]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1445,7 +1379,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31112]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1463,7 +1397,7 @@
 		</item>
 		<item id="4">
 			<property name="id">$NUMBER[4]</property>
-			<property name="mainmenuid">22</property>
+			<property name="mainmenuid">19</property>
 			<label>$LOCALIZE[31165]</label>
 			<label2>Βίντεο</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1483,7 +1417,7 @@
 	<include name="skinshortcuts-group-musicsubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1501,7 +1435,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31031]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1519,7 +1453,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31059]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1539,7 +1473,7 @@
 	<include name="skinshortcuts-group-alt-musicsubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31136]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1557,7 +1491,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31031]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1575,7 +1509,7 @@
 		</item>
 		<item id="3">
 			<property name="id">$NUMBER[3]</property>
-			<property name="mainmenuid">23</property>
+			<property name="mainmenuid">20</property>
 			<label>$LOCALIZE[31059]</label>
 			<label2>Μουσική</label2>
 			<icon>DefaultAddon.png</icon>
@@ -1595,7 +1529,7 @@
 	<include name="skinshortcuts-group-picturessubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">24</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[744]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1612,7 +1546,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">24</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[1039]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1631,7 +1565,7 @@
 	<include name="skinshortcuts-group-alt-picturessubmenu">
 		<item id="1">
 			<property name="id">$NUMBER[1]</property>
-			<property name="mainmenuid">24</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[744]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>
@@ -1648,7 +1582,7 @@
 		</item>
 		<item id="2">
 			<property name="id">$NUMBER[2]</property>
-			<property name="mainmenuid">24</property>
+			<property name="mainmenuid">21</property>
 			<label>$LOCALIZE[1039]</label>
 			<label2>$ADDON[script.skinshortcuts 32020]</label2>
 			<icon>DefaultShortcut.png</icon>

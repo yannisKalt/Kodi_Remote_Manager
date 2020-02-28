@@ -1,0 +1,1 @@
+["w", ["what the fact", "wwe", "woah", "wnc", "without me", "warriors", "weekend", "weeknd", "wow", "wiz khalifa"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

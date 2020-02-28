@@ -1,1 +1,1 @@
-["b", ["bloody hawk", "bad guy", "bella ciao", "baby shark", "bts", "billie eilish", "barcelona", "bye bye", "bob marley", "believer"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["b", ["bts", "billie eilish", "bad guy", "bucks", "beyonce", "bo", "blackpink", "bella ciao", "bop", "baby shark"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

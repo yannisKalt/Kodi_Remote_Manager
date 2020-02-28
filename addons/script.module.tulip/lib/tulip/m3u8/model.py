@@ -6,14 +6,17 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-from collections import namedtuple
 import os
 import errno
 import math
 
-from tulip.m3u8.protocol import ext_x_start
+from tulip.m3u8.protocol import ext_x_start, ext_x_key, ext_x_session_key, ext_x_map
 from tulip.m3u8.parser import parse, format_date_time
 from tulip.m3u8.mixins import BasePathMixin, GroupedBasePathMixin
+
+
+class MalformedPlaylistError(Exception):
+    pass
 
 
 class M3U8(object):
@@ -57,6 +60,9 @@ class M3U8(object):
 
        4. Multiple keys used during the m3u8 manifest.
        `keys` list will contain the key used for each set of segments.
+
+     `session_keys`
+       Returns the list of `SessionKey` objects used to encrypt multiple segments from m3u8.
 
      `segments`
        a `SegmentList` object, represents the list of `Segment`s from this playlist
@@ -186,6 +192,25 @@ class M3U8(object):
         start = self.data.get('start', None)
         self.start = start and Start(**start)
 
+        server_control = self.data.get('server_control', None)
+        self.server_control = server_control and ServerControl(**server_control)
+
+        part_inf = self.data.get('part_inf', None)
+        self.part_inf = part_inf and PartInformation(**part_inf)
+
+        skip = self.data.get('skip', None)
+        self.skip = skip and Skip(**skip)
+
+        self.rendition_reports = RenditionReportList([ RenditionReport(base_uri=self.base_uri, **rendition_report)
+                                                  for rendition_report in self.data.get('rendition_reports', []) ])
+
+        self.session_data = SessionDataList([ SessionData(**session_data)
+                             for session_data in self.data.get('session_data', [])
+                             if 'data_id' in session_data ])
+
+        self.session_keys = [ SessionKey(base_uri=self.base_uri, **params) if params else None
+                      for params in self.data.get('session_keys', []) ]
+
     def __unicode__(self):
         return self.dumps()
 
@@ -202,6 +227,9 @@ class M3U8(object):
         for key in self.keys:
             if key:
                 key.base_uri = new_base_uri
+        for key in self.session_keys:
+            if key:
+                key.base_uri = new_base_uri
 
     @property
     def base_path(self):
@@ -216,6 +244,9 @@ class M3U8(object):
         if self._base_path is None:
             return
         for key in self.keys:
+            if key:
+                key.base_path = self._base_path
+        for key in self.session_keys:
             if key:
                 key.base_path = self._base_path
         self.media.base_path = self._base_path
@@ -238,6 +269,9 @@ class M3U8(object):
     def add_segment(self, segment):
         self.segments.append(segment)
 
+    def add_rendition_report(self, report):
+        self.rendition_reports.append(report)
+
     def dumps(self):
         '''
         Returns the current m3u8 as a string.
@@ -254,7 +288,7 @@ class M3U8(object):
         if self.allow_cache:
             output.append('#EXT-X-ALLOW-CACHE:' + self.allow_cache.upper())
         if self.version:
-            output.append('#EXT-X-VERSION:' + self.version)
+            output.append('#EXT-X-VERSION:' + str(self.version))
         if self.target_duration:
             output.append('#EXT-X-TARGETDURATION:' +
                           int_or_float_to_string(self.target_duration))
@@ -264,23 +298,35 @@ class M3U8(object):
             output.append(str(self.start))
         if self.is_i_frames_only:
             output.append('#EXT-X-I-FRAMES-ONLY')
-        if self.segment_map:
-            map_output = []
-            if self.segment_map.get('uri'):
-                map_output.append('URI=' + quoted(self.segment_map['uri']))
-            if self.segment_map.get('byterange'):
-                map_output.append('BYTERANGE=' + self.segment_map['byterange'])
-            output.append('#EXT-X-MAP:' + ','.join(map_output))
+        if self.server_control:
+            output.append(str(self.server_control))
         if self.is_variant:
             if self.media:
                 output.append(str(self.media))
             output.append(str(self.playlists))
             if self.iframe_playlists:
                 output.append(str(self.iframe_playlists))
+        if self.part_inf:
+            output.append(str(self.part_inf))
+        if self.skip:
+            output.append(str(self.skip))
+        if self.session_data:
+            output.append(str(self.session_data))
+
+        for key in self.session_keys:
+            output.append(str(key))
+
         output.append(str(self.segments))
+
+        if self.rendition_reports:
+            output.append(str(self.rendition_reports))
 
         if self.is_endlist:
             output.append('#EXT-X-ENDLIST')
+
+        # ensure that the last line is terminated correctly
+        if output[-1] and not output[-1].endswith('\n'):
+            output.append('')
 
         return '\n'.join(output)
 
@@ -327,8 +373,17 @@ class Segment(BasePathMixin):
       Returns a boolean indicating if a EXT-X-DISCONTINUITY tag exists
       http://tools.ietf.org/html/draft-pantos-http-live-streaming-13#section-3.4.11
 
+    `cue_out_start`
+      Returns a boolean indicating if a EXT-X-CUE-OUT tag exists
+
     `cue_out`
       Returns a boolean indicating if a EXT-X-CUE-OUT-CONT tag exists
+      Note: for backwards compatibility, this will be True when cue_out_start
+            is True, even though this tag did not exist in the input, and
+            EXT-X-CUE-OUT-CONT will not exist in the output
+
+    `cue_in`
+      Returns a boolean indicating if a EXT-X-CUE-IN tag exists
 
     `scte35`
       Base64 encoded SCTE35 metadata if available
@@ -347,12 +402,15 @@ class Segment(BasePathMixin):
 
     `key`
       Key used to encrypt the segment (EXT-X-KEY)
+
+    `parts`
+      partial segments that make up this segment
     '''
 
-    def __init__(self, uri, base_uri, program_date_time=None, current_program_date_time=None,
-                 duration=None, title=None, byterange=None, cue_out=False,
-                 discontinuity=False, key=None, scte35=None, scte35_duration=None,
-                 keyobject=None):
+    def __init__(self, uri=None, base_uri=None, program_date_time=None, current_program_date_time=None,
+                 duration=None, title=None, byterange=None, cue_out=False, cue_out_start=False,
+                 cue_in=False, discontinuity=False, key=None, scte35=None, scte35_duration=None,
+                 keyobject=None, parts=None, init_section=None):
         self.uri = uri
         self.duration = duration
         self.title = title
@@ -361,14 +419,27 @@ class Segment(BasePathMixin):
         self.program_date_time = program_date_time
         self.current_program_date_time = current_program_date_time
         self.discontinuity = discontinuity
+        self.cue_out_start = cue_out_start
         self.cue_out = cue_out
+        self.cue_in = cue_in
         self.scte35 = scte35
         self.scte35_duration = scte35_duration
         self.key = keyobject
+        self.parts = PartialSegmentList( [ PartialSegment(base_uri=self.base_uri, **partial) for partial in parts ] if parts else [] )
+        if init_section is not None:
+            self.init_section = InitializationSection(self.base_uri, **init_section)
+        else:
+            self.init_section = None
+
         # Key(base_uri=base_uri, **key) if key else None
+
+    def add_part(self, part):
+        self.parts.append(part)
 
     def dumps(self, last_segment):
         output = []
+
+
         if last_segment and self.key != last_segment.key:
             output.append(str(self.key))
             output.append('\n')
@@ -378,23 +449,46 @@ class Segment(BasePathMixin):
                 output.append(str(self.key))
                 output.append('\n')
 
+        if last_segment and self.init_section != last_segment.init_section:
+            if not self.init_section:
+                raise MalformedPlaylistError(
+                    "init section can't be None if previous is not None")
+            output.append(str(self.init_section))
+            output.append('\n')
+        else:
+            if self.init_section and last_segment is None:
+                output.append(str(self.init_section))
+                output.append('\n')
+
         if self.discontinuity:
             output.append('#EXT-X-DISCONTINUITY\n')
         if self.program_date_time:
             output.append('#EXT-X-PROGRAM-DATE-TIME:%s\n' %
                           format_date_time(self.program_date_time))
-        if self.cue_out:
+
+        if self.cue_out_start:
+            output.append('#EXT-X-CUE-OUT{}\n'.format(
+                (':' + self.scte35_duration) if self.scte35_duration else ''))
+        elif self.cue_out:
             output.append('#EXT-X-CUE-OUT-CONT\n')
-        output.append('#EXTINF:%s,' % int_or_float_to_string(self.duration))
-        if self.title:
-            output.append(quoted(self.title))
+        if self.cue_in:
+            output.append('#EXT-X-CUE-IN\n')
 
-        output.append('\n')
+        if self.parts:
+            output.append(str(self.parts))
+            output.append('\n')
 
-        if self.byterange:
-            output.append('#EXT-X-BYTERANGE:%s\n' % self.byterange)
+        if self.uri:
+            if self.duration is not None:
+                output.append('#EXTINF:%s,' % int_or_float_to_string(self.duration))
+                if self.title:
+                    output.append(self.title)
+                output.append('\n')
 
-        output.append(self.uri)
+            if self.byterange:
+                output.append('#EXT-X-BYTERANGE:%s\n' % self.byterange)
+
+            output.append(self.uri)
 
         return ''.join(output)
 
@@ -422,6 +516,73 @@ class SegmentList(list, GroupedBasePathMixin):
 
 
 
+class PartialSegment(BasePathMixin):
+    '''
+    A partial segment from a M3U8 playlist
+
+    `uri`
+      a string with the segment uri
+
+    `program_date_time`
+      Returns the EXT-X-PROGRAM-DATE-TIME as a datetime. This field is only set
+      if EXT-X-PROGRAM-DATE-TIME exists for this segment
+      http://tools.ietf.org/html/draft-pantos-http-live-streaming-07#section-3.3.5
+
+    `current_program_date_time`
+      Returns a datetime of this segment, either the value of `program_date_time`
+      when EXT-X-PROGRAM-DATE-TIME is set or a calculated value based on previous
+      segments' EXT-X-PROGRAM-DATE-TIME and EXTINF values
+
+    `duration`
+      duration attribute from EXTINF parameter
+
+    `byterange`
+      byterange attribute from EXT-X-BYTERANGE parameter
+
+    `independent`
+      the Partial Segment contains an independent frame
+
+    `gap`
+      the Partial Segment is not available
+    '''
+
+    def __init__(self, base_uri, uri, duration, program_date_time=None,
+                 current_program_date_time=None, byterange=None,
+                 independent=None, gap=None):
+        self.base_uri = base_uri
+        self.uri = uri
+        self.duration = duration
+        self.program_date_time = program_date_time
+        self.current_program_date_time = current_program_date_time
+        self.byterange = byterange
+        self.independent = independent
+        self.gap = gap
+
+    def dumps(self, last_segment):
+        output = ['#EXT-X-PART:DURATION=%s,URI="%s"' % (
+            int_or_float_to_string(self.duration), self.uri
+        )]
+
+        if self.independent:
+            output.append(',INDEPENDENT=%s' % self.independent)
+
+        if self.byterange:
+            output.append(',BYTERANGE=%s' % self.byterange)
+
+        if self.gap:
+            output.append(',GAP=%s' % self.gap)
+
+        return ''.join(output)
+
+    def __str__(self):
+        return self.dumps(None)
+
+class PartialSegmentList(list, GroupedBasePathMixin):
+
+    def __str__(self):
+        output = [str(part) for part in self]
+        return '\n'.join(output)
+
 class Key(BasePathMixin):
     '''
     Key used to encrypt the segments in a m3u8 playlist (EXT-X-KEY)
@@ -439,6 +600,8 @@ class Key(BasePathMixin):
       initialization vector. a string representing a hexadecimal number. ex.: 0X12A
 
     '''
+
+    tag = ext_x_key
 
     def __init__(self, method, base_uri, uri=None, iv=None, keyformat=None, keyformatversions=None):
         self.method = method
@@ -461,7 +624,7 @@ class Key(BasePathMixin):
         if self.keyformatversions:
             output.append('KEYFORMATVERSIONS="%s"' % self.keyformatversions)
 
-        return '#EXT-X-KEY:' + ','.join(output)
+        return self.tag + ':' + ','.join(output)
 
     def __eq__(self, other):
         if not other:
@@ -476,6 +639,48 @@ class Key(BasePathMixin):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+class InitializationSection(BasePathMixin):
+    '''
+    Used to obtain Media Initialization Section required to
+    parse the applicable Media Segments (EXT-X-MAP)
+
+    `uri`
+      is a string. ex:: "https://priv.example.com/key.php?r=52"
+
+    `byterange`
+      value of BYTERANGE attribute
+
+    `base_uri`
+      uri the segment comes from in URI hierarchy. ex.: http://example.com/path/to
+    '''
+
+    tag = ext_x_map
+
+    def __init__(self, base_uri, uri, byterange=None):
+        self.base_uri = base_uri
+        self.uri = uri
+        self.byterange = byterange
+
+    def __str__(self):
+        output = []
+        if self.uri:
+            output.append('URI=' + quoted(self.uri))
+        if self.byterange:
+            output.append('BYTERANGE=' + self.byterange)
+        return "{tag}:{attributes}".format(tag=self.tag, attributes=",".join(output))
+
+    def __eq__(self, other):
+        if not other:
+            return False
+        return self.uri == other.uri and \
+            self.byterange == other.byterange and \
+            self.base_uri == other.base_uri
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+class SessionKey(Key):
+    tag = ext_x_session_key
 
 class Playlist(BasePathMixin):
     '''
@@ -513,7 +718,8 @@ class Playlist(BasePathMixin):
             average_bandwidth=stream_info.get('average_bandwidth'),
             program_id=stream_info.get('program_id'),
             resolution=resolution_pair,
-            codecs=stream_info.get('codecs')
+            codecs=stream_info.get('codecs'),
+            frame_rate=stream_info.get('frame_rate')
         )
         self.media = []
         for media_type in ('audio', 'video', 'subtitles'):
@@ -524,24 +730,8 @@ class Playlist(BasePathMixin):
             self.media += filter(lambda m: m.group_id == group_id, media)
 
     def __str__(self):
-        stream_inf = []
-        if self.stream_info.program_id:
-            stream_inf.append('PROGRAM-ID=%d' % self.stream_info.program_id)
-        if self.stream_info.closed_captions:
-            stream_inf.append('CLOSED-CAPTIONS=%s' % self.stream_info.closed_captions)
-        if self.stream_info.bandwidth:
-            stream_inf.append('BANDWIDTH=%d' % self.stream_info.bandwidth)
-        if self.stream_info.average_bandwidth:
-            stream_inf.append('AVERAGE-BANDWIDTH=%d' %
-                              self.stream_info.average_bandwidth)
-        if self.stream_info.resolution:
-            res = str(self.stream_info.resolution[
-                      0]) + 'x' + str(self.stream_info.resolution[1])
-            stream_inf.append('RESOLUTION=' + res)
-        if self.stream_info.codecs:
-            stream_inf.append('CODECS=' + quoted(self.stream_info.codecs))
-
         media_types = []
+        stream_inf = [str(self.stream_info)]
         for media in self.media:
             if media.type in media_types:
                 continue
@@ -589,7 +779,8 @@ class IFramePlaylist(BasePathMixin):
             average_bandwidth=None,
             program_id=iframe_stream_info.get('program_id'),
             resolution=resolution_pair,
-            codecs=iframe_stream_info.get('codecs')
+            codecs=iframe_stream_info.get('codecs'),
+            frame_rate=None
         )
 
     def __str__(self):
@@ -612,10 +803,51 @@ class IFramePlaylist(BasePathMixin):
 
         return '#EXT-X-I-FRAME-STREAM-INF:' + ','.join(iframe_stream_inf)
 
-StreamInfo = namedtuple(
-    'StreamInfo',
-    ['bandwidth', 'closed_captions', 'average_bandwidth', 'program_id', 'resolution', 'codecs', 'audio', 'video', 'subtitles']
-)
+
+class StreamInfo(object):
+    bandwidth = None
+    closed_captions = None
+    average_bandwidth = None
+    program_id = None
+    resolution = None
+    codecs = None
+    audio = None
+    video = None
+    subtitles = None
+    frame_rate = None
+
+    def __init__(self, **kwargs):
+        self.bandwidth = kwargs.get("bandwidth")
+        self.closed_captions = kwargs.get("closed_captions")
+        self.average_bandwidth = kwargs.get("average_bandwidth")
+        self.program_id = kwargs.get("program_id")
+        self.resolution = kwargs.get("resolution")
+        self.codecs = kwargs.get("codecs")
+        self.audio = kwargs.get("audio")
+        self.video = kwargs.get("video")
+        self.subtitles = kwargs.get("subtitles")
+        self.frame_rate = kwargs.get("frame_rate")
+
+    def __str__(self):
+        stream_inf = []
+        if self.program_id is not None:
+            stream_inf.append('PROGRAM-ID=%d' % self.program_id)
+        if self.closed_captions is not None:
+            stream_inf.append('CLOSED-CAPTIONS=%s' % self.closed_captions)
+        if self.bandwidth is not None:
+            stream_inf.append('BANDWIDTH=%d' % self.bandwidth)
+        if self.average_bandwidth is not None:
+            stream_inf.append('AVERAGE-BANDWIDTH=%d' %
+                              self.average_bandwidth)
+        if self.resolution is not None:
+            res = str(self.resolution[
+                      0]) + 'x' + str(self.resolution[1])
+            stream_inf.append('RESOLUTION=' + res)
+        if self.frame_rate is not None:
+            stream_inf.append('FRAME-RATE=%.5g' % self.frame_rate)
+        if self.codecs is not None:
+            stream_inf.append('CODECS=' + quoted(self.codecs))
+        return ",".join(stream_inf)
 
 
 class Media(BasePathMixin):
@@ -682,7 +914,7 @@ class Media(BasePathMixin):
         if self.forced:
             media_out.append('FORCED=' + self.forced)
         if self.instream_id:
-            media_out.append('INSTREAM-ID=' + self.instream_id)
+            media_out.append('INSTREAM-ID=' + quoted(self.instream_id))
         if self.characteristics:
             media_out.append('CHARACTERISTICS=' + quoted(self.characteristics))
 
@@ -692,22 +924,26 @@ class Media(BasePathMixin):
         return self.dumps()
 
 
-class MediaList(list, GroupedBasePathMixin):
+class TagList(list):
 
     def __str__(self):
-        output = [str(playlist) for playlist in self]
+        output = [str(tag) for tag in self]
         return '\n'.join(output)
+
+
+class MediaList(TagList, GroupedBasePathMixin):
 
     @property
     def uri(self):
         return [media.uri for media in self]
 
 
-class PlaylistList(list, GroupedBasePathMixin):
+class PlaylistList(TagList, GroupedBasePathMixin):
+    pass
 
-    def __str__(self):
-        output = [str(playlist) for playlist in self]
-        return '\n'.join(output)
+
+class SessionDataList(TagList):
+    pass
 
 
 class Start(object):
@@ -725,6 +961,102 @@ class Start(object):
 
         return ext_x_start + ':' + ','.join(output)
 
+class RenditionReport(BasePathMixin):
+    def __init__(self, base_uri, uri, last_msn, last_part=None):
+        self.base_uri = base_uri
+        self.uri = uri
+        self.last_msn = last_msn
+        self.last_part = last_part
+
+    def dumps(self):
+        report = []
+        report.append('URI=' + quoted(self.uri))
+        report.append('LAST-MSN=' + int_or_float_to_string(self.last_msn))
+        if self.last_part is not None:
+            report.append('LAST-PART=' + int_or_float_to_string(
+                self.last_part))
+
+        return ('#EXT-X-RENDITION-REPORT:' + ','.join(report))
+
+    def __str__(self):
+        return self.dumps()
+
+class RenditionReportList(list, GroupedBasePathMixin):
+
+    def __str__(self):
+        output = [str(report) for report in self]
+        return '\n'.join(output)
+
+class ServerControl(object):
+    def __init__(self, can_skip_until=None, can_block_reload=None,
+                 hold_back=None, part_hold_back=None):
+        self.can_skip_until = can_skip_until
+        self.can_block_reload = can_block_reload
+        self.hold_back = hold_back
+        self.part_hold_back = part_hold_back
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+    def dumps(self):
+        ctrl = []
+        if self.can_block_reload:
+            ctrl.append('CAN-BLOCK-RELOAD=%s' % self.can_block_reload)
+        for attr in ['hold_back', 'part_hold_back', 'can_skip_until']:
+            if self[attr]:
+                ctrl.append('%s=%s' % (
+                    denormalize_attribute(attr),
+                    int_or_float_to_string(self[attr])
+                ))
+
+        return '#EXT-X-SERVER-CONTROL:' + ','.join(ctrl)
+
+    def __str__(self):
+        return self.dumps()
+
+class Skip(object):
+    def __init__(self, skipped_segments=None):
+        self.skipped_segments = skipped_segments
+
+    def dumps(self):
+        return '#EXT-X-SKIP:SKIPPED-SEGMENTS=%s' % int_or_float_to_string(
+            self.skipped_segments)
+
+    def __str__(self):
+        return self.dumps()
+
+class PartInformation(object):
+    def __init__(self, part_target=None):
+        self.part_target = part_target
+
+    def dumps(self):
+        return '#EXT-X-PART-INF:PART-TARGET=%s' % int_or_float_to_string(
+            self.part_target)
+
+    def __str__(self):
+        return self.dumps()
+
+class SessionData(object):
+    def __init__(self, data_id, value=None, uri=None, language=None):
+        self.data_id = data_id
+        self.value = value
+        self.uri = uri
+        self.language = language
+
+    def dumps(self):
+        session_data_out = ['DATA-ID=' + quoted(self.data_id)]
+
+        if self.value:
+            session_data_out.append('VALUE=' + quoted(self.value))
+        elif self.uri:
+            session_data_out.append('URI=' + quoted(self.uri))
+        if self.language:
+            session_data_out.append('LANGUAGE=' + quoted(self.language))
+
+        return '#EXT-X-SESSION-DATA:' + ','.join(session_data_out)
+
+    def __str__(self):
+        return self.dumps()
 
 def find_key(keydata, keylist):
     if not keydata:

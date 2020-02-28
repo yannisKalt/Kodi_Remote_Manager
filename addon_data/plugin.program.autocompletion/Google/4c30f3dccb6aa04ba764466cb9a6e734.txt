@@ -1,0 +1,1 @@
+["y", ["yummy", "ylli baka", "youtube", "yassuo", "yellow hearts", "youtube rewind 2018", "youtube rewind", "young thug", "young ma", "you"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

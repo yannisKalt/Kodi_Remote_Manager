@@ -1,0 +1,1 @@
+["despacito", ["despacito", "despacito 2", "despacito dance", "despacito remix", "despacito lyrics", "despacito piano", "despacito cover", "despacito karaoke", "despacito guitar", "despacito parody"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

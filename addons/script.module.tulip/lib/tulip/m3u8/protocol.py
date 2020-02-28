@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# coding: utf-8
 # Copyright 2014 Globo.com Player authors. All rights reserved.
 # Use of this source code is governed by a MIT License
 # license that can be found in the LICENSE file.
-
 
 ext_x_targetduration = '#EXT-X-TARGETDURATION'
 ext_x_media_sequence = '#EXT-X-MEDIA-SEQUENCE'
@@ -21,12 +21,18 @@ ext_i_frames_only = '#EXT-X-I-FRAMES-ONLY'
 ext_x_byterange = '#EXT-X-BYTERANGE'
 ext_x_i_frame_stream_inf = '#EXT-X-I-FRAME-STREAM-INF'
 ext_x_discontinuity = '#EXT-X-DISCONTINUITY'
-ext_x_cue_out_start = '#EXT-X-CUE-OUT'
-ext_x_cue_out = '#EXT-X-CUE-OUT-CONT'
-ext_is_independent_segments = '#EXT-X-INDEPENDENT-SEGMENTS'
-ext_x_scte35 = '#EXT-OATCLS-SCTE35'
-ext_x_cue_start = '#EXT-X-CUE-OUT'
-ext_x_cue_end = '#EXT-X-CUE-IN'
+ext_x_cue_out = '#EXT-X-CUE-OUT'
+ext_x_cue_out_cont = '#EXT-X-CUE-OUT-CONT'
+ext_x_cue_in = '#EXT-X-CUE-IN'
 ext_x_cue_span = '#EXT-X-CUE-SPAN'
+ext_x_scte35 = '#EXT-OATCLS-SCTE35'
+ext_is_independent_segments = '#EXT-X-INDEPENDENT-SEGMENTS'
 ext_x_map = '#EXT-X-MAP'
 ext_x_start = '#EXT-X-START'
+ext_x_server_control = '#EXT-X-SERVER-CONTROL'
+ext_x_part_inf = '#EXT-X-PART-INF'
+ext_x_part = '#EXT-X-PART'
+ext_x_rendition_report = '#EXT-X-RENDITION-REPORT'
+ext_x_skip = '#EXT-X-SKIP'
+ext_x_session_data = '#EXT-X-SESSION-DATA'
+ext_x_session_key = '#EXT-X-SESSION-KEY'

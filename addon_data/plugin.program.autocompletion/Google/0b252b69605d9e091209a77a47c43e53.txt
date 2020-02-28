@@ -1,0 +1,1 @@
+["tz", ["tzamal", "tzitzi", "tzatza", "tzamaika", "tzikso", "tzini", "tzivaeri", "tzamal live", "tzaz", "tzamal taratsa"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

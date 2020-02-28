@@ -1,0 +1,1 @@
+["ad", ["adele", "adore you", "adam driver", "adriatique", "adamantidis", "ad astra", "adele hello", "adriano celentano", "adios", "adonis"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

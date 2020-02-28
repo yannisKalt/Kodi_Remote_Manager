@@ -2,36 +2,50 @@
 <settings>
     <category label="32310">
         <setting id="appearance.alt" type="action" label="32311" default="-" option="close" action="RunPlugin(plugin://plugin.video.thecrew/?action=artwork)" visible="!System.HasAddon(script.thecrew.artwork)" />
-        <setting id="appearance.1" type="select" label="32311" values="thecrew" default="thecrew" visible="System.HasAddon(script.thecrew.artwork)" />
-        <setting id="scrapers.timeout.1" type="slider" label="32312" default="30" range="10,60" option="int" />
-
+        <setting id="appearance.1" type="select" label="32311" values="thecrew" default="thecrew" visible="false" />
         <setting id="indicators.alt" type="enum" label="32313" lvalues="32314|32315" default="1" visible="!eq(-1,)" />
         <setting id="indicators" type="enum" label="32313" lvalues="32314" default="0" visible="eq(-2,)" />
         <setting id="api.language" type="select" label="32316" values="AUTO|Bulgarian|Chinese|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hebrew|Hungarian|Italian|Japanese|Korean|Norwegian|Polish|Portuguese|Romanian|Russian|Serbian|Slovak|Slovenian|Spanish|Swedish|Thai|Turkish|Ukrainian" default="AUTO" />
         <setting id="providers.lang" type="select" label="32360" values="English|German|German+English|French|French+English|Polish|Polish+English|Korean|Korean+English|Russian|Russian+English|Spanish|Spanish+English|Italian|Italian+English|Greek|Greek+English" default="English" />
         <setting id="fanart" type="bool" label="32318" default="true" />
-        <setting id="tv.specials" type="bool" label="90116" default="false" />
-        <setting id="unaired.identify" type="enum" label="90003" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="1" />
+        <setting id="page.item.limit" type="slider" label="90191" default="20" range="10,60" option="int" />
+        <setting id="hidecinema" type="bool" label="90190" default="false" />
+        <setting id="hidecinema.rollback" type="slider" label="90192" enable="eq(-1,true)" default="6" range="1,12" option="int" />
+        
+        <setting type="lsep" label="90183" />
         <setting id="flatten.tvshows" type="bool" label="32317" default="false" />
-        <setting type="lsep" label="32319" />
-        <setting id="movie.widget" type="enum" label="32320" lvalues="32302|32321|32322|32323|32324|32580" default="1" />
-        <setting id="tv.widget.alt" type="enum" label="32325" lvalues="32302|32326|32327|32328" default="2" visible="!eq(-11,)" />
-        <setting id="tv.widget" type="enum" label="32325" lvalues="32302|32326" default="1" visible="eq(-12,)" />
+        <setting id="showunaired" type="bool" label="32570" default="true" />
+        <setting id="unaired.identify" type="enum" label="90003" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="1" />
+        <setting id="tv.specials" type="bool" label="90116" default="true" />
+        <setting id="tv.widget.alt" type="enum" label="32325" lvalues="32302|32326|32327|32328" default="2" visible="!eq(-12,)" />
+        <setting id="tv.widget" type="enum" label="32325" lvalues="32302|32326" default="1" visible="eq(-13,)" />
+        <setting id="movie.widget" type="enum" label="32320" lvalues="32302|32321|32322|32323|32324|32580" visible="false" default="1" />
     </category>
     <category label="32621">
+        <setting label="90167" type="lsep" />
+        <setting id="navi.personal.list" type="bool" label="90169" default="false" />
+        <setting id="personal.list" type="text" label="90168" enable="!eq(-1,false)" default="https://" />
         <setting type="lsep" label="90034" />
         <setting id="adult_pw" type="text" label="90033" default="Enter Here!" />
         <setting type="lsep" label="90137" />
+        <!--
+        <setting id="navi.halloween" type="bool" label="90144" default="true" />
+        <setting id="navi.holidays" type="bool" label="90157" default="true" />-->
         <setting id="navi.movies" type="bool" label="32001" default="true" />
         <setting id="navi.tvshows" type="bool" label="32002" default="true" />
         <setting id="navi.sports" type="bool" label="90006" default="true" />
-        <setting id="navi.kids" type="bool" label="90009" default="true" />
         <setting id="navi.iptv" type="bool" label="90007" default="true" />
-        <setting id="navi.fitness" type="bool" label="90007" default="true" />
+        <setting id="navi.kids" type="bool" label="90009" default="true" />
+        <setting id="navi.1clicks" type="bool" label="90011" default="true" />
+        <setting id="navi.purplehat" type="bool" label="90189" default="true" />
+        <setting id="navi.standup" type="bool" label="90113" default="true" />
+        <setting id="navi.fitness" type="bool" label="90010" default="true" />
         <setting id="navi.food" type="bool" label="90143" default="true" />
-        <setting id="navi.1clicks" type="bool" label="90010" default="true" />
-        <setting id="navi.magnets" type="bool" label="90011" default="true" />
-        <setting id="navi.standup" type="bool" label="90012" default="true" />
+        <setting id="navi.radio" type="bool" label="90012" default="true" />
+        <setting id="navi.add_addons" type="bool" label="90181" default="true" />
+        <setting id="navi.eyecandy" type="bool" label="90164" default="true" />
+        <setting id="navi.retribution" type="bool" label="90165" default="true" />
+        <setting id="navi.titan" type="bool" label="90155" default="true" />
         <setting type="lsep" label="32001" />
         <setting id="navi.247movies" type="bool" label="90014" default="true" />
         <setting id="navi.collections" type="bool" label="32000" default="true" />
@@ -44,6 +58,7 @@
         <setting id="navi.moviecerts" type="bool" label="32015" default="true" />
         <setting id="navi.movietrending" type="bool" label="32017" default="true" />
         <setting id="navi.moviepopular" type="bool" label="32018" default="true" />
+        <setting id="navi.disneym" type="bool" label="90166" default="true" />
         <setting id="navi.movieviews" type="bool" label="32019" default="true" />
         <setting id="navi.movieboxoffice" type="bool" label="32020" default="true" />
         <setting id="navi.movieoscars" type="bool" label="32021" default="true" />
@@ -56,6 +71,8 @@
         <setting id="navi.tvCertificates" type="bool" label="32015" default="true" />
         <setting id="navi.tvTrending" type="bool" label="32017" default="true" />
         <setting id="navi.tvPopular" type="bool" label="32018" default="true" />
+        <setting id="navi.disney" type="bool" label="90166" default="true" />
+        <setting id="navi.applet" type="bool" label="90170" default="true" />
         <setting id="navi.tvRating" type="bool" label="32023" default="true" />
         <setting id="navi.tvViews" type="bool" label="32019" default="true" />
         <setting id="navi.tvAiring" type="bool" label="32024" default="true" />
@@ -65,22 +82,23 @@
         <setting id="navi.tvCalendar" type="bool" label="32027" default="true" />
     </category>
     <category label="32330">
-        <setting id="hosts.mode" type="enum" label="32331" lvalues="32332|32333|32334" default="1" />
         <setting id="progress.dialog" type="enum" label="32335" lvalues="32336|32337" default="0" />
+        <setting id="hosts.mode" type="enum" label="32331" lvalues="32332|32333|32334" default="1" />
+        <setting id="hosts.quality" type="enum" label="32339" values="4K|1440p|1080p|720p|480p" default="0" />
+        <setting id="scrapers.timeout.1" type="slider" label="32312" default="30" range="10,60" option="int" />
         <setting id="returned.sources" type="slider" label="Returned Sources" enable="true" default="100" range="1,1000" option="int" />
         <setting id="sourcelist.multiline" type="bool" label="90119" default="false" />
-        <setting id="sources.extrainfo" type="bool" label="32587" default="true" />
-        <setting id="prem.identify" type="enum" label="32588" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="3" />
+        <setting id="sources.extrainfo" type="bool" label="32587" default="true" visible="false" />
+        <setting id="hosts.captcha" type="bool" label="32341" default="true" />
         <setting type="lsep" label="32338" />
-        <setting id="hosts.quality" type="enum" label="32339" values="4K|1440p|1080p|720p|480p" default="0" />
         <setting id="debrid.only" type="bool" label="90120" default="" />
+        <setting id="prem.identify" type="enum" label="32588" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="3" />
         <setting id="preemptive.termination" type="bool" label="90121" default="false" />
         <setting id="preemptive.limit" type="slider" label="90122" default="10" range="1,50" option="int" />
-        <setting id="autoplay.sd" type="bool" label="32340" default="false" />
         <setting id="remove.dups" type="bool" label="32090" default="true" />
         <setting id="HEVC" type="bool" label="32363" default="true" />
-        <setting id="hosts.captcha" type="bool" label="32341" default="true" />
         <setting id="hosts.sort.provider" type="bool" label="32342" default="false" />
+        <setting id="autoplay.sd" type="bool" label="32340" default="false" />
         <setting type="lsep" label="32635" />
         <setting id="torrent.enabled" type="bool" label="32636" default="true" />
         <setting id="torrent.identify" type="enum" label="32634"  enable="eq(-1,true)" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="7" />
@@ -89,22 +107,22 @@
         <setting id="torrent.resolveurl" type="action" label="32637" enable="eq(-4,true)" option="close" action="RunPlugin(plugin://plugin.video.thecrew/?action=ResolveUrlTorrent&query=1.58)" />
         <setting type="lsep" label="32343" />
         <setting id="bookmarks" type="bool" label="32344" default="true" />
-        <setting id="bookmarks.trakt" type="bool" label="90123" default="false" enable="!eq(-1,false)"/>
-        <setting id="bookmarks.auto" type="bool" label="90124" default="false" enable="!eq(-2,false)" />
-        <setting type="lsep" label="32372" />
-        <setting id="crefresh" type="bool" label="32373" default="false" />
-        
+        <setting id="bookmarks.auto" type="bool" label="90124" default="false" enable="!eq(-1,false)" />
+    </category>
+    <category label="32669">
         <setting type="lsep" label="32669" />
         <setting id="tv.swift.inputstream" type="bool" label="32675" default="false" />
         <setting id="tv.swift.filtermov" type="bool" label="32676" default="false" />
         <setting id="tv.swift.filtersports" type="bool" label="32677" default="false" />
         <setting id="tv.swift.filtertv" type="bool" label="32678" default="false" />
-        <setting id="tv.swift.sorttheclowns" type="bool" label="32672" default="true" />
+        <setting id="tv.swift.sort_the_crew" type="bool" label="32672" default="true" />
     </category>
     <category label ="32315">
         <setting type="lsep" label="32315" />
-        <setting id="prgr.sortorder" type="enum" label="32584" lvalues="32585|32586" default="1"  />
+        <setting id="bookmarks.trakt" type="bool" label="90123" default="false" />
         <setting id="lists.widget" type="enum" label="32329" lvalues="32302|32301" default="1" />
+        <setting id="prgr.sortorder" type="enum" label="32584" lvalues="32585|32586" default="1"  />
+        <setting type="lsep" label="90183" />
         <setting id="autoTraktOnStart" type="bool" label="90125" default="False" />
         <setting id="schedTraktTime" type="slider" label="90126" default="0" range="0,24" option="int" />
         <setting type="lsep" label="Account Information" />
@@ -114,43 +132,11 @@
         <setting id="trakt.token" type="text" visible="hidden" label="" default="" />
         <setting id="trakt.refresh" type="text" visible="hidden" label="" default="" />
     </category> 
-    <category label="32345">
-        <setting id="provider.animetoon" type="bool" label="ANIMETOON" default="true" />
-        <setting id="provider.bnwmovies" type="bool" label="BNWMOVIES" default="true" />
-        <setting id="provider.cartoonhd" type="bool" label="CARTOONHD" default="true" />
-        <setting id="provider.cmovieshd" type="bool" label="CMOVIESHD" default="true" />
-        <setting id="provider.coolmoviezone" type="bool" label="COOLMOVIEZONE" default="true" />
-        <setting id="provider.divxcrawler" type="bool" label="DIVXCRAWLER" default="true" />
-        <setting id="provider.extramovies" type="bool" label="EXTRAMOVIES" default="true" />
-        <setting id="provider.freefmovies" type="bool" label="FREEFMOVIES" default="true" />
-        <setting id="provider.furk" type="bool" label="FURK" default="true" />
-        <setting id="provider.geektv" type="bool" label="GEEKTV" default="true" />
-        <setting id="provider.gomoviesink" type="bool" label="GOMOVIESINK" default="true" />
-        <setting id="provider.gowatchseries" type="bool" label="GOWATCHSERIES" default="true" />
-        <setting id="provider.hdmto" type="bool" label="HDMTO" default="true" />
-        <setting id="provider.hdpopcorneu" type="bool" label="HDPOPCORNEU" default="true" />
-        <setting id="provider.iwaatch" type="bool" label="IWAATCH" default="true" />
-        <setting id="provider.iwannawatch" type="bool" label="IWANNAWATCH" default="true" />
-        <setting id="provider.movie4kis" type="bool" label="MOVIE4KIS" default="true" />
-        <setting id="provider.ororo" type="bool" label="ORORO" default="true" />
-        <setting id="provider.plockers" type="bool" label="PLOCKERS" default="true" />
-        <setting id="provider.primewire" type="bool" label="PRIMEWIRE" default="true" />
-        <setting id="provider.projectfreetv" type="bool" label="PROJECTFREETV" default="true" />
-        <setting id="provider.pron" type="bool" label="PRON" default="true" />
-        <setting id="provider.putlockerfree" type="bool" label="PUTLOCKERFREE" default="true" />
-        <setting id="provider.seehd" type="bool" label="SEEHD" default="true" />
-        <setting id="provider.series9" type="bool" label="SERIES9" default="true" />
-        <setting id="provider.seriesonline" type="bool" label="SERIESONLINE" default="true" />
-        <setting id="provider.solarmoviefree" type="bool" label="SOLARMOVIEFREE" default="true" />
-        <setting id="provider.swatchseries" type="bool" label="SWATCHSERIES" default="true" />
-        <setting id="provider.timewatch" type="bool" label="TIMEWATCH" default="true" />
-        <setting id="provider.tvbox" type="bool" label="TVBOX" default="true" />
-        <setting id="provider.watch32" type="bool" label="WATCH32" default="true" />
-        <setting id="provider.watchepisodes" type="bool" label="WATCHEPISODES" default="true" />
-        <setting id="provider.wsunblock" type="bool" label="WSUNBLOCK" default="true" />
-        <setting id="provider.xwatchseries" type="bool" label="XWATCHSERIES" default="true" />
-        <setting id="provider.yesmoviesgg" type="bool" label="YESMOVIESGG" default="true" />
-    </category>
+    <!--Clear-->
+    <category label="32345"></category>
+    <category label="90004"></category>
+    <category label="90005"></category>
+    <!--END CLEAR-->
     <category label="90016">
         <setting id="provider.drama4u" type="bool" label="DRAMA4U" default="true" />
         <setting id="provider.dramabus" type="bool" label="DRAMABUS" default="true" />
@@ -160,44 +146,6 @@
         <setting id="provider.ikshow" type="bool" label="IKSHOW" default="true" />
         <setting id="provider.kdramacool" type="bool" label="KDRAMACOOL" default="true" />
         <setting id="provider.myasiantv" type="bool" label="MYASIANTV" default="true" />
-    </category>
-    <category label="90004">
-        <setting id="provider.0day" type="bool" label="0DAY" default="true" />
-        <setting id="provider.2ddl" type="bool" label="2DDL" default="true" />
-        <setting id="provider.300mbdownload" type="bool" label="300MBDOWNLOAD" default="true" />
-        <setting id="provider.300mbfilms" type="bool" label="300MBFILMS" default="true" />
-        <setting id="provider.ddlspot" type="bool" label="DDLSPOT" default="true" />
-        <setting id="provider.ganool" type="bool" label="GANOOL" default="true" />
-        <setting id="provider.iwantmyshow" type="bool" label="IWANTMYSHOW" default="true" />
-        <setting id="provider.maxrls" type="bool" label="MAXRLS" default="true" />
-        <setting id="provider.mvrls" type="bool" label="MVRLS" default="true" />
-        <setting id="provider.onlineseries" type="bool" label="ONLINESERIES" default="true" />
-        <setting id="provider.rapidmoviez" type="bool" label="RAPIDMOVIEZ" default="true" />
-        <setting id="provider.rlsbb" type="bool" label="RLSBB" default="true" />
-        <setting id="provider.sceneddl" type="bool" label="SCENEDDL" default="true" />
-        <setting id="provider.scenerls" type="bool" label="SCENERLS" default="true" />
-        <setting id="provider.scenerlscom" type="bool" label="SCENERLSCOM" default="true" />
-        <setting id="provider.ultrahd" type="bool" label="ULTRAHD" default="true" />
-        <setting id="provider.warezmovies" type="bool" label="WAREZMOVIES" default="true" />
-    </category>
-    <category label="90005">
-        <setting id="provider.1337x" type="bool" label="1337X" default="true" />
-        <setting id="provider.btscene" type="bool" label="BTSCENE" default="true" />
-        <setting id="provider.digbt" type="bool" label="DIGBT" default="true" />
-        <setting id="provider.doublr" type="bool" label="DOUBLR" default="true" />
-        <setting id="provider.eztv" type="bool" label="EZTV" default="true" />
-        <setting id="provider.glodls" type="bool" label="GLODLS" default="true" />
-        <setting id="provider.kickass2" type="bool" label="KICKASS2" default="true" />
-        <setting id="provider.limetorrents" type="bool" label="LIMETORRENTS" default="true" />
-        <setting id="provider.magnetdl" type="bool" label="MAGNETDL" default="true" />
-        <setting id="provider.piratebay" type="bool" label="PIRATEBAY" default="true" />
-        <setting id="provider.skytorrents" type="bool" label="SKYTORRENTS" default="true" />
-        <setting id="provider.torrentapi" type="bool" label="TORRENTAPI" default="true" />
-        <setting id="provider.torrentdownloads" type="bool" label="TORRENTDOWNLOADS" default="true" />
-        <setting id="provider.torrentgalaxy" type="bool" label="TORRENTGALAXY" default="true" />
-        <setting id="provider.yify" type="bool" label="YIFY" default="true" />
-        <setting id="provider.yifyddl" type="bool" label="YIFYDDL" default="true" />
-        <setting id="provider.zoogle" type="bool" label="ZOOGLE" default="true" />
     </category>
     <category label="90017">
         <setting id="provider.peliculasdk" type="bool" label="PELICULASDK" default="true" />
@@ -247,23 +195,6 @@
         <setting type="sep" />
         <setting type="lsep" label="TVDb" />
         <setting id="tvdb.user" type="text" label="32303" default="" />
-        <setting type="sep" />
-        <setting type="lsep" label="Gostream" />
-        <setting id="gostream.user" type="text" label="32303" default="" />
-        <setting id="gostream.pass" type="text" label="32307" default="" />
-        <setting type="sep" />
-        <setting type="lsep" label="SerienStream.to" />
-        <setting id="serienstream.user" type="text" label="32304" default="" />
-        <setting id="serienstream.pass" type="text" label="32307" default="" />
-        <setting type="sep" />
-        <setting type="lsep" label="PRON" />
-        <setting id="pron.api" type="text" label="32309" default="" />
-        <setting id="pron.limit" type="labelenum" label="32581" default="10" values="10|20|30|40|50|60|70|80|90|100|150|200" />
-        <setting id="pron.download" type="bool" label="32009" default="false" />
-        <setting type="sep" />
-        <setting type="lsep" label="Chillax.ws - Your login details are not protected" />
-        <setting id="chillax.username" type="text" label="32303" default="" />
-        <setting id="chillax.password" type="text" option="hidden" label="32307" default="" />
         <setting type="sep" />
         <setting type="lsep" label="Furk.net" />
         <setting id="furk.user_name" type="text" label="Furk Username" default="" />

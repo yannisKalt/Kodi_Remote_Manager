@@ -1,0 +1,1 @@
+["cos", ["cosmote tv", "cosmos", "costa rica", "cosita", "cosmote sport", "cosmote tv live", "cosmos neil degrasse tyson", "cosplay", "costa concordia", "cosmote history"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

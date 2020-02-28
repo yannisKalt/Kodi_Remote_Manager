@@ -17,15 +17,16 @@
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
+import traceback, sys
 from tulip.compat import urlencode, quote_plus, iteritems, basestring, parse_qsl
 from tulip import control
 from kodi_six.xbmc import log
 
 
 def add(
-    items, cacheToDisc=True, content=None, mediatype=None, infotype='video', argv=None, as_playlist=False,
+    items, cacheToDisc=True, content=None, mediatype=None, infotype='video', argv=None, as_playlist=False, auto_play=False,
     pd_heading=None, pd_message='', clear_first=True, progress=False, category=None
 ):
 
@@ -39,6 +40,7 @@ def add(
         syshandle = int(argv[1])
 
     if items is None or len(items) == 0:
+        log('Directory not added, reason of failure: ' + 'Empty or null list of items')
         return
 
     # sysicon = control.join(control.addonInfo('path'), 'resources', 'media')
@@ -246,15 +248,23 @@ def add(
                 control.addItem(handle=syshandle, url=uri, listitem=item, isFolder=isFolder, totalItems=len(items))
 
         except Exception as reason:
+
+            _, __, tb = sys.exc_info()
+
+            print(traceback.print_tb(tb))
             log('Directory not added, reason of failure: ' + repr(reason))
 
     if progress:
+
         pd.update(100)
         pd.close()
 
     if as_playlist:
 
-        control.openPlaylist(1 if infotype == 'video' else 0)
+        if not auto_play:
+            control.openPlaylist(1 if infotype == 'video' else 0)
+        else:
+            control.execute('Action(Play)')
 
         return
 
@@ -379,7 +389,7 @@ def playlist_maker(items=None, argv=None):
 
 def resolve(
         url, meta=None, icon=None, dash=False, manifest_type=None, inputstream_type='adaptive', headers=None,
-        mimetype=None, resolved_mode=True, live=False
+        mimetype=None, resolved_mode=True, live=False, verify=True
 ):
 
     """
@@ -413,6 +423,13 @@ def resolve(
         elif isinstance(headers, dict):
             headers = urlencode(headers)
 
+    if not verify and 'verifypeer' not in headers:
+
+        if headers:
+            headers += '&verifypeer=False'
+        else:
+            headers = 'verifypeer=False'
+
     if not dash and headers:
         url = '|'.join([url, headers])
 
@@ -424,7 +441,7 @@ def resolve(
     if meta is not None:
         item.setInfo(type='Video', infoLabels=meta)
 
-    krypton_plus = int(control.infoLabel('System.AddonVersion(xbmc.python)').replace('.', '')) >= 2250
+    krypton_plus = control.kodi_version() >= 17.0
 
     try:
         isa_enabled = control.addon_details('inputstream.adaptive').get('enabled')
@@ -432,17 +449,26 @@ def resolve(
         isa_enabled = False
 
     if dash and krypton_plus and isa_enabled:
+
         if not manifest_type:
+
             manifest_type = 'mpd'
+
         if not mimetype:
+
             mimetype = 'application/xml+dash'
+
         item.setContentLookup(False)
         item.setMimeType('{0}'.format(mimetype))
         item.setProperty('inputstreamaddon', 'inputstream.{}'.format(inputstream_type))
         item.setProperty('inputstream.{0}.manifest_type'.format(inputstream_type), manifest_type)
+
         if headers:
+
             item.setProperty("inputstream.{0}.stream_headers".format(inputstream_type), headers)
+
     elif mimetype:
+
         item.setContentLookup(False)
         item.setMimeType('{0}'.format(mimetype))
 
@@ -456,8 +482,8 @@ def resolve(
 
 
 def run_builtin(
-        addon_id=control.addonInfo('id'), action=None, mode=None, content_type=None, url=None, query=None,
-        path_history='', get_url=False, command=('ActivateWindow', 'Container.Update'), *args
+        addon_id=control.addonInfo('id'), action=None, mode=None, content_type=None, url=None, query=None, image=None,
+        path_history='', get_url=False, command=('ActivateWindow', 'Container.Update'), *args, **kwargs
 ):
 
     """
@@ -468,7 +494,7 @@ def run_builtin(
     path_history can also be either ",return" or ",replace"
     """
 
-    if not query and not action and not mode and not content_type:
+    if not query and not action and not mode and not content_type and not args and not kwargs:
 
         raise TypeError('Cannot manipulate container without arguments')
 
@@ -481,7 +507,8 @@ def run_builtin(
         query_string = ''
 
         if content_type:
-            query_string += 'content_type={0}{1}'.format(content_type, '' if action is None and mode is None and query is None else '&')
+
+            query_string += 'content_type={0}{1}'.format(content_type, '' if action is None and mode is None and query is None and args is None and kwargs is None else '&')
 
         if action:
 
@@ -499,9 +526,17 @@ def run_builtin(
 
             query_string += '&query={0}'.format(query)
 
+        if image:
+
+            query_string += '&image={0}'.format(query)
+
         if args:
 
             query_string += '&' + '&'.join(args)
+
+        if kwargs:
+
+            query_string += '&' + urlencode(kwargs)
 
     if 'content_type=video' in query_string:
         window_id = 'videos'
@@ -514,22 +549,22 @@ def run_builtin(
     elif 'content_type' in query_string and dict(parse_qsl(query_string))['content_type'] not in ['video', 'audio', 'image', 'executable']:
         raise AttributeError('Incorrect content_type specified')
 
-    addon_id = ''.join(['plugin://', addon_id, '/'])
+    addon_url = ''.join(['plugin://', addon_id, '/'])
 
     if 'content_type' in query_string and isinstance(command, tuple):
 
         # noinspection PyUnboundLocalVariable
-        executable = '{0}({1},"{2}?{3}"{4})'.format(command[0], window_id, addon_id, query_string, ',return' if not path_history else path_history)
+        executable = '{0}({1},"{2}?{3}"{4})'.format(command[0], window_id, addon_url, query_string, ',return' if not path_history else ',' + path_history)
 
     else:
 
         if isinstance(command, tuple):
 
-            executable = '{0}({1}?{2}{3})'.format(command[1], addon_id, query_string, ',return' if not path_history else path_history)
+            executable = '{0}({1}?{2}{3})'.format(command[1], addon_url, query_string, ',return' if not path_history else ',' + path_history)
 
         else:
 
-            executable = '{0}({1}?{2}{3})'.format(command, addon_id, query_string, ',return' if not path_history else path_history)
+            executable = '{0}({1}?{2}{3})'.format(command, addon_url, query_string, ',return' if not path_history else ',' + path_history)
 
     if get_url:
 

@@ -163,13 +163,14 @@ def getChannelVideo(item):
 				#######ads banners#########
 				bheaders = header
 				bheaders['Referer'] = action[0]
-				banner = re.findall(r'videojs.*?script\s+src="([^"]+)', data2)[0]
+				banner = re.findall(r'<script\s*src=[\'"](.+?)[\'"]', data2)[-1]
 				bsrc = s.get(banner, headers=bheaders).content
 				banner = re.findall(r"url:'([^']+)", bsrc)[0]
-				bsrc = s.get(banner, headers=bheaders).content
+				bsrc = s.get(banner, headers=bheaders).content	
 				bheaders['Referer'] = banner
 				banner = re.findall(r'window.location.replace\("([^"]+)"\);\s*}\)<\/script><div', bsrc)[0]
 				banner = urllib.quote(banner, ':/()!@#$%^&;><?')
+				#xbmc.log('@#@BANNER-LINK3: %s' % bsrc, xbmc.LOGNOTICE)
 				bsrc = s.get(banner).status_code
 				###########################
 			except BaseException:

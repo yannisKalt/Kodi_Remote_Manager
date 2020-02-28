@@ -1,0 +1,1 @@
+["star t", ["star tv", "star trek picard", "star trek", "star trek picard trailer", "star tv greece", "star trek theme", "star trek discovery", "star trek into darkness", "star toquel", "star trek online"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

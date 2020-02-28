@@ -30,7 +30,7 @@ import time
 import traceback
 import urllib
 
-
+# from Cryptodome.Cipher import AES
 from hashlib import md5
 from binascii import b2a_hex
 
@@ -38,7 +38,7 @@ import xbmc
 import xbmcgui
 import xbmcplugin
 
-from resources.lib.modules import client, control, jsonbm, log_utils, pyaes
+from resources.lib.modules import client, control, log_utils, pyaes
 
 sysaddon = sys.argv[0]
 syshandle = int(sys.argv[1])
@@ -118,18 +118,6 @@ class swift:
                     item.setProperty("IsPlayable", "true")
                     item.setArt({"thumb": icon, "icon": icon})
                     item.setInfo(type="video", infoLabels={"Title": name, "mediatype": "video"})
-
-                    '''
-                    Let's build out this context menu bitches
-                    '''
-                    try:
-                        cm = jsonbm.jsonBookmarks().build_cm('Channels', name=name, id=a['id'], action='swiftPlay', icon=icon, url=playencode.encode('base64'))
-                        if len(cm) > 0:
-                            item.addContextMenuItems(cm)
-                    except Exception:
-                        failure = traceback.format_exc()
-                        log_utils.log('Swift Streamz - BM Exception: \n' + str(failure))
-
                     try:
                         item.setContentLookup(False)
                     except AttributeError:
@@ -222,7 +210,7 @@ class swift:
 
     def endDirectory(self, contentType='addons', sortMethod=xbmcplugin.SORT_METHOD_NONE):
         control.content(syshandle, contentType)
-        sort_the_crew = control.setting('tv.swift.sortthe_crew')
+        sort_the_crew = control.setting('tv.swift.sort_the_crew')
         if sort_the_crew == '' or sort_the_crew == 'true':
             control.sortMethod(syshandle, xbmcplugin.SORT_METHOD_LABEL)
         else:

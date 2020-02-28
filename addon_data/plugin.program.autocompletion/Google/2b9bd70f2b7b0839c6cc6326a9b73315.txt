@@ -1,0 +1,1 @@
+["senorita", ["senorita", "senorita snik", "senorita tamta", "senorita remix", "senorita snik lyrics", "senorita live", "senorita cover", "senorita bachata", "senorita song", "senorita karaoke"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

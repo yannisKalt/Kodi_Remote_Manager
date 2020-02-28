@@ -1,0 +1,1 @@
+["star", ["stars", "star wars", "star tv", "starboy", "stargazing", "star wars trailer", "starry night", "star shopping", "starman", "stars toquel"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

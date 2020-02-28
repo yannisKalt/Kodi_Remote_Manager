@@ -1,0 +1,1 @@
+["the ga", ["the game", "the game changers", "the gathering", "the game awards", "the gambler", "the game of love", "the game trailer", "the gaming beaver", "the gazette", "the garden"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -80,7 +80,7 @@ class Net:
             
             user_agent (str): String to use as the User Agent header. If not 
             supplied the class will use a default user agent (chrome)
-            
+            #TC 2/01/19 started
             http_debug (bool): Set ``True`` to have HTTP header info written to
             the XBMC log for all requests.
         '''

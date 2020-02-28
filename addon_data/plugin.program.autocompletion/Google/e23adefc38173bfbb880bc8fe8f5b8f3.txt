@@ -1,0 +1,1 @@
+["d", ["dance monkey", "dua te te bej te lumtur", "drake", "despacito", "dua lipa", "dababy", "dua te te bej te lumtur 2020", "deja vu", "deji", "dunk contest 2020"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
