@@ -7,7 +7,7 @@ def check_for_updates():
     * Return 1 if version > current_version 
     """
 
-    wget_path = 'https://raw.githubusercontent.com/yiannisKalt/Kodi_Remote_Manager/master/version.txt'
+    wget_path = 'https://raw.githubusercontent.com/yannisKalt/Kodi_Remote_Manager/master/version.txt'
     destination_path = '/storage/version.txt'
     os.system('wget -q %s -O %s' % (wget_path, destination_path))
     
@@ -39,7 +39,7 @@ def update_addons():
     addons_path = '/storage/.kodi' 
     addon_data_path = '/storage/.kodi/userdata'
 
-    wget_path = 'https://github.com/yiannisKalt/Kodi_Remote_Manager/zipball/master'
+    wget_path = 'https://github.com/yannisKalt/Kodi_Remote_Manager/zipball/master'
     destination_path = '/storage/master.zip'
     repo_path = '/storage/master'
 
