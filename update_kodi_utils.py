@@ -51,10 +51,10 @@ def update_addons():
     os.system('rm %s' % addon_data_path + '/favourites.xml')
     os.system('rm %s' % addon_data_path + '/guisettings.xml')
 
-    os.system('mv %s %s' % (repo_path + '/yiannis*/addons', addons_path))
-    os.system('mv %s %s' % (repo_path + '/yiannis*/addon_data', addon_data_path))
-    os.system('mv %s %s' % (repo_path + '/yiannis*/favourites.xml',addon_data_path))
-    os.system('mv %s %s' % (repo_path + '/yiannis*/guisettings.xml',addon_data_path))
+    os.system('mv %s %s' % (repo_path + '/yannis*/addons', addons_path))
+    os.system('mv %s %s' % (repo_path + '/yannis*/addon_data', addon_data_path))
+    os.system('mv %s %s' % (repo_path + '/yannis*/favourites.xml',addon_data_path))
+    os.system('mv %s %s' % (repo_path + '/yannis*/guisettings.xml',addon_data_path))
 
 
     os.system('rm -rf %s' % repo_path)
