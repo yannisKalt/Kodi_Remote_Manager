@@ -14,7 +14,7 @@ from resources.lib.modules import client
 from resources.lib.modules import source_utils
 from resources.lib.modules import dom_parser
 from resources.lib.modules import workers, debrid
-from resources.lib.modules import cache_check, control
+from resources.lib.modules import rd_check, control
 
 
 class source:
@@ -30,7 +30,7 @@ class source:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
@@ -38,7 +38,7 @@ class source:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
@@ -50,7 +50,7 @@ class source:
             url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
 
     def sources(self, url, hostDict, hostprDict):
@@ -171,31 +171,38 @@ class source:
                             rd = True
 
                         if rd:
-                            self._sources.append(
-                                {'source': host, 'quality': quality, 'language': 'en', 'url': i, 'info': info,
-                                 'direct': False, 'debridonly': True})
+                            if debrid.status() is False: return
+                            if control.setting('deb.rd_check') == 'true':
+                                checked = rd_check.rd_deb_check(url)
+                                if checked:
+                                    info = 'RD Checked' + ' | ' + info
+                                    self._sources.append(
+                                        {'source': host, 'quality': quality, 'language': 'en', 'url': checked,
+                                         'info': info, 'direct': False, 'debridonly': True})
+                            else:
+                                self._sources.append(
+                                    {'source': host, 'quality': quality, 'language': 'en', 'url': i,
+                                     'info': info, 'direct': False, 'debridonly': True})
                         else:
                             self._sources.append(
-                                {'source': host, 'quality': quality, 'language': 'en', 'url': i, 'info': info,
-                                 'direct': False, 'debridonly': False})
+                                {'source': host, 'quality': quality, 'language': 'en', 'url': i,
+                                 'info': info, 'direct': False, 'debridonly': False})
 
                 elif 'torrent' in url:
-                    if debrid.torrent_enabled() is False:
-                        raise Exception()
+                    if debrid.torrent_enabled() is False: return self._sources
                     data = client.parseDOM(r, 'a', ret='href')
                     url = [i for i in data if 'magnet:' in i][0]
                     url = url.split(';tr')[0]
-                    if control.setting('torrent.cache_check') == 'true':
-                        cached = cache_check.rd_cache_check(url)
-                        if not cached:
-                            continue
-                        self._sources.append(
-                            {'source': 'Cahced Torrent', 'quality': quality, 'language': 'en','url': url, 'info': info,
-                             'direct': False, 'debridonly': True})
+                    if control.setting('torrent.rd_check') == 'true':
+                        checked = rd_check.rd_cache_check(url)
+                        if checked:
+                            self._sources.append(
+                                {'source': 'Cahced Torrent', 'quality': quality, 'language': 'en', 'url': checked,
+                                 'info': info,  'direct': False, 'debridonly': True})
                     else:
                         self._sources.append(
-                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                             'direct': False, 'debridonly': True})
+                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url,
+                             'info': info, 'direct': False, 'debridonly': True})
 
             except:
                 pass

@@ -8,7 +8,7 @@ from resources.lib.modules import dom_parser2 as dom
 from resources.lib.modules import cleantitle2 as cleantitle
 from resources.lib.modules import debrid,source_utils,workers,control
 from resources.lib.modules import log_utils
-from resources.lib.modules import cache_check, control
+from resources.lib.modules import rd_check, control
 
 
 class source:
@@ -21,22 +21,28 @@ class source:
         self.moviesearch = 'https://www.limetorrents.info/search/movies/{0}/'
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             if url is None:
                 return
@@ -45,7 +51,7 @@ class source:
             url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
 
     def sources(self, url, hostDict, hostprDict):
@@ -54,10 +60,7 @@ class source:
             self.items = []
             if url is None:
                 return self._sources
-            if debrid.status() is False:
-                raise Exception()
-            if debrid.torrent_enabled() is False:
-                raise Exception()
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             self.title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
@@ -98,7 +101,7 @@ class source:
                     continue
                 try:
                     y = re.findall('[\.|\(|\[|\s|\_|\-](S\d+E\d+|S\d+)[\.|\)|\]|\s|\_|\-]', name, re.I)[-1].upper()
-                except BaseException:
+                except:
                     y = re.findall('[\.|\(|\[|\s\_|\-](\d{4})[\.|\)|\]|\s\_|\-]', name, re.I)[-1].upper()
                 if not y == self.hdlr: continue
                 try:
@@ -110,7 +113,7 @@ class source:
                     size = '0'
                 self.items.append((name, link, size))
             return self.items
-        except BaseException:
+        except:
             return self.items
 
     def _get_sources(self, item):
@@ -118,22 +121,21 @@ class source:
             name = item[0]
             quality, info = source_utils.get_release_quality(name, name)
             info.append(item[2])
-            info = ' | '.join(info)
             data = client.request(item[1])
             url = re.search('''href=["'](magnet:\?[^"']+)''', data).groups()[0]
             url = url.split('&tr')[0]
-            if control.setting('torrent.cache_check') == 'true':
-                cached = cache_check.rd_cache_check(url)
-                if not cached:
-                    raise Exception()
-                self._sources.append(
-                    {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                     'direct': False, 'debridonly': True})
+            info = ' | '.join(info)
+            if control.setting('torrent.rd_check') == 'true':
+                checked = rd_check.rd_cache_check(url)
+                if checked:
+                    self._sources.append(
+                        {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': checked,
+                         'info': ' | '.join(info), 'direct': False, 'debridonly': True})
             else:
                 self._sources.append(
                     {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
                      'direct': False, 'debridonly': True})
-        except BaseException:
+        except:
             pass
 
     def resolve(self, url):

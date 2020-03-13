@@ -179,13 +179,13 @@
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="labelID">plugin.video.youtube/</property>
+			<property name="labelID">plugin.video.dailymotion_com</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(10025,"plugin://plugin.video.youtube/",return)</onclick>
-			<property name="path">ActivateWindow(10025,"plugin://plugin.video.youtube/",return)</property>
-			<property name="list">plugin://plugin.video.youtube/</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.dailymotion_com",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.dailymotion_com",return)</property>
+			<property name="list">plugin://plugin.video.dailymotion_com</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">plugin-video-youtube</property>
+			<property name="submenuVisibility">plugin-video-dailymotion-com</property>
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
@@ -1218,10 +1218,10 @@
 	<include name="skinshortcuts-group-alt-plugin-video-tempest">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-plugin-video-youtube">
+	<include name="skinshortcuts-group-plugin-video-dailymotion-com">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-alt-plugin-video-youtube">
+	<include name="skinshortcuts-group-alt-plugin-video-dailymotion-com">
 		<description>No items</description>
 	</include>
 	<include name="skinshortcuts-group-worldchannels">

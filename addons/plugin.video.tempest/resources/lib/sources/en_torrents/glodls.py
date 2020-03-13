@@ -7,7 +7,7 @@ from resources.lib.modules import client2 as client
 from resources.lib.modules import cleantitle2 as cleantitle
 from resources.lib.modules import debrid,source_utils,control
 from resources.lib.modules import log_utils
-from resources.lib.modules import cache_check, control
+from resources.lib.modules import rd_check, control
 
 
 class source:
@@ -21,6 +21,8 @@ class source:
         self.min_seeders = int(control.setting('torrent.min.seeders'))
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -29,6 +31,8 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
@@ -37,6 +41,8 @@ class source:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             if url is None:
                 return
@@ -53,10 +59,7 @@ class source:
         try:
             if url is None:
                 return sources
-            if debrid.status() is False:
-                raise Exception()
-            if debrid.torrent_enabled() is False:
-                raise Exception()
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             self.title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
@@ -72,26 +75,24 @@ class source:
                 url = self.moviesearch.format(urllib.quote_plus(query))
                 url = urlparse.urljoin(self.base_link, url)
             items = self._get_items(url)
-            hostDict = hostDict + hostprDict
             for item in items:
                 try:
                     name = item[0]
                     quality, info = source_utils.get_release_quality(name, name)
                     info.append(item[2])
-                    info = ' | '.join(info)
                     url = item[1]
                     url = url.split('&tr')[0]
-                    if control.setting('torrent.cache_check') == 'true':
-                        cached = cache_check.rd_cache_check(url)
-                        if not cached:
-                            continue
-                        sources.append(
-                            {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': url,'info': info,
-                             'direct': False, 'debridonly': True})
+                    info = ' | '.join(info)
+                    if control.setting('torrent.rd_check') == 'true':
+                        checked = rd_check.rd_cache_check(url)
+                        if checked:
+                            sources.append(
+                                {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': checked,
+                                 'info': info, 'direct': False, 'debridonly': True})
                     else:
                         sources.append(
-                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                             'direct': False, 'debridonly': True})
+                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url,
+                             'info': info, 'direct': False, 'debridonly': True})
                 except BaseException:
                     pass
             return sources

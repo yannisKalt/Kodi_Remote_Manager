@@ -1,0 +1,1 @@
+["vic", ["vic", "victoria secret", "victorious songs", "vice city", "vicky's vita", "victoria justice", "vic zvara", "victory", "victoria secret fashion show", "victoria secret fashion show 2019"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

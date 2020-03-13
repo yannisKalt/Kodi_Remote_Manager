@@ -45,7 +45,7 @@
     <setting id="library.tv" value="special://userdata/addon_data/plugin.video.thecrew/TVShows" />
     <setting id="library.update" value="true" />
     <setting id="lists.widget" value="1" />
-    <setting id="module_base" value="0.0.66i" />
+    <setting id="module_base" value="0.0.67a" />
     <setting id="movie.download.path" value="" />
     <setting id="movie.widget" value="1" />
     <setting id="navi.1clicks" value="true" />

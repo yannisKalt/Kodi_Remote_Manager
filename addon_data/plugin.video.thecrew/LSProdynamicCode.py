@@ -1,7 +1,9 @@
 #$pyFunction
-def GetLSProData(page_data,Cookie_Jar,m,url = 'http://givemereddit.stream/soccer/arsenal-live-stream'):
-    from resources.lib.modules import client
-    import re
-    u = client.request(url) 
-    r = re.findall(' source: \'([^\']*)', u)[0]
+def GetLSProData(page_data,Cookie_Jar,m,url = ''):
+    from resources.lib.modules import client,cache
+    import re,urllib
+    u = urllib.urlopen('http://givemereddit.stream/soccer').read()
+    r = re.findall('(?s)<a href="([^"]*)(?:[^=]*)=(?:[^=]*)=(?:[^=]*)=(?:[^=]*)="([^"]*)">(?:[^>]*)>(?:[^>]*)>([^<]*)(?:[^>]*)>(?:[^>]*)>\s+([^\n]*)', u)
+    r = [(i[0],i[1],client.replaceHTMLCodes(i[2]), i[3]) for i in r if 'png' in i[1]]
+    r = [(i[0],i[1],i[2],i[3]) for i in r if 'All Games' not in i[2]]
     return r

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import re,urllib,urlparse
+
+import re, urllib, urlparse
 import traceback
 from resources.lib.modules import log_utils
 from resources.lib.modules import client
 from resources.lib.modules import debrid, control
-from resources.lib.modules import source_utils, cache_check
+from resources.lib.modules import source_utils, rd_check
 
 
 class source:
@@ -17,6 +18,7 @@ class source:
         self.search_link = '/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -25,6 +27,7 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
@@ -33,6 +36,7 @@ class source:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
         try:
             if url is None:
                 return
@@ -52,9 +56,6 @@ class source:
             if url is None:
                 return sources
 
-            if debrid.status() is False:
-                raise Exception()
-
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
@@ -70,7 +71,7 @@ class source:
 
             r = client.request(url)
 
-            posts = client.parseDOM(r, 'h2')
+            posts = re.findall('<h2 class="title">(.+?)</h2>', r, re.IGNORECASE)
 
             hostDict = hostprDict + hostDict
 
@@ -81,13 +82,11 @@ class source:
                     item = re.compile('a href="(.+?)"').findall(item)
                     name = item[0]
                     query = query.replace(" ", "-").lower()
-                    if query not in name:
-                        continue
+                    if query not in name: continue
                     name = client.replaceHTMLCodes(name)
 
-                    quality, info = source_utils.get_release_quality(name, item[0])
-                    if any(x in quality for x in ['CAM', 'SD']):
-                        continue
+                    quality, info = source_utils.get_release_quality(name, name)
+                    if any(x in quality for x in ['CAM', 'SD']): continue
 
                     url = item
                     links = self.links(url)
@@ -97,10 +96,7 @@ class source:
                     pass
 
             for item in urls:
-                if 'earn-money' in item[0]:
-                    continue
-                if any(x in item[0] for x in ['.rar', '.zip', '.iso']):
-                    continue
+                if any(x in item[0] for x in ['.rar', '.zip', '.iso', 'earn-money']): continue
                 url = client.replaceHTMLCodes(item[0])
                 url = url.encode('utf-8')
 
@@ -109,16 +105,24 @@ class source:
                     continue
                 host = client.replaceHTMLCodes(host)
                 host = host.encode('utf-8')
-                if control.setting('deb.cache_check') == 'true':
-                    check = cache_check.rd_deb_check(url)
-                    if not check:
-                        continue
-                    sources.append({'source': host, 'quality': item[1], 'language': 'en', 'url': url, 'direct': False, 'debridonly': True})
+                info = item[2]
+                info = ' | '.join(info)
+                if control.setting('deb.rd_check') == 'true':
+                    check = rd_check.rd_deb_check(url)
+                    if check:
+                        info = 'RD Checked' + ' | ' + info
+                        sources.append(
+                            {'source': host, 'quality': item[1], 'language': 'en', 'url': check,
+                             'info': info, 'direct': False, 'debridonly': True})
                 else:
-                    sources.append({'source': host, 'quality': item[1], 'language': 'en', 'url': url, 'direct': False, 'debridonly': True})
+                    sources.append(
+                        {'source': host, 'quality': item[1], 'language': 'en', 'url': url, 'info': info,
+                         'direct': False, 'debridonly': True})
 
             return sources
-        except:
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---300MBFILMS Testing - Exception: \n' + str(failure))
             return sources
 
     def links(self, url):

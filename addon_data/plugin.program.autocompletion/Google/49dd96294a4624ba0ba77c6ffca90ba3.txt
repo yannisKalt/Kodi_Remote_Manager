@@ -1,1 +1,1 @@
-["re", ["relaxing music", "reggaeton", "revenge", "replay", "remember the name", "remix", "reggae", "real madrid", "ready or not", "redmi note 7"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["re", ["relaxing music", "renegade", "react", "relationship", "return to oz", "remix", "rewind", "real madrid", "revolut", "red velvet"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

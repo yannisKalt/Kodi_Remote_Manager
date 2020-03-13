@@ -5,7 +5,7 @@ import re,urllib,urlparse
 import traceback
 from resources.lib.modules import log_utils
 from resources.lib.modules import cleantitle,client,control,debrid,source_utils
-from resources.lib.modules import cache_check, control
+from resources.lib.modules import rd_check, control
 
 
 class source:
@@ -18,6 +18,8 @@ class source:
         self.min_seeders = int(control.setting('torrent.min.seeders'))
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -30,10 +32,7 @@ class source:
             sources = []
             if url is None:
                 return sources
-            if debrid.status() is False:
-                raise Exception()
-            if debrid.torrent_enabled() is False:
-                raise Exception()
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             query = '%s %s' % (data['title'], data['year'])
@@ -42,7 +41,7 @@ class source:
             html = client.request(url)
             try:
                 results = client.parseDOM(html, 'div', attrs={'class': 'row'})[2]
-            except Exception:
+            except:
                 return sources
             items = re.findall('class="browse-movie-bottom">(.+?)</div>\s</div>', results, re.DOTALL)
             if items is None:
@@ -54,7 +53,7 @@ class source:
                         name = client.replaceHTMLCodes(name)
                         if not cleantitle.get(name) == cleantitle.get(data['title']):
                             continue
-                    except Exception:
+                    except:
                         continue
                     y = entry[-4:]
                     if not y == data['year']:
@@ -73,23 +72,22 @@ class source:
                                 size = float(re.sub('[^0-9|/.|/,]', '', size)) / div
                                 size = '%.2f GB' % size
                                 info.append(size)
-                            except Exception:
+                            except:
                                 pass
                             info = ' | '.join(info)
-                            if control.setting('torrent.cache_check') == 'true':
-                                cached = cache_check.rd_cache_check(link)
-                                if not cached:
-                                    continue
-                                sources.append(
-                                    {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': link,
-                                     'info': info, 'direct': False, 'debridonly': True})
+                            if control.setting('torrent.rd_check') == 'true':
+                                checked = rd_check.rd_cache_check(link)
+                                if checked:
+                                    sources.append(
+                                        {'source': 'Cached Torrent', 'quality': quality, 'language': 'en',
+                                         'url': checked, 'info': info, 'direct': False, 'debridonly': True})
                             else:
                                 sources.append(
                                     {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': link,
                                      'info': info, 'direct': False, 'debridonly': True})
-                    except Exception:
+                    except:
                         continue
-                except Exception:
+                except:
                     continue
             return sources
         except Exception:

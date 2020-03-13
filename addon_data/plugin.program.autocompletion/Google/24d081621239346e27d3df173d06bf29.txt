@@ -1,0 +1,1 @@
+["vis a vis", ["vis a vis", "vis a vis song", "vis a vis el oasis", "vis a vis trailer", "vis a vis season 4 trailer", "vis a vis season 5", "vis a vis bloopers", "vis a vis season 4", "vis a vis zulema", "vis a vis soundtrack"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

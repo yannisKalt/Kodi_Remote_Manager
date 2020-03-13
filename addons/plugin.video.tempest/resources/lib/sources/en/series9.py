@@ -14,7 +14,7 @@ class source:
         self.priority = 1
         self.language = ['en']  # Removed  seriesonline.io  series9.co  series9.io
         self.domains = ['series9.to']
-        self.base_link = 'https://www6.series9.to'
+        self.base_link = 'https://www7.series9.to'
         self.search_link = '/movie/search/%s'
 
     def matchAlias(self, title, aliases):

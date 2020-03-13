@@ -10,7 +10,7 @@ import traceback
 from resources.lib.modules import log_utils
 from resources.lib.modules import client
 from resources.lib.modules import debrid, control
-from resources.lib.modules import source_utils, cache_check
+from resources.lib.modules import source_utils, rd_check
 
 headers = {'User-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36'}
 
@@ -24,6 +24,7 @@ class source:
         self.search_link = '/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -32,6 +33,7 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
@@ -40,6 +42,7 @@ class source:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
         try:
             if url is None:
                 return
@@ -58,9 +61,6 @@ class source:
 
             if url is None:
                 return sources
-
-            if debrid.status() is False:
-                raise Exception()
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
@@ -96,17 +96,22 @@ class source:
                     for t in u:
                         r = client.parseDOM(t, 'a', ret='href')
                         for url in r:
-                            if '.rar' in url:
+                            if any(x in url for x in ['.rar']):
                                 continue
                             quality, info = source_utils.get_release_quality(url)
                             valid, host = source_utils.is_host_valid(url, hostDict)
-                            if control.setting('deb.cache_check') == 'true':
-                                check = cache_check.rd_deb_check(url)
-                                if not check:
-                                    continue
-                                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+                            info = ' | '.join(info)
+                            if control.setting('deb.rd_check') == 'true':
+                                check = rd_check.rd_deb_check(url)
+                                if check:
+                                    info = 'RD Checked' + ' | ' + info
+                                    sources.append(
+                                        {'source': host, 'quality': quality, 'language': 'en', 'url': check,
+                                         'info': info, 'direct': False, 'debridonly': True})
                             else:
-                                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+                                sources.append(
+                                    {'source': host, 'quality': quality, 'language': 'en', 'url': url,
+                                     'info': info, 'direct': False, 'debridonly': True})
                 except:
                     pass
             return sources

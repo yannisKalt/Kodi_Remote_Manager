@@ -5,7 +5,7 @@
 import re,urllib,urlparse
 import traceback
 from resources.lib.modules import cache,cleantitle,client,control,debrid,source_utils
-from resources.lib.modules import cache_check, control
+from resources.lib.modules import rd_check, control
 from resources.lib.modules import log_utils
 
 
@@ -26,22 +26,28 @@ class source:
         return self._base_link
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except Exception:
+        except:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except Exception:
+        except:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             if url is None:
                 return
@@ -50,7 +56,7 @@ class source:
             url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
             url = urllib.urlencode(url)
             return url
-        except Exception:
+        except:
             return
 
     def sources(self, url, hostDict, hostprDict):
@@ -58,10 +64,7 @@ class source:
             sources = []
             if url is None:
                 return sources
-            if debrid.status() is False:
-                raise Exception()
-            if debrid.torrent_enabled() is False:
-                raise Exception()
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
@@ -79,7 +82,7 @@ class source:
             html = html.replace('&nbsp;', ' ')
             try:
                 results = client.parseDOM(html, 'table', attrs={'id': 'searchResult'})[0]
-            except Exception:
+            except:
                 return sources
             rows = re.findall('<tr(.+?)</tr>', results, re.DOTALL)
             if rows is None:
@@ -92,21 +95,21 @@ class source:
                         # t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
                         if not cleantitle.get(title) in cleantitle.get(name):
                             continue
-                    except Exception:
+                    except:
                         continue
                     y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', name)[-1].upper()
                     if not y == hdlr:
                         continue
                     try:
                         seeders = int(re.findall('<td align="right">(.+?)</td>', entry, re.DOTALL)[0])
-                    except Exception:
+                    except:
                         continue
                     if self.min_seeders > seeders:
                         continue
                     try:
                         link = 'magnet:%s' % (re.findall('a href="magnet:(.+?)"', entry, re.DOTALL)[0])
                         link = str(client.replaceHTMLCodes(link).split('&tr')[0])
-                    except Exception:
+                    except:
                         continue
                     quality, info = source_utils.get_release_quality(name, name)
                     try:
@@ -115,20 +118,20 @@ class source:
                         size = float(re.sub('[^0-9|/.|/,]', '', size)) / div
                         size = '%.2f GB' % size
                         info.append(size)
-                    except Exception:
+                    except:
                         pass
                     info = ' | '.join(info)
-                    if control.setting('torrent.cache_check') == 'true':
-                        cached = cache_check.rd_cache_check(link)
-                        if not cached:
-                            continue
-                        sources.append({'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': link,
-                                        'info': info, 'direct': False, 'debridonly': True})
+                    if control.setting('torrent.rd_check') == 'true':
+                        checked = rd_check.rd_cache_check(link)
+                        if checked:
+                            sources.append(
+                                {'source': 'Cached Torrent', 'quality': quality, 'language': 'en',
+                                 'url': checked, 'info': info, 'direct': False, 'debridonly': True})
                     else:
                         sources.append(
-                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': link, 'info': info,
-                             'direct': False, 'debridonly': True})
-                except Exception:
+                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': link,
+                             'info': info, 'direct': False, 'debridonly': True})
+                except:
                     continue
             check = [i for i in sources if not i['quality'] == 'CAM']
             if check:
@@ -146,9 +149,9 @@ class source:
                     result = re.findall('<input type="submit" title="(.+?)"', result, re.DOTALL)[0]
                     if result and 'Pirate Search' in result:
                         return url
-                except Exception:
+                except:
                     pass
-        except Exception:
+        except:
             pass
         return fallback
 

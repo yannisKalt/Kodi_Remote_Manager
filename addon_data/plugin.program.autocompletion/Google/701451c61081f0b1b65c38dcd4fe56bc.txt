@@ -1,0 +1,1 @@
+["gr", ["greece", "greece news", "greta koci", "grian", "greece news today", "greek music", "green day", "grammys 2020", "graham norton", "greek paranoia"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

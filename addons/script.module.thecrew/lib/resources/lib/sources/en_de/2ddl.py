@@ -20,6 +20,8 @@ import re, urllib, urlparse
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 from resources.lib.modules import source_utils
+from resources.lib.modules import cleantitle
+from resources.lib.modules import dom_parser
 
 
 class source:
@@ -75,43 +77,58 @@ class source:
             hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
             query = '%s S%02dE%02d' % (
-                data['tvshowtitle'], int(data['season']), int(data['episode'])) \
-                if 'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
+            data['tvshowtitle'], int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (
+            data['title'], data['year'])
+            query = re.sub('(\\\|/| -|:|\.|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url).replace('-', '+').replace('%3A+', '+')
 
             r = client.request(url)
+            r = client.parseDOM(r, 'div', attrs={'class': 'item-post'})
+            r = [re.findall('<a href="(.+?)">(.+?)<', i, re.DOTALL)[0] for i in r]
 
-            posts = client.parseDOM(r, "div", attrs={"class": "inner-center"})
             hostDict = hostprDict + hostDict
             items = []
-            for post in posts:
+            for item in r:
                 try:
-                    u = client.parseDOM(post, 'a', ret='href')
-                    for i in u:
-                        name = str(i)
-                        items.append(name)
+                    t = item[1]
+                    t = re.sub('(\[.*?\])|(<.+?>)', '', t)
+                    t1 = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d+|3D)(\.|\)|\]|\s|)(.+|)', '', t)
+
+                    if not cleantitle.get(t1) == cleantitle.get(title): raise Exception()
+
+                    y = re.findall('[\.|\(|\[|\s](\d{4}|S\d*E\d*|S\d*)[\.|\)|\]|\s]', t)[-1].upper()
+
+                    if not y == hdlr: raise Exception()
+
+                    data = client.request(item[0])
+                    data = client.parseDOM(data, 'div', attrs={'class': 'single-link'})[0]
+                    data = dom_parser.parse_dom(data, 'a', req='href')
+
+                    u = [(t, i.attrs['href']) for i in data]
+                    items += u
+
                 except:
                     pass
 
             for item in items:
                 try:
-                    i = str(item)
-                    r = client.request(i)
-                    u = client.parseDOM(r, "div", attrs={"class": "single-link"})
-                    for t in u:
-                        r = client.parseDOM(t, 'a', ret='href')
-                        for url in r:
-                            if 'www.share-online.biz' in url:
-                                continue
-                            quality, info = source_utils.get_release_quality(url)
-                            if 'SD' in quality:
-                                continue
-                            valid, host = source_utils.is_host_valid(url, hostDict)
-                            sources.append(
-                                {'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                                 'direct': False, 'debridonly': True})
+                    name = item[0]
+                    name = client.replaceHTMLCodes(name)
+
+                    quality, info = source_utils.get_release_quality(name, item[1])
+
+                    url = item[1]
+                    if any(x in url for x in ['.rar', '.zip', '.iso', 'www.share-online.biz', 'https://ouo.io',
+                                              'http://guard.link']): raise Exception()
+                    url = client.replaceHTMLCodes(url)
+                    url = url.encode('utf-8')
+                    valid, host = source_utils.is_host_valid(url, hostDict)
+                    host = client.replaceHTMLCodes(host)
+                    host = host.encode('utf-8')
+                    info = ' | '.join(info)
+                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info,'direct': False, 'debridonly': True})
                 except:
                     pass
             return sources

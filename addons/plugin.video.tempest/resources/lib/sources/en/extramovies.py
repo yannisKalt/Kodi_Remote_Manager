@@ -12,7 +12,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['extramovies.trade', 'extramovies.guru', 'extramovies.wiki'] # http://extramovies.ind.in/
-        self.base_link = 'https://extramovies.pink'  # Dead  extramovies.host
+        self.base_link = 'http://extramovies.casa'  # Dead  extramovies.host
         self.search_link = '/?s=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):

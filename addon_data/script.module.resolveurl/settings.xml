@@ -298,7 +298,7 @@
     <setting id="SmoozedResolver_session_key" value="" />
     <setting id="SpeedVidResolver_auto_update" value="true" />
     <setting id="SpeedVidResolver_enabled" value="true" />
-    <setting id="SpeedVidResolver_etag" value='&quot;1350d12bdeb299878dc2d245e8af245e7104ae63ab1d22eaac52d987d70105c2&quot;' />
+    <setting id="SpeedVidResolver_etag" value='W/&quot;aabc9ec30ebd4170600db7b21c92e0ed29ee530468f89743311a6d78268f1045&quot;' />
     <setting id="SpeedVidResolver_login" value="true" />
     <setting id="SpeedVidResolver_priority" value="100" />
     <setting id="SpeedVideoResolver_enabled" value="true" />

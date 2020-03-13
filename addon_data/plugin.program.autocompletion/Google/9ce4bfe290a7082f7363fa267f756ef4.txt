@@ -1,0 +1,1 @@
+["gn", ["gntm", "gntm 2", "gntm \u03c4\u03b5\u03bb\u03b9\u03ba\u03bf\u03c2", "gntm trailer", "gntm 2019", "gntm 12/12", "gntm telikos", "gntm 1", "gntm 29", "gntm 10/12"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -231,7 +231,7 @@ elif action == 'ncaab':
 elif action == 'lfl':
     from resources.lib.indexers import lists
     lists.indexer().root_lfl()
-    
+
 elif action == 'xfl':
     from resources.lib.indexers import lists
     lists.indexer().root_xfl()
@@ -287,6 +287,14 @@ elif action == 'f1':
 elif action == 'pga':
     from resources.lib.indexers import lists
     lists.indexer().root_pga()
+
+elif action == 'nascar':
+    from resources.lib.indexers import lists
+    lists.indexer().root_nascar()
+
+elif action == 'cricket':
+    from resources.lib.indexers import lists
+    lists.indexer().root_cricket()
 
 elif action == 'sports_channels':
     from resources.lib.indexers import lists

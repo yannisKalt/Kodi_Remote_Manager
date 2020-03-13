@@ -12,10 +12,10 @@ from resources.lib.modules import log_utils
 from resources.lib.modules import cleantitle
 from resources.lib.modules import dom_parser2
 from resources.lib.modules import client
-from resources.lib.modules import debrid, cache_check
+from resources.lib.modules import debrid, rd_check
 from resources.lib.modules import source_utils
 from resources.lib.modules import workers, control
-from resources.lib.modules import cfscrape
+from resources.lib.sources import cfscrape
 
 
 class source:
@@ -25,25 +25,27 @@ class source:
         self.domains = ['rmz.cr']
         self.base_link = 'http://rapidmoviez.cr/'
         self.search_link = 'search/%s'
-        self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
             
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
             return url
-        except BaseException:
+        except:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
         try:
             if url is None:
                 return
@@ -59,7 +61,7 @@ class source:
     def search(self, title, year):
         try:
             url = urlparse.urljoin(self.base_link, self.search_link % (urllib.quote_plus(title)))
-            r = self.scraper.get(url).content
+            r = cfscrape.get(url).content
             r = dom_parser2.parse_dom(r, 'div', {'class': 'list_items'})[0]
             r = dom_parser2.parse_dom(r.content, 'li')
             r = [(dom_parser2.parse_dom(i, 'a', {'class': 'title'})) for i in r]
@@ -78,9 +80,6 @@ class source:
             if url is None:
                 return self.sources
 
-            if debrid.status() is False:
-                raise Exception()
-
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
                          
@@ -91,7 +90,7 @@ class source:
             imdb = data['imdb']
 
             url = self.search(title, hdlr)
-            r = self.scraper.get(url).content
+            r = cfscrape.get(url).content
             if hdlr2 == '':
                 r = dom_parser2.parse_dom(r, 'ul', {'id': 'releases'})[0]
             else:
@@ -120,7 +119,7 @@ class source:
           
     def _get_sources(self, name, url):
         try:
-            r = self.scraper.get(url).content
+            r = cfscrape.get(url).content
             name = client.replaceHTMLCodes(name)
             l = dom_parser2.parse_dom(r, 'div', {'class': 'ppu2h'})
             s = ''
@@ -147,13 +146,18 @@ class source:
                 except BaseException:
                     pass
                 info = ' | '.join(info)
-                if control.setting('deb.cache_check') == 'true':
-                    check = cache_check.rd_deb_check(url)
-                    if not check:
-                        continue
-                    self.sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+
+                if control.setting('deb.rd_check') == 'true':
+                    check = rd_check.rd_deb_check(url)
+                    if check:
+                        info = 'RD Checked' + ' | ' + info
+                        self.sources.append(
+                            {'source': host, 'quality': quality, 'language': 'en', 'url': check, 'info': info,
+                             'direct': False, 'debridonly': True})
                 else:
-                    self.sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+                    self.sources.append(
+                        {'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info,
+                         'direct': False, 'debridonly': True})
         except:
             pass
 

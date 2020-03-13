@@ -40,6 +40,7 @@
     <setting id="lists.widget" value="1" />
     <setting id="movie.download.path" value="" />
     <setting id="movie.widget" value="1" />
+    <setting id="moviesearch" value="alta mar&#x0A;" />
     <setting id="open_smu_settings" value="" />
     <setting id="ororo.pass" value="" />
     <setting id="ororo.user" value="" />
@@ -148,5 +149,6 @@
     <setting id="tv.widget" value="1" />
     <setting id="tv.widget.alt" value="2" />
     <setting id="tvdb.user" value="7A9F0F57B6E8132D" />
+    <setting id="tvsearch" value="vis a vis&#x0A;vice&#x0A;alta mar&#x0A;stranger things&#x0A;i know&#x0A;i know wh&#x0A;gran hotel&#x0A;cosmos&#x0A;" />
     <setting id="unaired.identify" value="6" />
 </settings>

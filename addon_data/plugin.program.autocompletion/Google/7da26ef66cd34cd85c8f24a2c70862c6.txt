@@ -1,0 +1,1 @@
+["be", ["betarades", "bella ciao", "believer", "beyonce", "beatles", "before you go", "better now", "bebe rexha", "beethoven", "benzi"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

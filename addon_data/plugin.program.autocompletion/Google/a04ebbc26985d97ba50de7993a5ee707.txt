@@ -1,0 +1,1 @@
+["http://gnkwiz", ["glwiz box", "glwiz", "glwiz iranian tv live", "glwiz iranian tv farsi", "glwiz apple tv", "glwiz store", "glwiz download", "glwiz live", "glwiz commercial", "glwiz app"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

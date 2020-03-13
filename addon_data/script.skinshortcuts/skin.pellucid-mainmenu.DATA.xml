@@ -94,7 +94,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(10025,"plugin://plugin.video.youtube/",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.dailymotion_com",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />

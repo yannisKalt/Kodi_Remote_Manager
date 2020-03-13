@@ -6,7 +6,7 @@ import traceback
 from resources.lib.modules import cleantitle, debrid, source_utils, workers
 from resources.lib.modules import client2 as client, dom_parser2 as dom
 from resources.lib.modules import log_utils
-from resources.lib.modules import cache_check, control
+from resources.lib.modules import rd_check, control
 
 
 class source:
@@ -20,6 +20,8 @@ class source:
         self.min_seeders = int(control.setting('torrent.min.seeders'))
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -28,6 +30,8 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
@@ -36,6 +40,8 @@ class source:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             if url is None:
                 return
@@ -53,10 +59,7 @@ class source:
             self.items = []
             if url is None:
                 return self._sources
-            if debrid.status() is False:
-                raise Exception()
-            if debrid.torrent_enabled() is False:
-                raise Exception()
+           
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             self.title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
@@ -112,7 +115,7 @@ class source:
                     div = 1 if size.endswith('GB') else 1024
                     size = float(re.sub('[^0-9|/.|/,]', '', size.replace(',', '.'))) / div
                     size = '%.2f GB' % size
-                except BaseException:
+                except:
                     size = '0'
                 self.items.append((name, link, size))
             return self.items
@@ -124,7 +127,6 @@ class source:
             name = item[0]
             quality, info = source_utils.get_release_quality(item[1], name)
             info.append(item[2])
-            info = ' | '.join(info)
             data = client.request(item[1])
             seeders = re.compile('<span class="seeds">(.+?)</span>').findall(data)[0]
             if self.min_seeders > int(seeders):
@@ -132,13 +134,13 @@ class source:
             data = client.parseDOM(data, 'a', ret='href')
             url = [i for i in data if 'magnet:' in i][0]
             url = url.split('&tr')[0]
-            if control.setting('torrent.cache_check') == 'true':
-                cached = cache_check.rd_cache_check(url)
-                if not cached:
-                    raise Exception()
-                self._sources.append(
-                    {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': url,  'info': info,
-                     'direct': False, 'debridonly': True})
+            info = ' | '.join(info)
+            if control.setting('torrent.rd_check') == 'true':
+                checked = rd_check.rd_cache_check(url)
+                if checked:
+                    self._sources.append(
+                        {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': checked,
+                         'info': info, 'direct': False, 'debridonly': True})
             else:
                 self._sources.append(
                     {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info,

@@ -36,8 +36,10 @@ from resources.lib.modules import control
 class trailer:
     def __init__(self):
         self.base_link = 'https://www.youtube.com'
-        self.key_link = random.choice(['QUl6YVN5RDd2aFpDLTYta2habTVuYlVyLTZ0Q0JRQnZWcnFkeHNz', 'QUl6YVN5Q2RiNEFNenZpVG0yaHJhSFY3MXo2Nl9HNXBhM2ZvVXd3'])
-        self.key_link = '&key=%s' % base64.urlsafe_b64decode(self.key_link)
+        #self.key_link = random.choice(['QUl6YVN5RDd2aFpDLTYta2habTVuYlVyLTZ0Q0JRQnZWcnFkeHNz', 'QUl6YVN5Q2RiNEFNenZpVG0yaHJhSFY3MXo2Nl9HNXBhM2ZvVXd3'])
+        #self.key_link = '&key=%s' % base64.urlsafe_b64decode(self.key_link)
+        try: self.key_link = '&key=%s' % control.addon('plugin.video.youtube').getSetting('youtube.api.key')
+        except: pass
         self.search_link = 'https://www.googleapis.com/youtube/v3/search?part=id&type=video&maxResults=5&q=%s' + self.key_link
         self.youtube_watch = 'https://www.youtube.com/watch?v=%s'
  

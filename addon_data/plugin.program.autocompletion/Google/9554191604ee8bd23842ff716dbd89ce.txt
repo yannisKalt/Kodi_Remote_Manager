@@ -1,0 +1,1 @@
+["rep", ["replay", "represent cuba", "report tv", "replay tamta", "republicattak", "repzion", "reply", "reptile", "repeat after me", "reportage crime"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

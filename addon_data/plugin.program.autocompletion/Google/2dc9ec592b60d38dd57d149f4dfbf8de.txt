@@ -1,0 +1,1 @@
+["i k", ["i know", "i know you want me", "i keep it taco", "i know you", "i know what you want", "i kissed my best friend tik tok", "i ke harru", "i know you so well", "i know what you did last summer", "i know placebo"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,0 +1,1 @@
+["gran", ["grandson", "grandayy", "grand tour", "grande", "gran turismo sport", "grani", "grant cardone", "grandmaster flash", "gran turismo", "grand masti full movie"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

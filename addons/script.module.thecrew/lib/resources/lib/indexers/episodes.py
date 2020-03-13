@@ -323,6 +323,7 @@ class seasons:
                 if thumb == '0': thumb = poster
 
                 self.list.append({'season': season, 'tvshowtitle': tvshowtitle, 'label': label, 'year': year, 'premiered': premiered, 'status': status, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'cast': cast, 'plot': plot, 'imdb': imdb, 'tvdb': tvdb, 'poster': poster, 'banner': banner, 'fanart': fanart, 'thumb': thumb, 'unaired': unaired})
+                self.list = sorted(self.list, key=lambda k: int(k['season']))
             except:
                 pass
 
@@ -893,7 +894,7 @@ class episodes:
                 zip.close()
 
                 result = result.split('<Episode>')
-                item = [x for x in result if '<EpisodeNumber>' in x and not '<SeasonNumber>0</SeasonNumber>' in x]
+                item = [x for x in result if '<EpisodeNumber>' in x]
                 item2 = result[0]
 
                 num = [x for x,y in enumerate(item) if re.compile('<SeasonNumber>(.+?)</SeasonNumber>').findall(y)[0] == str(i['snum']) and re.compile('<EpisodeNumber>(.+?)</EpisodeNumber>').findall(y)[0] == str(i['enum'])][-1]
@@ -1096,12 +1097,9 @@ class episodes:
                 zip.close()
 
                 result = result.split('<Episode>')
-                item = [x for x in result if '<EpisodeNumber>' in x and not '<SeasonNumber>0</SeasonNumber>' in x]
+                item = [(re.findall('<SeasonNumber>%01d</SeasonNumber>' % int(i['season']), x), re.findall('<EpisodeNumber>%01d</EpisodeNumber>' % int(i['episode']), x), x) for x in result]
+                item = [x[2] for x in item if len(x[0]) > 0 and len(x[1]) > 0][0]
                 item2 = result[0]
-                num = [x for x, y in enumerate(item)
-                       if re.compile('<SeasonNumber>(.+?)</SeasonNumber>').findall(y)[0] == str(i['snum']) and
-                       re.compile('<EpisodeNumber>(.+?)</EpisodeNumber>').findall(y)[0] == str(i['enum'])][-1]
-                item = [y for x, y in enumerate(item) if x > num][0]
 
                 premiered = client.parseDOM(item, 'FirstAired')[0]
                 if premiered == '' or '-00' in premiered: premiered = '0'

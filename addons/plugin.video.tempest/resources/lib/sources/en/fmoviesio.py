@@ -12,7 +12,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['fmoviesto.to']
-        self.base_link = 'https://fmovies2.io'
+        self.base_link = 'www2.fmovies2.io'
         self.search_link = '/search.html?keyword=%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):

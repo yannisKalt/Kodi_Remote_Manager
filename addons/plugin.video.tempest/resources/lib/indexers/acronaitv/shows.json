@@ -216,6 +216,11 @@
     "poster": "https://www.arconaitv.us/uploads/streams/5d7adf1a2790a_entourage.jpg"
     },
 
+    {"title": "ER", "id": "None",
+    "description": "ER follows the medical personnel and patients in the emergency room of Chicago's fictional County General Hospital. The doctors and nurses of County's ER confront the daily challenges of a busy urban hospital, including overcrowded waiting rooms, staffing shortages, and the impact of life-and-death decisions. While they teach the next generation of doctors, each must tackle the demands of their personal lives, at times unsuccessfully.",
+    "poster": "https://www.arconaitv.us/uploads/streams/5e4e09a45cd2a_er.jpg"
+    },
+
     {"title": "Eastbound & Down", "id": "None",
     "description": "Many years after he turned his back on his hometown, a burned-out major league ballplayer returns to teach Physical Education at his old middle school.",
     "poster": "https://www.arconaitv.us/uploads/streams/5b5d9142a5ed8_Webp.net-resizeimage%20(5).jpg"
@@ -239,6 +244,11 @@
     {"title": "Fawlty Towers", "id": 75932,
     "description": "Hotel owner Basil Fawlty's incompetence, short fuse, and arrogance form a combination that ensures accidents and trouble are never far away.",
     "poster": "https://www.arconaitv.us/uploads/streams/592e5ae0adb8a_fawlty.jpg"
+    },
+
+    {"title": "Farscape", "id": "NONE",
+    "description": "Astronaut John Crichton attempts to use the Earth's atmosphere to propel his ship, Farscape 1, at great speeds across the solar system. He went much further though and was sucked down a wormhole to a distant part of the galaxy and into the middle of a battle. He is rescued by a group of escaping prisoners and taken aboard their living ship. As the years went by, Crichton has made enemies, powerful and dangerous enemies. On his journey to find a way back home, he freed other captives who became part of the crew on Moya.",
+    "poster": "https://www.arconaitv.us/uploads/streams/5df12f24870c6_farscape.jpg"
     },
 
     {"title": "Frasier", "id": 77811,
@@ -271,6 +281,11 @@
     "poster": "https://www.arconaitv.us/uploads/streams/5b5d91cac9af0_Webp.net-resizeimage%20(6).jpg"
     },
 
+    {"title": "Glee", "id": "None",
+    "description": "In the face of much criticism, an optimistic high school teacher challenges a group of outcasts to realize their potential in the school's glee club.",
+    "poster": "https://www.arconaitv.us/uploads/streams/5e5b5278e5ff5_glee.jpg"
+    },
+
     {"title": "Golden Girls", "id": "None",
     "description": "Four mature women live together in Miami and experience the joys and angst of their golden years. Strong-willed Dorothy, spacey Rose, lusty Southern belle Blanche and matriarconaih Sophia, Dorothy's mom, occasionally clash but are there for one another in the end. After all, when the show's theme song is titled Thank You for Being a Friend, the ladies have to remain friendly with one another.",
     "poster": "https://www.arconaitv.us/uploads/streams/598f8b432d752_Webp.net-resizeimage.jpg"
@@ -301,7 +316,7 @@
     "poster": "https://assets.fanart.tv/fanart/tv/75760/tvposter/how-i-met-your-mother-521bcbf47976e.jpg"
     },
 
-    {"title": "How It's Made", "id": 79485,
+    {"title": "How It", "id": 79485,
     "description": "Have you ever wondered how the products you use every day are made? How It's Made leads you through the process of how everyday products, such as apple juice, skateboards, engines, contact lenses, and many more objects are manufactured.",
     "poster": "https://www.arconaitv.us/uploads/streams/5d66a5b708a7e_howitsmade (1).jpg"
     },
@@ -531,9 +546,19 @@
     "poster": "https://www.arconaitv.us/uploads/streams/5cdefb9f141f1_stargate.jpg"
     },
 
+    {"title": "Step by Step", "id": "None",
+    "description": "Set in Port Washington, Wisconsin, Frank Lambert, a divorced contractor with 3 children, sons J.T. and Brendan and daughter Al, impulsively marries Carol Foster, a widowed beautician who also has 3 children, daughters Dana and Karen and son Mark. Both were residents of Port Washington, but met while vacationing separately in Jamaica. Their children are surprised and angered when they learn of the marriage. Stories depicted typical situations of a new blended family, their differences causing arguments and resentments between them, but the family eventually growing to tolerate and develop loyalty to one another",
+    "poster": "https://www.arconaitv.us/uploads/streams/5e4e0a84a02fb_stepby.jpg"
+    },
+
     {"title": "Steven Universe", "id": 270701,
     "description": "A coming-of-age story told from the perspective of Steven Universe, a chubby and happy-go-lucky boy, who is the youngest member of an intergalactic/ethereal team of warriors known as the Crystal Gems.",
     "poster": "https://assets.fanart.tv/fanart/tv/270701/tvposter/steven-universe-55ebd7b47a34e.jpg"
+    },
+
+    {"title": "Suits", "id": "None",
+    "description": "Suits follows college drop-out Mike Ross, who accidentally lands a job with one of New York's best legal closers, Harvey Specter. They soon become a winning team with Mike's raw talent and photographic memory, and Mike soon reminds Harvey of why he went into the field of law in the first place.",
+    "poster": "https://www.arconaitv.us/uploads/streams/5e5c05c85cbd6_suits.jpg"
     },
 
     {"title": "Supernatural", "id": 78901,

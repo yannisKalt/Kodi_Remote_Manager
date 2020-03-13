@@ -1,0 +1,1 @@
+["gnk", ["gnk", "g khan", "g khan new song", "g kaka", "g khan live", "g khan song", "g khan all song", "g klasa", "g khan live show", "g khan dollar"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

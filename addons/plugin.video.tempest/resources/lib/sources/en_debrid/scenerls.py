@@ -9,9 +9,9 @@ import traceback
 from resources.lib.modules import log_utils
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
-from resources.lib.modules import debrid, cache_check
+from resources.lib.modules import debrid, rd_check
 from resources.lib.modules import source_utils, control
-from resources.lib.modules import cfscrape
+from resources.lib.sources import cfscrape
 
 
 class source:
@@ -21,9 +21,9 @@ class source:
         self.domains = ['scene-rls.com', 'scene-rls.net']
         self.base_link = 'http://scene-rls.net'
         self.search_link = '/?s=%s&submit=Find'
-        self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -32,6 +32,7 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
@@ -40,6 +41,7 @@ class source:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
         try:
             if url is None: return
 
@@ -58,9 +60,6 @@ class source:
             if url is None:
                 return sources
 
-            if debrid.status() is False:
-                raise Exception()
-
             hostDict = hostprDict + hostDict
 
             data = urlparse.parse_qs(url)
@@ -77,7 +76,7 @@ class source:
                 url = self.search_link % urllib.quote_plus(query)
                 url = urlparse.urljoin(self.base_link, url)
 
-                r = self.scraper.get(url).content
+                r = cfscrape.get(url).content
 
                 posts = client.parseDOM(r, 'div', attrs={'class': 'post'})
 
@@ -115,15 +114,20 @@ class source:
                     host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(url.strip().lower()).netloc)[0]
                     if host not in hostDict:
                         raise Exception()
+                    info = ' | '.join(info)
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
-                    if control.setting('deb.cache_check') == 'true':
-                        check = cache_check.rd_deb_check(url)
-                        if not check:
-                            continue
-                        sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+                    if control.setting('deb.rd_check') == 'true':
+                        check = rd_check.rd_deb_check(url)
+                        if check:
+                            info = 'RD Checked' + ' | ' + info
+                            sources.append(
+                                {'source': host, 'quality': quality, 'language': 'en', 'url': check,
+                                 'info': info, 'direct': False, 'debridonly': True})
                     else:
-                        sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
+                        sources.append(
+                            {'source': host, 'quality': quality, 'language': 'en', 'url': url,
+                             'info': info, 'direct': False, 'debridonly': True})
                 except:
                     pass
 

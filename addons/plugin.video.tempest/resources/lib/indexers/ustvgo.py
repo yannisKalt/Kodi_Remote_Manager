@@ -3,8 +3,8 @@
 # IPTV Indexer made just for the one site as of now.
 
 import re, os, sys, urllib
-from resources.lib.modules import client
 from resources.lib.modules import control
+from resources.lib.sources import cfscrape
 
 
 class ustvgo:
@@ -88,7 +88,6 @@ class ustvgo:
             ('Telemundo', '/player.php?stream=Telemundo', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Telemundo_Logo_2018-2.svg/440px-Telemundo_Logo_2018-2.svg.png'),
             ('Tennis Channel', '/player.php?stream=Tennis', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Tennis_Channel_logo.svg/220px-Tennis_Channel_logo.svg.png'),
             ('The CW', '/player.php?stream=CW', 'https://github.com/jewbmx/resource.images.studios.white/blob/master/resources/The%20CW.png?raw=true'),
-            #('The Weather Channel', '/the-weather-channel-live-streaming-free', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/The_Weather_Channel_logo_2005-present.svg/300px-The_Weather_Channel_logo_2005-present.svg.png'),
             ('TLC', '/player.php?stream=TLC', 'https://github.com/jewbmx/resource.images.studios.white/blob/master/resources/TLC.png?raw=true'),
             ('TNT', '/player.php?stream=TNT', 'https://github.com/jewbmx/resource.images.studios.white/blob/master/resources/TNT.png?raw=true'),
             ('Travel Channel', '/player.php?stream=Travel', 'https://github.com/jewbmx/resource.images.studios.white/blob/master/resources/Travel%20Channel.png?raw=true'),
@@ -107,10 +106,18 @@ class ustvgo:
 
     def play(self, url):
         try:
-            stream = client.request(url, headers=self.headers)
-            link = re.compile("file: '(.+?)',", re.DOTALL).findall(stream)[0]
-            link = '%s|User-Agent=%s&Referer=%s' % (link, self.uAgent, url)
-            control.execute('PlayMedia(%s)' % link)
+            stream = cfscrape.get(url, headers=self.headers).content
+            streams = re.findall('return\(\[(.+?)\].join.+? (.+?).join.+? document.getElementById\("(.+?)"\).innerHTML', stream)
+            for item in streams:
+                url2 = re.findall('var (.+?) = \[(.+?)\]', stream, re.DOTALL)
+                for code in url2:
+                    if item[1].replace('+ ', '') in code[0]:
+                        url3 = re.findall('id=(.+?)>(.+?)</span><span', stream, re.DOTALL)
+                        for code2 in url3:
+                            if item[2] in code2[0]:
+                                link = item[0].replace(',', '').replace('"', '').replace('\\', '').replace('+', '') + code[1].replace(',', '').replace('"','') + code2[1]
+                                link = '%s|User-Agent=%s&Referer=%s' % (link, self.uAgent, url)
+                                control.execute('PlayMedia(%s)' % link)
         except:
             return
 
@@ -155,5 +162,3 @@ class ustvgo:
                 pass
         control.content(syshandle, 'addons')
         control.directory(syshandle, cacheToDisc=True)
-
-

@@ -1,1 +1,1 @@
-["x", ["x factor", "x factor greece", "xanthi olympiakos", "x factor 2019", "xalali", "x", "xiaomi redmi note 7", "xiaomi mi a3", "xiaomi mi 9", "xiaomi redmi note 8"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["x", ["xios koronoios", "x factor", "xios", "xiaomi redmi note 8 pro", "x", "xanny", "xiaomi redmi note 8", "xbox series x", "xqc", "xiaomi airdots"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

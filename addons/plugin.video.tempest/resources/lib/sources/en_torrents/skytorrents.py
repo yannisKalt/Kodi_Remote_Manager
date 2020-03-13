@@ -10,7 +10,7 @@ from resources.lib.modules import cleantitle, debrid, source_utils
 from resources.lib.modules import client
 from resources.lib.modules import control
 from resources.lib.modules import log_utils
-from resources.lib.modules import cache_check
+from resources.lib.modules import rd_check
 
 
 class source:
@@ -23,6 +23,8 @@ class source:
         self.min_seeders = int(control.setting('torrent.min.seeders'))
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -31,6 +33,8 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
@@ -39,6 +43,8 @@ class source:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             if url is None:
                 return
@@ -55,10 +61,7 @@ class source:
         try:
             if url is None:
                 return sources
-            if debrid.status() is False:
-                raise Exception()
-            if debrid.torrent_enabled() is False:
-                raise Exception()
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
@@ -96,17 +99,16 @@ class source:
                             continue
                         info.append(size)
                         info = ' | '.join(info)
-                        if control.setting('torrent.cache_check') == 'true':
-                            cached = cache_check.rd_cache_check(url)
-                            if not cached:
-                                continue
-                            sources.append(
-                                {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': url,
-                                 'info': info, 'direct': False, 'debridonly': True})
+                        if control.setting('torrent.rd_check') == 'true':
+                            checked = rd_check.rd_cache_check(url)
+                            if checked:
+                                sources.append(
+                                    {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': checked,
+                                     'info': info, 'direct': False, 'debridonly': True})
                         else:
                             sources.append(
-                                {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                                 'direct': False, 'debridonly': True})
+                                {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url,
+                                 'info': info, 'direct': False, 'debridonly': True})
             except:
                 return
             return sources

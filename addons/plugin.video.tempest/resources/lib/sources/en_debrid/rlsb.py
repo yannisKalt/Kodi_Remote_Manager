@@ -3,9 +3,9 @@
 import re,urllib,urlparse
 import traceback
 from resources.lib.modules import log_utils
-from resources.lib.modules import client, cache_check
+from resources.lib.modules import client, rd_check
 from resources.lib.modules import debrid, control
-from resources.lib.modules import cfscrape
+from resources.lib.sources import cfscrape
 
 
 class source:
@@ -17,9 +17,9 @@ class source:
         self.search_base_link = 'http://search.rlsbb.ru'
         self.search_cookie = 'serach_mode=rlsbb'
         self.search_link = '/lib/search526049.php?phrase=%s&pindex=1&content=true'
-        self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
@@ -28,6 +28,7 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        if debrid.status() is False: return
         try:
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
@@ -36,6 +37,7 @@ class source:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
+        if debrid.status() is False: return
         try:
             if url is None:
                 return
@@ -54,9 +56,6 @@ class source:
 
             if url is None:
                 return sources
-
-            if debrid.status() is False:
-                raise Exception()
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
@@ -80,7 +79,7 @@ class source:
             if 'tvshowtitle' not in data:
                 url = url + "-1080p"
 
-            r = self.scraper.get(url).content
+            r = cfscrape.get(url).content
 
             if r is None and 'tvshowtitle' in data:
                 season = re.search('S(.*?)E', hdlr)
@@ -92,7 +91,7 @@ class source:
                 query = query.replace("  ", " ")
                 query = query.replace(" ", "-")
                 url = "http://rlsbb.ru/" + query
-                r = self.scraper.get(url).content
+                r = cfscrape.get(url).content
 
             for loopCount in range(0,2):
                 if loopCount == 1 or (r is None and 'tvshowtitle' in data):
@@ -105,7 +104,7 @@ class source:
                     url = "http://rlsbb.ru/" + query
                     url = url.replace('The-Late-Show-with-Stephen-Colbert','Stephen-Colbert')
 
-                    r = self.scraper.get(url).content
+                    r = cfscrape.get(url).content
 
                 posts = client.parseDOM(r, "div", attrs={"class": "content"})
                 hostDict = hostprDict + hostDict
@@ -161,13 +160,17 @@ class source:
                     info = ' | '.join(info)
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
-                    if control.setting('deb.cache_check') == 'true':
-                        check = cache_check.rd_deb_check(host2)
-                        if not check:
-                            continue
-                        sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': host2, 'info': info, 'direct': False, 'debridonly': True})
+                    if control.setting('deb.rd_check') == 'true':
+                        check = rd_check.rd_deb_check(host2)
+                        if check:
+                            info = 'RD Checked' + ' | ' + info
+                            sources.append(
+                                {'source': host, 'quality': quality, 'language': 'en', 'url': check,
+                                 'info': info, 'direct': False, 'debridonly': True})
                     else:
-                        sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': host2, 'info': info, 'direct': False, 'debridonly': True})
+                        sources.append(
+                            {'source': host, 'quality': quality, 'language': 'en', 'url': host2,
+                             'info': info, 'direct': False, 'debridonly': True})
 
                 except:
                     pass

@@ -19,7 +19,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['cartoonhd.care']
-        self.base_link = 'https://ww2.cartoonhd.com'
+        self.base_link = 'https://ww3.cartoonhd.com'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:

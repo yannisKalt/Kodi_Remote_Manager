@@ -6,7 +6,7 @@
 
 import re, urllib, urlparse
 from resources.lib.modules import cleantitle, debrid, source_utils
-from resources.lib.modules import client, cache_check, control
+from resources.lib.modules import client, rd_check, control
 
 
 class source:
@@ -89,17 +89,16 @@ class source:
                         continue
                     info.append(size)
                     info = ' | '.join(info)
-                    if control.setting('torrent.cache_check') == 'true':
-                        cached = cache_check.rd_cache_check(url)
-                        if not cached:
-                            continue
-                        sources.append(
-                            {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': url,
-                             'info': info, 'direct': False, 'debridonly': True})
+                    if control.setting('torrent.rd_check') == 'true':
+                        checked = rd_check.rd_cache_check(url)
+                        if checked:
+                            sources.append(
+                                {'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': checked,
+                                 'info': ' | '.join(info), 'direct': False, 'debridonly': True})
                     else:
                         sources.append(
-                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
-                             'direct': False, 'debridonly': True})
+                            {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': url,
+                             'info': info, 'direct': False, 'debridonly': True})
             except:
                 return
             return sources

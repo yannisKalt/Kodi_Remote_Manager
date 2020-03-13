@@ -12,7 +12,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['yesmovies.fm', 'yesmovies.gg']
-        self.base_link = 'https://yesmovies.movie'
+        self.base_link = 'https://www1.yesmovies.movie'
         self.movie_link = '/film/%s/watching.html?ep=0'
         self.tvshow_link = '/film/%s-season-%s/watching.html?ep=%s'
 

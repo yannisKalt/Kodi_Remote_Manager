@@ -1,0 +1,1 @@
+["gran h", ["gran hotel", "gran hotel trailer", "gran hotel bloopers", "gran hotel season 3", "gran hotel soundtrack", "gran hotel season 4", "gran hermano carlota", "gran hotel temporada 3", "gran hotel piano", "gran hotel julio y alicia"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -614,7 +614,7 @@ def toggleAll(setting, query=None, sourceList=None):
 
 
 if mode == "toggleAllNormal":
-    sourcelist = ['1movietv', '5movies', '123123movies', 'anime1', 'animeram', 'animetoon', 'cartoonhd', 'cmovieshdbz',
+    sourcelist = ['5movies', '123123movies', 'anime1', 'animeram', 'animetoon', 'cartoonhd', 'cmovieshdbz',
                   'extramovies', 'filmxy', 'fmoviesio', 'ganool123', 'hdbest', 'hdmo', 'iwannawatch', 'newepisodes',
                   'projectfreetv', 'series9', 'seriesonline', 'showbox', 'streamdreams', 'swatchseries', 'telepisodes',
                   'toonova', 'timewatch', 'watchepisodes4', 'watchfree', 'watchseries', 'watchserieshd',
@@ -622,12 +622,13 @@ if mode == "toggleAllNormal":
     toggleAll(params['setting'], params['query'], sourcelist)
 
 if mode == "toggleAllDebrid":
-    sourcelist = ['300mbfilms', 'ddlspot', 'directdl', 'dlpix', 'ganool', 'link4file',
-                  'maxrls', 'mvrls', 'onceddl', 'rapidmoviez', 'rlsb', 'rlsbb', 'sceneddl', 'scenerls', 'ultrahd']
+    sourcelist = ['300mbfilms', 'crazyhdsource', 'dlpix', 'ganool', 'maxrls', 'mvrls', 'onceddl', 'rapidmoviez', 'rlsb',
+                  'rlsbb', 'sceneddl', 'scenerls', 'ultrahd']
     toggleAll(params['setting'], params['query'], sourcelist)
 
 if mode == "toggleAllTorrent":
-    sourcelist = ['1337x', 'btdb', 'btscene', 'doublr', 'ettv', 'eztv', 'glodls', 'ibit', 'idope',
-                  'isohunt2', 'kickass2', 'limetorr', 'magnetdl',  'mkvhub', 'piratebay', 'skytorrents', 'topnow',
-                  'torrapi', 'torrdown', 'torrentquest', 'yifyddl', 'ytsam', 'zoogle']
+    sourcelist = ['7torrents', '1337x', 'btdb', 'btscene', 'doublr', 'ettv', 'eztv', 'glodls', 'ibit', 'idope',
+                  'kickass2', 'limetorr', 'magnetdl',  'mkvhub', 'piratebay', 'skytorrents',
+                  'solidtorrents', 'topnow', 'torrapi', 'torrdown', 'torrentgalaxy', 'torrentquest', 'yifyddl', 'ytsam',
+                  'zoogle']
     toggleAll(params['setting'], params['query'], sourcelist)

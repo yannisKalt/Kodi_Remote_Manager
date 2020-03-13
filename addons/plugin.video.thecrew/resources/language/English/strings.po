@@ -1027,7 +1027,7 @@ msgid "Enable Torrent Scrapers"
 msgstr ""
 
 msgctxt "#32637"
-msgid "[COLOR lightskyblue]Real-Debrid Torrent Settings[/COLOR]"
+msgid "[COLOR lightskyblue]Debrid Torrent Settings[/COLOR]"
 msgstr ""
 
 msgctxt "#32638"
@@ -1039,7 +1039,7 @@ msgid "Sort By Torrent/Premium"
 msgstr ""
 
 msgctxt "#32640"
-msgid "[COLOR lightskyblue]Real-Debrid[/COLOR] : Authorize"
+msgid "[COLOR lightskyblue]Debrid[/COLOR] : Authorize"
 msgstr ""
 
 msgctxt "#32700"
@@ -1888,4 +1888,12 @@ msgstr ""
 
 msgctxt "#90193"
 msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]XFL[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90194"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Basic Only[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90195"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Slim It Down[/COLOR][/B]"
 msgstr ""

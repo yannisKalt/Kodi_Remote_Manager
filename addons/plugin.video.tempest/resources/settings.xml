@@ -87,7 +87,6 @@
         <setting label="Disable All Normal Providers" type="action" option="close" action="RunPlugin(plugin://plugin.video.tempest/?mode=toggleAllNormal&amp;setting=false&amp;openSettings&amp;query=3.0)"/>
         <setting label="Enable All Normal Providers" type="action" option="close" action="RunPlugin(plugin://plugin.video.tempest/?mode=toggleAllNormal&amp;setting=true&amp;openSettings&amp;query=3.0)"/>
         <setting type="sep" />
-        <setting id="provider.1movietv" type="bool" label="1MOVIETV" default="true" />
         <setting id="provider.5movies" type="bool" label="5MOVIES" default="true" />
         <setting id="provider.123123movies" type="bool" label="123123MOVIES" default="true" />
         <setting id="provider.anime1" type="bool" label="ANIME1" default="true" />
@@ -128,15 +127,13 @@
         <setting label="Debrid Providers" type="lsep" enable="false" />
         <setting label="Disable All Debrid Providers" type="action" option="close" action="RunPlugin(plugin://plugin.video.tempest/?mode=toggleAllDebrid&amp;setting=false&amp;openSettings&amp;query=4.0)"/>
         <setting label="Enable All Debrid Providers" type="action" option="close" action="RunPlugin(plugin://plugin.video.tempest/?mode=toggleAllDebrid&amp;setting=true&amp;openSettings&amp;query=4.0)"/>
-        <setting id="deb.cache_check" type="bool" label="Real-Debrid Source Check" default="false" />
+        <setting id="deb.rd_check" type="bool" label="Real-Debrid Source Check" default="false" />
         <setting type="text" label="Warning: Source Check might have bugs." enable="false" />
         <setting type="sep" />
         <setting id="provider.300mbfilms" type="bool" label="300MBFILMS" default="true" />
-        <setting id="provider.ddlspot" type="bool" label="DDLSPOT" default="true" />
-        <setting id="provider.directdl" type="bool" label="DIRECTDL" default="true" />
+        <setting id="provider.crazyhdsource" type="bool" label="CRAZYHDSOURCE" default="true" />
         <setting id="provider.dlpix" type="bool" label="DLPIX" default="true" />
         <setting id="provider.ganool" type="bool" label="GANOOL" default="true" />
-        <setting id="provider.link4file" type="bool" label="LINK4FILE" default="true" />
         <setting id="provider.maxrls" type="bool" label="MAX-RLS" default="true" />
         <setting id="provider.mvrls" type="bool" label="MVRLS" default="true" />
         <setting id="provider.onceddl" type="bool" label="ONCEDDL" default="true" />
@@ -145,7 +142,6 @@
         <setting id="provider.rlsbb" type="bool" label="RLSBB" default="true" />
         <setting id="provider.sceneddl" type="bool" label="SCENEDDL" default="true" />
         <setting id="provider.scenerls" type="bool" label="SCENERLS" default="true" />
-        <setting id="provider.ultrahd" type="bool" label="ULTRAHD" default="true" />
     </category>
     <category label="32635">
         <setting type="lsep" label="32635" />
@@ -155,12 +151,13 @@
         <setting id="torrent.sort.them.up" type="bool" label="32639" enable="eq(-3,true)"  default="true" />
         <setting id="torrent.resolveurl2" type="action" label="32640" enable="eq(-4,true)" option="close" action="RunPlugin(plugin://plugin.video.tempest/?action=urlResolverRDTorrent&amp;query=1.46)" />
         <setting id="torrent.resolveurl" type="action" label="32637" enable="eq(-5,true)" option="close" action="RunPlugin(plugin://plugin.video.tempest/?action=urlResolverRDTorrent&amp;query=1.56)" />
-        <setting id="torrent.cache_check" type="bool" label="42016" default="false" />
+        <setting id="torrent.rd_check" type="bool" label="42016" default="false" />
         <setting type="text" label="Warning: Cached Check might have bugs." enable="false" />
         <setting label="Torrent Providers" type="lsep" />
         <setting label="Disable All Torrent Providers" type="action" option="close" action="RunPlugin(plugin://plugin.video.tempest/?mode=toggleAllTorrent&amp;setting=false&amp;openSettings&amp;query=5.0)"/>
         <setting label="Enable All Torrent Providers" type="action" option="close" action="RunPlugin(plugin://plugin.video.tempest/?mode=toggleAllTorrent&amp;setting=true&amp;openSettings&amp;query=5.0)"/>
         <setting type="sep" />
+        <setting id="provider.7torrents" type="bool" label="7TORRENTS" default="false" />
         <setting id="provider.1337x" type="bool" label="1337X" default="false" />
         <setting id="provider.btdb" type="bool" label="BTDB" default="false" />
         <setting id="provider.btscene" type="bool" label="BTSCENE" default="false" />
@@ -170,16 +167,17 @@
         <setting id="provider.glodls" type="bool" label="GLODLS" default="false" />
         <setting id="provider.ibit" type="bool" label="IBIT" default="false" />
         <setting id="provider.idope" type="bool" label="IDOPE" default="false" />
-        <setting id="provider.isohunt2" type="bool" label="ISOHUNT2" default="false" />
         <setting id="provider.kickass2" type="bool" label="KICKASS2" default="false" />
         <setting id="provider.limetorr" type="bool" label="LIMETORR" default="false" />
         <setting id="provider.magnetdl" type="bool" label="MAGNETDL" default="false" />
         <setting id="provider.mkvhub" type="bool" label="MKVHUB" default="false" />
         <setting id="provider.piratebay" type="bool" label="PIRATEBAY" default="false" />
         <setting id="provider.skytorrents" type="bool" label="SKYTORRENTS" default="false" />
+        <setting id="provider.solidtorrents" type="bool" label="SOLIDTORRENTS" default="false" />
         <setting id="provider.topnow" type="bool" label="TOPNOW" default="false" />
         <setting id="provider.torrapi" type="bool" label="TORRAPI" default="false" />
         <setting id="provider.torrdown" type="bool" label="TORRDOWN" default="false" />
+        <setting id="provider.torrentgalaxy" type="bool" label="TORRENTGALAXY" default="false" />
         <setting id="provider.torrentquest" type="bool" label="TORRENTQUEST" default="false" />
         <setting id="provider.ytsam" type="bool" label="YTSAM" default="false" />
         <setting id="provider.yifyddl" type="bool" label="YIFYDDL" default="false" />

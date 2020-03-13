@@ -1,0 +1,1 @@
+["vis", ["vissi", "vis a vis", "vision", "visage", "viski kola", "visit different bus stops in a single match", "vissi anna", "visit different food trucks", "visit greece", "visit mountain base camps"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

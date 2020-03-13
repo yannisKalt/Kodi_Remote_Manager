@@ -28,7 +28,7 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['kickass.vc', 'kickasstorrents.bz', 'kkickass.com', 'kkat.net', 'kickass-kat.com', 'kickasst.net', 'kickasst.org', 'kickasstorrents.id', 'thekat.cc', 'thekat.ch']
+        self.domains = ['kkickass.com', 'kkat.net', 'kickass-kat.com', 'kickasst.net', 'kickasst.org', 'kickasstorrents.id', 'thekat.cc', 'thekat.ch']
         self._base_link = None
         self.search_link = '/usearch/%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))

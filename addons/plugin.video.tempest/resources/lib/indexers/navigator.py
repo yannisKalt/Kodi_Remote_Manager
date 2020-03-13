@@ -43,9 +43,9 @@ class navigator:
         if (traktIndicators is True and not control.setting('tv.widget.alt') == '0') or (traktIndicators is False and not control.setting('tv.widget') == '0'):
             self.addDirectoryItem(32006, 'tvWidget', 'latest-episodes.png', 'DefaultRecentlyAddedEpisodes.png')
 
-        self.addDirectoryItem('[B][COLOR gold]1 Clicks [/COLOR][/B]', 'clickNavigator', 'channels.png', 'DefaultTVShows.png')
+        self.addDirectoryItem('1 Clicks', 'clickNavigator', 'channels.png', 'DefaultTVShows.png')
 
-        self.addDirectoryItem('[B][COLOR gold]Live Tv (IPTV)[/COLOR][/B]', 'livetvNavigator', 'tvshows.png', 'DefaultTVShows.png')
+        self.addDirectoryItem('Live Tv (IPTV)', 'livetvNavigator', 'tvshows.png', 'DefaultTVShows.png')
 
         self.addDirectoryItem(32008, 'toolNavigator', 'settings.png', 'DefaultAddonProgram.png')
 

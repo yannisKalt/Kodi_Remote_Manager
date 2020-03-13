@@ -9,7 +9,7 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import debrid
 from resources.lib.modules import source_utils
 from resources.lib.modules import log_utils
-from resources.lib.modules import cache_check, control
+from resources.lib.modules import rd_check, control
 
 
 class source:
@@ -21,6 +21,8 @@ class source:
         self.search_link = '/%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
+        if debrid.status() is False: return
+        if debrid.torrent_enabled() is False: return
         try:
             mtitle = cleantitle.geturl(title)
             url = self.base_link + self.search_link % mtitle
@@ -33,10 +35,7 @@ class source:
             sources = []
             if url is None:
                 return sources
-            if debrid.status() is False:
-                raise Exception()
-            if debrid.torrent_enabled() is False:
-                raise Exception()
+
             html = client.request(url)
             link = re.findall('href="(magnet:.+?)"', html, re.DOTALL)
             for link in link:
@@ -51,12 +50,12 @@ class source:
                 except:
                     pass
                 info = ' | '.join(info)
-                if control.setting('torrent.cache_check') == 'true':
-                    cached = cache_check.rd_cache_check(link)
-                    if not cached:
-                        continue
-                    sources.append({'source': 'Cached Torrent', 'quality': quality, 'language': 'en', 'url': link,
-                                    'info': info, 'direct': False, 'debridonly': True})
+                if control.setting('torrent.rd_check') == 'true':
+                    checked = rd_check.rd_cache_check(link)
+                    if checked:
+                        sources.append(
+                            {'source': 'Cached Torrent', 'quality': quality, 'language': 'en','url': checked,
+                             'info': info, 'direct': False, 'debridonly': True})
                 else:
                     sources.append(
                         {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': link, 'info': info,

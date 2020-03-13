@@ -1,0 +1,1 @@
+["http://gnkwi", ["gnawi", "gnawing hunger", "gnawi 2020", "gnawiya", "gnawi music", "gnawi lyrics", "gnawi 2018", "gnawi algerien", "gnawi lfra9", "gnawi wlad 3ati9a"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
