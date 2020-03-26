@@ -1,0 +1,1 @@
+["tr", ["travis scott", "try not to laugh", "trap", "tripaloski", "trump", "trevor noah", "trance", "trap nation", "trap music", "trick2g"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

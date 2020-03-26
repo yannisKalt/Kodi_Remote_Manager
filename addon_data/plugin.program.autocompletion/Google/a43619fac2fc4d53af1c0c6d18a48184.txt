@@ -1,0 +1,1 @@
+["de", ["despacito", "deja vu", "death bed", "deewangi", "devil eyes", "deep house", "demi lovato", "depeche mode", "desole", "deep purple"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

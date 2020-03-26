@@ -1,0 +1,1 @@
+["detec", ["detective pikachu", "detective monk", "detective", "detective conan", "detective pikachu trailer", "detective movies", "detective music", "detective murdoch", "detectorists", "detective conan theme"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

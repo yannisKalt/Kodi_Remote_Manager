@@ -1,0 +1,1 @@
+["atla", ["atlas", "atlanta", "atlantean kodex", "atlas rise", "atlas basket", "atlas tv", "atlas artbat", "atlanta hawks", "atlanta trailer", "atlas pro"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

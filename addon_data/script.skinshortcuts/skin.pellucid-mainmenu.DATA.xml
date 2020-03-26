@@ -94,7 +94,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>ActivateWindow(Videos,"plugin://plugin.video.dailymotion_com",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.youtube/kodion/search/list/",return)</action>
 	</shortcut>
 	<shortcut>
 		<defaultID />

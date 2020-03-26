@@ -10,6 +10,7 @@
     <setting id="bookmarks" value="true" />
     <setting id="bookmarks.auto" value="false" />
     <setting id="bookmarks.trakt" value="false" />
+    <setting id="check.torr.cache" value="true" />
     <setting id="chillax.password" value="" />
     <setting id="chillax.username" value="" />
     <setting id="crefresh" value="false" />
@@ -45,7 +46,7 @@
     <setting id="library.tv" value="special://userdata/addon_data/plugin.video.thecrew/TVShows" />
     <setting id="library.update" value="true" />
     <setting id="lists.widget" value="1" />
-    <setting id="module_base" value="0.0.67a" />
+    <setting id="module_base" value="0.0.70b" />
     <setting id="movie.download.path" value="" />
     <setting id="movie.widget" value="1" />
     <setting id="navi.1clicks" value="true" />
@@ -82,6 +83,7 @@
     <setting id="navi.purplehat" value="true" />
     <setting id="navi.radio" value="true" />
     <setting id="navi.retribution" value="true" />
+    <setting id="navi.slim" value="false" />
     <setting id="navi.sports" value="true" />
     <setting id="navi.standup" value="true" />
     <setting id="navi.titan" value="true" />
@@ -115,6 +117,7 @@
     <setting id="provider.2ddl" value="true" />
     <setting id="provider.300mbdownload" value="true" />
     <setting id="provider.300mbfilms" value="true" />
+    <setting id="provider.7torrents" value="true" />
     <setting id="provider.alltube" value="true" />
     <setting id="provider.allucfr" value="true" />
     <setting id="provider.allucit" value="true" />
@@ -161,8 +164,10 @@
     <setting id="provider.gowatchseries" value="true" />
     <setting id="provider.hdmto" value="true" />
     <setting id="provider.hdpopcorneu" value="true" />
+    <setting id="provider.idope" value="true" />
     <setting id="provider.iheartdrama" value="true" />
     <setting id="provider.ikshow" value="true" />
+    <setting id="provider.isohunt2" value="true" />
     <setting id="provider.iwaatch" value="true" />
     <setting id="provider.iwannawatch" value="true" />
     <setting id="provider.iwantmyshow" value="true" />
@@ -204,6 +209,7 @@
     <setting id="provider.skstream" value="true" />
     <setting id="provider.skytorrents" value="true" />
     <setting id="provider.solarmoviefree" value="true" />
+    <setting id="provider.solidtorrents" value="true" />
     <setting id="provider.streamay" value="true" />
     <setting id="provider.streamingseries" value="true" />
     <setting id="provider.swatchseries" value="true" />
@@ -232,6 +238,7 @@
     <setting id="provider.yesmoviesgg" value="true" />
     <setting id="provider.yify" value="true" />
     <setting id="provider.yifyddl" value="true" />
+    <setting id="provider.yourbittorrent" value="true" />
     <setting id="provider.zmovies" value="true" />
     <setting id="provider.zoogle" value="true" />
     <setting id="providers.lang" value="English" />

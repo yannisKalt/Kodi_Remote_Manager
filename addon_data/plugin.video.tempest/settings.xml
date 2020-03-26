@@ -8,6 +8,7 @@
     <setting id="autoplay.sd" value="false" />
     <setting id="bookmarks" value="true" />
     <setting id="deb.cache_check" value="false" />
+    <setting id="deb.rd_check" value="false" />
     <setting id="debrid.only" value="false" />
     <setting id="debug.location" value="0" />
     <setting id="dev" value="false" />
@@ -54,6 +55,7 @@
     <setting id="provider.1movietv" value="true" />
     <setting id="provider.300mbfilms" value="true" />
     <setting id="provider.5movies" value="true" />
+    <setting id="provider.7torrents" value="false" />
     <setting id="provider.anime1" value="true" />
     <setting id="provider.animeram" value="true" />
     <setting id="provider.animetoon" value="true" />
@@ -61,6 +63,7 @@
     <setting id="provider.btscene" value="false" />
     <setting id="provider.cartoonhd" value="true" />
     <setting id="provider.cmovieshdbz" value="true" />
+    <setting id="provider.crazyhdsource" value="true" />
     <setting id="provider.ddlspot" value="true" />
     <setting id="provider.directdl" value="true" />
     <setting id="provider.dlpix" value="true" />
@@ -102,6 +105,7 @@
     <setting id="provider.seriesonline" value="true" />
     <setting id="provider.showbox" value="true" />
     <setting id="provider.skytorrents" value="false" />
+    <setting id="provider.solidtorrents" value="false" />
     <setting id="provider.streamdreams" value="true" />
     <setting id="provider.swatchseries" value="true" />
     <setting id="provider.telepisodes" value="true" />
@@ -109,6 +113,7 @@
     <setting id="provider.topnow" value="false" />
     <setting id="provider.torrapi" value="false" />
     <setting id="provider.torrdown" value="false" />
+    <setting id="provider.torrentgalaxy" value="false" />
     <setting id="provider.torrentquest" value="false" />
     <setting id="provider.ultrahd" value="true" />
     <setting id="provider.videoscraper" value="false" />
@@ -138,6 +143,7 @@
     <setting id="torrent.enabled" value="false" />
     <setting id="torrent.identify" value="4" />
     <setting id="torrent.min.seeders" value="10" />
+    <setting id="torrent.rd_check" value="false" />
     <setting id="torrent.resolveurl" value="" />
     <setting id="torrent.resolveurl2" value="" />
     <setting id="torrent.sort.them.up" value="true" />
@@ -149,6 +155,6 @@
     <setting id="tv.widget" value="1" />
     <setting id="tv.widget.alt" value="2" />
     <setting id="tvdb.user" value="7A9F0F57B6E8132D" />
-    <setting id="tvsearch" value="vis a vis&#x0A;vice&#x0A;alta mar&#x0A;stranger things&#x0A;i know&#x0A;i know wh&#x0A;gran hotel&#x0A;cosmos&#x0A;" />
+    <setting id="tvsearch" value="true detective&#x0A;atlantis&#x0A;vis a vis&#x0A;vice&#x0A;alta mar&#x0A;stranger things&#x0A;i know&#x0A;i know wh&#x0A;gran hotel&#x0A;cosmos&#x0A;" />
     <setting id="unaired.identify" value="6" />
 </settings>

@@ -12,9 +12,9 @@
             }
         }, 
         "personal": {
-            "api_key": "", 
-            "client_id": "", 
-            "client_secret": ""
+            "api_key": "AIzaSyAuoQKUcbxG6fpZQ6fstKURZYfjfQRZNUc", 
+            "client_id": "487456367059-4sd29qhk6ic7k884hhdp31258bcuauld", 
+            "client_secret": "LKF3UGuw72i8VNJVkTn9d28"
         }
     }
 }

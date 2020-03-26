@@ -53,10 +53,10 @@
     <setting id="youtube.api.config.address" value="" />
     <setting id="youtube.api.config.page" value="false" />
     <setting id="youtube.api.enable" value="true" />
-    <setting id="youtube.api.id" value="" />
-    <setting id="youtube.api.key" value="" />
+    <setting id="youtube.api.id" value="487456367059-4sd29qhk6ic7k884hhdp31258bcuauld" />
+    <setting id="youtube.api.key" value="AIzaSyAuoQKUcbxG6fpZQ6fstKURZYfjfQRZNUc" />
     <setting id="youtube.api.key.switch" value="1" />
-    <setting id="youtube.api.secret" value="" />
+    <setting id="youtube.api.secret" value="LKF3UGuw72i8VNJVkTn9d28" />
     <setting id="youtube.channel.fanart.show" value="true" />
     <setting id="youtube.filter.my_subscriptions_filtered.blacklist" value="false" />
     <setting id="youtube.filter.my_subscriptions_filtered.list" value="" />

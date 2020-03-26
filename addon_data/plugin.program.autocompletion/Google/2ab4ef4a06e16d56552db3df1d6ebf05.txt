@@ -1,1 +1,1 @@
-["te", ["techitserious", "technoblade", "teri meri kahani", "techno", "tela", "tequila", "te bot\u00e9", "tesla", "terzis", "team fight tactics"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["te", ["techitserious", "te bote", "teampls", "techno", "teletext", "tesla", "tenet", "ted talks", "ted", "tedx"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

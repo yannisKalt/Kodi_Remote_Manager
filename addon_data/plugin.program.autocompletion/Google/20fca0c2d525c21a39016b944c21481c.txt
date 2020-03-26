@@ -1,0 +1,1 @@
+["AI", ["airplanes", "airpods pro", "airpods", "aitch", "airsoft", "aiko japan", "ai ai ai", "aiko", "ai", "aisha"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

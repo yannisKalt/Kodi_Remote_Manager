@@ -1,0 +1,1 @@
+["tru", ["trump", "truth hurts", "trump mitsotakis", "trust", "trumpets", "true damage", "true colors", "true detective", "true love", "true sight"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

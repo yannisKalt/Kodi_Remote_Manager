@@ -1,0 +1,1 @@
+["dete", ["detective pikachu", "detention", "detective monk", "determination", "detective", "detective conan", "detective pikachu trailer", "detective movies", "detective music", "determinant"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

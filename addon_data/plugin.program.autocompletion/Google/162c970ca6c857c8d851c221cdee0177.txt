@@ -1,0 +1,1 @@
+["atl", ["atlas", "atletico liverpool", "atletico madrid liverpool", "atletico madrid", "atletico vs liverpool", "atlanta", "atlantean kodex", "atlas rise", "atlas basket", "atlas tv"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

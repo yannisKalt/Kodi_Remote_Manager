@@ -1,0 +1,1 @@
+["det", ["detro", "detstvo", "detroit become human", "detroit", "detective pikachu", "dethklok", "detroit become human trailer", "detention", "detroit rock city", "detro cenobite"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

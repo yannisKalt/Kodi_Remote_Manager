@@ -1,0 +1,1 @@
+["true", ["true damage", "true colors", "true detective", "true love", "true sight", "true damage yasuo", "true crime", "true damage ekko", "true damage akali", "true story"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

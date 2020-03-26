@@ -1,0 +1,1 @@
+["atlam", ["atlam rokne ka tarika", "atlanta", "atlantean kodex", "atlanta hawks", "atlanta trailer", "atlantics trailer", "atlantic", "atlantic craft", "atlantis villex", "atlantic ocean"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

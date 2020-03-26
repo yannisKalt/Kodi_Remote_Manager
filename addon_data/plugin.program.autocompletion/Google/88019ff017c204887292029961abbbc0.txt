@@ -1,0 +1,1 @@
+["atlanti", ["atlantics trailer", "atlantic", "atlantic craft", "atlantis villex", "atlantic ocean", "atlantic city", "atlantis magin", "atlantis trailer", "atlantic records", "atlantique trailer"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
