@@ -1,33 +1,33 @@
 # -*- coding: utf-8 -*-
 
 '''
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    Subtitles.gr Addon
+    Author Twilight0
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
-
-from resources.lib.tools import action, query, url, source
+import sys
 from resources.lib.addon import Search, Download
+from tulip.compat import parse_qsl
+
+syshandle = int(sys.argv[1])
+sysaddon = sys.argv[0]
+params = dict(parse_qsl(sys.argv[2].replace('?', '')))
+
+action = params.get('action')
+source = params.get('source')
+url = params.get('url')
+query = params.get('searchstring')
+langs = params.get('languages')
 
 ########################################################################################################################
 
-if action is None or action == 'search':
-    Search().run()
-
-elif action == 'manualsearch':
-    Search().run(query)
+if action in [None, 'search', 'manualsearch']:
+    Search(syshandle, sysaddon, langs, action).run(query)
 
 elif action == 'download':
-    Download().run(url, source)
+    Download(syshandle, sysaddon).run(url, source)
 
 ########################################################################################################################

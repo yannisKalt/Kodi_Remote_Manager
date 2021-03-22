@@ -1,8 +1,11 @@
 # -*- coding: UTF-8 -*-
 # -Cleaned and Checked on 10-16-2019 by JewBMX in Scrubs.
+# -Cleaned and Checked on 04-14-2020 by Tempest.
 
 import re
+import traceback
 from resources.lib.modules import client
+from resources.lib.modules import log_utils
 from resources.lib.modules import cleantitle
 from resources.lib.modules import source_tools
 
@@ -14,6 +17,7 @@ class source:
         self.genre_filter = ['animation', 'anime']
         self.domains = ['toonova.net']
         self.base_link = 'http://toonova.net'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -46,12 +50,12 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            if url == None:
+            if url is None:
                 return sources
-            r = client.request(url)
+            r = client.request(url, headers=self.headers)
             match = re.compile('<iframe src="(.+?)"').findall(r)
             for url in match:
-                r = client.request(url)
+                r = client.request(url, headers=self.headers)
                 if 'playpanda' in url:
                     match = re.compile("url: '(.+?)',").findall(r)
                 else:
@@ -64,7 +68,9 @@ class source:
                     quality = source_tools.get_quality(url)
                     sources.append({'source': 'Direct', 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': False})
             return sources
-        except:
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---TOONOVA Testing - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

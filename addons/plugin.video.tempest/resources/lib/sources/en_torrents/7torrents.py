@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re, urllib, urlparse
 import traceback
-from resources.lib.modules import cleantitle, debrid, source_utils
-from resources.lib.modules import client, control
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import client
+from resources.lib.modules import control
 from resources.lib.modules import log_utils
 from resources.lib.modules import rd_check
 
@@ -20,6 +23,7 @@ class source:
         self.base_link = 'https://www.7torrents.cc'
         self.search_link = '/search?query=%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -68,7 +72,7 @@ class source:
 
             hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
-            query = '%s S%02dS%02d' % (
+            query = '%s S%02dE%02d' % (
             data['tvshowtitle'], int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (
             data['title'], data['year'])
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
@@ -77,7 +81,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url).replace('++', '+')
 
             try:
-                post = client.request(url)
+                post = client.request(url, headers=self.headers)
                 links = re.compile('data-name="(.+?)" data-added=".+?" data-size="(.+?)" data-seeders="(.+?)" .+? <a href="(magnet:.+?)"').findall(post)
                 for data, size, seeders, url in links:
                     if hdlr not in data:

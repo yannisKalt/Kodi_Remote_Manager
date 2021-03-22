@@ -1,27 +1,20 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
+
+
 from __future__ import absolute_import
 
 import hashlib, json
 from ast import literal_eval as evaluate
 from tulip import control
+from tulip.cache import clear
 from tulip.compat import database, str, iteritems
 
 
@@ -95,6 +88,7 @@ def get(file_=control.bookmarksFile):
         dbcur = dbcon.cursor()
         dbcur.execute("SELECT * FROM bookmark")
         items = dbcur.fetchall()
+
         try:
             items = [evaluate(i[1].encode('utf-8')) for i in items]
         except Exception:
@@ -107,3 +101,4 @@ def get(file_=control.bookmarksFile):
         pass
 
 
+__all__ = ['add', 'delete', 'get', 'clear']

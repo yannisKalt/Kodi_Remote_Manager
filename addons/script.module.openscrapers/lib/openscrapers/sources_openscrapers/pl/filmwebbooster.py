@@ -27,7 +27,6 @@
 
 import json
 import re
-
 import requests
 
 from openscrapers.modules import cleantitle
@@ -35,18 +34,9 @@ from openscrapers.modules import client
 from openscrapers.modules import source_utils
 
 try:
-	import HTMLParser
 	from HTMLParser import HTMLParser
 except:
 	from html.parser import HTMLParser
-try:
-	import urlparse
-except:
-	import urllib.parse as urlparse
-try:
-	import urllib2
-except:
-	import urllib.request as urllib2
 
 
 class source:
@@ -255,7 +245,7 @@ class source:
 						urls = client.parseDOM(test, 'a', ret='href')
 						for url in urls:
 							valid, host = source_utils.is_host_valid(url, hostDict)
-							q = source_utils.check_sd_url(url)
+							q = source_utils.check_url(url)
 							sources.append({'source': host, 'quality': q, 'language': lang, 'url': url, 'info': info,
 							                'direct': False, 'debridonly': False})
 						continue
@@ -269,14 +259,14 @@ class source:
 						for i in range(1, numGroups):
 							url = test[i]
 							valid, host = source_utils.is_host_valid(url, hostDict)
-							q = source_utils.check_sd_url(url)
+							q = source_utils.check_url(url)
 							sources.append({'source': host, 'quality': q, 'language': lang, 'url': url, 'info': info,
 							                'direct': False, 'debridonly': False})
 						continue
 					except:
 						pass
 				valid, host = source_utils.is_host_valid(link, hostDict)
-				q = source_utils.check_sd_url(link)
+				q = source_utils.check_url(link)
 				sources.append(
 					{'source': host, 'quality': q, 'language': lang, 'url': link, 'info': info, 'direct': False,
 					 'debridonly': False})

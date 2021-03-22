@@ -6,7 +6,8 @@ import traceback
 from resources.lib.modules import cleantitle, debrid, source_utils, workers
 from resources.lib.modules import client2 as client, dom_parser2 as dom
 from resources.lib.modules import log_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import rd_check
+from resources.lib.modules import control
 
 
 class source:
@@ -18,6 +19,7 @@ class source:
         self.tvsearch = 'https://1337x.to/sort-category-search/%s/TV/seeders/desc/1/'
         self.moviesearch = 'https://1337x.to/sort-category-search/%s/Movies/seeders/desc/1/'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -93,8 +95,7 @@ class source:
 
     def _get_items(self, url):
         try:
-            headers = {'User-Agent': client.agent()}
-            r = client.request(url, headers=headers)
+            r = client.request(url, headers=self.headers)
             posts = client.parseDOM(r, 'tbody')[0]
             posts = client.parseDOM(posts, 'tr')
             for post in posts:
@@ -127,7 +128,7 @@ class source:
             name = item[0]
             quality, info = source_utils.get_release_quality(item[1], name)
             info.append(item[2])
-            data = client.request(item[1])
+            data = client.request(item[1], headers=self.headers)
             seeders = re.compile('<span class="seeds">(.+?)</span>').findall(data)[0]
             if self.min_seeders > int(seeders):
                 raise Exception()

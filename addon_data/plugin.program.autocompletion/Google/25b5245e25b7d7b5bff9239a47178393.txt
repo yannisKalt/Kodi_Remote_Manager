@@ -1,1 +1,1 @@
-["http://fu", ["http://fusion.tvaddons.co", "http://fundoshouhu.szkct.cn/download/app/funrun/download_app.html", "http://fusion.tvaddons.ag/", "http://futurecow.com", "futbol ahora", "http //fusion.tvaddons.ag not working", "http://full-games.org", "http //fusion.tvaddons.ag unable to connect", "http://futbolahora.net/liga-mx-en-vivo", "http://full-games.org/bus-simulator-18-full-pc-game-download-install/"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["http://fu", [], [], {"google:suggesttype": []}]

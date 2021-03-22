@@ -7,7 +7,9 @@
     Originally created by others.
 """
 import requests, json, sys
-from resources.lib.modules import source_utils, cleantitle, control
+from resources.lib.modules import source_utils
+from resources.lib.modules import cleantitle
+from resources.lib.modules import control
 
 
 class source:

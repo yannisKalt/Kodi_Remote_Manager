@@ -5,12 +5,13 @@
 
 ### About
 
-Search and download subtitles from subtitles.gr, xsubs.tv and subztv.gr
+Search and download subtitles from the following domains:
 
-Kodi Addon for http://www.subtitles.gr/, http://xsubs.tv/ and https://subz.xyz/
+- Subtitles.gr
+- Xsubs.tv
+- Podnapisi.net
 
-This service is not published nor endorsed by subtitles.gr, xsubs.tv and subz.xyz
-
+This service is not published nor endorsed by the above mentioned domains
 
 ### Artwork
 

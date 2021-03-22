@@ -4,8 +4,12 @@
 import re,urllib,urlparse
 import traceback
 from resources.lib.modules import log_utils
-from resources.lib.modules import cleantitle,client,control,debrid,source_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import cleantitle
+from resources.lib.modules import client
+from resources.lib.modules import control
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import rd_check
 
 
 class source:
@@ -13,9 +17,10 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['yts.am']
-        self.base_link = 'https://yts.lt/'
+        self.base_link = 'https://yts.mx/'
         self.search_link = 'browse-movies/%s/all/all/0/latest'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -38,7 +43,7 @@ class source:
             query = '%s %s' % (data['title'], data['year'])
             url = self.search_link % urllib.quote(query)
             url = urlparse.urljoin(self.base_link, url)
-            html = client.request(url)
+            html = client.request(url, headers=self.headers)
             try:
                 results = client.parseDOM(html, 'div', attrs={'class': 'row'})[2]
             except:
@@ -58,7 +63,7 @@ class source:
                     y = entry[-4:]
                     if not y == data['year']:
                         continue
-                    response = client.request(link)
+                    response = client.request(link, headers=self.headers)
                     try:
                         entries = client.parseDOM(response, 'div', attrs={'class': 'modal-torrent'})
                         for torrent in entries:

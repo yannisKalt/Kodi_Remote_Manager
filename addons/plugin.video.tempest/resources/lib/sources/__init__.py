@@ -7,7 +7,7 @@ from resources.lib.modules import log_utils
 
 try:
     from resources.lib.modules import cfscrape
-    cfscrape = cfscrape.create_scraper()
+    cfscrape = cfscrape.create_scraper(delay=5)
 except:
     pass
 

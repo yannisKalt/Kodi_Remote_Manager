@@ -25,13 +25,14 @@
 
 import re
 import unicodedata
+from six import ensure_str, ensure_text
 
 
 def get(title):
     if title is None:
         return
     try:
-        title = title.encode('utf-8')
+        title = ensure_str(title)
     except:
         pass
     title = str(title)
@@ -46,7 +47,7 @@ def get_title(title):
     if title is None:
         return
     try:
-        title = title.encode('utf-8')
+        title = ensure_str(title)
     except:
         pass
     title = str(title)
@@ -127,10 +128,10 @@ def normalize(title):
 
     try:
         try:
-            return title.decode('ascii').encode("utf-8")
+            return ensure_text(control.six_decode(title, char='ascii'))
         except:
             pass
 
-        return str(''.join(c for c in unicodedata.normalize('NFKD', unicode(title.decode('utf-8'))) if unicodedata.category(c) != 'Mn'))
+        return str(''.join(c for c in unicodedata.normalize('NFKD', ensure_text(control.six_decode(title))) if unicodedata.category(c) != 'Mn'))
     except:
         return title

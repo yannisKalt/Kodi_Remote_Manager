@@ -17,6 +17,8 @@
     <setting id="debrid.only" value="" />
     <setting id="debug.location" value="1" />
     <setting id="downloads" value="false" />
+    <setting id="easynews.password" value="" />
+    <setting id="easynews.user" value="" />
     <setting id="fanart" value="true" />
     <setting id="fanart.tv.user" value="" />
     <setting id="flatten.tvshows" value="false" />
@@ -46,7 +48,7 @@
     <setting id="library.tv" value="special://userdata/addon_data/plugin.video.thecrew/TVShows" />
     <setting id="library.update" value="true" />
     <setting id="lists.widget" value="1" />
-    <setting id="module_base" value="0.0.70b" />
+    <setting id="module_base" value="0.0.99b" />
     <setting id="movie.download.path" value="" />
     <setting id="movie.widget" value="1" />
     <setting id="navi.1clicks" value="true" />
@@ -54,6 +56,7 @@
     <setting id="navi.absolution" value="true" />
     <setting id="navi.add_addons" value="true" />
     <setting id="navi.applet" value="true" />
+    <setting id="navi.base" value="true" />
     <setting id="navi.collections" value="true" />
     <setting id="navi.disney" value="true" />
     <setting id="navi.disneym" value="true" />
@@ -65,6 +68,7 @@
     <setting id="navi.imdblist" value="true" />
     <setting id="navi.iptv" value="true" />
     <setting id="navi.kids" value="true" />
+    <setting id="navi.kidsgrey" value="true" />
     <setting id="navi.magnets" value="true" />
     <setting id="navi.movieboxoffice" value="true" />
     <setting id="navi.moviecerts" value="true" />
@@ -102,6 +106,7 @@
     <setting id="navi.tvTrending" value="true" />
     <setting id="navi.tvViews" value="true" />
     <setting id="navi.tvshows" value="true" />
+    <setting id="navi.waste" value="true" />
     <setting id="page.item.limit" value="20" />
     <setting id="personal.list" value="https://" />
     <setting id="preemptive.limit" value="10" />
@@ -133,6 +138,7 @@
     <setting id="provider.cinemay" value="true" />
     <setting id="provider.cmovieshd" value="true" />
     <setting id="provider.coolmoviezone" value="true" />
+    <setting id="provider.crazyhdsource" value="true" />
     <setting id="provider.ddlspot" value="true" />
     <setting id="provider.digbt" value="true" />
     <setting id="provider.divxcrawler" value="true" />
@@ -142,6 +148,7 @@
     <setting id="provider.dramabus" value="true" />
     <setting id="provider.dramacool" value="true" />
     <setting id="provider.dramafire" value="true" />
+    <setting id="provider.easynews" value="true" />
     <setting id="provider.ettv" value="true" />
     <setting id="provider.exfs" value="true" />
     <setting id="provider.extramovies" value="true" />
@@ -164,6 +171,7 @@
     <setting id="provider.gowatchseries" value="true" />
     <setting id="provider.hdmto" value="true" />
     <setting id="provider.hdpopcorneu" value="true" />
+    <setting id="provider.ibit" value="true" />
     <setting id="provider.idope" value="true" />
     <setting id="provider.iheartdrama" value="true" />
     <setting id="provider.ikshow" value="true" />
@@ -220,6 +228,7 @@
     <setting id="provider.torlock" value="true" />
     <setting id="provider.torrentapi" value="true" />
     <setting id="provider.torrentdownloads" value="true" />
+    <setting id="provider.torrentfunk" value="true" />
     <setting id="provider.torrentgalaxy" value="true" />
     <setting id="provider.torrentquest" value="true" />
     <setting id="provider.torrentz" value="true" />
@@ -231,7 +240,10 @@
     <setting id="provider.warezmovies" value="true" />
     <setting id="provider.watch32" value="true" />
     <setting id="provider.watchepisodes" value="true" />
+    <setting id="provider.watchseries" value="true" />
+    <setting id="provider.watchserieshd" value="true" />
     <setting id="provider.watchseriesru" value="true" />
+    <setting id="provider.watchseriestv" value="true" />
     <setting id="provider.wsunblock" value="true" />
     <setting id="provider.xrysoi" value="true" />
     <setting id="provider.xwatchseries" value="true" />

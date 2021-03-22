@@ -1,41 +1,19 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Subtitles.gr
+    Subtitles.gr Addon
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
-import sys
 from random import choice
 from os.path import split as os_split
 from tulip import control
-from tulip.compat import parse_qsl
-
-syshandle = int(sys.argv[1])
-sysaddon = sys.argv[0]
-params = dict(parse_qsl(sys.argv[2].replace('?', '')))
-
-action = params.get('action')
-source = params.get('source')
-url = params.get('url')
-query = params.get('searchstring')
-langs = params.get('languages')
 
 
-def multichoice(filenames):
+def multichoice(filenames, allow_random=False):
 
     if filenames is None or len(filenames) == 0:
 
@@ -43,21 +21,36 @@ def multichoice(filenames):
 
     elif len(filenames) >= 1:
 
+        if allow_random:
+            length = len(filenames) + 1
+        else:
+            length = len(filenames)
+
         if len(filenames) == 1:
             return filenames[0]
 
         choices = [os_split(i)[1] for i in filenames]
 
-        choices.insert(0, control.lang(32215))
+        if allow_random:
+            choices.insert(0, control.lang(30215))
 
-        _choice = control.selectDialog(heading=control.lang(32214), list=choices)
+        _choice = control.selectDialog(heading=control.lang(30214), list=choices)
 
         if _choice == 0:
-            filename = choice(filenames)
-        elif _choice != -1 and _choice <= len(filenames) + 1:
-            filename = filenames[_choice - 1]
+            if allow_random:
+                filename = choice(filenames)
+            else:
+                filename = filenames[0]
+        elif _choice != -1 and _choice <= length:
+            if allow_random:
+                filename = filenames[_choice - 1]
+            else:
+                filename = filenames[_choice]
         else:
-            filename = choice(filenames)
+            if allow_random:
+                filename = choice(filenames)
+            else:
+                return
 
         return filename
 

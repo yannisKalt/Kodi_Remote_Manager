@@ -179,13 +179,13 @@
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
 			<thumb />
-			<property name="labelID">plugin.video.dailymotion_com</property>
+			<property name="labelID">plugin.video.youtube/kodion/search/list/</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.dailymotion_com",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.dailymotion_com",return)</property>
-			<property name="list">plugin://plugin.video.dailymotion_com</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.youtube/kodion/search/list/",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.youtube/kodion/search/list/",return)</property>
+			<property name="list">plugin://plugin.video.youtube/kodion/search/list/</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
-			<property name="submenuVisibility">plugin-video-dailymotion-com</property>
+			<property name="submenuVisibility">plugin-video-youtube-kodion-search-list</property>
 			<property name="group">mainmenu</property>
 			<property name="hasSubmenu">False</property>
 		</item>
@@ -277,9 +277,9 @@
 			<thumb />
 			<property name="labelID">18</property>
 			<property name="defaultID" />
-			<onclick>ActivateWindow(Videos,"plugin://plugin.video.adulthideout/?url=http%3A%2F%2Fwww.youjizz.com%2Fnewest-clips%2F1.html&amp;mode=2&amp;name=YouJizz+%5BCOLOR+yellow%5D+Videos%5B%2FCOLOR%5D&amp;iconimage=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.adulthideout%2Flogos%5Cyoujizz.png",return)</onclick>
-			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.adulthideout/?url=http%3A%2F%2Fwww.youjizz.com%2Fnewest-clips%2F1.html&amp;mode=2&amp;name=YouJizz+%5BCOLOR+yellow%5D+Videos%5B%2FCOLOR%5D&amp;iconimage=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.adulthideout%2Flogos%5Cyoujizz.png",return)</property>
-			<property name="list">plugin://plugin.video.adulthideout/?url=http%3A%2F%2Fwww.youjizz.com%2Fnewest-clips%2F1.html&amp;mode=2&amp;name=YouJizz+%5BCOLOR+yellow%5D+Videos%5B%2FCOLOR%5D&amp;iconimage=%2Fstorage%2F.kodi%2Faddons%2Fplugin.video.adulthideout%2Flogos%5Cyoujizz.png</property>
+			<onclick>ActivateWindow(Videos,"plugin://plugin.video.uwc/?url=&amp;mode=1&amp;page=&amp;channel=None&amp;section=None&amp;keyword=&amp;name=%5BCOLOR+hotpink%5DWhitecream%5B%2FCOLOR%5D+%5BCOLOR+white%5DScenes%5B%2FCOLOR%5D",return)</onclick>
+			<property name="path">ActivateWindow(Videos,"plugin://plugin.video.uwc/?url=&amp;mode=1&amp;page=&amp;channel=None&amp;section=None&amp;keyword=&amp;name=%5BCOLOR+hotpink%5DWhitecream%5B%2FCOLOR%5D+%5BCOLOR+white%5DScenes%5B%2FCOLOR%5D",return)</property>
+			<property name="list">plugin://plugin.video.uwc/?url=&amp;mode=1&amp;page=&amp;channel=None&amp;section=None&amp;keyword=&amp;name=%5BCOLOR+hotpink%5DWhitecream%5B%2FCOLOR%5D+%5BCOLOR+white%5DScenes%5B%2FCOLOR%5D</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
 			<property name="submenuVisibility">num-18</property>
 			<property name="group">mainmenu</property>
@@ -1218,10 +1218,10 @@
 	<include name="skinshortcuts-group-alt-plugin-video-tempest">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-plugin-video-dailymotion-com">
+	<include name="skinshortcuts-group-plugin-video-youtube-kodion-search-list">
 		<description>No items</description>
 	</include>
-	<include name="skinshortcuts-group-alt-plugin-video-dailymotion-com">
+	<include name="skinshortcuts-group-alt-plugin-video-youtube-kodion-search-list">
 		<description>No items</description>
 	</include>
 	<include name="skinshortcuts-group-worldchannels">

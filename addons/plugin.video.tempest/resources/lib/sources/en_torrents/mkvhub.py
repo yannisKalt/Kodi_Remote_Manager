@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-
-'''
-Sent to me by email
-'''
+"""
+    **Sent to me by email**
+"""
 
 import re
 import urllib
@@ -13,17 +12,20 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import source_utils
 from resources.lib.modules import dom_parser
-from resources.lib.modules import workers, debrid
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import workers
+from resources.lib.modules import debrid
+from resources.lib.modules import rd_check
+from resources.lib.modules import control
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['www.mkvhub.com']
-        self.base_link = 'https://www.mkvhub.com'
+        self.domains = ['www.mkvhub.net', 'www.mkvhub.com']
+        self.base_link = 'https://www.mkvhub.net'
         self.search_link = '/?s=%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -67,15 +69,13 @@ class source:
 
             hdlr = 'S%02dE%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
 
-            query = '%s S%02dE%02d' % (data['tvshowtitle'], int(data['season']),
-                int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (
-                data['title'], data['year'])
+            query = '%s S%02dE%02d' % (data['tvshowtitle'], int(data['season']),  int(data['episode'])) if 'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
 
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
 
-            r = client.request(url)
+            r = client.request(url, headers=self.headers)
 
             posts = client.parseDOM(r, 'figure')
 
@@ -135,7 +135,7 @@ class source:
     def _get_sources(self, url, quality, info, hostDict, hostprDict):
         urls = []
 
-        result = client.request(url)
+        result = client.request(url, headers=self.headers)
 
         urls = [(client.parseDOM(result, 'a', ret='href', attrs={'class': 'dbuttn watch'})[0],
                 client.parseDOM(result, 'a', ret='href', attrs={'class': 'dbuttn blue'})[0],
@@ -143,7 +143,7 @@ class source:
 
         for url in urls[0]:
             try:
-                r = client.request(url)
+                r = client.request(url, headers={'User-Agent': client.agent()})
 
                 if 'linkomark' in url:
                     p_link = dom_parser.parse_dom(r, 'link', {'rel': 'canonical'},  req='href')[0]
@@ -151,7 +151,7 @@ class source:
                     input_name = client.parseDOM(r, 'input', ret='name')[0]
                     input_value = client.parseDOM(r, 'input', ret='value')[0]
                     post = {input_name: input_value}
-                    p_data = client.request(p_link, post=post)
+                    p_data = client.request(p_link, post=post, headers=self.headers)
                     links = client.parseDOM(p_data, 'a', ret='href', attrs={'target': '_blank'})
 
                     for i in links:

@@ -1,0 +1,1 @@
+["http://fusion.tvaddos.", ["http //fusion.tvaddos.com", "http //fusion.tvaddos.net"], [], {"google:suggestsubtypes": [[160], [160]], "google:suggesttype": ["TAIL", "TAIL"]}]

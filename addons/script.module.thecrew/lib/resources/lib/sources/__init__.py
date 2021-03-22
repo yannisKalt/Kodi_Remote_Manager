@@ -40,7 +40,7 @@ def sources():
 
                 try:
                     module = loader.find_module(module_name).load_module(module_name)
-                    sourceDict.append((module_name, module.source()))
+                    sourceDict.append((module_name, module.s0urce()))
                 except Exception as e:
                     log_utils.log('Could not load "%s": %s' % (module_name, e), log_utils.LOGDEBUG)
         return sourceDict

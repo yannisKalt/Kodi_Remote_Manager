@@ -15,9 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
 import xbmc
-import urllib,urlparse,re,os,requests,zipfile, StringIO, urllib2
+import urllib, urlparse, re, os, requests
 from resources.modules import client
 from resources.modules import control
 
@@ -25,25 +24,24 @@ from resources.modules import control
 class s4f:
     def __init__(self):
         self.list = []
-        self.base_link = 'https://www.sf4-industry.com/'
-        self.base_TVlink = 'https://www.subs4series.com/'
+        self.base_link = 'https://www.sf4-industry.com'
+        self.base_TVlink = 'https://www.subs4series.com'
         self.search = 'search_report.php?search=%s&searchType=1'
 
-
     def get(self, query):
-
         try:
             query, imdb = query.split('/imdb=')
-            match = re.findall('^(?P<title>.+)[\s+\(|\s+](?P<year>\d{4})', query)
+            match = re.findall(r'^(?P<title>.+)[\s+\(|\s+](?P<year>\d{4})', query)
             # xbmc.log('$#$MATCH-S4F: %s' % match, xbmc.LOGNOTICE)
 
             if len(match) > 0:
-                hdr = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
-                       'Referer': 'https://www.subs4free.info/'}
+                hdr = {
+                    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
+                    'Referer': 'https://www.subs4free.info/'}
 
                 title, year = match[0][0], match[0][1]
 
-                query = urllib.quote_plus('%s %s' % (title, year))
+                query = urllib.quote_plus('{} {}'.format(title, year))
 
                 url = urlparse.urljoin(self.base_link, self.search % query)
 
@@ -51,29 +49,33 @@ class s4f:
                 cj = req.cookies
                 r = req.content
                 r = re.sub(r'[^\x00-\x7F]+', ' ', r)
+                # xbmc.log('$#$HTML: %s' % r, xbmc.LOGNOTICE)
 
-                urls = client.parseDOM(r, 'div', attrs={'class': ' seeDark'})
-                urls += client.parseDOM(r, 'div', attrs={'class': ' seeMedium'})
-                #xbmc.log('$#$URLS-start: %s' % urls, xbmc.LOGNOTICE)
-                urls = [i for i in urls if '/el.gif' in i]
-                urls = [(client.parseDOM(i, 'tr')[0], re.findall('<B>(\d+)</B>DLs', i, re.I)[0]) for i in urls if i]
-                urls = [(client.parseDOM(i[0], 'a', ret='href')[0],
-                         client.parseDOM(i[0], 'a', ret='title')[0], i[1]) for i in urls if i]
+                urls = client.parseDOM(r, 'div', attrs={'class': 'movie-download'})
+                # urls += client.parseDOM(r, 'div', attrs={'class': ' seeMedium'})
+                # xbmc.log('$#$URLS-start: %s' % urls, xbmc.LOGNOTICE)
+                urls = [i for i in urls if '/greek-sub' in i]
+                # urls = [(client.parseDOM(i, 'tr')[0], re.findall(r'<b>(\d+)</b>DLs', i, re.I)[0]) for i in urls if i]
+                urls = [(client.parseDOM(i, 'a', ret='href')[0],
+                         client.parseDOM(i, 'a', ret='title')[0],
+                         re.findall(r'<b>(\d+)</b>DLs', i, re.I)[0]) for i in urls if i]
+                # xbmc.log('$#$URLS: %s' % urls, xbmc.LOGNOTICE)
                 urls = [(urlparse.urljoin(self.base_link, i[0]), i[1].split('for ', 1)[1],
                          i[2]) for i in urls if i]
                 urls = [(i[0], i[1], i[2]) for i in urls if i]
-                #xbmc.log('$#$URLS: %s' % urls, xbmc.LOGNOTICE)
+                # xbmc.log('$#$URLS: %s' % urls, xbmc.LOGNOTICE)
 
 
             else:
-                hdr = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
-                       'Referer':'https://www.subs4series.com/'}
-                title, hdlr = re.findall('^(?P<title>.+)\s+(?P<hdlr>S\d+E\d+)', query, re.I)[0]
-                xbmc.log('$#$MATCH-S4F: %s | %s' % (title, hdlr), xbmc.LOGNOTICE)
+                hdr = {
+                    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
+                    'Referer': 'https://www.subs4series.com/'}
+                title, hdlr = re.findall(r'^(?P<title>.+)\s+(?P<hdlr>S\d+E\d+)', query, re.I)[0]
+                # xbmc.log('$#$MATCH-S4F: %s | %s' % (title, hdlr), xbmc.LOGNOTICE)
 
-                #hdlr = 'S%02dE%02d' % (int(season), int(episode))
+                # hdlr = 'S%02dE%02d' % (int(season), int(episode))
 
-                query = urllib.quote('%s %s' % (title, hdlr))
+                query = urllib.quote('{} {}'.format(title, hdlr))
 
                 url = urlparse.urljoin(self.base_TVlink, self.search % query)
 
@@ -82,12 +84,12 @@ class s4f:
                 cj = req.cookies
                 r = req.content
                 r = re.sub(r'[^\x00-\x7F]+', ' ', r)
-                #xbmc.log('@@URL:%s' % r)
+                # xbmc.log('@@URL:%s' % r)
 
                 urls = client.parseDOM(r, 'div', attrs={'class': ' seeDark'})
                 urls += client.parseDOM(r, 'div', attrs={'class': ' seeMedium'})
                 urls = [i for i in urls if not '/en.gif' in i]
-                urls = [(client.parseDOM(i, 'tr')[0], re.findall('<B>(\d+)</B>DLs', i, re.I)[0]) for i in urls if i]
+                urls = [(client.parseDOM(i, 'tr')[0], re.findall(r'<B>(\d+)</B>DLs', i, re.I)[0]) for i in urls if i]
                 urls = [(client.parseDOM(i[0], 'a', ret='href')[0],
                          client.parseDOM(i[0], 'a', ret='title')[0], i[1]) for i in urls if i]
                 urls = [(urlparse.urljoin(self.base_TVlink, i[0]), re.sub('Greek subtitle[s] for ', '', i[1]),
@@ -108,13 +110,12 @@ class s4f:
                 url = client.replaceHTMLCodes(url)
                 url = url.encode('utf-8')
 
-                self.list.append({'name': name, 'url': '%s|%s|%s' % (url, cj['PHPSESSID'], cj['__cfduid']),
+                self.list.append({'name': name, 'url': '{}|{}|{}'.format(url, cj['PHPSESSID'], cj['__cfduid']),
                                   'source': 's4f', 'rating': rating})
             except BaseException:
                 pass
 
         return self.list
-
 
     def _rating(self, downloads):
 
@@ -141,42 +142,55 @@ class s4f:
         try:
             url, php, cfd = url.split('|')
             if 'subs4series' in url:
-                headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
-                           'Referer': url,
-                           'Origin': 'https://www.subs4series.com/'}
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
+                    'Referer': url,
+                    'Origin': 'https://www.subs4series.com/'}
                 cj = {'PHPSESSID': php,
                       '__cfduid': cfd}
 
                 r = requests.get(url, headers=headers, cookies=cj).content
                 r = re.sub(r'[^\x00-\x7F]+', ' ', r)
+                # xbmc.log('@@HTML:%s' % r)
 
-                pos = re.findall('\/(getSub-\w+\.html)', r, re.I|re.DOTALL)[0]
+                pos = re.findall(r'\/(getSub-\w+\.html)', r, re.I | re.DOTALL)[0]
+                # xbmc.log('@@POSSSSS:%s' % pos)
                 post_url = urlparse.urljoin(self.base_TVlink, pos)
+                # xbmc.log('@@POStttt:%s' % post_url)
                 r = requests.get(post_url, headers=headers, cookies=cj)
-                result = r.content
                 surl = r.url
+                result = client.request(surl)
+
 
             else:
-                headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
-                           'Referer': url,
-                           'Origin': 'https://www.sf4-industry.com'}
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3',
+                    'Referer': url,
+                    'Origin': 'https://www.sf4-industry.com'}
                 cj = {'PHPSESSID': php,
                       '__cfduid': cfd}
-                post_url = 'https://www.sf4-industry.com/getSub.html'
+                post_url = 'https://www.sf4-industry.com/getSub.php'
 
-                r = requests.get(url, headers=headers, cookies=cj).content
+                r = requests.get(url, headers=headers, cookies=cj).text
                 r = re.sub(r'[^\x00-\x7F]+', ' ', r)
-                #pos = client.parseDOM(r, 'tr', attrs={'class':'stylepps'})[0]
-                pos = re.findall('getSub-(\w+)\.html', r, re.I | re.DOTALL)[0]
+                # xbmc.log('@@HTMLLL:%s' % r)
+                pos = client.parseDOM(r, 'div', attrs={'class': 'download-btn'})[0]
+                pos = client.parseDOM(pos, 'input', ret='value', attrs={'name': 'id'})[0]
+                # pos = re.findall(r'getSub-(\w+)\.html', r, re.I | re.DOTALL)[0]
                 post = {'id': pos,
                         'x': '107',
                         'y': '35'}
 
                 r = requests.post(post_url, headers=headers, data=post, cookies=cj)
-                result = r.content
+                # surl = r.headers['Location']
                 surl = r.url
+                result = client.request(surl)
+                # surl = self.base_link + surl if surl.startswith('/') else surl
 
             f = os.path.join(path, surl.rpartition('/')[2])
+            if f.lower().endswith('.rar') and not control.condVisibility('system.platform.osx'):
+                return control.okDialog('GreekSubs', 'Το αρχείο υποτίτλου είναι σε μορφή rar\n και δεν μπορεί να ληφθεί.\n'
+                                        'Δοκιμάστε άλλον υπότιτλο!')
 
             with open(f, 'wb') as subFile:
                 subFile.write(result)
@@ -187,17 +201,19 @@ class s4f:
                 return
 
             if not f.lower().endswith('.rar'):
-                control.execute('Extract("%s","%s")' % (f, path))
+                control.execute('Extract("{}","{}")'.format(f, path))
 
-            if control.infoLabel('System.Platform.Windows'):
+            if control.condVisibility('system.platform.windows'):
                 conversion = urllib.quote
             else:
                 conversion = urllib.quote_plus
 
             if f.lower().endswith('.rar'):
-
-                uri = "rar://{0}/".format(conversion(f))
-                dirs, files = control.listDir(uri)
+                if control.condVisibility('system.platform.osx'):
+                    uri = "rar://{0}/".format(conversion(f))
+                    dirs, files = control.listDir(uri)
+                else:
+                    return
 
             else:
 
@@ -213,16 +229,28 @@ class s4f:
                     except BaseException:
                         pass
 
-            filename = [i for i in files if any(i.endswith(x) for x in ['.srt', '.sub'])][0].decode('utf-8')
+            filenames = [i for i in files if any(i.endswith(x) for x in ['.srt', '.sub'])]
+
+            if len(filenames) == 1:
+                filename = filenames[0]
+            else:
+                filename = multichoice(filenames)
+
+            try:
+                filename = filename.decode('utf-8')
+            except BaseException:
+                pass
+
             subtitle = os.path.join(path, filename)
 
             if f.lower().endswith('.rar'):
 
-                content = control.openFile(uri + filename).read()
+                content = control.openFile(path + filename).read()
 
-                with open(subtitle, 'wb') as subFile:
+                with open(subtitle, 'w') as subFile:
                     subFile.write(content)
 
+                control.deleteFile(f)
                 return subtitle
 
             else:
@@ -231,3 +259,50 @@ class s4f:
 
         except BaseException:
             pass
+
+
+def multichoice(filenames, allow_random=False):
+    from random import choice
+    from os.path import split as os_split
+    if filenames is None or len(filenames) == 0:
+
+        return
+
+    elif len(filenames) >= 1:
+
+        if allow_random:
+            length = len(filenames) + 1
+        else:
+            length = len(filenames)
+
+        if len(filenames) == 1:
+            return filenames[0]
+
+        choices = [os_split(i)[1] for i in filenames]
+
+        if allow_random:
+            choices.insert(0, control.lang(32215))
+
+        _choice = control.selectDialog(heading=control.lang(32214), list=choices)
+
+        if _choice == 0:
+            if allow_random:
+                filename = choice(filenames)
+            else:
+                filename = filenames[0]
+        elif _choice != -1 and _choice <= length:
+            if allow_random:
+                filename = filenames[_choice - 1]
+            else:
+                filename = filenames[_choice]
+        else:
+            if allow_random:
+                filename = choice(filenames)
+            else:
+                return
+
+        return filename
+
+    else:
+
+        return

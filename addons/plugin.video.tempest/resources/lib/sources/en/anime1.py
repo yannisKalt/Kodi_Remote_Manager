@@ -2,7 +2,8 @@
 # -Cleaned and Checked on 10-16-2019 by JewBMX in Scrubs.
 
 import re
-from resources.lib.modules import client
+import traceback
+from resources.lib.modules import client,  log_utils
 from resources.lib.modules import source_utils
 from resources.lib.modules import tvmaze
 
@@ -30,7 +31,7 @@ class source:
             if not url:
                 return
             num = self.tv_maze.episodeAbsoluteNumber(tvdb, int(season), int(episode))
-            url = self.base_link + self.show_link %(url.lower(), num)
+            url = self.base_link + self.show_link % (url.lower(), num)
             return url
         except:
             return
@@ -49,7 +50,9 @@ class source:
                     {'source': 'Direct', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
                      'direct': True, 'debridonly': False})
             return sources
-        except:
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---ANIME1 Testing - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

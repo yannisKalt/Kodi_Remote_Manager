@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# -Cleaned and Checked on 04-14-2020 by Tempest.
 
 import re
 import urllib
@@ -7,11 +7,12 @@ import urlparse
 import json
 import base64
 import time
-
-from resources.lib.modules import cleantitle
+import traceback
 from resources.lib.modules import client
+from resources.lib.modules import log_utils
+from resources.lib.modules import cleantitle
 from resources.lib.modules import directstream
-from resources.lib.modules import source_utils
+from resources.lib.modules import scrape_source
 
 
 class source:
@@ -19,7 +20,7 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['cartoonhd.care']
-        self.base_link = 'https://ww3.cartoonhd.com'
+        self.base_link = 'https://cartoonhd.app'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -56,7 +57,7 @@ class source:
             for alias in aliases:
                 url = '%s/show/%s/season/%01d/episode/%01d' % (self.base_link, cleantitle.geturl(title), int(season), int(episode))
                 url = client.request(url, headers=headers, output='geturl', timeout='10')
-                if not url is None and url != self.base_link:
+                if url is not None and url != self.base_link:
                     break
             return url
         except:
@@ -83,6 +84,7 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
+            items = []
 
             if url is None:
                 return sources
@@ -127,7 +129,7 @@ class source:
             headers['Referer'] = url
 
             u = '/ajax/vsozrflxcw.php'
-            self.base_link = client.request(self.base_link, headers=headers, output='geturl')
+            self.base_link = client.request(self.base_link, headers={'User-Agent': client.agent()}, output='geturl')
             u = urlparse.urljoin(self.base_link, u)
 
             action = 'getEpisodeEmb' if '/episode/' in url else 'getMovieEmb'
@@ -149,46 +151,18 @@ class source:
             r = re.findall('\'(http.+?)\'', r) + re.findall('\"(http.+?)\"', r)
 
             for i in r:
-                try:
-                    if 'google' in i:
-                        quality = 'SD'
+                if 'Season' in i:
+                    i = i.split(' - Season')[0]
+                if 'vidnode.net' in i:
+                    i = i.replace('vidnode.net', 'vidcloud9.com')
+                for source in scrape_source.getMore(i, hostDict):
+                    sources.append(source)
 
-                        if 'googleapis' in i:
-                            try:
-                                quality = source_utils.check_sd_url(i)
-                            except Exception:
-                                pass
 
-                        if 'googleusercontent' in i:
-                            i = directstream.googleproxy(i)
-                            try:
-                                quality = directstream.googletag(i)[0]['quality']
-                            except Exception:
-                                pass
-
-                        sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en', 'url': i,
-                                        'direct': True, 'debridonly': False})
-
-                    elif 'llnwi.net' in i or 'vidcdn.pro' in i:
-                        try:
-                            quality = source_utils.check_sd_url(i)
-
-                            sources.append({'source': 'CDN', 'quality': quality, 'language': 'en', 'url': i,
-                                            'direct': True, 'debridonly': False})
-
-                        except Exception:
-                            pass
-                    else:
-                        valid, hoster = source_utils.is_host_valid(i, hostDict)
-                        if not valid:
-                            continue
-
-                        sources.append({'source': hoster, 'quality': '720p', 'language': 'en', 'url': i,
-                                        'direct': False, 'debridonly': False})
-                except Exception:
-                    pass
             return sources
-        except:
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---CARTOONHD Testing - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

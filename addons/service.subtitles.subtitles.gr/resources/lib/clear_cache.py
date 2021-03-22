@@ -1,23 +1,46 @@
 # -*- coding: utf-8 -*-
 
 '''
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    Subtitles.gr Addon
+    Author Twilight0
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
 from xbmc import translatePath
-from xbmcvfs import delete
+from xbmcgui import Dialog
+
+try:
+    from sqlite3 import dbapi2 as database
+except ImportError:
+    from pysqlite2 import dbapi2 as database
+
+
+def action():
+
+    table = ['rel_list', 'rel_lib']
+
+    filename = translatePath('special://profile/addon_data/service.subtitles.subtitles.gr/cache.db')
+
+    dbcon = database.connect(filename)
+    dbcur = dbcon.cursor()
+
+    for t in table:
+
+        try:
+
+            dbcur.execute("DROP TABLE IF EXISTS {0}".format(t))
+            dbcur.execute("VACUUM")
+            dbcon.commit()
+
+        except BaseException:
+
+            pass
+
 
 if __name__ == '__main__':
 
-    delete(translatePath('special://profile/addon_data/service.subtitles.subtitles.gr/cache.db'))
+    action()
+
+    Dialog().notification('Subtitles.gr', 'OK', time=2, sound=False)

@@ -28,18 +28,9 @@
 import requests
 
 try:
-	import urlparse
-except:
-	import urllib.parse as urlparse
-try:
-	import HTMLParser
 	from HTMLParser import HTMLParser
 except:
 	from html.parser import HTMLParser
-try:
-	import urllib2
-except:
-	import urllib.request as urllib2
 
 from openscrapers.modules import source_utils
 from openscrapers.modules import cleantitle
@@ -116,7 +107,7 @@ class source:
 					info = self.get_lang_by_type(tabela[1])
 					quality = tabela[2]
 					if 'wysoka' in quality.lower():
-						quality = 'HD'
+						quality = '720p'
 					else:
 						quality = 'SD'
 					try:

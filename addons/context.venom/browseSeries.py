@@ -1,34 +1,27 @@
-import sys, xbmc, json
+# -*- coding: utf-8 -*-
 
-try:
+import sys
+import xbmc
+
+try: #Py2
 	from urlparse import parse_qsl
-	# from urllib import quote_plus
-except:
-	from urllib.parse import parse_qsl
-	# from urllib.parse import quote_plus
+	from urllib import quote_plus
+except ImportError: #Py3
+	from urllib.parse import parse_qsl, quote_plus
 
 if __name__ == '__main__':
 	item = sys.listitem
-	message = item.getLabel()
+	# message = item.getLabel()
 	path = item.getPath()
 	plugin = 'plugin://plugin.video.venom/'
 	args = path.split(plugin, 1)
-	# xbmc.log('args = %s' % args, 2)
 	params = dict(parse_qsl(args[1].replace('?', '')))
 
-	if 'meta' in params:
-		meta = json.loads(params['meta'])
-		year = meta.get('year', '')
-		imdb = meta.get('imdb', '')
-		tvdb = meta.get('tvdb', '')
-		tvshowtitle = meta.get('tvshowtitle', '')
+	year = params.get('year', '')
+	imdb = params.get('imdb', '')
+	tmdb = params.get('tmdb', '')
+	tvdb = params.get('tvdb', '')
+	tvshowtitle = params.get('tvshowtitle', '')
+	systvshowtitle = quote_plus(tvshowtitle)
 
-	else:
-		year = params.get('year', '')
-		imdb = params.get('imdb', '')
-		tvdb = params.get('tvdb', '')
-		tvshowtitle = params.get('tvshowtitle', '')
-
-	path = '%s?action=seasons&tvshowtitle=%s&year=%s&imdb=%s&tvdb=%s,return)' % (
-				plugin, tvshowtitle, year, imdb, tvdb)
-	xbmc.executebuiltin('ActivateWindow(Videos,%s)' % path)
+	xbmc.executebuiltin('ActivateWindow(Videos,plugin://plugin.video.venom/?action=seasons&tvshowtitle=%s&year=%s&imdb=%s&tmdb=%s&tvdb=%s,return)' % (systvshowtitle, year, imdb, tmdb, tvdb))

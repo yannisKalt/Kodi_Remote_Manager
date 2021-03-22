@@ -1,3 +1,30 @@
+[B]2.8.X[/B]
+- Replaced xbmc.python import with xbmc.addon for Matrix compatibility
+- New utils module
+- Updated user agent strings
+- Updated m3u8 modules
+- Various fixes & tweaks for Kodi 19
+
+[B]2.7.X[/B]
+- New cache functions (taken from ResolveURL and adapted)
+- Various other tweaks
+
+[B]2.6.X[/B]
+- Removed cloudflare related functions as they need too frequent updates
+- Improved parsers module
+- Added feed parser & thumbmaker into youtube module
+- Logging module tweaks
+- Updated user agents
+- Allow some modules to be used outside of Kodi as standalone ones
+- Allow nextitem to have title and/or name property
+- Add ability to clear all bookmarks at once
+- Add integer labels as optional parameters
+- Moved a few functions from client to other modules
+- Added the quote paths function, useful for non ascii characters in urls
+- Fix in url_dispatcher module
+- Added a few functions into control module
+- A few changes for Kodi 19+
+
 [B]2.5.X[/B]
 - Tweaks in client module (updated cfscrape & some minor other tweaks)
 - Added the parsers module

@@ -4,8 +4,13 @@
 
 import re,urllib,urlparse
 import traceback
-from resources.lib.modules import cache,cleantitle,client,control,debrid,source_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import cache
+from resources.lib.modules import cleantitle
+from resources.lib.modules import client
+from resources.lib.modules import control
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import rd_check
 from resources.lib.modules import log_utils
 
 
@@ -17,6 +22,7 @@ class source:
         self._base_link = None # Old  ['tpb.cool', 'thepiratebay.fail', 'openpirate.org', 'piratebay.icu', 'thepiratebay.fyi', 'thepirate.fun', 'thepiratebay.press']
         self.search_link = '/s/?q=%s&page=0&&video=on&orderby=99'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
 
     @property
@@ -78,7 +84,7 @@ class source:
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|<|>|\|)', ' ', query)
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
-            html = client.request(url)
+            html = client.request(url, headers=self.headers)
             html = html.replace('&nbsp;', ' ')
             try:
                 results = client.parseDOM(html, 'table', attrs={'id': 'searchResult'})[0]
@@ -92,7 +98,6 @@ class source:
                     try:
                         name = re.findall('class="detLink" title=".+?">(.+?)</a>', entry, re.DOTALL)[0]
                         name = client.replaceHTMLCodes(name)
-                        # t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name, flags=re.I)
                         if not cleantitle.get(title) in cleantitle.get(name):
                             continue
                     except:
@@ -131,7 +136,9 @@ class source:
                         sources.append(
                             {'source': 'Torrent', 'quality': quality, 'language': 'en', 'url': link,
                              'info': info, 'direct': False, 'debridonly': True})
-                except:
+                except Exception:
+                    failure = traceback.format_exc()
+                    log_utils.log('---Piratebay Testing - Exception: \n' + str(failure))
                     continue
             check = [i for i in sources if not i['quality'] == 'CAM']
             if check:
@@ -145,7 +152,7 @@ class source:
             for domain in self.domains:
                 try:
                     url = 'https://%s' % domain
-                    result = client.request(url, limit=1, timeout='10')
+                    result = client.request(url, headers=self.headers, limit=1, timeout='10')
                     result = re.findall('<input type="submit" title="(.+?)"', result, re.DOTALL)[0]
                     if result and 'Pirate Search' in result:
                         return url

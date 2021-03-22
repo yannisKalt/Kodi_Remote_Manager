@@ -1400,7 +1400,7 @@ class sources:
 
         self.hostprDict = ['1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to',
                            'uploadgig.com', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net',
-                           'uploadrocket.net', 'multiup.org']
+                           'uploadrocket.net', 'multiup.org', 'www.fembed.com']
 
         self.hostcapDict = ['openload.io', 'openload.co', 'oload.tv', 'oload.stream', 'oload.win', 'oload.download',
                             'oload.info', 'oload.icu', 'oload.fun', 'oload.life', 'openload.pw',

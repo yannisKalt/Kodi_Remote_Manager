@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 """
-Created by Tempest
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re,urllib,urlparse
@@ -10,7 +11,8 @@ from resources.lib.modules import log_utils
 from resources.lib.modules import client
 from resources.lib.modules import debrid
 from resources.lib.modules import source_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import rd_check
+from resources.lib.modules import control
 
 
 class source:
@@ -18,8 +20,9 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['yts.ws']
-        self.base_link = 'https://yts.ws'
+        self.base_link = 'https://yifyddl.co'
         self.search_link = '/movie/%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -42,7 +45,7 @@ class source:
             query = '%s %s' % (data['title'], data['year'])
             url = self.search_link % urllib.quote(query)
             url = urlparse.urljoin(self.base_link, url).replace('%20', '-').replace('%3A-','-')
-            html = client.request(url)
+            html = client.request(url, headers=self.headers)
             try:
                 results = client.parseDOM(html, 'div', attrs={'class': 'ava1'})
             except:

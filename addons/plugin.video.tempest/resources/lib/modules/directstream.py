@@ -265,3 +265,29 @@ def yandex(url):
         return url
     except:
         return
+
+
+def fastmedia(url):
+    try:
+        cookie = client.request(url, output='cookie')
+
+        r = client.request(url, cookie=cookie)
+        r = re.sub(r'[^\x00-\x7F]+', ' ', r)
+
+        sk = re.findall('"sk"\s*:\s*"([^"]+)', r)[0]
+
+        idstring = re.findall('"id"\s*:\s*"([^"]+)', r)[0]
+
+        idclient = binascii.b2a_hex(os.urandom(16))
+
+        post = {'idClient': idclient, 'version': '3.9.2', 'sk': sk, '_model.0': 'do-get-resource-url', 'id.0': idstring}
+        post = urllib.urlencode(post)
+
+        r = client.request('https://yadi.sk/models/?_m=do-get-resource-url', post=post, cookie=cookie)
+        r = json.loads(r)
+
+        url = r['models'][0]['data']['file']
+
+        return url
+    except:
+        return

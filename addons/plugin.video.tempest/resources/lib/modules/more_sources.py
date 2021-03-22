@@ -10,7 +10,7 @@ def more_rapidvideo(link, hostDict, lang, info):
     if "rapidvideo.com" in link:
         sources = []
         try:
-            headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3555.0 Safari/537.36"}
+            headers = {'User-Agent': client.agent()}
             response = requests.get(link, headers=headers).content
             test = re.findall("""(https:\/\/www.rapidvideo.com\/e\/.*)">""", response)
             numGroups = len(test)
@@ -30,7 +30,7 @@ def more_vidnode(link, hostDict):
         sources = []  # By Shellc0de
         try:
             headers = {'Host': 'vidnode.net',
-                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36',
+                   'User-Agent': client.agent(),
                    'Upgrade-Insecure-Requests': '1',
                    'Accept-Language': 'en-US,en;q=0.9'
             }
@@ -52,7 +52,7 @@ def more_vidlink(link, hostDict):
     if "vidlink.org" in link:
         sources = []  # By Shellc0de
         try:
-            ua = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            ua = {'User-Agent': client.agent()}
             postID = link.split('/embed/')[1]
             post_link = 'https://vidlink.org/embed/update_views'
             payload = {'postID': postID}
@@ -69,7 +69,7 @@ def more_vidlink(link, hostDict):
                 pass
             links = re.findall(r'var file1="(.+?)"', linkcode)[0]
             stream_link = links.split('/pl/')[0]
-            headers = {'Referer': 'https://vidlink.org/', 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
+            headers = {'Referer': 'https://vidlink.org/', 'User-Agent': client.agent()}
             response = client.request(links, headers=headers)
             urls = re.findall(r'[A-Z]{10}=\d+x(\d+)\W[A-Z]+=\"\w+\"\s+\/(.+?)\.', response)
             if urls:
@@ -119,7 +119,7 @@ def more_cdapl(link, hostDict, lang, info):
     if "cda.pl" in link:
         sources = []
         try:
-            headers = {'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3555.0 Safari/537.36"}
+            headers = {'User-Agent': client.agent()}
             response = requests.get(link, headers=headers).content
             test = client.parseDOM(response, 'div', attrs={'class': 'wrapqualitybtn'})
             urls = client.parseDOM(test, 'a', ret='href')

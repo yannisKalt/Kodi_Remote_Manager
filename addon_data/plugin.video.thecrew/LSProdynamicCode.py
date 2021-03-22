@@ -1,9 +1,9 @@
 #$pyFunction
 def GetLSProData(page_data,Cookie_Jar,m,url = ''):
-    from resources.lib.modules import client,cache
-    import re,urllib
-    u = urllib.urlopen('http://givemereddit.stream/soccer').read()
-    r = re.findall('(?s)<a href="([^"]*)(?:[^=]*)=(?:[^=]*)=(?:[^=]*)=(?:[^=]*)="([^"]*)">(?:[^>]*)>(?:[^>]*)>([^<]*)(?:[^>]*)>(?:[^>]*)>\s+([^\n]*)', u)
-    r = [(i[0],i[1],client.replaceHTMLCodes(i[2]), i[3]) for i in r if 'png' in i[1]]
-    r = [(i[0],i[1],i[2],i[3]) for i in r if 'All Games' not in i[2]]
+    from resources.lib.modules import client,control
+    import re
+    if not control.infoLabel('Container.PluginName') == 'plugin.video.thecrew': return
+    u = client.request('http://www.hesgoal.com/')
+    r = re.findall('(?s)class="file(?:[^=]*)=(?:[^=]*)="([^"]*)"><img src="([^"]*)(?:.*?alt=")([^"]*)(?:.*?<p>)([^<]*)',u)
+    r = [(i[0],i[1],i[2],i[3]) for i in r if 'vs' in i[2] if 'NBA' not in i[3] if 'NFL' not in i[3] if 'NHL' not in i[3]]
     return r

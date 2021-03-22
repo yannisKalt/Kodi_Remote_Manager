@@ -3,11 +3,14 @@
 
 import re,urllib,urlparse
 import traceback
+
 from resources.lib.modules import client2 as client
 from resources.lib.modules import cleantitle2 as cleantitle
-from resources.lib.modules import debrid,source_utils,control
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
 from resources.lib.modules import log_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import rd_check
+from resources.lib.modules import control
 
 
 class source:
@@ -19,6 +22,7 @@ class source:
         self.tvsearch = 'search_results.php?search={0}&cat=41&incldead=0&inclexternal=0&lang=1&sort=seeders&order=desc'
         self.moviesearch = 'search_results.php?search={0}&cat=1&incldead=0&inclexternal=0&lang=1&sort=size&order=desc'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -104,8 +108,7 @@ class source:
     def _get_items(self, url):
         items = []
         try:
-            headers = {'User-Agent': client.agent()}
-            r = client.request(url, headers=headers)
+            r = client.request(url, headers=self.headers)
             posts = client.parseDOM(r, 'tr', attrs={'class': 't-row'})
             posts = [i for i in posts if not 'racker:' in i]
             for post in posts:

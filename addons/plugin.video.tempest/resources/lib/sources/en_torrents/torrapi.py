@@ -4,9 +4,12 @@
 
 import re,urllib,urlparse,json,time
 import traceback
-from resources.lib.modules import client,debrid,source_utils,control
+from resources.lib.modules import client
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import control
 from resources.lib.modules import log_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import rd_check
 
 
 class source:
@@ -16,6 +19,7 @@ class source:
         self.tvsearch = 'https://torrentapi.org/pubapi_v2.php?app_id=Torapi&token={0}&mode=search&search_string={1}&{2}'
         self.msearch = 'https://torrentapi.org/pubapi_v2.php?app_id=Torapi&token={0}&mode=search&search_imdb={1}&{2}'
         self.token = 'https://torrentapi.org/pubapi_v2.php?app_id=Torapi&get_token=get_token'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -67,7 +71,7 @@ class source:
             else:
                 search_link = self.msearch.format(token, data['imdb'], 'format=json_extended')
             time.sleep(2)
-            rjson = client.getHTML(search_link)
+            rjson = client.request(search_link, headers=self.headers)
             files = json.loads(rjson)['torrent_results']
             for file in files:
                 name = file["title"]

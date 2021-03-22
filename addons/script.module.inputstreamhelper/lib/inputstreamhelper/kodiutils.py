@@ -3,12 +3,49 @@
 """Implements Kodi Helper functions"""
 
 from __future__ import absolute_import, division, unicode_literals
+from contextlib import contextmanager
 import xbmc
 import xbmcaddon
-from .utils import from_unicode, to_unicode
+from xbmcgui import DialogProgress, DialogProgressBG
 
-# NOTE: We need to add the add-on id in here explicitly !
+try:  # Kodi v19 or newer
+    from xbmcvfs import translatePath
+except ImportError:  # Kodi v18 and older
+    # pylint: disable=ungrouped-imports
+    from xbmc import translatePath
+
+from .unicodes import from_unicode, to_unicode
+
+# NOTE: We need to explicitly add the add-on id here!
 ADDON = xbmcaddon.Addon('script.module.inputstreamhelper')
+
+
+class progress_dialog(DialogProgress, object):  # pylint: disable=invalid-name,useless-object-inheritance
+    """Show Kodi's Progress dialog"""
+
+    def __init__(self):
+        """Initialize a new progress dialog"""
+        # Wait for previous Progress dialog to close
+        # Progress dialog Window ID is 10101: https://kodi.wiki/view/Window_IDs
+        while get_current_window_id() == 10101:
+            xbmc.sleep(100)
+        super(progress_dialog, self).__init__()
+
+    def create(self, heading, message=''):  # pylint: disable=arguments-differ
+        """Create and show a progress dialog"""
+        if kodi_version_major() < 19:
+            lines = message.split('\n', 2)
+            line1, line2, line3 = (lines + [None] * (3 - len(lines)))
+            return super(progress_dialog, self).create(heading, line1=line1, line2=line2, line3=line3)
+        return super(progress_dialog, self).create(heading, message=message)
+
+    def update(self, percent, message=''):  # pylint: disable=arguments-differ
+        """Update the progress dialog"""
+        if kodi_version_major() < 19:
+            lines = message.split('\n', 2)
+            line1, line2, line3 = (lines + [None] * (3 - len(lines)))
+            return super(progress_dialog, self).update(percent, line1=line1, line2=line2, line3=line3)
+        return super(progress_dialog, self).update(percent, message=message)
 
 
 class SafeDict(dict):
@@ -30,7 +67,7 @@ def kodi_version_major():
 
 def translate_path(path):
     """Translate special xbmc paths"""
-    return to_unicode(xbmc.translatePath(path))
+    return to_unicode(translatePath(from_unicode(path)))
 
 
 def get_addon_info(key):
@@ -45,7 +82,7 @@ def addon_id():
 
 def addon_profile():
     """Cache and return add-on profile"""
-    return translate_path(ADDON.getAddonInfo('profile'))
+    return translate_path(get_addon_info('profile'))
 
 
 def addon_version():
@@ -58,7 +95,8 @@ def browsesingle(type, heading, shares='', mask='', useThumbs=False, treatAsFold
     from xbmcgui import Dialog
     if not heading:
         heading = ADDON.getAddonInfo('name')
-    return Dialog().browseSingle(type=type, heading=heading, shares=shares, mask=mask, useThumbs=useThumbs, treatAsFolder=treatAsFolder, defaultt=defaultt)
+    return to_unicode(Dialog().browseSingle(type=type, heading=heading, shares=shares, mask=mask, useThumbs=useThumbs,
+                                            treatAsFolder=treatAsFolder, defaultt=defaultt))
 
 
 def notification(heading='', message='', icon='info', time=4000):
@@ -74,7 +112,9 @@ def ok_dialog(heading='', message=''):
     from xbmcgui import Dialog
     if not heading:
         heading = ADDON.getAddonInfo('name')
-    return Dialog().ok(heading=heading, line1=message)
+    if kodi_version_major() < 19:
+        return Dialog().ok(heading=heading, line1=message)
+    return Dialog().ok(heading=heading, message=message)
 
 
 def select_dialog(heading='', opt_list=None, autoclose=0, preselect=-1, useDetails=False):  # pylint: disable=invalid-name
@@ -83,12 +123,6 @@ def select_dialog(heading='', opt_list=None, autoclose=0, preselect=-1, useDetai
     if not heading:
         heading = ADDON.getAddonInfo('name')
     return Dialog().select(heading, opt_list, autoclose=autoclose, preselect=preselect, useDetails=useDetails)
-
-
-def progress_dialog():
-    """Show Kodi's Progress dialog"""
-    from xbmcgui import DialogProgress
-    return DialogProgress()
 
 
 def textviewer(heading='', text='', usemono=False):
@@ -106,7 +140,9 @@ def yesno_dialog(heading='', message='', nolabel=None, yeslabel=None, autoclose=
     from xbmcgui import Dialog
     if not heading:
         heading = ADDON.getAddonInfo('name')
-    return Dialog().yesno(heading=heading, line1=message, nolabel=nolabel, yeslabel=yeslabel, autoclose=autoclose)
+    if kodi_version_major() < 19:
+        return Dialog().yesno(heading=heading, line1=message, nolabel=nolabel, yeslabel=yeslabel, autoclose=autoclose)
+    return Dialog().yesno(heading=heading, message=message, nolabel=nolabel, yeslabel=yeslabel, autoclose=autoclose)
 
 
 def localize(string_id, **kwargs):
@@ -156,15 +192,12 @@ def get_setting_int(key, default=None):
 
 
 def get_setting_float(key, default=None):
-    """Get an add-on setting"""
+    """Get an add-on setting as float"""
+    value = get_setting(key, default)
     try:
-        return ADDON.getSettingNumber(key)
-    except (AttributeError, TypeError):  # On Krypton or older, or when not a float
-        value = get_setting(key, default)
-        try:
-            return float(value)
-        except ValueError:
-            return default
+        return float(value)
+    except ValueError:
+        return default
     except RuntimeError:  # Occurs when the add-on is disabled
         return default
 
@@ -190,6 +223,14 @@ def get_global_setting(key):
     """Get a Kodi setting"""
     result = jsonrpc(method='Settings.GetSettingValue', params=dict(setting=key))
     return result.get('result', {}).get('value')
+
+
+def get_current_window_id():
+    """Get current window id"""
+    result = jsonrpc(method='GUI.GetProperties', params=dict(properties=['currentwindow']))
+    if result.get('error'):
+        return None
+    return result.get('result', {}).get('currentwindow').get('id')
 
 
 def has_socks():
@@ -247,9 +288,13 @@ def get_proxies():
     return dict(http=proxy_address, https=proxy_address)
 
 
-def log(msg, level=xbmc.LOGDEBUG, **kwargs):
-    """InputStream Helper log method"""
-    xbmc.log(msg=from_unicode('[{addon}] {msg}'.format(addon=addon_id(), msg=msg.format(**kwargs))), level=level)
+def log(level=0, message='', **kwargs):
+    """Log info messages to Kodi"""
+    if kwargs:
+        from string import Formatter
+        message = Formatter().vformat(message, (), SafeDict(**kwargs))
+    message = '[{addon}] {message}'.format(addon=addon_id(), message=message)
+    xbmc.log(from_unicode(message), level)
 
 
 def jsonrpc(*args, **kwargs):
@@ -258,7 +303,7 @@ def jsonrpc(*args, **kwargs):
 
     # We do not accept both args and kwargs
     if args and kwargs:
-        log('ERROR: Wrong use of jsonrpc()')
+        log(4, 'ERROR: Wrong use of jsonrpc()')
         return None
 
     # Process a list of actions
@@ -290,3 +335,65 @@ def kodi_to_ascii(string):
     string = string.replace('[COLOR yellow]', '')
     string = string.replace('[/COLOR]', '')
     return string
+
+
+@contextmanager
+def open_file(path, flags='r'):
+    """Open a file (using xbmcvfs)"""
+    from xbmcvfs import File
+    fdesc = File(path, flags)
+    yield fdesc
+    fdesc.close()
+
+
+def copy(src, dest):
+    """Copy a file (using xbmcvfs)"""
+    from xbmcvfs import copy as vfscopy
+    log(2, "Copy file '{src}' to '{dest}'.", src=src, dest=dest)
+    return vfscopy(from_unicode(src), from_unicode(dest))
+
+
+def delete(path):
+    """Remove a file (using xbmcvfs)"""
+    from xbmcvfs import delete as vfsdelete
+    log(2, "Delete file '{path}'.", path=path)
+    return vfsdelete(from_unicode(path))
+
+
+def exists(path):
+    """Whether the path exists (using xbmcvfs)"""
+    # File or folder (folder must end with slash or backslash)
+    from xbmcvfs import exists as vfsexists
+    return vfsexists(from_unicode(path))
+
+
+def listdir(path):
+    """Return all files in a directory (using xbmcvfs)"""
+    from xbmcvfs import listdir as vfslistdir
+    dirs, files = vfslistdir(from_unicode(path))
+    return [to_unicode(item) for items in (dirs, files) for item in items]
+
+
+def mkdir(path):
+    """Create a directory (using xbmcvfs)"""
+    from xbmcvfs import mkdir as vfsmkdir
+    log(2, "Create directory '{path}'.", path=path)
+    return vfsmkdir(from_unicode(path))
+
+
+def mkdirs(path):
+    """Create directory including parents (using xbmcvfs)"""
+    from xbmcvfs import mkdirs as vfsmkdirs
+    log(2, "Recursively create directory '{path}'.", path=path)
+    return vfsmkdirs(from_unicode(path))
+
+
+def stat_file(path):
+    """Return information about a file (using xbmcvfs)"""
+    from xbmcvfs import Stat
+    return Stat(from_unicode(path))
+
+
+def bg_progress_dialog():
+    """Show Kodi's Background Progress dialog"""
+    return DialogProgressBG()

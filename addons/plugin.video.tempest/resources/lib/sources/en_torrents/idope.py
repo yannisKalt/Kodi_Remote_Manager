@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re, urllib, urlparse
 import traceback
-from resources.lib.modules import cleantitle, debrid, source_utils
-from resources.lib.modules import client, control
+
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import client
+from resources.lib.modules import control
 from resources.lib.modules import log_utils
 from resources.lib.modules import rd_check
 from resources.lib.sources import cfscrape
@@ -18,8 +22,9 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['idope.today']
-        self.base_link = 'http://idope.today/'
+        self.base_link = 'http://idope.org/'
         self.search_link = 'search?q=%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -77,7 +82,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url).replace('+%26+','+').replace('++','+')
 
             try:
-                r = cfscrape.get(url).content
+                r = cfscrape.get(url, headers=self.headers).content
                 posts = client.parseDOM(r, 'tr')
                 for post in posts:
                     link = re.findall('a title="Download Torrent Magnet" href="(magnet:.+?)"', post, re.DOTALL)

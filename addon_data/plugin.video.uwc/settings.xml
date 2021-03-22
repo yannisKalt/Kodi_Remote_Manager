@@ -1,7 +1,9 @@
 <settings>
+    <setting id="JAV" value="[COLOR hotpink]JAV[/COLOR]" />
     <setting id="backup_favorites" value="" />
     <setting id="backup_keywords" value="" />
-    <setting id="changelog_seen_version" value="1.1.64" />
+    <setting id="bio_pic" value="true" />
+    <setting id="changelog_seen_version" value="1.2.45" />
     <setting id="chatcouple" value="true" />
     <setting id="chatfemale" value="true" />
     <setting id="chatmale" value="false" />
@@ -14,7 +16,12 @@
     <setting id="daftsexresolver" value="0" />
     <setting id="dontask" value="false" />
     <setting id="download_path" value="" />
+    <setting id="dwnld_stream" value="false" />
     <setting id="favsort" value="false" />
+    <setting id="ffmpeg_location" value="" />
+    <setting id="filterduration" value="0" />
+    <setting id="filterquality" value="0" />
+    <setting id="filteruploaded" value="0" />
     <setting id="jw_pass" value="" />
     <setting id="jw_user" value="" />
     <setting id="open_smr_settings" value="" />
@@ -23,10 +30,14 @@
     <setting id="posterfanart" value="true" />
     <setting id="pt_pass" value="" />
     <setting id="pt_user" value="" />
+    <setting id="rAge" value="false" />
+    <setting id="rCountry" value="false" />
+    <setting id="rGender" value="false" />
+    <setting id="rName" value="false" />
     <setting id="restore_favorites" value="" />
     <setting id="restore_keywords" value="" />
     <setting id="searchsort" value="false" />
-    <setting id="session" value="417trmg0frkvrcm7kug13qa2q2" />
+    <setting id="session" value="cd96f467882f50d6381e0c837072fff6" />
     <setting id="sortwxf" value="0" />
     <setting id="sortxt" value="0" />
     <setting id="universal_resolvers" value="true" />

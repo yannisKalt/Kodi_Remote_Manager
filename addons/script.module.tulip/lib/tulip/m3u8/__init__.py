@@ -8,11 +8,12 @@ import ssl
 import os
 import posixpath
 
-from tulip.compat import urlopen, Request, HTTPError, urlparse, urljoin
+from tulip.compat import urlopen, Request, urlparse, urljoin
 
 from tulip.m3u8.model import (
     M3U8, Segment, SegmentList, PartialSegment, PartialSegmentList, Key, Playlist, IFramePlaylist, Media, MediaList,
-    PlaylistList, Start, RenditionReport, RenditionReportList, ServerControl, Skip, PartInformation
+    PlaylistList, Start, RenditionReport, RenditionReportList, ServerControl, Skip, PartInformation, PreloadHint,
+    DateRange, DateRangeList
 )
 from tulip.m3u8.parser import parse, is_url, ParseError
 
@@ -21,7 +22,7 @@ PYTHON_MAJOR_VERSION = sys.version_info
 __all__ = (
     'M3U8', 'Segment', 'SegmentList', 'PartialSegment', 'PartialSegmentList', 'Key', 'Playlist', 'IFramePlaylist',
     'Media', 'MediaList', 'PlaylistList', 'Start', 'RenditionReport', 'RenditionReportList', 'ServerControl', 'Skip',
-    'PartInformation', 'loads', 'load', 'parse', 'ParseError'
+    'PartInformation', 'DateRange', 'DateRangeList', 'loads', 'load', 'parse', 'ParseError'
 )
 
 def loads(content, uri=None, custom_tags_parser=None):
@@ -52,20 +53,25 @@ def load(uri, timeout=None, headers={}, custom_tags_parser=None, verify_ssl=True
     else:
         return _load_from_file(uri, custom_tags_parser)
 
-# Support for python3 inspired by https://github.com/szemtiv/m3u8/
-
 
 def _load_from_uri(uri, timeout=None, headers={}, custom_tags_parser=None, verify_ssl=True):
+
     request = Request(uri, headers=headers)
     context = None
+
     if not verify_ssl:
-        context = ssl._create_unverified_context()
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
+
     resource = urlopen(request, timeout=timeout, context=context)
     base_uri = _parsed_url(resource.geturl())
+
     if PYTHON_MAJOR_VERSION < (3,):
         content = _read_python2x(resource)
     else:
         content = _read_python3x(resource)
+
     return M3U8(content, base_uri=base_uri, custom_tags_parser=custom_tags_parser)
 
 

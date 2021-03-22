@@ -1,13 +1,9 @@
-import sys, xbmc, json
-import datetime
+# -*- coding: utf-8 -*-
 
-try:
-	from urlparse import parse_qsl
-except:
-	from urllib.parse import parse_qsl
+import xbmc
 
 
 if __name__ == '__main__':
 	plugin = 'plugin://plugin.video.venom/'
-	path = 'RunPlugin(%s?action=clearSources&opensettings=false)' % plugin
+	path = 'RunPlugin(%s?action=cache_clearSources&opensettings=false)' % plugin
 	xbmc.executebuiltin(path)

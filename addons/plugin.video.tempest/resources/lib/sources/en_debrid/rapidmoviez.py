@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 
 """
-Sent to me by Email.
-Fixed by me.
-
+    Sent to me by Email.
+    Fixed by me.
 """
 
-import re,urllib,urlparse,time
+import re, urllib, urlparse, time
 import traceback
 from resources.lib.modules import log_utils
 from resources.lib.modules import cleantitle
 from resources.lib.modules import dom_parser2
 from resources.lib.modules import client
-from resources.lib.modules import debrid, rd_check
+from resources.lib.modules import debrid
+from resources.lib.modules import rd_check
 from resources.lib.modules import source_utils
-from resources.lib.modules import workers, control
-from resources.lib.sources import cfscrape
+from resources.lib.modules import workers
+from resources.lib.modules import control
 
 
 class source:
@@ -23,8 +23,9 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['rmz.cr']
-        self.base_link = 'http://rapidmoviez.cr/'
+        self.base_link = 'https://rmz.cr/'
         self.search_link = 'search/%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -34,7 +35,7 @@ class source:
             return url
         except:
             return
-            
+
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         if debrid.status() is False: return
         try:
@@ -61,19 +62,22 @@ class source:
     def search(self, title, year):
         try:
             url = urlparse.urljoin(self.base_link, self.search_link % (urllib.quote_plus(title)))
-            r = cfscrape.get(url).content
+            r = client.request(url, headers=self.headers)
             r = dom_parser2.parse_dom(r, 'div', {'class': 'list_items'})[0]
             r = dom_parser2.parse_dom(r.content, 'li')
             r = [(dom_parser2.parse_dom(i, 'a', {'class': 'title'})) for i in r]
             r = [(i[0].attrs['href'], i[0].content) for i in r]
-            r = [(urlparse.urljoin(self.base_link, i[0])) for i in r if cleantitle.get(title) in cleantitle.get(i[1]) and year in i[1]]
-            if r: return r[0]
-            else: return
+            r = [(urlparse.urljoin(self.base_link, i[0])) for i in r if
+                 cleantitle.get(title) in cleantitle.get(i[1]) and year in i[1]]
+            if r:
+                return r[0]
+            else:
+                return
         except:
             return
-    
+
     def sources(self, url, hostDict, hostprDict):
-            
+
         self.sources = []
 
         try:
@@ -82,7 +86,7 @@ class source:
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
-                         
+
             title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
 
             hdlr = data['year']
@@ -90,23 +94,24 @@ class source:
             imdb = data['imdb']
 
             url = self.search(title, hdlr)
-            r = cfscrape.get(url).content
+            r = client.request(url, headers=self.headers)
             if hdlr2 == '':
                 r = dom_parser2.parse_dom(r, 'ul', {'id': 'releases'})[0]
             else:
                 r = dom_parser2.parse_dom(r, 'ul', {'id': 'episodes'})[0]
             r = dom_parser2.parse_dom(r.content, 'a', req=['href'])
-            r = [(i.content, urlparse.urljoin(self.base_link, i.attrs['href'])) for i in r if i and i.content != 'Watch']
+            r = [(i.content, urlparse.urljoin(self.base_link, i.attrs['href'])) for i in r if
+                 i and i.content != 'Watch']
             if hdlr2 != '':
                 r = [(i[0], i[1]) for i in r if hdlr2.lower() in i[0].lower()]
-            
+
             self.hostDict = hostDict + hostprDict
             threads = []
 
             for i in r:
                 threads.append(workers.Thread(self._get_sources, i[0], i[1]))
             [i.start() for i in threads]
-            
+
             alive = [x for x in threads if x.is_alive() is True]
             while alive:
                 alive = [x for x in threads if x.is_alive() is True]
@@ -116,17 +121,19 @@ class source:
             failure = traceback.format_exc()
             log_utils.log('---Rapidmoviez Testing - Exception: \n' + str(failure))
             return self.sources
-          
+
     def _get_sources(self, name, url):
         try:
-            r = cfscrape.get(url).content
+            r = client.request(url, headers=self.headers)
             name = client.replaceHTMLCodes(name)
-            l = dom_parser2.parse_dom(r, 'div', {'class': 'ppu2h'})
+            l = dom_parser2.parse_dom(r, 'pre', {'class': 'links'})
             s = ''
             for i in l:
                 s += i.content
-            urls = re.findall(r'''((?:http|ftp|https)://[\w_-]+(?:(?:\.[\w_-]+)+)[\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])''', i.content, flags=re.MULTILINE|re.DOTALL)
-            urls = [i for i in urls if '.rar' not in i or '.zip' not in i or '.iso' not in i or '.idx' not in i or '.sub' not in i]
+            urls = re.findall(r'''((?:http|ftp|https)://[\w_-]+(?:(?:\.[\w_-]+)+)[\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])''',
+                              i.content, flags=re.MULTILINE | re.DOTALL)
+            urls = [i for i in urls if
+                    '.rar' not in i or '.zip' not in i or '.iso' not in i or '.idx' not in i or '.sub' not in i]
             for url in urls:
                 if url in str(self.sources):
                     continue

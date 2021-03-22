@@ -1,27 +1,22 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
+
+from __future__ import print_function
 
 import re
 from collections import namedtuple
 from tulip.compat import iteritems, unicode, str, basestring
-from tulip.log import log_debug
+try:
+    from tulip.log import log_debug
+except Exception:
+    log_debug = None
 
 tag_re = re.compile(r'''(?=<(?P<tag>[a-zA-Z]+)(?P<attr>.*?)(?P<end>/)?>(?:(?P<inner>.*?)</\s*(?P=tag)\s*>)?)''', re.MULTILINE | re.DOTALL)
 attr_re = re.compile(r'''\s*(?P<key>[\w-]+)\s*(?:=\s*(?P<quote>["']?)(?P<value>.*?)(?P=quote)\s*)?''')
@@ -49,6 +44,34 @@ def itertags(html, tag):
             attrs = dict((a.group("key").lower(), a.group("value")) for a in attr_re.finditer(match.group("attr")))
 
             yield Tag(match.group("tag"), attrs, match.group("inner"))
+
+
+def itertags_wrapper(html, tag, attrs=None, ret=False):
+
+    try:
+
+        result = list(itertags(html, tag))
+
+        if isinstance(attrs, dict):
+
+            attrs = list(iteritems(attrs))
+
+            result = [
+                i for i in result if any(
+                    [a for a in attrs if any([a[0] == k and re.match(a[1], v) for k, v in iteritems(i.attributes)])]
+                )
+            ]
+
+        if ret:
+
+            # noinspection PyTypeChecker
+            result = [i.attributes[ret] for i in result if ret in i.attributes]
+
+    except Exception:
+
+        result = []
+
+    return result
 
 
 def parseDOM(html, name=u"", attrs=None, ret=False):
@@ -96,11 +119,17 @@ def parseDOM(html, name=u"", attrs=None, ret=False):
     elif isinstance(html, unicode):
         html = [html]
     elif not isinstance(html, list):
-        log_debug("Input isn't list or string/unicode.")
+        if log_debug:
+            log_debug("Input isn't list or string/unicode.")
+        else:
+            print("Input isn't list or string/unicode.")
         return u""
 
     if not name.strip():
-        log_debug("Missing tag name")
+        if log_debug:
+            log_debug("Missing tag name")
+        else:
+            print("Missing tag name")
         return u""
 
     ret_lst = []
@@ -232,189 +261,158 @@ def _getDOMElements(item, name, attrs):
     return lst
 
 
-class DomParser:
+def __get_dom_content(html, name, match):
 
-    def __init__(self):
+    if match.endswith('/>'):
+        return ''
 
-        pass
+    # override tag name with tag from match if possible
+    tag = re.match(r'<([^\s/>]+)', match)
+    if tag:
+        name = tag.group(1)
 
-    def parse(self, html, name='', attrs=None, req=False):
+    start_str = '<%s' % name
+    end_str = "</%s" % name
 
-        if attrs is None:
-            attrs = {}
+    # start/end tags without matching case cause issues
+    start = html.find(match)
+    end = html.find(end_str, start)
+    pos = html.find(start_str, start + 1)
 
-        name = name.strip()
+    while pos < end and pos != -1:  # Ignore too early </endstr> return
+        tend = html.find(end_str, end + len(end_str))
+        if tend != -1:
+            end = tend
+        pos = html.find(start_str, pos + 1)
 
-        if isinstance(html, unicode) or isinstance(html, DomMatch):
+    if start == -1 and end == -1:
+        result = ''
+    elif start > -1 and end > -1:
+        result = html[start + len(match):end]
+    elif end > -1:
+        result = html[:end]
+    elif start > -1:
+        result = html[start + len(match):]
+    else:
+        result = ''
+    return result
 
-            html = [html]
 
-        elif isinstance(html, str):
+def __get_dom_elements(item, name, attrs):
+    if not attrs:
+        pattern = r'(<%s(?:\s[^>]*>|/?>))' % name
+        this_list = re.findall(pattern, item, re.M | re.S | re.I)
+    else:
+        last_list = None
 
+        for key, value in iteritems(attrs):
+            value_is_regex = isinstance(value, re_type)
+            value_is_str = isinstance(value, basestring)
+            pattern = r'''(<{tag}[^>]*\s{key}=(?P<delim>['"])(.*?)(?P=delim)[^>]*>)'''.format(tag=name, key=key)
+            re_list = re.findall(pattern, item, re.M | re.S | re.I)
+
+            if value_is_regex:
+                this_list = [r[0] for r in re_list if re.match(value, r[2])]
+            else:
+                temp_value = [value] if value_is_str else value
+                this_list = [r[0] for r in re_list if set(temp_value) <= set(r[2].split(' '))]
+
+            if not this_list:
+                has_space = (value_is_regex and ' ' in value.pattern) or (value_is_str and ' ' in value)
+                if not has_space:
+                    pattern = r'''(<{tag}[^>]*\s{key}=((?:[^\s>]|/>)*)[^>]*>)'''.format(tag=name, key=key)
+                    re_list = re.findall(pattern, item, re.M | re.S | re.I)
+                    if value_is_regex:
+                        this_list = [r[0] for r in re_list if re.match(value, r[1])]
+                    else:
+                        this_list = [r[0] for r in re_list if value == r[1]]
+
+            if last_list is None:
+                last_list = this_list
+            else:
+                last_list = [item for item in this_list if item in last_list]
+        this_list = last_list
+    return this_list
+
+
+def __get_attribs(element):
+    attribs = {}
+    for match in re.finditer(
+            r'''\s+(?P<key>[^=]+)=\s*(?:(?P<delim>["'])(?P<value1>.*?)(?P=delim)|(?P<value2>[^"'][^>\s]*))''', element
+    ):
+        match = match.groupdict()
+        value1 = match.get('value1')
+        value2 = match.get('value2')
+        value = value1 if value1 is not None else value2
+        if value is None:
+            continue
+        attribs[match['key'].lower().strip()] = value
+    return attribs
+
+
+def parseDOM2(html, name='', attrs=None, req=False, exclude_comments=False):
+
+    if attrs is None:
+        attrs = {}
+    name = name.strip()
+
+    if isinstance(html, unicode) or isinstance(html, DomMatch):
+        html = [html]
+    elif isinstance(html, str):
+        try:
+            html = [html.decode("utf-8")]  # Replace with chardet thingy
+        except:
             try:
+                html = [html.decode("utf-8", "replace")]
+            except:
+                html = [html]
 
-                html = [html.decode("utf-8")]  # Replace with chardet thingy
+    elif not isinstance(html, list):
+        return ''
 
-            except Exception:
+    if not name:
+        return ''
 
-                try:
+    if not isinstance(attrs, dict):
+        return ''
 
-                    html = [html.decode("utf-8", "replace")]
+    if req:
+        if not isinstance(req, list):
+            req = [req]
+        req = set([key.lower() for key in req])
 
-                except Exception:
+    all_results = []
+    for item in html:
+        if isinstance(item, DomMatch):
+            item = item.content
 
-                    html = [html]
+        if exclude_comments:
+            item = re.sub(re.compile(r'<!--.*?-->', re.DOTALL), '', item)
 
-        elif not isinstance(html, list):
-
-            return ''
-
-        if not name:
-            return ''
-
-        if not isinstance(attrs, dict):
-            return ''
-
-        if req:
-            if not isinstance(req, list):
-                req = [req]
-            # noinspection PyUnresolvedReferences
-            req = set([key.lower() for key in req])
-
-        all_results = []
-        for item in html:
-            if isinstance(item, DomMatch):
-                item = item.content
-
-            results = []
-
-            for element in self. __get_dom_elements(item, name, attrs):
-
-                attribs = self.__get_attribs(element)
-
-                if req and not req <= set(attribs.keys()):
-                    continue
-
-                temp = self.__get_dom_content(item, name, element).strip()
-                results.append(DomMatch(attribs, temp))
-                item = item[item.find(temp, item.find(element)):]
-
-            all_results += results
-
-        return all_results
-
-    def __get_dom_content(self, html, name, match):
-
-        if match.endswith('/>'):
-            return ''
-
-        # override tag name with tag from match if possible
-        tag = re.match(r'<([^\s/>]+)', match)
-        if tag: name = tag.group(1)
-
-        start_str = '<{}'.format(name)
-        end_str = "</{}".format(name)
-
-        # start/end tags without matching case cause issues
-        start = html.find(match)
-        end = html.find(end_str, start)
-        pos = html.find(start_str, start + 1)
-
-        while pos < end and pos != -1:  # Ignore too early </endstr> return
-            tend = html.find(end_str, end + len(end_str))
-            if tend != -1:
-                end = tend
-            pos = html.find(start_str, pos + 1)
-
-        if start == -1 and end == -1:
-            result = ''
-        elif start > -1 and end > -1:
-            result = html[start + len(match):end]
-        elif end > -1:
-            result = html[:end]
-        elif start > -1:
-            result = html[start + len(match):]
-        else:
-            result = ''
-
-        return result
-
-    def __get_dom_elements(self, item, name, attrs):
-
-        if not attrs:
-
-            pattern = r'(<%s(?:\s[^>]*>|/?>))' % (name)
-            this_list = re.findall(pattern, item, re.M | re.S | re.I)
-
-        else:
-
-            last_list = None
-
-            for key, value in iteritems(attrs):
-
-                value_is_regex = isinstance(value, re_type)
-                value_is_str = isinstance(value, basestring)
-                pattern = r'''(<{tag}[^>]*\s{key}=(?P<delim>['"])(.*?)(?P=delim)[^>]*>)'''.format(tag=name, key=key)
-                re_list = re.findall(pattern, item, re.M | re.S | re.I)
-
-                if value_is_regex:
-
-                    this_list = [r[0] for r in re_list if re.match(value, r[2])]
-
-                else:
-
-                    temp_value = [value] if value_is_str else value
-                    this_list = [r[0] for r in re_list if set(temp_value) <= set(r[2].split(' '))]
-
-                if not this_list:
-
-                    has_space = (value_is_regex and ' ' in value.pattern) or (value_is_str and ' ' in value)
-
-                    if not has_space:
-
-                        pattern = r'''(<{tag}[^>]*\s{key}=([^\s/>]*)[^>]*>)'''.format(tag=name, key=key)
-                        re_list = re.findall(pattern, item, re.M | re.S | re.I)
-
-                        if value_is_regex:
-
-                            this_list = [r[0] for r in re_list if re.match(value, r[1])]
-
-                        else:
-
-                            this_list = [r[0] for r in re_list if value == r[1]]
-
-                if last_list is None:
-
-                    last_list = this_list
-
-                else:
-
-                    last_list = [item for item in this_list if item in last_list]
-
-            this_list = last_list
-
-        return this_list
-
-    def __get_attribs(self, element):
-
-        attribs = {}
-
-        for match in re.finditer(
-                r'''\s+(?P<key>[^=]+)=\s*(?:(?P<delim>["'])(?P<value1>.*?)(?P=delim)|(?P<value2>[^"'][^>\s]*))''',
-                element
-        ):
-
-            match = match.groupdict()
-            value1 = match.get('value1')
-            value2 = match.get('value2')
-            value = value1 if value1 is not None else value2
-
-            if value is None:
+        results = []
+        for element in __get_dom_elements(item, name, attrs):
+            attribs = __get_attribs(element)
+            if req and not req <= set(attribs.keys()):
                 continue
+            temp = __get_dom_content(item, name, element).strip()
+            results.append(DomMatch(attribs, temp))
+            item = item[item.find(temp, item.find(element)):]
+        all_results += results
 
-            attribs[match['key'].lower().strip()] = value
-
-        return attribs
+    return all_results
 
 
-__all__ = ['itertags', 'parseDOM', 'DomParser']
+def parse_headers(string):
+
+    """
+    Converts a multi-line response/request headers string into a dictionary
+    :param string: string of headers
+    :return: dictionary of response headers
+    """
+
+    headers = dict([line.partition(': ')[::2] for line in string.splitlines()])
+
+    return headers
+
+
+__all__ = ['itertags', 'parseDOM', 'parseDOM2', 'itertags_wrapper', 'parse_headers']

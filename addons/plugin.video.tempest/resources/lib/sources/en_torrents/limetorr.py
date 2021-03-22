@@ -6,9 +6,13 @@ import traceback
 from resources.lib.modules import client2 as client
 from resources.lib.modules import dom_parser2 as dom
 from resources.lib.modules import cleantitle2 as cleantitle
-from resources.lib.modules import debrid,source_utils,workers,control
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import workers
+from resources.lib.modules import control
 from resources.lib.modules import log_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import rd_check
+from resources.lib.modules import control
 
 
 class source:
@@ -19,6 +23,7 @@ class source:
         self.base_link = 'https://www.limetorrents.info'
         self.tvsearch = 'https://www.limetorrents.info/search/tv/{0}/'
         self.moviesearch = 'https://www.limetorrents.info/search/movies/{0}/'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -88,8 +93,7 @@ class source:
 
     def _get_items(self, url):
         try:
-            headers = {'User-Agent': client.agent()}
-            r = client.request(url, headers=headers)
+            r = client.request(url, headers=self.headers)
             posts = client.parseDOM(r, 'table', attrs={'class': 'table2'})[0]
             posts = client.parseDOM(posts, 'tr')
             for post in posts:
@@ -121,7 +125,7 @@ class source:
             name = item[0]
             quality, info = source_utils.get_release_quality(name, name)
             info.append(item[2])
-            data = client.request(item[1])
+            data = client.request(item[1], headers=self.headers)
             url = re.search('''href=["'](magnet:\?[^"']+)''', data).groups()[0]
             url = url.split('&tr')[0]
             info = ' | '.join(info)

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-	<category label="32218">
-		<setting type="lsep" label="32225"/>
+	<category label="30218">
+		<setting type="lsep" label="30225"/>
 		<setting id="subtitles" label="Subtitles.gr" type="bool" default="true"/>
 		<setting id="xsubs" label="Xsubs.tv" type="bool" default="true"/>
 		<setting id="podnapisi" label="Podnapisi.net" type="bool" default="true"/>
-		<setting id="subs4free" label="Subs4free.info" type="bool" default="false"/>
+		<setting id="vipsubs" label="Vipsubs.gr" type="bool" default="true"/>
 	</category>
-	<category label="32219">
-        <setting id="sorting" type="select" label="32220" lvalues="32221|32222|32223|32224" default="1"/>
-		<setting id="cache" label="32003" type="bool" default="true"/>
+	<category label="30219">
+        <setting id="sorting" type="select" label="30220" lvalues="30221|32222|32223|32224" default="1"/>
+		<setting id="cache" label="30003" type="bool" default="true"/>
+		<setting id="queries" label="30228" type="bool" default="true"/>
+		<setting id="timeout" type="slider" label="30226" default="30" range="10,10,120" option="int"/>
+		<setting id="keep_subs" label="30004" type="bool" default="false"/>
+		<setting id="keep_zips" label="30006" type="bool" default="false"/>
+		<setting id="output_folder" label="30005" type="folder" default="special://profile/addon_data/service.subtitles.subtitles.gr/saved/" visible="eq(-2,true) | eq(-1,true)" option="writeable" source="auto" />
 	</category>
-	<category label="32211">
+	<category label="30211">
 		<setting type="lsep" label="xsubs.tv" />
-		<setting id="xsubstv.user" type="text" label="32212" default="" />
-		<setting id="xsubstv.pass" type="text" option="hidden" label="32213" default="" />
+		<setting id="xsubstv.user" type="text" label="30212" default="" />
+		<setting id="xsubstv.pass" type="text" option="hidden" label="30213" default="" />
 	</category>
-	<category label="32216">
-		<setting visible="true" label="32217" type="action" action="RunScript(special://home/addons/service.subtitles.subtitles.gr/resources/lib/clear_cache.py)"/>
+	<category label="30216">
+		<setting visible="true" label="30217" type="action" action="RunScript(special://home/addons/service.subtitles.subtitles.gr/resources/lib/clear_cache.py)"/>
 	</category>
 </settings>

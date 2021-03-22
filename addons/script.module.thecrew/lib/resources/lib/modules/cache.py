@@ -27,6 +27,7 @@ import hashlib
 import re
 import time
 from resources.lib.modules import control
+import six
 
 try:
     from sqlite3 import dbapi2 as db, OperationalError
@@ -53,7 +54,11 @@ def get(function, duration, *args):
         cache_result = cache_get(key)
         if cache_result:
             if _is_cache_valid(cache_result['date'], duration):
-                return ast.literal_eval(cache_result['value'].encode('utf-8'))
+                try:
+                    result = ast.literal_eval(cache_result['value'].encode('utf-8'))
+                except:
+                    result = ast.literal_eval(cache_result['value'])
+                return result
 
         fresh_result = repr(function(*args))
         if not fresh_result:
@@ -63,8 +68,12 @@ def get(function, duration, *args):
             return None
 
         cache_insert(key, fresh_result)
-        return ast.literal_eval(fresh_result.encode('utf-8'))
-    except Exception:
+        try:
+            result = ast.literal_eval(fresh_result.encode('utf-8'))
+        except:
+            result = ast.literal_eval(fresh_result)
+        return result
+    except:
         return None
 
 
@@ -244,7 +253,6 @@ def _get_connection():
     conn = db.connect(control.cacheFile)
     conn.row_factory = _dict_factory
     return conn
-
 def _get_connection_cursor_meta():
     conn = _get_connection_meta()
     return conn.cursor()
@@ -274,7 +282,6 @@ def _get_connection_search():
     conn = db.connect(control.searchFile)
     conn.row_factory = _dict_factory
     return conn
-
 def _dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
@@ -292,7 +299,10 @@ def _get_function_name(function_instance):
 
 def _generate_md5(*args):
     md5_hash = hashlib.md5()
-    [md5_hash.update(str(arg)) for arg in args]
+    try:
+        [md5_hash.update(str(arg)) for arg in args]
+    except:
+        [md5_hash.update(str(arg).encode('utf-8')) for arg in args]
     return str(md5_hash.hexdigest())
 
 
@@ -300,12 +310,11 @@ def _is_cache_valid(cached_time, cache_timeout):
     now = int(time.time())
     diff = now - cached_time
     return (cache_timeout * 3600) > diff
-
 def cache_version_check():
 
     if _find_cache_version():
         cache_clear(); cache_clear_meta(); cache_clear_providers()
-        control.infoDialog(control.lang(32057).encode('utf-8'), sound=True, icon='INFO')
+        control.infoDialog(six.ensure_str(control.lang(32057)), sound=True, icon='INFO')
         
 def _find_cache_version():
 
@@ -317,7 +326,7 @@ def _find_cache_version():
             f.close()
     except Exception:
         import xbmc
-        print 'TheCrew Addon Data Path Does not Exist. Creating Folder....'
+        print 'The Crew Addon Data Path Does not Exist. Creating Folder....'
         ad_folder = xbmc.translatePath('special://home/userdata/addon_data/plugin.video.thecrew')
         os.makedirs(ad_folder)
     try:

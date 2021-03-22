@@ -1,22 +1,12 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
     iso8601 module: https://pypi.python.org/pypi/iso8601
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
 from datetime import datetime, timedelta, tzinfo
@@ -27,6 +17,7 @@ from tulip.compat import basestring
 __all__ = ["parse_date", "ParseError", "UTC"]
 
 # Adapted from http://delete.me.uk/2005/03/iso8601.html
+
 ISO8601_REGEX = re.compile(
     r"""
     (?P<year>[0-9]{4})

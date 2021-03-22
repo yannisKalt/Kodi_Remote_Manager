@@ -22,7 +22,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import urlparse, urllib
+from six.moves import urllib_parse
 
 from resources.lib.modules import cache
 from resources.lib.modules import client
@@ -32,14 +32,14 @@ from resources.lib.modules import utils
 
 def _getAniList(url):
     try:
-        url = urlparse.urljoin('https://anilist.co', '/api%s' % url)
+        url = urllib_parse.urljoin('https://anilist.co', '/api%s' % url)
         return client.request(url, headers={'Authorization': '%s %s' % cache.get(_getToken, 1), 'Content-Type': 'application/x-www-form-urlencoded'})
     except:
         pass
 
 
 def _getToken():
-    result = urllib.urlencode({'grant_type': 'client_credentials', 'client_id': 'kodiexodus-7erse', 'client_secret': 'XelwkDEccpHX2uO8NpqIjVf6zeg'})
+    result = urllib_parse.urlencode({'grant_type': 'client_credentials', 'client_id': 'kodiexodus-7erse', 'client_secret': 'XelwkDEccpHX2uO8NpqIjVf6zeg'})
     result = client.request('https://anilist.co/api/auth/access_token', post=result, headers={'Content-Type': 'application/x-www-form-urlencoded'}, error=True)
     result = utils.json_loads_as_str(result)
     return result['token_type'], result['access_token']

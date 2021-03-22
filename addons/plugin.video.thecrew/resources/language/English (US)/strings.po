@@ -1715,7 +1715,7 @@ msgid "[COLOR orchid]¤[/COLOR] [B][COLOR orange]100 Great Halloween Movies[/COL
 msgstr ""
 
 msgctxt "#90150"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Chains Of Absolution[/COLOR][/B]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Chain Reaction[/COLOR][/B]"
 msgstr ""
 
 msgctxt "#90151"
@@ -1891,9 +1891,65 @@ msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]XFL[/COLOR][/B] [COLOR orchid]¤
 msgstr ""
 
 msgctxt "#90194"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Basic Only[/COLOR][/B]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Show only Hats[/COLOR][/B]"
 msgstr ""
 
 msgctxt "#90195"
-msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Slim It Down[/COLOR][/B]"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]The Crew Version[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90196"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Your Sports Stream[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90197"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Weak Spell[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90198"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Sports 24 Tv[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90199"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Arconai Tv[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90200"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Sportsbay Tv[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90201"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Base[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90202"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white][/COLOR][COLOR orchid][/COLOR][COLOR white]Wasteland[/COLOR][/B]"
+msgstr ""
+
+msgctxt "#90203"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Pluto TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90204"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Xumo TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90205"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Bumblebee TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90206"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Distro TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90207"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]Tubi TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90208"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]DaddyLive TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
+msgstr ""
+
+msgctxt "#90209"
+msgid "[COLOR orchid]¤[/COLOR] [B][COLOR white]GRATIS TV[/COLOR][/B] [COLOR orchid]¤[/COLOR]"
 msgstr ""

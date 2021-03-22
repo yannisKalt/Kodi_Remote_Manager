@@ -9,10 +9,10 @@
  
 [B][COLOR deeppink]¤ [/COLOR][/B] Current version info:
 [B][COLOR deeppink]¤ [/COLOR][/B] plugin.program.thecrewiz	0.0.11
-[B][COLOR deeppink]¤ [/COLOR][/B] plugin.video.thecrew 		0.0.68
+[B][COLOR deeppink]¤ [/COLOR][/B] plugin.video.thecrew 		0.0.68a
 [B][COLOR deeppink]¤ [/COLOR][/B] repository.thecrew    	0.2.10
-[B][COLOR deeppink]¤ [/COLOR][/B] script.crew.sports    	0.0.50a
-[B][COLOR deeppink]¤ [/COLOR][/B] script.module.thecrew   	0.0.69
+[B][COLOR deeppink]¤ [/COLOR][/B] script.crew.sports    	0.0.54c
+[B][COLOR deeppink]¤ [/COLOR][/B] script.module.thecrew   	0.0.69c
 [B][COLOR deeppink]¤ [/COLOR][/B] script.thecrew.artwork    0.0.30
 [B][COLOR deeppink]¤ [/COLOR][/B] script.thecrew.metadata  	0.0.5
 

@@ -1,3 +1,42 @@
+[B]3.4.0 - 3.4.1[/B]
+- Code related tweaks, particularly how routing is handled
+- Added ability to save subtitles and/or zips from sources
+
+[B]3.3.1[/B]
+- Added the forgotten string
+
+[B]3.3.0[/B]
+- Improved search query function, added accompanying option
+
+[B]3.2.5[/B]
+- Tweaked imports
+
+[B]3.2.4[/B]
+- More bug fixes for vipsubs.gr (failure to load nested zip on Android)
+- Removed builtin methods from other provides
+
+[B]3.2.3[/B]
+- Bug fixes for vipsubs.gr
+
+[B]3.2.2[/B]
+- Do not allow random choice when not necessary
+
+[B]3.2.1[/B]
+- Added capability for nested zips on vipsubs.gr
+- Skip certain results not containing subtitles on vipsubs.gr
+
+[B]3.2.0[/B]
+- Bumped dependencies
+- Improved cache clear function
+- Added vipsubs.gr
+- Lots of bug fixes
+
+[B]3.1.X[/B]
+- Tweaked regexes for searches
+- Added a setting allowing users to set search and download timeouts
+- Added visual feedback when deleting function cache
+- Disabled subs4free.info
+
 [B]3.0.X[/B]
 - Removed subzxyz (subtitles were moved to opensubtitles.org)
 - Bypassed subtitles.gr/findsubtitles.eu domain completely and removed its setting

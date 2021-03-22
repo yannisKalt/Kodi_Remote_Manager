@@ -56,7 +56,7 @@ def request(url, close=True, redirect=True, error=False, verify=True, proxy=None
                 pass
 
         if url.startswith('//'):
-            url = 'http:' + url
+            url = 'https:' + url
 
         _headers = {}
 
@@ -376,7 +376,7 @@ def randommobileagent(mobile):
         'Mozilla/5.0 (Linux; Android 7.1; vivo 1716 Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; U; Android 6.0.1; zh-CN; F5121 Build/34.0.A.1.247) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 UCBrowser/11.5.1.944 Mobile Safari/537.36',
         'Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-N920C Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/6.2 Chrome/56.0.2924.87 Mobile Safari/537.36',
-        'Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1',
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/80.0.3987.95 Mobile/15E148 Safari/605.1',
         'Mozilla/5.0 (iPad; CPU OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1']
 
     if mobile == 'android':
@@ -386,7 +386,62 @@ def randommobileagent(mobile):
 
 
 def agent():
-    return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
+    return random.choice(
+            ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+            "Mozilla/5.0 (Linux; Android 8.0.0;) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Mobile Safari/537.36",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/80.0.3987.95 Mobile/15E148 Safari/605.1",
+            "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/74.0",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) Gecko/20100101 Firefox/74.0",
+            "Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/74.0",
+            "Mozilla/5.0 (Android 8.0.0; Mobile; rv:61.0) Gecko/61.0 Firefox/68.0",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/24.0 Mobile/16B92 Safari/605.1.15",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 13_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1",
+            "Mozilla/5.0 (iPad; CPU OS 13_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1",
+            "Mozilla/5.0 (iPod Touch; CPU iPhone OS 13_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1",
+            "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)",
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; WOW64; Trident/4.0;)",
+            "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)",
+            "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.0)",
+            "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)",
+            "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)",
+            "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2)",
+            "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko",
+            "Mozilla/5.0 (Windows NT 6.2; Trident/7.0; rv:11.0) like Gecko",
+            "Windows 8.1	Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko",
+            "Windows 10	Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 Edg/80.0.361.69",
+            "Mozilla/5.0 (Windows Mobile 10; Android 8.0.0; Microsoft; Lumia 950XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Mobile Safari/537.36 Edge/80.0.361.69",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox One) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 Edge/44.18363.8131",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 OPR/67.0.3575.115",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 OPR/67.0.3575.115",
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 OPR/67.0.3575.115",
+            "Mozilla/5.0 (Linux; Android 9; AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Mobile Safari/537.36 OPR/55.2.2719"])
+
+
+def youtubeApi():
+    return random.choice(['QUl6YVN5QTBhS0NnbkMybnc1ZmpiRzVQQUZHUlhSZzBxd3U2OVhv',
+                          'QUl6YVN5Q3JQTmdUdGtoc3BScHJuYjZLRnREeXpfUHJSWUV3a0pF',
+                          'QUl6YVN5QUxDWElwQi1Hb0l2OC03OGhYMENPNmNKQXltX3dSX0Y4',
+                          'QUl6YVN5QkEtb3Q4UWktQVdLWXdYZ2ZUZy1HVXZ6WEZRd3ZGTFQw',
+                          'QUl6YVN5RFhpSjRGT05qRU9IRHF0ZXVlVVY5Vnp1QVZnLUx1WW0w',
+                          'QUl6YVN5QllOV3pPeFdBd1loUDRwemtVYnF2SDRVVW5VbnV6SXM4',
+                          'QUl6YVN5Q1FwUU9GemJTR3B0R1UzazdvZXRNLWtXdEJxS0RDUEJB',
+                          'QUl6YVN5Q0NHWEE2Y1J1LVpFRTdZWkd4UWpRV3NWR1pNaW93UmFJ',
+                          'QUl6YVN5RGFucXVjamwzRTlEYWRuWDNyUVlDY1ZlVE42YU5JV0pz',
+                          'QUl6YVN5RHAybzVFZWdvSGFTSkxSVFNNMXZuX3FDRFpPTTZBQ013',
+                          'QUl6YVN5Q1JWT2xNYWo2eGhUNWx3dVFzLVg1THA3SEtPQUJidG93']).decode('base64')
+
+
+def devApi():
+    return random.choice(['QUl6YVN5QVB3VFRJSGJvdHhTRm5XVWpPT1Z3NUlQX3pRWEU3X3JN',
+                          'QUl6YVN5RERqajFrbXIxOFhIRGYydF9KZHpiU01UU3Vka3lVanU0']).decode('base64')
+
+
+def devPass():
+    return 'ZG9udC10b3VjaC10aGlz'.decode('base64')
 
 
 def getHTML(url):

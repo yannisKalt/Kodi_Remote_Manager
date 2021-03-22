@@ -26,12 +26,11 @@
 '''
 
 import re
-import urllib
 
-try:
-	import urlparse
-except:
-	import urllib.parse as urlparse
+try: from urlparse import urljoin
+except ImportError: from urllib.parse import urljoin
+try: from urllib import quote_plus
+except ImportError: from urllib.parse import quote_plus
 
 from openscrapers.modules import cleantitle
 from openscrapers.modules import client
@@ -48,8 +47,8 @@ class source:
 
 	def do_search(self, title, local_title, year, video_type):
 		try:
-			url = urlparse.urljoin(self.base_link, self.search_link)
-			url = url % urllib.quote_plus(cleantitle.query(title))
+			url = urljoin(self.base_link, self.search_link)
+			url = url % quote_plus(cleantitle.query(title))
 			result = client.request(url)
 			result = client.parseDOM(result, 'div', attrs={'class': 'item'})
 			for row in result:
@@ -64,7 +63,7 @@ class source:
 
 				if self.name_matches(names, titles, year) and (len(year_found) == 0 or year_found[0] == year):
 					url = client.parseDOM(row, 'a', ret='href')[0]
-					return urlparse.urljoin(self.base_link, url)
+					return urljoin(self.base_link, url)
 		except:
 			return
 
@@ -134,7 +133,7 @@ class source:
 
 		q = 'SD'
 		if len(sources) == 0 and (len(client.parseDOM(result, 'span', attrs={'class': 'calidad2'})) > 0):
-			q = 'HD'
+			q = '720p'
 		player2 = client.parseDOM(result, 'div', attrs={'id': 'player2'})
 		links = client.parseDOM(player2, 'iframe', ret='src')
 
@@ -167,7 +166,7 @@ class source:
 			host = client.parseDOM(row, 'img', ret='alt')[0]
 			lang, info = self.get_lang_by_type(lang_type)
 			q = 'SD'
-			if quality_type == 'Wysoka': q = 'HD'
+			if quality_type == 'Wysoka': q = '720p'
 			sources.append(
 				{'source': host, 'quality': q, 'language': lang, 'url': src_url, 'info': info, 'direct': False,
 				 'debridonly': False})

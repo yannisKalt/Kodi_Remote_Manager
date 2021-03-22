@@ -1,19 +1,21 @@
 # -*- coding: UTF-8 -*-
 # -Cleaned and Checked on 10-16-2019 by JewBMX in Scrubs.
+# -Cleaned up and Checked and Fixed on 4-30-2020 by Tempest.
 
 import re, urllib, urlparse, base64, json, time
+import traceback
 from resources.lib.modules import client
+from resources.lib.modules import log_utils
 from resources.lib.modules import cleantitle
 from resources.lib.modules import directstream
-from resources.lib.modules import source_utils
-
+from resources.lib.modules import scrape_source
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['showbox.space']
-        self.base_link = 'https://showbox.space'
+        self.domains = ['showbox.works', 'showbox.space']
+        self.base_link = 'https://showbox.works'
 
 # https://showbox.space/movie/porkys
 # https://popcorntime.watch/movie/porkys
@@ -24,8 +26,7 @@ class source:
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
-            aliases.append({'country': 'us', 'title': title})
-            url = {'imdb': imdb, 'title': title, 'year': year, 'aliases': aliases}
+            url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
         except:
@@ -33,8 +34,7 @@ class source:
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
-            aliases.append({'country': 'us', 'title': tvshowtitle})
-            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year, 'aliases': aliases}
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
             return url
         except:
@@ -52,30 +52,26 @@ class source:
         except:
             return
 
-    def searchShow(self, title, season, episode, aliases, headers):
+    def searchShow(self, title, season, episode, headers):
         try:
-            for alias in aliases:
-                url = '%s/show/%s/season/%01d/episode/%01d' % (self.base_link, cleantitle.geturl(title), int(season), int(episode))
-                url = client.request(url, headers=headers, output='geturl', timeout='10')
-                if not url is None and url != self.base_link:
-                    break
+            url = '%s/show/%s/season/%01d/episode/%01d' % (self.base_link, cleantitle.geturl(title), int(season), int(episode))
+            url = client.request(url, headers=headers, output='geturl', timeout='10')
             return url
         except:
             return
 
-    def searchMovie(self, title, year, aliases, headers):
+    def searchMovie(self, title, year, headers):
         try:
-            for alias in aliases:
-                url = '%s/movie/%s' % (self.base_link, cleantitle.geturl(alias['title']))
-                url = client.request(url, headers=headers, output='geturl', timeout='10')
-                if not url is None and url != self.base_link:
-                    break
-            if url is None:
-                for alias in aliases:
-                    url = '%s/movie/%s-%s' % (self.base_link, cleantitle.geturl(alias['title']), year)
-                    url = client.request(url, headers=headers, output='geturl', timeout='10')
-                    if not url is None and url != self.base_link:
-                        break
+            url = '%s/movie/%s' % (self.base_link, cleantitle.geturl(title))
+            url = client.request(url, headers=headers, output='geturl', timeout='10')
+            return url
+        except:
+            return
+
+    def searchMovie2(self, title, year, headers):
+        try:
+            url = '%s/movie/%s-%s' % (self.base_link, cleantitle.geturl(title), year)
+            url = client.request(url, headers=headers, output='geturl', timeout='10')
             return url
         except:
             return
@@ -89,15 +85,15 @@ class source:
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
             imdb = data['imdb']
-            aliases = eval(data['aliases'])
             headers = {}
             if 'tvshowtitle' in data:
-                url = self.searchShow(title, int(data['season']), int(data['episode']), aliases, headers)
+                url = self.searchShow(title, int(data['season']), int(data['episode']), headers)
             else:
-                url = self.searchMovie(title, data['year'], aliases, headers)
+                url = self.searchMovie(title, data['year'], headers)
             r = client.request(url, headers=headers, output='extended', timeout='10')
-            if not imdb in r[0]:
-                raise Exception()
+            if imdb not in r[0]:
+                url = self.searchMovie2(title, data['year'], headers)
+                r = client.request(url, headers=headers, timeout='10')
             cookie = r[4]; headers = r[3]; result = r[0]
             try:
                 r = re.findall('(https:.*?redirector.*?)[\'\"]', result)
@@ -127,24 +123,12 @@ class source:
             r = str(json.loads(r))
             r = re.findall('\'(http.+?)\'', r) + re.findall('\"(http.+?)\"', r)
             for i in r:
-                if 'google' in i:
-                    quality = 'SD'
-                    if 'googleapis' in i:
-                        quality = source_utils.check_sd_url(i)
-                    elif 'googleusercontent' in i:
-                        i = directstream.googleproxy(i)
-                        quality = directstream.googletag(i)[0]['quality']
-                    sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
-                elif 'llnwi.net' in i or 'vidcdn.pro' in i:
-                    quality = source_utils.check_sd_url(i)
-                    sources.append({'source': 'CDN', 'quality': quality, 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
-                else:
-                    valid, hoster = source_utils.is_host_valid(i, hostDict)
-                    if valid:
-                        quality = source_utils.check_sd_url(i)
-                        sources.append({'source': hoster, 'quality': quality, 'language': 'en', 'url': i, 'direct': False, 'debridonly': False})
+                for source in scrape_source.getMore(i, hostDict):
+                    sources.append(source)
             return sources
-        except:
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---SHOWBOX Testing - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

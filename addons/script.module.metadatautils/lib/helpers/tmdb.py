@@ -1,40 +1,52 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-'''
+"""
     script.module.metadatautils
     tmdb.py
     Get metadata from The Movie Database
-'''
+"""
 
-from utils import get_json, KODI_LANGUAGE, try_parse_int, DialogSelect, get_compare_string, int_with_commas
+import os, sys
+if sys.version_info.major == 3:
+    from .utils import get_json, KODI_LANGUAGE, try_parse_int, DialogSelect, get_compare_string, int_with_commas, ADDON_ID
+else:
+    from utils import get_json, KODI_LANGUAGE, try_parse_int, DialogSelect, get_compare_string, int_with_commas, ADDON_ID
 from difflib import SequenceMatcher as SM
 from simplecache import use_cache
 from operator import itemgetter
 import xbmc
 import xbmcgui
+import xbmcaddon
+import datetime
 
 
 class Tmdb(object):
-    '''get metadata from tmdb'''
-    api_key = "ae06df54334aa653354e9a010f4b81cb"
+    """get metadata from tmdb"""
+    api_key = None  # public var to be set by the calling addon
 
-    def __init__(self, simplecache=None):
-        '''Initialize - optionaly provide simplecache object'''
+    def __init__(self, simplecache=None, api_key=None):
+        """Initialize - optionaly provide simplecache object"""
         if not simplecache:
             from simplecache import SimpleCache
             self.cache = SimpleCache()
         else:
             self.cache = simplecache
+        addon = xbmcaddon.Addon(id=ADDON_ID)
+        # personal api key (preferred over provided api key)
+        api_key = addon.getSetting("tmdb_apikey")
+        if api_key:
+            self.api_key = api_key
+        del addon
 
-    def search_movie(self, title, year="", manual_select=False):
-        '''
+    def search_movie(self, title, year="", manual_select=False, ignore_cache=False):
+        """
             Search tmdb for a specific movie, returns full details of best match
             parameters:
             title: (required) the title of the movie to search for
             year: (optional) the year of the movie to search for (enhances search result if supplied)
             manual_select: (optional) if True will show select dialog with all results
-        '''
+        """
         details = self.select_best_match(self.search_movies(title, year), manual_select=manual_select)
         if details:
             details = self.get_movie_details(details["id"])
@@ -42,7 +54,7 @@ class Tmdb(object):
 
     @use_cache(30)
     def search_movieset(self, title):
-        '''search for movieset details providing the title of the set'''
+        """search for movieset details providing the title of the set"""
         details = {}
         params = {"query": title, "language": KODI_LANGUAGE}
         result = self.get_data("search/collection", params)
@@ -51,28 +63,30 @@ class Tmdb(object):
             details = self.get_movieset_details(set_id)
         return details
 
-    def search_tvshow(self, title, year="", manual_select=False):
-        '''
+    @use_cache(4)
+    def search_tvshow(self, title, year="", manual_select=False, ignore_cache=False):
+        """
             Search tmdb for a specific movie, returns full details of best match
             parameters:
             title: (required) the title of the movie to search for
             year: (optional) the year of the movie to search for (enhances search result if supplied)
             manual_select: (optional) if True will show select dialog with all results
-        '''
+        """
         details = self.select_best_match(self.search_tvshows(title, year), manual_select=manual_select)
         if details:
             details = self.get_tvshow_details(details["id"])
         return details
 
-    def search_video(self, title, prefyear="", preftype="", manual_select=False):
-        '''
+    @use_cache(4)
+    def search_video(self, title, prefyear="", preftype="", manual_select=False, ignore_cache=False):
+        """
             Search tmdb for a specific entry (can be movie or tvshow), returns full details of best match
             parameters:
             title: (required) the title of the movie/tvshow to search for
             prefyear: (optional) prefer result if year matches
             preftype: (optional) prefer result if type matches
             manual_select: (optional) if True will show select dialog with all results
-        '''
+        """
         results = self.search_videos(title)
         details = self.select_best_match(results, prefyear=prefyear, preftype=preftype,
                                          preftitle=title, manual_select=manual_select)
@@ -82,11 +96,12 @@ class Tmdb(object):
             details = self.get_tvshow_details(details["id"])
         return details
 
+    @use_cache(4)
     def search_videos(self, title):
-        '''
+        """
             Search tmdb for a specific entry (can be movie or tvshow), parameters:
             title: (required) the title of the movie/tvshow to search for
-        '''
+        """
         results = []
         page = 1
         maxpages = 5
@@ -102,35 +117,37 @@ class Tmdb(object):
                 break
         return results
 
+    @use_cache(4)
     def search_movies(self, title, year=""):
-        '''
+        """
             Search tmdb for a specific movie, returns a list of all closest matches
             parameters:
             title: (required) the title of the movie to search for
             year: (optional) the year of the movie to search for (enhances search result if supplied)
-        '''
+        """
         params = {"query": title, "language": KODI_LANGUAGE}
         if year:
             params["year"] = try_parse_int(year)
         return self.get_data("search/movie", params)
 
+    @use_cache(4)
     def search_tvshows(self, title, year=""):
-        '''
+        """
             Search tmdb for a specific tvshow, returns a list of all closest matches
             parameters:
             title: (required) the title of the tvshow to search for
             year: (optional) the first air date year of the tvshow to search for (enhances search result if supplied)
-        '''
+        """
         params = {"query": title, "language": KODI_LANGUAGE}
         if year:
             params["first_air_date_year"] = try_parse_int(year)
         return self.get_data("search/tv", params)
 
     def get_actor(self, name):
-        '''
+        """
             Search tmdb for a specific actor/person, returns the best match as kodi compatible dict
             required parameter: name --> the name of the person
-        '''
+        """
         params = {"query": name, "language": KODI_LANGUAGE}
         result = self.get_data("search/person", params)
         if result:
@@ -145,7 +162,7 @@ class Tmdb(object):
             return {}
 
     def get_movie_details(self, movie_id):
-        '''get all moviedetails'''
+        """get all moviedetails"""
         params = {
             "append_to_response": "keywords,videos,credits,images",
             "include_image_language": "%s,en" % KODI_LANGUAGE,
@@ -154,7 +171,7 @@ class Tmdb(object):
         return self.map_details(self.get_data("movie/%s" % movie_id, params), "movie")
 
     def get_movieset_details(self, movieset_id):
-        '''get all moviesetdetails'''
+        """get all moviesetdetails"""
         details = {"art": {}}
         params = {"language": KODI_LANGUAGE}
         result = self.get_data("collection/%s" % movieset_id, params)
@@ -168,7 +185,7 @@ class Tmdb(object):
         return details
 
     def get_tvshow_details(self, tvshow_id):
-        '''get all tvshowdetails'''
+        """get all tvshowdetails"""
         params = {
             "append_to_response": "keywords,videos,external_ids,credits,images",
             "include_image_language": "%s,en" % KODI_LANGUAGE,
@@ -177,7 +194,7 @@ class Tmdb(object):
         return self.map_details(self.get_data("tv/%s" % tvshow_id, params), "tvshow")
 
     def get_videodetails_by_externalid(self, extid, extid_type):
-        '''get metadata by external ID (like imdbid)'''
+        """get metadata by external ID (like imdbid)"""
         params = {"external_source": extid_type, "language": KODI_LANGUAGE}
         results = self.get_data("find/%s" % extid, params)
         if results and results["movie_results"]:
@@ -186,23 +203,43 @@ class Tmdb(object):
             return self.get_tvshow_details(results["tv_results"][0]["id"])
         return {}
 
-    @use_cache(7)
     def get_data(self, endpoint, params):
-        '''helper method to get data from tmdb json API'''
-        params["api_key"] = self.api_key
-        url = u'http://api.themoviedb.org/3/%s' % endpoint
-        result = get_json(url, params)
-        # make sure that we have a plot value (if localized value fails, fallback to english)
-        if result and "language" in params and "overview" in result:
-            if not result["overview"] and params["language"] != "en":
-                params["language"] = "en"
-                result2 = get_json(url, params)
-                if result2 and result2.get("overview"):
-                    result = result2
+        """helper method to get data from tmdb json API"""
+        if self.api_key:
+            # addon provided or personal api key
+            params["api_key"] = self.api_key
+            rate_limit = None
+            expiration = datetime.timedelta(days=7)
+        else:
+            # fallback api key (rate limited !)
+            params["api_key"] = "80246691939720672db3fc71c74e0ef2"
+            # without personal (or addon specific) api key = rate limiting and older info from cache
+            rate_limit = ("themoviedb.org", 5)
+            expiration = datetime.timedelta(days=60)
+        if sys.version_info.major == 3:
+            cachestr = "tmdb.%s" % params.values()
+        else:
+            cachestr = "tmdb.%s" % params.itervalues()
+        cache = self.cache.get(cachestr)
+        if cache:
+            # data obtained from cache
+            result = cache
+        else:
+            # no cache, grab data from API
+            url = u'http://api.themoviedb.org/3/%s' % endpoint
+            result = get_json(url, params, ratelimit=rate_limit)
+            # make sure that we have a plot value (if localized value fails, fallback to english)
+            if result and "language" in params and "overview" in result:
+                if not result["overview"] and params["language"] != "en":
+                    params["language"] = "en"
+                    result2 = get_json(url, params)
+                    if result2 and result2.get("overview"):
+                        result = result2
+            self.cache.set(url, result, expiration=expiration)
         return result
 
     def map_details(self, data, media_type):
-        '''helper method to map the details received from tmdb to kodi compatible formatting'''
+        """helper method to map the details received from tmdb to kodi compatible formatting"""
         if not data:
             return {}
         details = {}
@@ -314,7 +351,7 @@ class Tmdb(object):
 
     @staticmethod
     def get_best_images(images):
-        '''get the best 5 images based on number of likes and the language'''
+        """get the best 5 images based on number of likes and the language"""
         for image in images:
             score = 0
             score += image["vote_count"]
@@ -331,7 +368,7 @@ class Tmdb(object):
 
     @staticmethod
     def select_best_match(results, prefyear="", preftype="", preftitle="", manual_select=False):
-        '''helper to select best match or let the user manually select the best result from the search'''
+        """helper to select best match or let the user manually select the best result from the search"""
         details = {}
         # score results if one or more preferences are given
         if results and (prefyear or preftype or preftitle):
@@ -400,7 +437,8 @@ class Tmdb(object):
                 else:
                     thumb = ""
                 label = "%s (%s) - %s" % (title, year, item["media_type"])
-                listitem = xbmcgui.ListItem(label=label, iconImage=thumb, label2=item["overview"])
+                listitem = xbmcgui.ListItem(label=label, label2=item["overview"])
+                listitem.setArt({'icon': thumb})
                 results_list.append(listitem)
             if manual_select and results_list:
                 dialog = DialogSelect("DialogSelect.xml", "", listing=results_list, window_title="%s - TMDB"

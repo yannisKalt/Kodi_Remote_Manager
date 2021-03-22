@@ -1,5 +1,7 @@
 <settings>
     <setting id="jezyk" value="pl" />
+    <setting id="proksWS" value="false" />
+    <setting id="proxyport" value="52705" />
     <setting id="sport365" value="Streamlink" />
-    <setting id="unbkuk" value="__ddgu=426d6a7a64444ceea162f4e96bf0c973.1679497221" />
+    <setting id="unbkuk" value="__ddgu=302a4a6686e5471b932ab5ecdbe6e02b.1679497221" />
 </settings>

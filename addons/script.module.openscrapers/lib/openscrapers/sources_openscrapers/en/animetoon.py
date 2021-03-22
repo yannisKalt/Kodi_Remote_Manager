@@ -34,12 +34,13 @@ from openscrapers.modules import source_utils
 
 class source:
 	def __init__(self):
-		self.priority = 1
+		self.priority = 35
 		self.language = ['en']
 		self.genre_filter = ['animation', 'anime']
 		self.domains = ['animetoon.org', 'animetoon.tv']
 		self.base_link = 'http://www.animetoon.org'
 		self.scraper = cfscrape.create_scraper()
+
 
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:
@@ -48,14 +49,18 @@ class source:
 			url = self.base_link + '/' + url
 			return url
 		except:
+			source_utils.scraper_error('ANIMETOON')
 			return
+
 
 	def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
 		try:
 			url = cleantitle.geturl(tvshowtitle)
 			return url
 		except:
+			source_utils.scraper_error('ANIMETOON')
 			return
+
 
 	def episode(self, url, imdb, tvdb, title, premiered, season, episode):
 		try:
@@ -67,7 +72,9 @@ class source:
 				url = self.base_link + '/' + url + '-season-' + season + '-episode-' + episode
 			return url
 		except:
+			source_utils.scraper_error('ANIMETOON')
 			return
+
 
 	def sources(self, url, hostDict, hostprDict):
 		sources = []
@@ -77,19 +84,20 @@ class source:
 			for url in match:
 				host = url.split('//')[1].replace('www.', '')
 				host = host.split('/')[0].split('.')[0].title()
-				quality = source_utils.check_sd_url(url)
+				quality = source_utils.check_url(url)
 				r = self.scraper.get(url).content
 				if 'http' in url:
 					match = re.compile("url: '(.+?)',").findall(r)
 				else:
 					match = re.compile('file: "(.+?)",').findall(r)
 				for url in match:
-					sources.append(
-						{'source': host, 'quality': quality, 'language': 'en', 'url': url, 'direct': False,
+					sources.append({'source': host, 'quality': quality, 'info': '', 'language': 'en', 'url': url, 'direct': False,
 						 'debridonly': False})
 		except:
+			source_utils.scraper_error('ANIMETOON')
 			return
 		return sources
+
 
 	def resolve(self, url):
 		return url

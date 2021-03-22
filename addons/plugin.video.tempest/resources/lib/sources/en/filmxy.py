@@ -1,24 +1,30 @@
 # -*- coding: utf-8 -*-
-# -Cleaned and Checked on 10-16-2019 by JewBMX in Scrubs.
+"""
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
+"""
 
-import re
-from resources.lib.modules import cleantitle
-from resources.lib.modules import source_utils
-from resources.lib.sources import cfscrape
+import re, urllib, urlparse
+import traceback
+from resources.lib.modules import log_utils
+from resources.lib.modules import client
+from resources.lib.modules import scrape_source
 
 
 class source:
     def __init__(self):
         self.priority = 1
-        self.language = ['en'] # Old  filmxy.me  filmxy.ws  filmxy.one
-        self.domains = ['filmxy.nl', 'filmxy.live']
-        self.base_link = 'https://www.filmxy.nl'
-        self.movie_link = '/%s-%s'
+        self.language = ['en']
+        self.domains = ['www.filmxy.tv']
+        self.base_link = 'https://www.filmxy.tv'
+        self.search_link = '/%s/'
+        self.headers = {'User-Agent': client.agent(), 'Referer': self.base_link}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
-            title = cleantitle.geturl(title)
-            url = self.base_link + self.movie_link %(title, year)
+            url = {'imdb': imdb, 'title': title, 'year': year}
+            url = urllib.urlencode(url)
             return url
         except:
             return
@@ -26,19 +32,34 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            hostDict = hostDict + hostprDict
+            items = []
+
             if url is None:
                 return sources
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0'}
-            result = cfscrape.get(url, headers=headers).content
-            source = re.compile('data-player="&lt;[A-Za-z]{6}\s[A-Za-z]{3}=&quot;(.+?)&quot;', re.DOTALL).findall(result)
-            for url in source:
-                quality, info = source_utils.get_release_quality(url, url)
-                valid, host = source_utils.is_host_valid(url, hostDict)
-                if valid:
-                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'info': info, 'url': url, 'direct': False, 'debridonly': False})
+
+            hostDict = hostprDict + hostDict
+
+            data = urlparse.parse_qs(url)
+            data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
+
+            query = '%s-%s' % (data['title'].replace(' ', '-'), data['year'])
+            query = re.sub('(\\\|/| -|:|\.|;|\*|\?|"|\'|<|>|\|)', ' ', query)
+
+            url = self.search_link % query
+            url = urlparse.urljoin(self.base_link, url).lower()
+            try:
+                url = client.request(url, headers=self.headers)
+                url = re.findall('data-player="&lt;iframe src=&quot;(.+?)&quot;', url)
+                for url in url:
+                    for source in scrape_source.getMore(url, hostDict):
+                        sources.append(source)
+            except:
+                return
+
             return sources
-        except:
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---2EMBED Testing - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

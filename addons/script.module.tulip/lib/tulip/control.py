@@ -1,29 +1,20 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
+
 
 from __future__ import absolute_import, division
 
 from kodi_six import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import os, json, time
 from tulip.init import syshandle
-from tulip.compat import basestring
+from tulip.compat import basestring, is_py3
 
 
 integer = 1000
@@ -54,13 +45,7 @@ monitor = xbmc.Monitor
 wait = monitor().waitForAbort
 aborted = monitor().abortRequested
 cleanmovietitle = xbmc.getCleanMovieTitle
-
-transPath = xbmc.translatePath
-skinPath = transPath('special://skin/')
-addonPath = transPath(addonInfo('path'))
-legalfilename = xbmc.makeLegalFilename
-
-dataPath = transPath(addonInfo('profile'))
+getregion = xbmc.getRegion
 
 window = xbmcgui.Window(10000)
 dialog = xbmcgui.Dialog()
@@ -86,29 +71,7 @@ listDir = xbmcvfs.listdir
 exists = xbmcvfs.exists
 copy = xbmcvfs.copy
 rename = xbmcvfs.rename
-
 join = os.path.join
-settingsFile = os.path.join(dataPath, 'settings.xml')
-bookmarksFile = os.path.join(dataPath, 'bookmarks.db')
-cacheFile = os.path.join(dataPath, 'cache.db')
-
-
-def enum(**enums):
-
-    try:
-        return type(b'Enum', (), enums)
-    except TypeError:
-        return type('Enum', (), enums)
-
-
-def name():
-
-    return addonInfo('name')
-
-
-def version():
-
-    return addonInfo('version')
 
 
 def kodi_version():
@@ -120,6 +83,31 @@ def kodi_version():
     """
 
     return float(addon('xbmc.addon').getAddonInfo('version')[:4])
+
+
+if is_py3:
+    legalfilename = xbmcvfs.makeLegalFilename
+    transPath = xbmcvfs.translatePath
+else:
+    legalfilename = xbmc.makeLegalFilename
+    transPath = xbmc.translatePath
+
+skinPath = transPath('special://skin/')
+addonPath = transPath(addonInfo('path'))
+dataPath = transPath(addonInfo('profile'))
+settingsFile = join(dataPath, 'settings.xml')
+bookmarksFile = join(dataPath, 'bookmarks.db')
+cacheFile = join(dataPath, 'cache.db')
+
+
+def name():
+
+    return addonInfo('name')
+
+
+def version():
+
+    return addonInfo('version')
 
 
 def fanart():
@@ -151,14 +139,20 @@ def okDialog(heading, line1):
     return dialog.ok(heading, line1)
 
 
-def yesnoDialog(line1, line2='', line3='', heading=addonInfo('name'), nolabel='', yeslabel=''):
+def yesnoDialog(line1, heading=addonInfo('name'), nolabel='', yeslabel=''):
 
-    return dialog.yesno(heading, line1, line2, line3, nolabel, yeslabel)
+    if is_py3:
+        return dialog.yesno(heading, message=line1, nolabel=nolabel, yeslabel=yeslabel)
+    else:
+        return dialog.yesno(heading, line1=line1, nolabel=nolabel, yeslabel=yeslabel)
 
 
-def selectDialog(list, heading=addonInfo('name')):
+def selectDialog(list, heading=addonInfo('name'), autoclose=0, preselect=-1, useDetails=False):
 
-    return dialog.select(heading, list)
+    if kodi_version() >= 17.0:
+        return dialog.select(heading, list, autoclose=autoclose, preselect=preselect, useDetails=useDetails)
+    else:
+        return dialog.select(heading, list)
 
 
 def inputDialog(heading=name(), default='', type=alphanum_input, option=0, autoclose=0):
@@ -169,92 +163,99 @@ def inputDialog(heading=name(), default='', type=alphanum_input, option=0, autoc
         return dialog.input(heading=heading, defaultt=default, type=type, option=option, autoclose=autoclose)
 
 
-class WorkingDialog(object):
+if kodi_version() >= 18.0:
 
-    wd = None
+    def text_viewer(heading, text, use_mono=False):
+
+        dialog.textviewer(heading, text, use_mono)
+
+else:
+
+    def text_viewer(heading, text):
+
+        dialog.textviewer(heading, text)
+
+
+class WorkingDialog(object):
 
     def __init__(self):
 
-        try:
-
-            self.wd = xbmcgui.DialogBusy()
-            self.wd.create()
-            self.update(0)
-
-        except:
-
-            busy()
+        busy()
 
     def __enter__(self):
+
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self):
 
-        if self.wd is not None:
-
-            self.wd.close()
-
-        else:
-
-            idle()
-
-    def is_canceled(self):
-        if self.wd is not None:
-            return self.wd.iscanceled()
-        else:
-            return False
-
-    def update(self, percent):
-        if self.wd is not None:
-            self.wd.update(percent)
+        idle()
 
 
 class ProgressDialog(object):
 
     pd = None
 
-    def __init__(self, heading, line1='', line2='', line3='', background=False, active=True, timer=0):
+    def __init__(self, heading, line1='', background=False, active=True, timer=0):
+
         self.begin = time.time()
         self.timer = timer
         self.background = background
         self.heading = heading
+
         if active and not timer:
-            self.pd = self.__create_dialog(line1, line2, line3)
+
+            self.pd = self.__create_dialog(line1)
             self.pd.update(0)
 
-    def __create_dialog(self, line1, line2, line3):
+    def __create_dialog(self, line1):
+
         if self.background:
+
             pd = xbmcgui.DialogProgressBG()
-            msg = line1 + line2 + line3
-            pd.create(self.heading, msg)
+            pd.create(self.heading, line1)
+
         else:
+
             pd = xbmcgui.DialogProgress()
-            pd.create(self.heading, line1, line2, line3)
+            pd.create(self.heading, line1)
+
         return pd
 
     def __enter__(self):
+
         return self
 
     def __exit__(self, type, value, traceback):
+
         if self.pd is not None:
+
             self.pd.close()
 
     def is_canceled(self):
+
         if self.pd is not None and not self.background:
+
             return self.pd.iscanceled()
+
         else:
+
             return False
 
-    def update(self, percent, line1='', line2='', line3=''):
+    def update(self, percent, line1=''):
+
         if self.pd is None and self.timer and (time.time() - self.begin) >= self.timer:
-            self.pd = self.__create_dialog(line1, line2, line3)
+
+            self.pd = self.__create_dialog(line1)
 
         if self.pd is not None:
+
             if self.background:
-                msg = line1 + line2 + line3
-                self.pd.update(percent, self.heading, msg)
+
+                self.pd.update(percent, self.heading, line1)
+
             else:
-                self.pd.update(percent, line1, line2, line3)
+
+                self.pd.update(percent, line1)
 
 
 class CountdownDialog(object):
@@ -263,28 +264,40 @@ class CountdownDialog(object):
 
     pd = None
 
-    def __init__(self, heading, line1='', line2='', line3='', active=True, countdown=60, interval=5):
+    def __init__(self, heading, line1='', expiration='', active=True, countdown=60, interval=5):
 
         self.heading = heading
         self.countdown = countdown
         self.interval = interval
-        self.line3 = line3
+        self.expiration = expiration
+        self.line1 = line1
 
         if active:
+
             pd = xbmcgui.DialogProgress()
 
-            if not self.line3:
-                line3 = 'Expires in: %s seconds' % countdown
+            if not self.expiration:
 
-            pd.create(self.heading, line1, line2, line3)
+                expiration = 'Expires in: {} seconds'.format(countdown)
+
+            else:
+
+                if isinstance(expiration, int):
+                    expiration = lang(expiration).format(countdown)
+                else:
+                    expiration = expiration.format(countdown)
+
+            pd.create(self.heading, self.line1 + '[CR]' + expiration)
             pd.update(100)
 
             self.pd = pd
 
     def __enter__(self):
+
         return self
 
     def __exit__(self, type, value, traceback):
+
         if self.pd is not None:
             self.pd.close()
 
@@ -292,7 +305,9 @@ class CountdownDialog(object):
 
         if args is None: args = []
         if kwargs is None: kwargs = {}
+
         result = func(*args, **kwargs)
+
         if result:
             return result
 
@@ -315,9 +330,9 @@ class CountdownDialog(object):
                     time_left = 0
 
                 progress = int(round(time_left * 100 / expires))
-                line3 = 'Expires in: %s seconds' % time_left if not self.line3 else ''
+                pg_text = 'Expires in: %s seconds' % time_left if not self.expiration else ''
 
-                self.update(progress, line3=line3)
+                self.update(progress, line1=self.line1 + '[CR]' + pg_text)
 
             result = func(*args, **kwargs)
             if result:
@@ -329,14 +344,9 @@ class CountdownDialog(object):
         else:
             return self.pd.iscanceled()
 
-    def update(self, percent, line1='', line2='', line3=''):
+    def update(self, percent, line1=''):
         if self.pd is not None:
-            self.pd.update(percent, line1, line2, line3)
-
-
-def per_cent(count, total):
-
-    return min(int(round(count * 100 / total)), 100)
+            self.pd.update(percent, line1)
 
 
 def read(file_, numBytes=0):
@@ -349,17 +359,21 @@ def readbytes(file_, numBytes=0):
     return openFile(file_).readBytes(numBytes)
 
 
-def openSettings(query=None, id=addonInfo('id')):
+def openSettings(query=None, id=addonInfo('id'), execute_=True):
 
     idle()
-    execute('Addon.OpenSettings({0})'.format(id))
+
+    if execute_:
+        execute('Addon.OpenSettings({0})'.format(id))
+    else:
+        addon(id).openSettings()
 
     if query is not None:
 
         try:
 
             c, f = query.split('.')
-            if kodi_version() > 17.6:
+            if kodi_version() >= 18.0:
                 execute('SetFocus(-{0})'.format(100 - int(c)))
                 if int(f):
                     execute('SetFocus(-{0})'.format(80 - int(f)))
@@ -371,13 +385,6 @@ def openSettings(query=None, id=addonInfo('id')):
         except Exception:
 
             pass
-
-
-# Alternative method
-def Settings(id=addonInfo('id')):
-
-    idle()
-    addon(id).openSettings()
 
 
 def playlist(mode=1):
@@ -412,7 +419,7 @@ def refresh():
 
 def idle():
 
-    if kodi_version() > 17.6:
+    if kodi_version() >= 18.0:
         execute('Dialog.Close(busydialognocancel)')
     else:
         execute('Dialog.Close(busydialog)')
@@ -420,7 +427,7 @@ def idle():
 
 def busy():
 
-    if kodi_version() > 17.6:
+    if kodi_version() >= 18.0:
         execute('ActivateWindow(busydialognocancel)')
     else:
         execute('ActivateWindow(busydialog)')
@@ -711,6 +718,8 @@ def active_mode():
 
 def quit_kodi():
 
+    busy()
+
     execute('Quit')
 
 
@@ -738,3 +747,27 @@ def open_web_browser(url):
         import webbrowser
 
         return webbrowser.open(url)
+
+
+def update_repositories():
+
+    xbmc.executebuiltin('UpdateAddonRepos')
+
+
+def update_addons():
+
+    xbmc.executebuiltin('UpdateLocalAddons')
+
+
+def install_addon(addon_id, send_yes=True):
+
+    xbmc.executebuiltin('InstallAddon({0})'.format(addon_id))
+
+    if send_yes:
+
+        while not wait(1):
+            if xbmc.getCondVisibility('Window.IsActive(yesnodialog)'):
+                xbmc.executebuiltin('SendClick(yesnodialog,11)')
+                break
+            elif not xbmc.getCondVisibility('Window.IsActive(yesnodialog)'):
+                break

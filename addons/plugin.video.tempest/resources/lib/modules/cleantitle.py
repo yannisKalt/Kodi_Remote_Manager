@@ -46,6 +46,15 @@ def geturl(title):
     return title
 
 
+def getUrl(title):
+    if title is None:
+        return
+    title = title.lower()
+    title = title.translate(None, ':*?"\'\.<>|&!,')
+    title = title.replace(' ', '+')
+    return title
+
+
 def get_url(title):
     if title is None:
         return

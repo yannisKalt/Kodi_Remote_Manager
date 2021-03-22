@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import re, urllib, urllib2
-import cookielib, gzip
+import cookielib, gzip, client
 import StringIO
 import socket
 

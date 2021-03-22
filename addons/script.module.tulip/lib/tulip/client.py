@@ -1,47 +1,40 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
+
 
 from __future__ import absolute_import, division, print_function
 
-from tulip.cleantitle import replaceHTMLCodes
-from tulip.parsers import parseDOM
-from tulip.user_agents import randomagent, random_mobile_agent
-import re, sys, time, traceback, gzip, json, socket
+from tulip.cleantitle import replaceHTMLCodes, stripTags
+from tulip.parsers import parseDOM, parseDOM2, parse_headers
+from tulip.user_agents import randomagent, random_mobile_agent, CHROME, ANDROID
+from tulip.utils import enum
+import sys, traceback, json, ssl
 from os import sep
 from os.path import basename, splitext
-from tulip import cache, control
-from tulip.log import log_debug
-from kodi_six.xbmc import log
+try:
+    from tulip.log import log_debug
+except Exception:
+    log_debug = None
+
 
 from tulip.compat import (
-    urllib2, cookielib, urlparse, URLopener, quote_plus, unquote, str,
-    urlsplit, urlencode, bytes, is_py3, addinfourl, py3_dec, iteritems, StringIO
+    urllib2, cookielib, urlparse, URLopener, unquote, str, urlsplit, urlencode, bytes, is_py3, addinfourl, py3_dec,
+    iteritems, HTTPError, quote, py2_enc, urlunparse, httplib
 )
-
-PROGRESS = control.enum(OFF=0, WINDOW=1, BACKGROUND=2)
 
 
 # noinspection PyUnboundLocalVariable
 def request(
         url, close=True, redirect=True, error=False, proxy=None, post=None, headers=None, mobile=False, limit=None,
-        referer=None, cookie=None, output='', timeout='30', username=None, password=None, verify=True, as_bytes=False
+        referer=None, cookie=None, output='', timeout='30', username=None, password=None, verify=True, as_bytes=False,
+        allow_caching=True
 ):
 
     try:
@@ -68,14 +61,26 @@ def request(
         if proxy is not None:
 
             if username is not None and password is not None:
-                passmgr = urllib2.ProxyBasicAuthHandler()
-                passmgr.add_password(None, uri=url, user=username, passwd=password)
+
+                if is_py3:
+
+                    passmgr = urllib2.HTTPPasswordMgr()
+                    passmgr.add_password(None, uri=url, user=username, passwd=password)
+
+                else:
+
+                    passmgr = urllib2.ProxyBasicAuthHandler()
+                    passmgr.add_password(None, uri=url, user=username, passwd=password)
+
                 handlers += [
                     urllib2.ProxyHandler({'http': '{0}'.format(proxy)}), urllib2.HTTPHandler,
                     urllib2.ProxyBasicAuthHandler(passmgr)
                 ]
+
             else:
+
                 handlers += [urllib2.ProxyHandler({'http':'{0}'.format(proxy)}), urllib2.HTTPHandler]
+
             opener = urllib2.build_opener(*handlers)
             urllib2.install_opener(opener)
 
@@ -87,39 +92,13 @@ def request(
             opener = urllib2.build_opener(*handlers)
             urllib2.install_opener(opener)
 
-        try:
-            import platform
-            is_XBOX = platform.uname()[1] == 'XboxOne'
-        except Exception:
-            is_XBOX = False
-
-        if not verify and sys.version_info >= (2, 7, 12):
+        if not verify or ((2, 7, 8) < sys.version_info < (2, 7, 12)):
 
             try:
 
-                import ssl
-                ssl_context = ssl._create_unverified_context()
-                handlers += [urllib2.HTTPSHandler(context=ssl_context)]
-                opener = urllib2.build_opener(*handlers)
-                urllib2.install_opener(opener)
-
-            except Exception:
-
-                pass
-
-        elif verify and ((2, 7, 8) < sys.version_info < (2, 7, 12) or is_XBOX):
-
-            try:
-
-                import ssl
-                try:
-                    import _ssl
-                    CERT_NONE = _ssl.CERT_NONE
-                except Exception:
-                    CERT_NONE = ssl.CERT_NONE
                 ssl_context = ssl.create_default_context()
                 ssl_context.check_hostname = False
-                ssl_context.verify_mode = CERT_NONE
+                ssl_context.verify_mode = ssl.CERT_NONE
                 handlers += [urllib2.HTTPSHandler(context=ssl_context)]
                 opener = urllib2.build_opener(*handlers)
                 urllib2.install_opener(opener)
@@ -136,10 +115,17 @@ def request(
         if 'User-Agent' in headers:
             pass
         elif mobile is not True:
-            #headers['User-Agent'] = agent()
-            headers['User-Agent'] = cache.get(randomagent, 12)
+            if allow_caching:
+                from tulip import cache
+                headers['User-Agent'] = cache.get(randomagent, 12)
+            else:
+                headers['User-Agent'] = CHROME
         else:
-            headers['User-Agent'] = cache.get(random_mobile_agent, 12)
+            if allow_caching:
+                from tulip import cache
+                headers['User-Agent'] = cache.get(random_mobile_agent, 12)
+            else:
+                headers['User-Agent'] = ANDROID
 
         if 'Referer' in headers:
             pass
@@ -187,21 +173,18 @@ def request(
 
             response = urllib2.urlopen(req, timeout=int(timeout))
 
-        except urllib2.HTTPError as response:
+        except HTTPError as response:
 
             if response.code == 503:
 
                 if 'cf-browser-verification' in response.read(5242880):
 
-                    netloc = '{0}://{1}'.format(urlparse(url).scheme, urlparse(url).netloc)
+                    if log_debug:
+                        log_debug('This request cannot be handled due to human verification gate')
+                    else:
+                        print('This request cannot be handled due to human verification gate')
 
-                    cf = cache.get(Cfcookie.get, 168, netloc, headers['User-Agent'], timeout)
-
-                    headers['Cookie'] = cf
-
-                    req = urllib2.Request(url, data=post, headers=headers)
-
-                    response = urllib2.urlopen(req, timeout=int(timeout))
+                    return
 
                 elif error is False:
                     return
@@ -212,12 +195,7 @@ def request(
         if output == 'cookie':
 
             try:
-                result = '; '.join(['%s=%s' % (i.name, i.value) for i in cookies])
-            except Exception:
-                pass
-
-            try:
-                result = cf
+                result = '; '.join(['{0}={1}'.format(i.name, i.value) for i in cookies])
             except Exception:
                 pass
 
@@ -245,11 +223,6 @@ def request(
 
             try:
                 cookie = '; '.join(['%s=%s' % (i.name, i.value) for i in cookies])
-            except Exception:
-                pass
-
-            try:
-                cookie = cf
             except Exception:
                 pass
 
@@ -319,15 +292,22 @@ def request(
         _, __, tb = sys.exc_info()
 
         print(traceback.print_tb(tb))
-        log('Client module failed, reason of failure: ' + repr(reason))
+        if log_debug:
+            log_debug('Request failed, reason: ' + repr(reason) + ' on url: ' + url)
+        else:
+            print('Request failed, reason: ' + repr(reason) + ' on url: ' + url)
 
         return
 
 
-def retriever(source, destination, user_agent=None, referer=None, reporthook=None, data=None, **kwargs):
+def retriever(source, destination, user_agent=None, referer=None, reporthook=None, data=None, allow_caching=True,**kwargs):
 
     if user_agent is None:
-        user_agent = cache.get(randomagent, 12)
+        if allow_caching:
+            from tulip import cache
+            user_agent = cache.get(randomagent, 12)
+        else:
+            user_agent = CHROME
 
     if referer is None:
         referer = '{0}://{1}/'.format(urlparse(source).scheme, urlparse(source).netloc)
@@ -376,6 +356,8 @@ def get_extension(url, response):
 # noinspection PyUnresolvedReferences
 def download_media(url, path, file_name, initiate_int='', completion_int='', exception_int='', progress=None):
 
+    PROGRESS = enum(OFF=0, WINDOW=1, BACKGROUND=2)
+
     try:
         if progress is None:
             progress = int(control.setting('progress_dialog'))
@@ -410,14 +392,20 @@ def download_media(url, path, file_name, initiate_int='', completion_int='', exc
 
             file_name += '.' + get_extension(url, response)
             full_path = control.join(path, file_name)
-            log_debug('Downloading: %s -> %s' % (url, full_path))
+            if log_debug:
+                log_debug('Downloading: %s -> %s' % (url, full_path))
+            else:
+                print('Downloading: %s -> %s' % (url, full_path))
 
             path = control.transPath(control.legalfilename(path))
 
             try:
                 control.makeFiles(path)
             except Exception as e:
-                log_debug('Path Create Failed: %s (%s)' % (e, path))
+                if log_debug:
+                    log_debug('Path Create Failed: %s (%s)' % (e, path))
+                else:
+                    print('Path Create Failed: %s (%s)' % (e, path))
 
             if not path.endswith(sep):
                 path += sep
@@ -441,7 +429,10 @@ def download_media(url, path, file_name, initiate_int='', completion_int='', exc
                     raise Exception('Failed to write file')
 
                 percent_progress = total_len * 100 / content_length if content_length > 0 else 0
-                log_debug('Position : {0} / {1} = {2}%'.format(total_len, content_length, percent_progress))
+                if log_debug:
+                    log_debug('Position : {0} / {1} = {2}%'.format(total_len, content_length, percent_progress))
+                else:
+                    print('Position : {0} / {1} = {2}%'.format(total_len, content_length, percent_progress))
                 pd.update(percent_progress)
 
             file_desc.close()
@@ -453,153 +444,21 @@ def download_media(url, path, file_name, initiate_int='', completion_int='', exc
             else:
                 control.infoDialog('Download_complete for file name {0}'.format(file_name))
 
-            log_debug('Download Complete: {0} -> {1}'.format(url, full_path))
+            if log_debug:
+                log_debug('Download Complete: {0} -> {1}'.format(url, full_path))
+            else:
+                print('Download Complete: {0} -> {1}'.format(url, full_path))
 
     except Exception as e:
 
-        log_debug('Error ({0}) during download: {1} -> {2}'.format(str(e), url, file_name))
+        if log_debug:
+            log_debug('Error ({0}) during download: {1} -> {2}'.format(str(e), url, file_name))
+        else:
+            print('Error ({0}) during download: {1} -> {2}'.format(str(e), url, file_name))
         if isinstance(exception_int, int):
             control.infoDialog(control.lang(exception_int).format(str(e), file_name))
         else:
             control.infoDialog('Download_complete for file name {0}'.format(file_name))
-
-
-def parse_headers(string):
-
-    """
-    Converts a multi-line response/request headers string into a dictionary
-    :param string: string of headers
-    :return: dictionary of response headers
-    """
-
-    headers = dict([line.partition(': ')[::2] for line in string.splitlines()])
-
-    return headers
-
-
-def stripTags(html):
-
-    sub_start = html.find("<")
-    sub_end = html.find(">")
-    while sub_end > sub_start > -1:
-        html = html.replace(html[sub_start:sub_end + 1], "").strip()
-        sub_start = html.find("<")
-        sub_end = html.find(">")
-
-    return html
-
-
-class Cfcookie:
-
-    def __init__(self):
-        self.cookie = None
-
-    def get(self, netloc, ua, timeout):
-
-        try:
-
-            self.netloc = netloc
-            self.ua = ua
-            self.timeout = timeout
-            self.cookie = None
-            self._get_cookie(netloc, ua, timeout)
-
-            if self.cookie is None:
-                log_debug('%s returned an error. Could not collect tokens.' % netloc)
-
-            return self.cookie
-
-        except Exception as e:
-
-            log_debug('%s returned an error. Could not collect tokens - Error: %s.' % (netloc, str(e)))
-
-            return self.cookie
-
-    def _get_cookie(self, netloc, ua, timeout):
-
-        class NoRedirection(urllib2.HTTPErrorProcessor):
-
-            def http_response(self, request, response):
-
-                return response
-
-        def parseJSString(s):
-
-            try:
-
-                offset = 1 if s[0] == '+' else 0
-                val = int(
-                    eval(s.replace('!+[]', '1').replace('!![]', '1').replace('[]', '0').replace('(', 'str(')[offset:]))
-                return val
-
-            except:
-
-                pass
-
-        cookies = cookielib.LWPCookieJar()
-        opener = urllib2.build_opener(NoRedirection, urllib2.HTTPCookieProcessor(cookies))
-        opener.addheaders = [('User-Agent', ua)]
-
-        try:
-
-            response = opener.open(netloc, timeout=int(timeout))
-            result = response.read()
-
-        except urllib2.HTTPError as response:
-
-            result = response.read()
-
-            try:
-                encoding = response.info().getheader('Content-Encoding')
-            except Exception:
-                encoding = None
-
-            if encoding == 'gzip':
-                result = gzip.GzipFile(fileobj=StringIO(result)).read()
-
-        jschl = re.compile('name="jschl_vc" value="(.+?)"/>').findall(result)[0]
-        init = re.compile(r'setTimeout\(function\(\){\s*.*?.*:(.*?)};').findall(result)[0]
-        builder = re.compile(r"challenge-form\'\);\s*(.*)a.v").findall(result)[0]
-
-        if '/' in init:
-            init = init.split('/')
-            decryptVal = parseJSString(init[0]) / float(parseJSString(init[1]))
-        else:
-            decryptVal = parseJSString(init)
-
-        lines = builder.split(';')
-        for line in lines:
-            if len(line) > 0 and '=' in line:
-                sections = line.split('=')
-                if '/' in sections[1]:
-                    subsecs = sections[1].split('/')
-                    line_val = parseJSString(subsecs[0]) / float(parseJSString(subsecs[1]))
-                else:
-                    line_val = parseJSString(sections[1])
-                decryptVal = float(eval('%.16f' % decryptVal + sections[0][-1] + '%.16f' % line_val))
-
-        answer = float('%.10f' % decryptVal) + len(urlparse(netloc).netloc)
-
-        query = '%scdn-cgi/l/chk_jschl?jschl_vc=%s&jschl_answer=%s' % (netloc, jschl, answer)
-
-        if 'type="hidden" name="pass"' in result:
-            passval = re.findall('name="pass" value="(.*?)"', result)[0]
-            query = '%scdn-cgi/l/chk_jschl?pass=%s&jschl_vc=%s&jschl_answer=%s' % (
-                netloc, quote_plus(passval), jschl, answer)
-            time.sleep(6)
-
-        opener.addheaders = [('User-Agent', ua),
-                             ('Referer', netloc),
-                             ('Accept', 'text/html, application/xhtml+xml, application/xml, */*'),
-                             ('Accept-Encoding', 'gzip, deflate')]
-
-        response = opener.open(query)
-        response.close()
-
-        cookie = '; '.join(['%s=%s' % (i.name, i.value) for i in cookies])
-
-        if 'cf_clearance' in cookie:
-            self.cookie = cookie
 
 
 def parseJSString(s):
@@ -611,17 +470,58 @@ def parseJSString(s):
         pass
 
 
-def check_connection(host="1.1.1.1", port=53, timeout=3):
+def quote_paths(url):
+
+    """
+    This function will quote paths **only** in a given url
+    :param url: string or unicode
+    :return: joined url string
+    """
 
     try:
-        socket.setdefaulttimeout(timeout)
-        socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+
+        url = py2_enc(url)
+
+        if url.startswith('http'):
+
+            parsed = urlparse(url)
+            processed_path = '/'.join([quote(i) for i in parsed.path.split('/')])
+            url = urlunparse(parsed._replace(path=processed_path))
+
+            return url
+
+        else:
+
+            path = '/'.join([quote(i) for i in url.split('/')])
+            return path
+
+    except Exception:
+
+        return url
+
+
+def check_connection(url="1.1.1.1", timeout=3):
+
+    conn = httplib.HTTPConnection(url, timeout=timeout)
+
+    try:
+
+        conn.request("HEAD", "/")
+        conn.close()
+
         return True
-    except socket.error:
+
+    except Exception as e:
+
+        if log_debug:
+            log_debug(e)
+        else:
+            print(e)
+
         return False
 
 
 __all__ = [
     'parseDOM', 'request', 'stripTags', 'retriever', 'replaceHTMLCodes', 'parseJSString', 'parse_headers',
-    'url2name', 'get_extension', 'check_connection'
+    'url2name', 'get_extension', 'check_connection', 'parseDOM2', 'quote_paths'
 ]

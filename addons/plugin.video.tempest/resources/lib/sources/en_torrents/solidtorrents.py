@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-'''
-**Created by Tempest**
-
-'''
+"""
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
+"""
 
 
 import re, urllib, urlparse, json, traceback
@@ -23,6 +24,7 @@ class source:
         self.domains = ['https://solidtorrents.net']
         self.base_link = 'https://solidtorrents.net'
         self.search_link = '/api/v1/search?q=%s&category=all&sort=size'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -79,7 +81,7 @@ class source:
 
             url = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(query))
 
-            r = client.request(url)
+            r = client.request(url, headers=self.headers)
 
             result = json.loads(r)
             result = result['results']

@@ -62,8 +62,6 @@ getCurrentDialogId = xbmcgui.getCurrentWindowDialogId()
 
 keyboard = xbmc.Keyboard
 
-sortMethod = xbmcplugin.addSortMethod
-
 
 def sleep(time):
     while time > 0 and not xbmc.abortRequested:

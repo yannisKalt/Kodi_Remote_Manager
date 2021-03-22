@@ -33,7 +33,33 @@ class indexer:
     def entertainment(self):
         try:
             regex.clear()
-            url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1RlbXBlc3QwNTgwL3htbC9tYXN0ZXIvdXMubTN1'.decode(
+            url = 'aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9jb3VudHJpZXMvdXMubTN1'.decode(
+                'base64')
+            self.list = self.noname_list(url)
+            for i in self.list:
+                i.update({'content': 'addons'})
+            self.addDirectory(self.list)
+            return self.list
+        except:
+            pass
+
+    def allsprk(self):
+        try:
+            regex.clear()
+            url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1RlbXBlc3QwNTgwL3htbC9tYXN0ZXIvYWxsc3Byay5tM3U='.decode(
+                'base64')
+            self.list = self.noname_list(url)
+            for i in self.list:
+                i.update({'content': 'addons'})
+            self.addDirectory(self.list)
+            return self.list
+        except:
+            pass
+
+    def foreign(self):
+        try:
+            regex.clear()
+            url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1RlbXBlc3QwNTgwL3htbC9tYXN0ZXIvZm9yZWlnbi54bWw='.decode(
                 'base64')
             self.list = self.noname_list(url)
             for i in self.list:
@@ -86,19 +112,6 @@ class indexer:
         try:
             regex.clear()
             url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1RlbXBlc3QwNTgwL3htbC9tYXN0ZXIvbmV3cy5tM3U='.decode(
-                'base64')
-            self.list = self.noname_list(url)
-            for i in self.list:
-                i.update({'content': 'addons'})
-            self.addDirectory(self.list)
-            return self.list
-        except:
-            pass
-
-    def all_english(self):
-        try:
-            regex.clear()
-            url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1RlbXBlc3QwNTgwL3htbC9tYXN0ZXIvYWxsX2VuZ2xpc2gubTN1'.decode(
                 'base64')
             self.list = self.noname_list(url)
             for i in self.list:
@@ -164,19 +177,6 @@ class indexer:
         try:
             regex.clear()
             url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1RlbXBlc3QwNTgwL3htbC9tYXN0ZXIvcGx1dG8ubTN1'.decode(
-                'base64')
-            self.list = self.noname_list(url)
-            for i in self.list:
-                i.update({'content': 'addons'})
-            self.addDirectory(self.list)
-            return self.list
-        except:
-            pass
-
-    def foreign(self):
-        try:
-            regex.clear()
-            url = 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1RlbXBlc3QwNTgwL3htbC9tYXN0ZXIvZm9yZWlnbi54bWw='.decode(
                 'base64')
             self.list = self.noname_list(url)
             for i in self.list:
@@ -1955,8 +1955,15 @@ class player(xbmc.Player):
 
     def play(self, url, content=None):
         try:
-            base = url
-            url = resolver().get(url)
+            try:
+                if url.startswith('http'):
+                    url = resolver().get(url)
+                else:
+                    url = url.decode('base64')
+            except:
+                pass
+            if url.endswith('?a=view'):
+                url = url.split('?a=view')[0]
             if url is False:
                 return
             control.execute('ActivateWindow(busydialog)')

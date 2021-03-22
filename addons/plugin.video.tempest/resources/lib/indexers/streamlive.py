@@ -11,6 +11,7 @@ class streamlive:
     def __init__(self):
         self.list = []
         self.base_link = 'https://www.streamlive.to/%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def root(self):
         channels = [
@@ -54,10 +55,6 @@ class streamlive:
             ('TruTV', 'view/73009/TruTV-(SD)', 'https://pmcvariety.files.wordpress.com/2014/07/trutv-logo.jpg?w=1000'),
             ('USA Network', 'view/73018/USA-Network-(SD)', 'https://www.cultjer.com/img/ug_photo/2016_06/65873520160628092848.jpg'),
             ('VH1', 'view/76699/VH1-(SD)', 'https://github.com/jewbmx/resource.images.studios.white/blob/master/resources/USA%20Network.png?raw=true'),
-            ('-----24-7------', '', 'https://fonolo.com/wp-content/uploads/2016/03/A-Guide-to-247-Customer-Service.jpg'),
-            ('House MD', 'view/40783/House-MD', 'https://blog.cyrildason.com/wp-content/uploads/2016/11/House-MD.png'),
-            ('King of Queens', 'view/38213/King-of-Queens', 'http://static.tvgcdn.net/feed/1/925/116356925.jpg'),
-            ('South Park', 'view/40155/South-Park', 'https://images2.minutemediacdn.com/image/upload/c_crop,h_358,w_640,x_0,y_49/f_auto,q_auto,w_1100/v1555003945/shape/mentalfloss/06804986093.png'),
         ]
         for channel in channels:
             self.list.append({'name': channel[0], 'url': self.base_link % channel[1], 'image': channel[2], 'action': 'streamlivePlay'})
@@ -66,7 +63,7 @@ class streamlive:
 
     def play(self, url):
         try:
-            stream = client.getHTML(url)
+            stream = client.request(url, headers=self.headers)
             result = re.compile("return([[\a-zA-Z]+]).join").findall(stream)
             for result in result:
                 result = result.strip('([]').replace('\/', '/').replace(',','').replace('"','')
@@ -79,19 +76,19 @@ class streamlive:
 
     def code(self, url):
         try:
-            stream = client.getHTML(url)
+            stream = client.request(url, headers=self.headers)
             result2 = re.compile("\+ (.+?).join").findall(stream)[0]
             result3 = re.findall("var (.+?) = \[(.+?)\];", stream)
             for link, code in result3:
                 if result2 in link:
-                    code = code.replace(',','').replace('"','')
+                    code = code.replace(',', '').replace('"', '')
                     return code
         except:
             return
 
     def code2(self, url):
         try:
-            stream = client.getHTML(url)
+            stream = client.request(url, headers=self.headers)
             result4 = re.compile("id=(.+?)>(.+?)</span").findall(stream)
             result5 = re.findall('\+ document.getElementById(.+?).innerHTML', stream)[0]
             result5 = result5.strip('("")')

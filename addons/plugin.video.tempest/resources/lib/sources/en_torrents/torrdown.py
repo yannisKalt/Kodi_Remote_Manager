@@ -5,18 +5,22 @@ import re,urllib,urlparse
 import traceback
 from resources.lib.modules import client2 as client
 from resources.lib.modules import cleantitle2 as cleantitle
-from resources.lib.modules import debrid,source_utils,workers,control
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import workers
+from resources.lib.modules import control
 from resources.lib.modules import log_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import rd_check
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['torrentdownloads.me']
+        self.domains = ['limetorrents.info', 'torrentdownloads.me']
         self.base_link = 'https://www.torrentdownloads.me'
         self.search = 'https://www.torrentdownloads.me/rss.xml?new=1&type=search&cid={0}&search={1}'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -71,8 +75,7 @@ class source:
             else:
                 url = self.search.format('4', urllib.quote(query))
             self.hostDict = hostDict + hostprDict
-            headers = {'User-Agent': client.agent()}
-            _html = client.request(url, headers=headers)
+            _html = client.request(url, headers=self.headers)
             threads = []
             for i in re.findall(r'<item>(.+?)</item>', _html, re.DOTALL):
                 threads.append(workers.Thread(self._get_items, i))

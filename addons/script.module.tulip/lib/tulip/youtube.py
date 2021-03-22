@@ -1,28 +1,24 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
+
 from __future__ import absolute_import
 
 import re, json
 from datetime import datetime
-from tulip.compat import urlparse, parse_qs, quote_plus, range
+from tulip.compat import urlparse, parse_qs, quote_plus, range, py3_dec
 from tulip import client, workers, control, directory, iso8601
+from kodi_six.utils import py2_encode
+
+MAXRES_THUMBNAIL = 2
+HQ_THUMBNAIL = 1
+MQ_THUMBNAIL = 0
 
 
 class youtube(object):
@@ -31,9 +27,14 @@ class youtube(object):
 
         self.list = [];  self.data = []
 
-        self.base_link = 'http://www.youtube.com/'
+        self.base_link = 'https://www.youtube.com/'
         self.base_addon = 'plugin://plugin.video.youtube/'
         self.google_base_link = 'https://www.googleapis.com/youtube/v3/'
+
+        try:
+            key = key.decode('utf-8')
+        except Exception:
+            pass
 
         self.key_link = '&key={0}'.format(key or control.setting(api_key_setting))
 
@@ -68,12 +69,12 @@ class youtube(object):
 
     def _playlist(self, url, limit):
 
-        try:
-            result = client.request(url)
-            result = json.loads(result)
-            items = result['items']
-        except Exception:
-            pass
+        # try:
+        result = client.request(url)
+        result = json.loads(result)
+        items = result['items']
+        # except Exception:
+        #     pass
 
         for i in list(range(1, limit)):
             try:
@@ -90,13 +91,13 @@ class youtube(object):
             try:
                 title = item['snippet']['title']
                 try:
-                    title = title.encode('utf-8')
+                    title = py2_encode(title)
                 except AttributeError:
                     pass
 
                 url = item['id']
                 try:
-                    url = url.encode('utf-8')
+                    url = py2_encode(url)
                 except AttributeError:
                     pass
 
@@ -104,7 +105,7 @@ class youtube(object):
                 if '/default.jpg' in image:
                     raise Exception
                 try:
-                    image = image.encode('utf-8')
+                    image = py2_encode(image)
                 except AttributeError:
                     pass
 
@@ -148,7 +149,7 @@ class youtube(object):
             try:
                 title = item['snippet']['title']
                 try:
-                    title = title.encode('utf-8')
+                    title = py2_encode(title)
                 except AttributeError:
                     pass
 
@@ -158,7 +159,7 @@ class youtube(object):
                     url = item['id']['videoId']
 
                 try:
-                    url = url.encode('utf-8')
+                    url = py2_encode(url)
                 except AttributeError:
                     pass
 
@@ -166,7 +167,7 @@ class youtube(object):
                 if '/default.jpg' in image:
                     raise Exception
                 try:
-                    image = image.encode('utf-8')
+                    image = py2_encode(image)
                 except AttributeError:
                     pass
 
@@ -212,7 +213,7 @@ class youtube(object):
             try:
                 vid = self.list[item]['url']
 
-                self.list[item]['url'] = self.play_link.format(vid)
+                self.list[item]['url'] = self.play_link.format(py3_dec(vid))
 
                 d = [(i['id'], i['contentDetails']) for i in items]
                 d = [i for i in d if i[0] == vid]
@@ -259,10 +260,10 @@ class youtube(object):
                 title = control.infoLabel('listitem.label')
             icon = control.infoLabel('listitem.icon')
 
-            item = control.item(path=url, iconImage=icon, thumbnailImage=icon)
+            item = control.item(path=url)
 
             try:
-                item.setArt({'icon': icon})
+                item.setArt({'icon': icon, 'thumb': icon})
             except Exception:
                 pass
 
@@ -284,7 +285,7 @@ class youtube(object):
                     raise Exception
                 return url
             elif not url.startswith('http://'):
-                url = self.play_link.format(url)
+                url = self.play_link.format(py3_dec(url))
                 url = self.resolve(url)
                 if url is None:
                     raise Exception
@@ -294,8 +295,8 @@ class youtube(object):
 
         except Exception:
 
-            query = ''.join([name, append_string])
-            query = self.youtube_search.format(query)
+            query = ' '.join([name, append_string])
+            query = self.youtube_search.format(py2_encode(query))
             url = self.search(query)
 
             if url is None:
@@ -306,6 +307,7 @@ class youtube(object):
     def search(self, url):
 
         try:
+
             query = parse_qs(urlparse(url).query)['q'][0]
 
             url = self.search_link.format(''.join([quote_plus(query), self.key_link]))
@@ -319,7 +321,9 @@ class youtube(object):
                 url = self.resolve(url)
                 if url is not None:
                     return url
+
         except Exception:
+
             return
 
     def resolve(self, url):
@@ -327,19 +331,8 @@ class youtube(object):
         try:
 
             vid = url.split('?v=')[-1].split('/')[-1].split('?')[0].split('&')[0]
-            result = client.request(''.join([self.base_link, 'watch?v={}'.format(vid)]))
 
-            message = client.parseDOM(result, 'div', attrs={'id': 'unavailable-submessage'})
-            message = ''.join(message)
-
-            alert = client.parseDOM(result, 'div', attrs={'id': 'watch7-notification-area'})
-
-            if len(alert) > 0:
-                raise Exception
-            if re.search('[a-zA-Z]', message):
-                raise Exception
-
-            url = self.play_link.format(id)
+            url = self.play_link.format(py3_dec(vid))
 
             return url
 
@@ -352,8 +345,8 @@ class youtube(object):
         for item in items_list[:-1]:
 
             title = item['snippet']['title']
-            url = self.play_link.format(item['id']['videoId'])
-            image = item['snippet']['thumbnails'][thumb_quality]['url']
+            url = self.play_link.format(py3_dec(item['id']['videoId']))
+            image = py3_dec(item['snippet']['thumbnails'][thumb_quality]['url'])
             plot = item['snippet']['description']
 
             data = {'title': title, 'url': url, 'image': image, 'plot': plot}
@@ -361,3 +354,69 @@ class youtube(object):
             self.list.append(data)
 
         return self.list
+
+
+def thumb_maker(video_id, thumbnail_quality=MQ_THUMBNAIL):
+
+    """
+    Makes a video thumbnail out of a youtube video id
+
+    :param video_id: A youtube video id <string>
+    :param thumbnail_quality: integer, possible values 0, 1, 2
+    :return: string
+    """
+
+    if thumbnail_quality == 2:
+        thumbnail_quality = 'maxresdefault'
+    elif thumbnail_quality == 1:
+        thumbnail_quality = 'hqdefault'
+    else:
+        thumbnail_quality = 'mqdefault'
+
+    return 'http://img.youtube.com/vi/{0}/{1}.jpg'.format(video_id, thumbnail_quality)
+
+
+def feed_parser(url=None, channel_id=None, playlist_id=None, user=None):
+
+    """
+    Useful for loading a brief list of videos without API key
+    """
+
+    channel_prefix = 'https://www.youtube.com/feeds/videos.xml?channel_id={}'
+    playlist_prefix = 'https://www.youtube.com/feeds/videos.xml?playlist_id={}'
+    user_prefix = 'https://www.youtube.com/feeds/videos.xml?user={}'
+
+    if channel_id:
+
+        url = channel_prefix.format(channel_id)
+
+    elif playlist_id:
+
+        url = playlist_prefix.format(playlist_id)
+
+    elif user:
+
+        url = user_prefix.format(user)
+
+    elif not url:
+
+        raise TypeError('Did not provide a usable url for the feed parser to work')
+
+    result = []
+
+    xml = client.request(url)
+
+    items = client.parseDOM(xml, 'entry')
+
+    for item in items:
+
+        title = client.parseDOM(item, 'title')[0]
+        image = client.parseDOM(item, 'media:thumbnail', ret='url')[0]
+        _url = client.parseDOM(item, 'link', ret='href')[0]
+        plot = client.parseDOM(item, 'media:description')[0]
+
+        data = {'title': title, 'image': image, 'url': _url, 'plot': plot}
+
+        result.append(data)
+
+    return result

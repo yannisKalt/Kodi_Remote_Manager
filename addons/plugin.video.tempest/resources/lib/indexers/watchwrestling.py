@@ -248,7 +248,7 @@ class WatchWrestling:
 
     def scrape1(self, url):
         try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0', 'Referer': self.base1_link}
+            headers = {'User-Agent': client.agent(), 'Referer': self.base1_link}
             html = client.request(url, headers=headers)
             if '/category/' in url:
                 page = client.parseDOM(html, 'div', attrs={'class': 'loop-content switchable-view grid-mini'})[0]
@@ -310,7 +310,7 @@ class WatchWrestling:
 
     def scrape2(self, url):
         try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0', 'Referer': self.base2_link}
+            headers = {'User-Agent': client.agent(), 'Referer': self.base2_link}
             html = client.request(url, headers=headers)
             if '/category/' in url:
                 page = client.parseDOM(html, 'div', attrs={'class': 'loop-content switchable-view grid-mini'})[0]
@@ -372,7 +372,7 @@ class WatchWrestling:
 
     def scrape3(self, url):
         try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0', 'Referer': self.base3_link}
+            headers = {'User-Agent': client.agent(), 'Referer': self.base3_link}
             html = client.request(url, headers=headers)
             if '/category/' in url:
                 page = client.parseDOM(html, 'div', attrs={'class': 'main-content-col-body'})[0]
@@ -432,7 +432,7 @@ class WatchWrestling:
 
     def scrape4(self, url):
         try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0', 'Referer': self.base4_link}
+            headers = {'User-Agent': client.agent(), 'Referer': self.base4_link}
             html = client.request(url, headers=headers)
             if '/watch-' in url:
                 contents = re.compile('<p style="text-align: center;">(.+?)</p>', re.DOTALL).findall(html)
@@ -523,7 +523,7 @@ class WatchWrestling:
             if not 'User-Agent' in link:
                 elements = urlparse.urlparse(link)
                 domain = elements.scheme + '://' + elements.netloc
-                uAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
+                uAgent = client.agent()
                 link = '%s|User-Agent=%s&Referer=%s' % (link, uAgent, domain)
             title = control.infoLabel('listitem.label')
             icon = control.infoLabel('listitem.icon')

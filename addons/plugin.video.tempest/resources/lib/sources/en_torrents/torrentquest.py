@@ -3,9 +3,13 @@
 
 import re,urllib,urlparse
 import traceback
-from resources.lib.modules import client,cleantitle,debrid,source_utils
+from resources.lib.modules import client
+from resources.lib.modules import cleantitle
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
 from resources.lib.modules import log_utils
-from resources.lib.modules import rd_check, control
+from resources.lib.modules import rd_check
+from resources.lib.modules import control
 
 
 class source:
@@ -15,6 +19,7 @@ class source:
         self.domains = ['torrentquest.com']
         self.base_link = 'https://torrentquest.com'
         self.search_link = '/{0}/{1}'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -64,7 +69,7 @@ class source:
                 if 'tvshowtitle' in data else '%s %s' % (data['title'], data['year'])
             query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
             url = urlparse.urljoin(self.base_link, self.search_link.format(query[0].lower(), cleantitle.geturl(query)))
-            r = client.request(url)
+            r = client.request(url, headers=self.headers)
             r = client.parseDOM(r, 'tbody')[0]
             posts = client.parseDOM(r, 'tr')
             posts = [i for i in posts if 'magnet:' in i]

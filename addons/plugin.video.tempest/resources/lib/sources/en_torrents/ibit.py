@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import traceback
 import re, urllib, urlparse
 from urllib import unquote
-from resources.lib.modules import cleantitle, debrid, source_utils
-from resources.lib.modules import client, control
+
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import client
+from resources.lib.modules import control
 from resources.lib.modules import log_utils
 from resources.lib.modules import rd_check
 
@@ -21,6 +25,7 @@ class source:
         self.base_link = 'https://ibit.to'
         self.search_link = '/torrent-search/%s/'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -78,7 +83,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url).replace('++', '+')
 
             try:
-                r = client.request(url)
+                r = client.request(url, headers=self.headers)
                 posts = client.parseDOM(r, 'tbody')[0]
                 posts = client.parseDOM(posts, 'tr')
                 for post in posts:
@@ -92,7 +97,7 @@ class source:
                         link = urlparse.urljoin(self.base_link, link)
                         if any(x in link for x in ['FRENCH', 'Ita', 'ITA', 'italian', 'Tamil', 'TRUEFRENCH', '-lat-', 'Dublado', 'Dub', 'Rus', 'Hindi']):
                                 continue
-                        link = client.request(link)
+                        link = client.request(link, headers=self.headers)
                         getsize = re.compile('"fileSize">(.+?)</span>').findall(link)[0]
                         try:
                             size = re.findall('((?:\d+\,\d+\.\d+|\d+\.\d+|\d+\,\d+|\d+)\s*(?:GiB|MiB|GB|MB))', getsize)[0]

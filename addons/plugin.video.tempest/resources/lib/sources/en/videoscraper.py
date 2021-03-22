@@ -44,7 +44,7 @@ class source:
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
             url = urlparse.urljoin(self.base_link, '/sources?%s' % urllib.urlencode(data))
-            r = client.request(url)
+            r = client.request(url, headers={'User-Agent': client.agent()})
             if not r: raise Exception()
             result = json.loads(r)
             try:

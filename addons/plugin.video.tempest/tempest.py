@@ -470,29 +470,41 @@ elif action == 'ustvgoPlay':
     from resources.lib.indexers import ustvgo
     ustvgo.ustvgo().play(url)
 
+elif action == 'radioNavigator':
+    from resources.lib.indexers import radio
+    radio.radio().root()
+
+elif action == 'radioPlay':
+    from resources.lib.indexers import radio
+    radio.radio().play(url)
+
+elif action == 'myustvNavigator':
+    from resources.lib.indexers import myustv
+    myustv.myustv().root()
+
+elif action == 'myustvPlay':
+    from resources.lib.indexers import myustv
+    myustv.myustv().play(url)
+
+elif action == 'ustreamixNavigator':
+    from resources.lib.indexers import ustreamix
+    ustreamix.ustreamix().root()
+
+elif action == 'ustreamixPlay':
+    from resources.lib.indexers import ustreamix
+    ustreamix.ustreamix().play(url)
+
+elif action == 'sports24Navigator':
+    from resources.lib.indexers import sports24
+    sports24.sports24().root()
+
+elif action == 'sports24Play':
+    from resources.lib.indexers import sports24
+    sports24.sports24().play(url)
+
 if action == '123tvnowNavigator':
     from resources.lib.indexers import lists
     lists.indexer().tvnow()
-
-elif action == 'acronaitv_menu':
-    from resources.lib.indexers import acronaitv
-    acronaitv.acronaitv().list_categories()
-
-elif action == 'arconai_cable':
-    from resources.lib.indexers import acronaitv
-    acronaitv.acronaitv().list_cable()
-
-elif action == 'arconai_shows':
-    from resources.lib.indexers import acronaitv
-    acronaitv.acronaitv().list_shows()
-
-elif action == 'arconai_movies':
-    from resources.lib.indexers import acronaitv
-    acronaitv.acronaitv().list_movies()
-
-elif action == 'arconai_play':
-    from resources.lib.indexers import acronaitv
-    acronaitv.acronaitv().play_video(params['selection'])
 
 elif action == 'wrestlingNavigator':
     from resources.lib.indexers import watchwrestling
@@ -525,6 +537,10 @@ elif action == 'wrestlingPlay':
 if action == 'entertainment':
     from resources.lib.indexers import lists
     lists.indexer().entertainment()
+
+if action == 'allsprk':
+    from resources.lib.indexers import lists
+    lists.indexer().allsprk()
 
 if action == 'movies':
     from resources.lib.indexers import lists
@@ -602,6 +618,18 @@ elif action == 'yoursportsPlay':
     from resources.lib.indexers import yoursports
     yoursports.yoursports().play(url)
 
+elif action == 'foreignNavigator':
+    from resources.lib.indexers import foreign
+    foreign.foreign().root()
+
+elif action == 'foreignNext':
+    from resources.lib.indexers import foreign
+    foreign.foreign().rootx(url)
+
+elif action == 'foreignPlay':
+    from resources.lib.indexers import foreign
+    foreign.foreign().play(url)
+
 
 def toggleAll(setting, query=None, sourceList=None):
     from resources.lib.sources import getAllHosters
@@ -614,21 +642,19 @@ def toggleAll(setting, query=None, sourceList=None):
 
 
 if mode == "toggleAllNormal":
-    sourcelist = ['5movies', '123123movies', 'anime1', 'animeram', 'animetoon', 'cartoonhd', 'cmovieshdbz',
-                  'extramovies', 'filmxy', 'fmoviesio', 'ganool123', 'hdbest', 'hdmo', 'iwannawatch', 'newepisodes',
-                  'projectfreetv', 'series9', 'seriesonline', 'showbox', 'streamdreams', 'swatchseries', 'telepisodes',
-                  'toonova', 'timewatch', 'watchepisodes4', 'watchfree', 'watchseries', 'watchserieshd',
-                  'watchseriessto', 'wsunblock', 'yesmoviesgg', 'zmovies']
+    sourcelist = ['2embed', '5movies', 'allmoviesforyou', 'anime1', 'animeram', 'animetoon', 'cartoonhd',
+                  'dbgo', 'filmxy', 'anymovies', 'fsapi', 'lunchflix', 'movie2k', 'projectfreetv', 'retrovisionmedia',
+                  'showbox', 'soap2day', 'soap2day1', 'sockshares', 'ssoap2day', 'swatchseries', 'toonova', 'vidnext',
+                  'vidsrc', 'watchepisodes4']
     toggleAll(params['setting'], params['query'], sourcelist)
 
 if mode == "toggleAllDebrid":
-    sourcelist = ['300mbfilms', 'crazyhdsource', 'dlpix', 'ganool', 'maxrls', 'mvrls', 'onceddl', 'rapidmoviez', 'rlsb',
-                  'rlsbb', 'sceneddl', 'scenerls', 'ultrahd']
+    sourcelist = ['2ddl', '300mbfilms', 'crazyhdsource', 'ddlspot', 'ganool', 'link4file', 'maxrls', 'rapidmoviez',
+                  'rlsb', 'rlsbb', 'scenerls']
     toggleAll(params['setting'], params['query'], sourcelist)
 
 if mode == "toggleAllTorrent":
-    sourcelist = ['7torrents', '1337x', 'btdb', 'btscene', 'doublr', 'ettv', 'eztv', 'glodls', 'ibit', 'idope',
-                  'kickass2', 'limetorr', 'magnetdl',  'mkvhub', 'piratebay', 'skytorrents',
-                  'solidtorrents', 'topnow', 'torrapi', 'torrdown', 'torrentgalaxy', 'torrentquest', 'yifyddl', 'ytsam',
-                  'zoogle']
+    sourcelist = ['7torrents', '1337x', 'btdb', 'btscene', 'ettv', 'eztv', 'glodls', 'ibit', 'idope', 'isohunt2',
+                  'kickass2', 'limetorr', 'magnetdl',  'mkvhub', 'piratebay', 'skytorrents', 'solidtorrents', 'topnow',
+                  'torrapi', 'torrdown', 'torrentgalaxy', 'torrentquest', 'watchordown', 'yifyddl', 'ytsam', 'zoogle']
     toggleAll(params['setting'], params['query'], sourcelist)

@@ -1,3 +1,57 @@
+2.0.10
+- fix mydecode
+
+2.0.9
+- fix KODI19
+
+2.0.8
+- KODI 19
+
+2.0.7
+- added liveonscore.tv
+
+2.0.6
+- added vipleague
+- mydecode update
+- strims.world fix
+
+2.0.5
+- mydecode update
+- strims.world fix
+
+2.0.4
+- fix sportsbay
+
+2.0.3
+- fix mlb
+- fix nba
+
+2.0.1
+- fix telerium
+- fix espn
+
+2.0
+- fix telerium
+
+1.9.9
+- update fix
+
+1.9.8
+- poprawka mydecode
+- fix nhl links (sportsbay - wymaga serverHTTP)
+
+1.9.7
+- fix nba links (sportsbay)
+
+1.9.6
+- fix mlb links (sportsbay)
+
+1.9.5
+- poprawka mydecode
+
+1.9.4
+-proxy dla livesport.ws dla PL
+
 1.9.3
 - poprawka strims.world
 

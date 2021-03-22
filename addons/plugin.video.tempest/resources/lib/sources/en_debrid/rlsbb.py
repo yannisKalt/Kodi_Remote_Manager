@@ -3,8 +3,11 @@
 import re,urllib,urlparse
 import traceback
 from resources.lib.modules import log_utils
-from resources.lib.modules import client, rd_check
-from resources.lib.modules import debrid, control
+from resources.lib.modules import source_utils
+from resources.lib.modules import client
+from resources.lib.modules import rd_check
+from resources.lib.modules import debrid
+from resources.lib.modules import control
 from resources.lib.sources import cfscrape
 
 
@@ -12,11 +15,12 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['rlsbb.ru']
-        self.base_link = 'http://rlsbb.ru'
-        self.search_base_link = 'http://search.rlsbb.ru'
+        self.domains = ['rlsbb.to']
+        self.base_link = 'http://rlsbb.to'
+        self.search_base_link = 'http://search.rlsbb.to'
         self.search_cookie = 'serach_mode=rlsbb'
         self.search_link = '/lib/search526049.php?phrase=%s&pindex=1&content=true'
+        self.headers = {'User-Agent': client.agent()}
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         if debrid.status() is False: return
@@ -64,10 +68,10 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
 
-            url = "http://rlsbb.ru/" + query
+            url = "http://rlsbb.to/" + query
             if 'tvshowtitle' not in data: url = url + "-1080p"
 
-            r = cfscrape.get(url).content
+            r = cfscrape.get(url, headers=self.headers).content
 
             if r is None and 'tvshowtitle' in data:
                 season = re.search('S(.*?)E', hdlr)
@@ -78,10 +82,10 @@ class source:
                 query = query.replace("&", "and")
                 query = query.replace("  ", " ")
                 query = query.replace(" ", "-")
-                url = "http://rlsbb.ru/" + query
-                r = cfscrape.get(url).content
+                url = "http://rlsbb.to/" + query
+                r = cfscrape.get(url, headers=self.headers).content
 
-            for loopCount in range(0,2):
+            for loopCount in range(0, 2):
                 if loopCount == 1 or (r is None and 'tvshowtitle' in data):
 
                     premDate = re.sub('[ \.]','-',data['premiered'])
@@ -89,29 +93,56 @@ class source:
                     query = query.replace("&", " and ").replace("  ", " ").replace(" ", "-")
                     query = query + "-" + premDate
 
-                    url = "http://rlsbb.ru/" + query
+                    url = "http://rlsbb.to/" + query
                     url = url.replace('The-Late-Show-with-Stephen-Colbert','Stephen-Colbert')
 
-                    r = cfscrape.get(url).content
+                    r = cfscrape.get(url, headers=self.headers).content
 
                 posts = client.parseDOM(r, "div", attrs={"class": "content"})
                 hostDict = hostprDict + hostDict
-                items = []
-                for post in posts:
-                    try:
-                        u = client.parseDOM(post, 'a', ret='href')
-                        for i in u:
-                            try:
-                                name = str(i)
-                                if hdlr in name.upper(): items.append(name)
-                                elif len(premDate) > 0 and premDate in name.replace(".","-"): items.append(name)
+                if control.setting('deb.rd_check') == 'true':
+                    limit = 25
+                    items = []
+                    for index, post in enumerate(posts):
+                        if index == limit:
+                            break
+                        try:
+                            u = client.parseDOM(post, 'a', ret='href')
+                            for i in u:
+                                try:
+                                    name = str(i)
+                                    if hdlr in name.upper():
+                                        items.append(name)
+                                    elif len(premDate) > 0 and premDate in name.replace(".", "-"):
+                                        items.append(name)
 
-                            except:
-                                pass
-                    except:
-                        pass
+                                except:
+                                    pass
+                        except:
+                            pass
 
-                if len(items) > 0: break
+                    if len(items) > 0:
+                        break
+                else:
+                    items = []
+                    for post in posts:
+                        try:
+                            u = client.parseDOM(post, 'a', ret='href')
+                            for i in u:
+                                try:
+                                    name = str(i)
+                                    if hdlr in name.upper():
+                                        items.append(name)
+                                    elif len(premDate) > 0 and premDate in name.replace(".", "-"):
+                                        items.append(name)
+
+                                except:
+                                    pass
+                        except:
+                            pass
+
+                    if len(items) > 0:
+                        break
 
             seen_urls = set()
 
@@ -136,15 +167,7 @@ class source:
                     if any(x in host2 for x in ['.rar', '.zip', '.iso']):
                         continue
 
-                    if '4K' in host2:
-                        quality = '4K'
-                    elif '2160p' in host2:
-                        quality = '4K'
-                    elif '1080p' in host2:
-                        quality = '1080p'
-                    elif '720p' in host2:
-                        quality = '720p'
-                    else: quality = 'SD'
+                    quality, info = source_utils.get_release_quality(host2, host2)
 
                     info = ' | '.join(info)
                     host = client.replaceHTMLCodes(host)

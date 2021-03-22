@@ -136,6 +136,7 @@ libcacheFile = os.path.join(dataPath, 'library.db')
 
 cacheFile = os.path.join(dataPath, 'cache.db')
 
+dbFile = os.path.join(dataPath, 'debridcache.db')
 key = "RgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6"
 
 iv = "p2s5v8y/B?E(H+Mb"

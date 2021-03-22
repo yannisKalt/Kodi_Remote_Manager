@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import re, sys, cookielib, urllib, urllib2, urlparse, gzip, StringIO, HTMLParser, time, random, base64
-from resources.lib.modules import cache, dom_parser, log_utils, utils, control
+from resources.lib.modules import cache
+from resources.lib.modules import dom_parser
+from resources.lib.modules import log_utils
+from resources.lib.modules import utils
+from resources.lib.modules import control
 
 
 def request(url, close=True, redirect=True, error=False, verify=True, proxy=None, post=None, headers=None, mobile=False, XHR=False, limit=None, referer=None, cookie=None, compression=True, output='', timeout='30'):

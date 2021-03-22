@@ -1,60 +1,51 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Subtitles.gr
+    Subtitles.gr Addon
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
 import re, unicodedata
-from resources.lib import subtitlesgr, xsubstv, podnapisi, subs4free
-from resources.lib.tools import syshandle, sysaddon, langs
+from shutil import copy
+from os.path import split as os_split
+from resources.lib import subtitlesgr, xsubstv, podnapisi, vipsubs
 
-from tulip import control, workers, log, cache
+from tulip import workers, cache, control
 from tulip.compat import urlencode, range
+from tulip.log import log_debug
 
 
 class Search:
 
-    def __init__(self):
+    def __init__(self, syshandle, sysaddon, langs, action):
 
         self.list = []
         self.query = None
+        self.syshandle = syshandle
+        self.sysaddon = sysaddon
+        self.langs = langs
+        self.action = action
 
     def run(self, query=None):
 
-        if 'Greek' not in str(langs).split(','):
+        if 'Greek' not in str(self.langs).split(','):
 
-            control.directory(syshandle)
-            control.infoDialog(control.lang(32002))
+            control.directory(self.syshandle)
+            control.infoDialog(control.lang(30002))
 
             return
 
-        if not control.conditional_visibility(
-            'System.HasAddon(vfs.libarchive)'
-        ) and float(
-            control.addon('xbmc.addon').getAddonInfo('version')[:4]
-        ) >= 18.0 and not (
-            control.condVisibility('System.Platform.Linux') or control.condVisibility('System.Platform.Linux.RaspberryPi')
+        if control.kodi_version() >= 18.0 and not control.conditional_visibility('System.HasAddon(vfs.libarchive)') and not (
+            control.condVisibility('System.Platform.Linux')
         ):
-
             control.execute('InstallAddon(vfs.libarchive)')
 
         threads = [
             workers.Thread(self.xsubstv), workers.Thread(self.subtitlesgr), workers.Thread(self.podnapisi),
-            workers.Thread(self.subs4free)
+            workers.Thread(self.vipsubs)
         ]
 
         dup_removal = False
@@ -96,16 +87,27 @@ class Search:
 
                 title_query = '{0} {1}'.format(tvshowtitle, title)
                 season_episode_query = '{0} S{1} E{2}'.format(tvshowtitle, season, episode)
+                season_episode_query_nospace = '{0} S{1}E{2}'.format(tvshowtitle, season, episode)
 
                 threads = [
-                    workers.Thread(self.subtitlesgr, title_query), workers.Thread(self.subtitlesgr, season_episode_query),
-                    workers.Thread(self.xsubstv, season_episode_query), workers.Thread(self.podnapisi, title_query),
-                    workers.Thread(self.podnapisi, season_episode_query), workers.Thread(self.subs4free, title_query),
-                    workers.Thread(self.subs4free, season_episode_query)
+                    workers.Thread(self.subtitlesgr, season_episode_query_nospace),
+                    workers.Thread(self.xsubstv, season_episode_query),
+                    workers.Thread(self.podnapisi, season_episode_query),
+                    workers.Thread(self.vipsubs, season_episode_query)
                 ]
 
-                dup_removal = True
-                log.log('Dual query used for subtitles search: ' + title_query + ' / ' + season_episode_query)
+                if control.setting('queries') == 'true':
+
+                    threads.extend(
+                        [
+                            workers.Thread(self.subtitlesgr, title_query),workers.Thread(self.vipsubs, title_query),
+                            workers.Thread(self.podnapisi, title_query), workers.Thread(self.subtitlesgr, season_episode_query)
+                        ]
+                    )
+
+                    dup_removal = True
+
+                    log_debug('Dual query used for subtitles search: ' + title_query + ' / ' + season_episode_query)
 
             elif year != '':  # movie
 
@@ -121,28 +123,28 @@ class Search:
 
         if not dup_removal:
 
-            log.log('Query used for subtitles search: ' + query)
+            log_debug('Query used for subtitles search: ' + query)
 
         self.query = query
 
         [i.start() for i in threads]
 
-        for c, i in list(enumerate(range(0, 40))):
+        for i in range(0, 40):
 
             is_alive = [x.is_alive() for x in threads]
 
-            if all(x is False for x in is_alive):
-                log.log('Reached count : ' + str(c))
+            if all(not x for x in is_alive):
+                log_debug('Counted results: ' + str(i))
                 break
             if control.aborted is True:
-                log.log('Aborted, reached count : ' + str(c))
+                log_debug('Aborted, reached count : ' + str(i))
                 break
 
-            control.sleep(200)
+            control.sleep(400)
 
         if len(self.list) == 0:
 
-            control.directory(syshandle)
+            control.directory(self.syshandle)
 
             return
 
@@ -152,7 +154,7 @@ class Search:
         f += [i for i in self.list if i['source'] == 'xsubstv']
         f += [i for i in self.list if i['source'] == 'subtitlesgr']
         f += [i for i in self.list if i['source'] == 'podnapisi']
-        f += [i for i in self.list if i['source'] == 'subs4free']
+        f += [i for i in self.list if i['source'] == 'vipsubs']
 
         self.list = f
 
@@ -168,8 +170,8 @@ class Search:
                     i['name'] = u'[xsubstv] {0}'.format(i['name'])
                 elif i['source'] == 'podnapisi':
                     i['name'] = u'[podnapisi] {0}'.format(i['name'])
-                elif i['source'] == 'subs4free':
-                    i['name'] = u'[subs4free] {0}'.format(i['name'])
+                elif i['source'] == 'vipsubs':
+                    i['name'] = u'[vipsubs] {0}'.format(i['name'])
 
             except Exception:
 
@@ -189,15 +191,15 @@ class Search:
         for i in self.list:
 
             u = {'action': 'download', 'url': i['url'], 'source': i['source']}
-            u = '{0}?{1}'.format(sysaddon, urlencode(u))
+            u = '{0}?{1}'.format(self.sysaddon, urlencode(u))
 
             item = control.item(label='Greek', label2=i['name'], iconImage=str(i['rating'])[:1], thumbnailImage='el')
             item.setProperty('sync', 'false')
             item.setProperty('hearing_imp', 'false')
 
-            control.addItem(handle=syshandle, url=u, listitem=item, isFolder=False)
+            control.addItem(handle=self.syshandle, url=u, listitem=item, isFolder=False)
 
-        control.directory(syshandle)
+        control.directory(self.syshandle)
 
     def subtitlesgr(self, query=None):
 
@@ -243,7 +245,7 @@ class Search:
 
             pass
 
-    def subs4free(self, query=None):
+    def vipsubs(self, query=None):
 
         if not query:
 
@@ -251,13 +253,13 @@ class Search:
 
         try:
 
-            if control.setting('subs4free') == 'false':
+            if control.setting('vipsubs') == 'false':
                 raise TypeError
 
             if control.setting('cache') == 'true':
-                result = cache.get(subs4free.Subs4free().get, 2, query)
+                result = cache.get(vipsubs.Vipsubs().get, 2, query)
             else:
-                result = subs4free.Subs4free().get(query)
+                result = vipsubs.Vipsubs().get(query)
 
             self.list.extend(result)
 
@@ -290,12 +292,14 @@ class Search:
 
 class Download:
 
-    def __init__(self):
+    def __init__(self, syshandle, sysaddon):
 
-        pass
+        self.syshandle = syshandle
+        self.sysaddon = sysaddon
 
-    @staticmethod
-    def run(url, source):
+    def run(self, url, source):
+
+        log_debug('Source selected: {0}'.format(source))
 
         path = control.join(control.dataPath, 'temp')
 
@@ -313,6 +317,15 @@ class Download:
 
         control.makeFile(path)
 
+        if control.setting('keep_subs') == 'true' or control.setting('keep_zips') == 'true':
+
+            if control.setting('output_folder').startswith('special://'):
+                output_path = control.transPath(control.setting('output_folder'))
+            else:
+                output_path = control.setting('output_folder')
+
+            control.makeFile(output_path)
+
         if source == 'subtitlesgr':
 
             subtitle = subtitlesgr.Subtitlesgr().download(path, url)
@@ -325,9 +338,9 @@ class Download:
 
             subtitle = podnapisi.Podnapisi().download(path, url)
 
-        elif source == 'subs4free':
+        elif source == 'vipsubs':
 
-            subtitle = subs4free.Subs4free().download(path, url)
+            subtitle = vipsubs.Vipsubs().download(path, url)
 
         else:
 
@@ -335,7 +348,13 @@ class Download:
 
         if subtitle is not None:
 
-            item = control.item(label=subtitle)
-            control.addItem(handle=syshandle, url=subtitle, listitem=item, isFolder=False)
+            if control.setting('keep_subs') == 'true':
 
-        control.directory(syshandle)
+                # noinspection PyUnboundLocalVariable
+                copy(subtitle, control.join(output_path, os_split(subtitle)[1]))
+                control.infoDialog(control.lang(30008))
+
+            item = control.item(label=subtitle)
+            control.addItem(handle=self.syshandle, url=subtitle, listitem=item, isFolder=False)
+
+        control.directory(self.syshandle)

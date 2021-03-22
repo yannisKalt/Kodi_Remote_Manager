@@ -102,6 +102,7 @@ try:
     import Queue
     import cookielib
     import urllib2
+    import httplib
     import BaseHTTPServer
     from cStringIO import StringIO
     from SocketServer import ThreadingMixIn
@@ -113,7 +114,7 @@ try:
 # Python 3:
 except ImportError:
 
-    from http import cookiejar as cookielib
+    from http import client as httplib, cookiejar as cookielib
     from html import unescape
     import urllib.request as urllib2
     URLopener = urllib2.URLopener
@@ -140,5 +141,5 @@ __all__ = [
     "range", "urlencode", "zip", "urlsplit", "urlunsplit", "cookielib", "URLopener", "quote_plus", "unescape",
     "parse_qs", "unquote_plus", "urllib2", "unicode", "database", "basestring", "urlopen", "Request", "OrderedDict",
     "iteritems", "BaseHTTPServer", "ThreadingMixIn", "addinfourl", "StringIO", "py2_enc", "py2_uni", "py3_dec",
-    "HTTPError", "pickle"
+    "HTTPError", "pickle", "httplib"
 ]

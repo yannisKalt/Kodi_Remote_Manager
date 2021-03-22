@@ -2,7 +2,10 @@
 # -Cleaned and Checked on 05-06-2019 by JewBMX in Scrubs.
 
 import re
-from resources.lib.modules import client,cleantitle
+import traceback
+from resources.lib.modules import client
+from resources.lib.modules import log_utils
+from resources.lib.modules import cleantitle
 
 
 class source:
@@ -12,6 +15,7 @@ class source:
         self.genre_filter = ['animation', 'anime']
         self.domains = ['animetoon.org','animetoon.tv']
         self.base_link = 'http://www.animetoon.org'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -46,7 +50,7 @@ class source:
             sources = []
             if url is None:
                 return sources
-            r = client.request(url)
+            r = client.request(url, headers=self.headers)
             try:
                 match = re.compile('<iframe src="(.+?)"').findall(r)
                 for url in match: 
@@ -61,8 +65,9 @@ class source:
             except:
                 return
         except Exception:
-            return
-        return sources
+            failure = traceback.format_exc()
+            log_utils.log('---ANIMETOON Testing - Exception: \n' + str(failure))
+            return sources
 
     def resolve(self, url):
         return url

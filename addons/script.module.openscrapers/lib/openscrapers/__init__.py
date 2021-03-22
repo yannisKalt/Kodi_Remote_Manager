@@ -3,16 +3,18 @@
 import os.path
 import pkgutil
 
+from openscrapers.modules import log_utils
+
 try:
 	import xbmcaddon
-
 	__addon__ = xbmcaddon.Addon(id='script.module.openscrapers')
 except:
 	__addon__ = None
 	pass
 
+debug = __addon__.getSetting('debug.enabled') == 'true'
 
-def sources(specified_folders=None, debug=False):
+def sources(specified_folders=None):
 	try:
 		sourceDict = []
 		if __addon__ is not None:
@@ -34,7 +36,7 @@ def sources(specified_folders=None, debug=False):
 						sourceDict.append((module_name, module.source()))
 					except Exception as e:
 						if debug:
-							print('Error:Loading module: %s | %s ' % (module_name, e))
+							log_utils.log('Error: Loading module: "%s": %s' % (module_name, e), log_utils.LOGDEBUG)
 						pass
 		return sourceDict
 	except:
@@ -48,6 +50,12 @@ def enabledCheck(module_name):
 		else:
 			return False
 	return True
+
+
+def pack_sources():
+	return ['7torrents', 'bitlord', 'btscene', 'idope', 'kickass2', 'limetorrents', 'magnetdl', 'piratebay',
+				'skytorrents', 'solidtorrents', 'torrentapi', 'torrentdownload', 'torrentfunk', 'torrentgalaxy',
+				'yourbittorrent', 'zoogle']
 
 
 def providerSources():

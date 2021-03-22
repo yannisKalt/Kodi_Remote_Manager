@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from resources.lib.modules import control, log_utils
+from resources.lib.modules import control
+from resources.lib.modules import log_utils
 
 try:
     import resolveurl

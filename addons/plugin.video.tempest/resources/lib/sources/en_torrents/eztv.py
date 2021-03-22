@@ -3,8 +3,13 @@
 
 import re,urllib,urlparse
 import traceback
-from resources.lib.modules import cleantitle,client,control,debrid,source_utils
-from resources.lib.modules import log_utils, control
+
+from resources.lib.modules import cleantitle
+from resources.lib.modules import client
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import log_utils
+from resources.lib.modules import control
 from resources.lib.modules import rd_check
 from resources.lib.sources import cfscrape
 
@@ -13,10 +18,11 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['eztv.io']
-        self.base_link = 'https://eztv.io/'
+        self.domains = ['eztv.re', 'eztv.io']
+        self.base_link = 'https://eztv.re'
         self.search_link = '/search/%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         if debrid.status() is False: return
@@ -60,7 +66,7 @@ class source:
             url = self.search_link % (urllib.quote_plus(query).replace('+', '-'))
             url = urlparse.urljoin(self.base_link, url)
 
-            html = cfscrape.get(url).content
+            html = cfscrape.get(url, headers=self.headers).content
             try:
                 results = client.parseDOM(html, 'table', attrs={'class': 'forum_header_border'})
                 for result in results:

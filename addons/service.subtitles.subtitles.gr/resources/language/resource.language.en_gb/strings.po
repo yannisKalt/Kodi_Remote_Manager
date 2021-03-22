@@ -1,80 +1,121 @@
-# Kodi Media Center language file
 # Addon Name: Subtitles.gr
 # Addon id: service.subtitles.subtitles.gr
-# Addon version: 1.0.0
-# Addon Provider: lambda
+# Addon Provider: Twilight0
+
+"Project-Id-Version: Subtitles.gr\n"
+"POT-Creation-Date: 2016-06-22 11:29+0000\n"
+"PO-Revision-Date: 2020-07-16 11:29+0000\n"
+"Last-Translator: twilight0\n"
+"Language-Team: English (https://www.alivegr.net)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid ""
 msgstr ""
 
-msgctxt "#32001"
+msgctxt "#30001"
 msgid "Error searching for subtitles"
 msgstr ""
 
-msgctxt "#32002"
+msgctxt "#30002"
 msgid "This service is only for Greek subtitles"
 msgstr ""
 
-msgctxt "#32003"
+msgctxt "#30003"
 msgid "Cache results"
 msgstr ""
 
-msgctxt "#32211"
+msgctxt "#30004"
+msgid "Keep subtitles"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Output folder"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Keep zips (multipacks, vipsubs only)"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Zip saved, you can now select cancel if you want"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Subtitle has been saved"
+msgstr "Ο υπότιτλος αποθηκεύτηκε"
+
+msgctxt "#30211"
 msgid "Accounts"
 msgstr ""
 
-msgctxt "#32212"
+msgctxt "#30212"
 msgid "User"
 msgstr ""
 
-msgctxt "#32213"
+msgctxt "#30213"
 msgid "Password"
 msgstr ""
 
-msgctxt "#32214"
+msgctxt "#30214"
 msgid "Package contains multiple subtitles"
 msgstr ""
 
-msgctxt "#32215"
+msgctxt "#30215"
 msgid "Random choice"
 msgstr ""
 
-msgctxt "#32216"
+msgctxt "#30216"
 msgid "Actions"
 msgstr ""
 
-msgctxt "#32217"
+msgctxt "#30217"
 msgid "Delete function cache"
 msgstr ""
 
-msgctxt "#32218"
+msgctxt "#30218"
 msgid "Domains"
 msgstr ""
 
-msgctxt "#32219"
+msgctxt "#30219"
 msgid "Options"
 msgstr ""
 
-msgctxt "#32220"
+msgctxt "#30220"
 msgid "Sorting"
 msgstr ""
 
-msgctxt "#32221"
+msgctxt "#30221"
 msgid "Name"
 msgstr ""
 
-msgctxt "#32222"
+msgctxt "#30222"
 msgid "Source"
 msgstr ""
 
-msgctxt "#32223"
+msgctxt "#30223"
 msgid "Downloads"
 msgstr ""
 
-msgctxt "#32224"
+msgctxt "#30224"
 msgid "Rating"
 msgstr ""
 
-msgctxt "#32225"
+msgctxt "#30225"
 msgid "Disable for faster searches"
+msgstr ""
+
+msgctxt "#30226"
+msgid "Timeout in seconds"
+msgstr ""
+
+msgctxt "#30227"
+msgid "Page requires human verification[CR]subtitle cannot be downloaded at this moment"
+msgstr ""
+
+msgctxt "#30228"
+msgid "Increase search queries for episode titles"
 msgstr ""

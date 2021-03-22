@@ -1,0 +1,1 @@
+["tru kait", [], [], {"google:suggesttype": []}]

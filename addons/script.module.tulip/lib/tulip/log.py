@@ -1,38 +1,33 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
+
 from __future__ import absolute_import
-
-__all__ = ['log_notice', 'log_debug', 'log_info', 'log_warning', 'log_error']
-
 from kodi_six import xbmc
 from tulip import control
+from tulip.compat import is_py3
 
 LOGDEBUG = xbmc.LOGDEBUG
 LOGERROR = xbmc.LOGERROR
-LOGFATAL = xbmc.LOGFATAL
-LOGINFO = xbmc.LOGINFO
 LOGNONE = xbmc.LOGNONE
-LOGNOTICE = xbmc.LOGNOTICE
-LOGSEVERE = xbmc.LOGSEVERE
 LOGWARNING = xbmc.LOGWARNING
 
+if is_py3:
+    LOGNOTICE = xbmc.LOGWARNING
+    LOGSEVERE = xbmc.LOGERROR
+    LOGINFO = xbmc.LOGWARNING
+    LOGFATAL = xbmc.LOGERROR
+else:
+    LOGNOTICE = xbmc.LOGNOTICE
+    LOGSEVERE = xbmc.LOGSEVERE
+    LOGINFO = xbmc.LOGINFO
+    LOGFATAL = xbmc.LOGFATAL
 
 def log_debug(msg):
     log(msg, level=LOGDEBUG)
@@ -58,9 +53,10 @@ def log_severe(msg):
     log(msg, level=LOGSEVERE)
 
 
-def log(msg, level=LOGDEBUG, setting='debug'):
+def log(msg, level=LOGDEBUG, setting=None):
     # override message level to force logging when addon logging turned on
-    if control.setting(setting) == 'true' and level == LOGDEBUG:
+
+    if level == LOGDEBUG and setting and control.setting(setting) == 'true':
         level = LOGNOTICE
 
     try:
@@ -70,3 +66,6 @@ def log(msg, level=LOGDEBUG, setting='debug'):
             xbmc.log('{0}'.format(msg), level)
         except Exception as reason:
             xbmc.log('Logging Failure: {0}' % reason, level)
+
+
+__all__ = ['log_notice', 'log_debug', 'log_info', 'log_warning', 'log_error']

@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re, urllib, urlparse
 import traceback
-from resources.lib.modules import cleantitle, debrid, source_utils
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
 from resources.lib.modules import client
 from resources.lib.modules import control
 from resources.lib.modules import log_utils
@@ -21,6 +23,7 @@ class source:
         self.base_link = 'https://www.skytorrents.lol/'
         self.search_link = '?query=%s'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -78,7 +81,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url)
 
             try:
-                r = client.request(url)
+                r = client.request(url, headers=self.headers)
                 posts = client.parseDOM(r, 'tbody')[0]
                 posts = client.parseDOM(posts, 'tr')
                 for post in posts:

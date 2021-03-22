@@ -107,7 +107,7 @@ msgstr "Μέγεθος ιστορικού αναζήτησης"
 
 msgctxt "#30024"
 msgid "Cache size (MB)"
-msgstr "Λανθάνουσα μνήμη σε (MB)"
+msgstr "Προσωρινή μνήμη σε (MB)"
 
 msgctxt "#30025"
 msgid "Enable setup-wizard"
@@ -1024,15 +1024,15 @@ msgstr "Σήμερα σε"
 
 msgctxt "#30685"
 msgid "Delete data cache database"
-msgstr "Διαγραφή βάσης δεδομένων δεδομένων μνήμης"
+msgstr "Διαγραφή βάσης δεδομένων προσωρινής μνήμης"
 
 msgctxt "#30686"
 msgid "Clear data cache"
-msgstr "Εκκαθάριση δεδομένων μνήμης"
+msgstr "Εκκαθάριση δεδομένων προσωρινής μνήμης"
 
 msgctxt "#30687"
 msgid "data cache"
-msgstr "δεδομένα μνήμης"
+msgstr "δεδομένα προσωρινής μνήμης"
 
 msgctxt "#30688"
 msgid "Use for videos"
@@ -1205,3 +1205,23 @@ msgstr "Αναζήτηση φιλική για χειριστήριο"
 msgctxt "#30730"
 msgid "Play (Ask for quality)"
 msgstr "Αναπαραγωγή (Ερώτηση για ποιότητα)"
+
+msgctxt "#30731"
+msgid "The YouTube add-on now requires that you use your own API keys.[CR]For more information see the wiki: [B]https://ytaddon.page.link/keys[/B][CR][CR]Sorry for the inconvenience."
+msgstr "Το πρόσθετο Youtube πλέον απαιτεί δικά σας κλειδιά API για την χρήση του.[CR]Για περισσότερες πληροφορίες δείτε εδώ στην wiki: [B]https://ytaddon.page.link/keys[/B][CR][CR]Συγγνώμη για την ταλαιπωρία."
+
+msgctxt "#30732"
+msgid "Comments"
+msgstr "Σχόλια"
+
+msgctxt "#30733"
+msgid "Likes"
+msgstr "Αρεσκείες"
+
+msgctxt "#30734"
+msgid "Replies"
+msgstr "Απαντήσεις"
+
+msgctxt "#30735"
+msgid "Edited"
+msgstr "Επεξεργασμένο"

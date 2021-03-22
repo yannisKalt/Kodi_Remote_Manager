@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
-# -Cleaned and Checked on 08-24-2019 by JewBMX in Scrubs.
+# -Cleaned and Checked on 04-14-2020 by Tempest.
 
-import urllib,urlparse
+import urllib, urlparse, re
+import traceback
 from resources.lib.modules import client
-from resources.lib.modules import cleantitle
-from resources.lib.modules import directstream
-from resources.lib.modules import source_utils
+from resources.lib.modules import log_utils
+from resources.lib.modules import scrape_source
 from resources.lib.sources import cfscrape
 
 
@@ -17,19 +17,11 @@ class source:
         self.base_link = 'https://5movies.to'
         self.search_link = '/search.php?q=%s'
         self.video_link = '/getlink.php?Action=get&lk=%s'
-
-    def matchAlias(self, title, aliases):
-        try:
-            for alias in aliases:
-                if cleantitle.get(title) == cleantitle.get(alias['title']):
-                    return True
-        except:
-            return False
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
-            aliases.append({'country': 'us', 'title': title})
-            url = {'imdb': imdb, 'title': title, 'year': year, 'aliases': aliases}
+            url = {'imdb': imdb, 'title': title, 'year': year}
             url = urllib.urlencode(url)
             return url
         except:
@@ -37,8 +29,7 @@ class source:
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
-            aliases.append({'country': 'us', 'title': tvshowtitle})
-            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year, 'aliases': aliases}
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
             url = urllib.urlencode(url)
             return url
         except:
@@ -56,77 +47,71 @@ class source:
         except:
             return
 
-    def _search(self, title, year, aliases, headers):
+    def _search(self, title, year, headers):
         try:
-            q = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(cleantitle.getsearch(title)))
-            r = cfscrape.get(q).content
-            r = client.parseDOM(r, 'div', attrs={'class':'ml-img'})
-            r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'img', ret='alt'))
-            url = [i for i in r if cleantitle.get(title) == cleantitle.get(i[1]) and year in i[1]][0][0]
+            if 'It Chapter Two' in title:
+                title = 'It: Chapter Two'
+            else:
+                title
+            if 'Philosopher\'s' in title:
+                title = title.replace('Philosopher\'s', 'Sorcerer\'s')
+            else:
+                title
+            q = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(title))
+            r = cfscrape.get(q, headers=self.headers).content
+            r = client.parseDOM(r, 'div', attrs={'class': 'ml-img'})
+            r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
+            url = [i for i in r if title in i[1] and year in i[1]][0][0]
             return url
         except:
             pass
 
     def sources(self, url, hostDict, hostprDict):
+        sources = []
         try:
-            sources = []
             if url is None:
                 return sources
+
+            hostDict = hostprDict + hostDict
+
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
-            aliases = eval(data['aliases'])
             headers = {}
-            title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
-            year = data['year']
-            if 'tvshowtitle' in data:    
+            if 'tvshowtitle' in data:
                 episode = data['episode']
                 season = data['season']
-                url = self._search(data['tvshowtitle'], data['year'], aliases, headers)
+                url = self._search(data['tvshowtitle'], data['year'], headers)
                 url = url.replace('online-free', 'season-%s-episode-%s-online-free' % (season, episode))
             else:
-                episode = None
-                year = data['year']
-                url = self._search(data['title'], data['year'], aliases, headers)
+                url = self._search(data['title'], data['year'], headers)
             url = url if 'http' in url else urlparse.urljoin(self.base_link, url)
-            result = cfscrape.get(url).content
+            result = cfscrape.get(url, headers=self.headers).content
             result = client.parseDOM(result, 'li', attrs={'class': 'link-button'})
             links = client.parseDOM(result, 'a', ret='href')
             i = 0
             for t in links:
-                if i == 10:
+                if i == 25:
                     break
                 try:
                     t = t.split('=')[1]
                     t = urlparse.urljoin(self.base_link, self.video_link % t)
-                    result = client.request(t, post={}, headers={'Referer': url})
-                    u = result if 'http' in result else 'http:' + result 
-                    if 'google' in u:
-                        valid, hoster = source_utils.is_host_valid(u, hostDict)
-                        urls, host, direct = source_utils.check_directstreams(u, hoster)
-                        for x in urls:
-                            sources.append(
-                                {'source': host, 'quality': x['quality'], 'language': 'en', 'url': x['url'],
-                                 'direct': direct, 'debridonly': False})
-                    else:
-                        valid, hoster = source_utils.is_host_valid(u, hostDict)
-                        if not valid:
-                            continue
-                        try:
-                            u.decode('utf-8')
-                            sources.append(
-                                {'source': hoster, 'quality': 'SD', 'language': 'en', 'url': u, 'direct': False,
-                                 'debridonly': False})
-                            i += 1
-                        except:
-                            pass
+                    result = client.request(t, post={}, headers={'User-Agent': client.agent(), 'Referer': url})
+                    if 'href=' in result:
+                        result = re.findall("href='(.+?)'", result)[0]
+                    u = result if 'http' in result else 'http:' + result
+                    u = u.replace('http:', 'https:')
+                    u.decode('utf-8')
+                    for source in scrape_source.getMore(u, hostDict):
+                        sources.append(source)
+                    i += 1
                 except:
                     pass
+
             return sources
-        except:
+        except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---5MOVIES Testing - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):
-        if 'google' in url:
-            return directstream.googlepass(url)
-        else:
-            return url
+        return url

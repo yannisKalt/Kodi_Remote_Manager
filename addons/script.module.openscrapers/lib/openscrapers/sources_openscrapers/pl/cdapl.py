@@ -25,17 +25,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import urllib
 
-try:
-	import urlparse
-except:
-	import urllib.parse as urlparse
-try:
-	import HTMLParser
-	from HTMLParser import HTMLParser
-except:
-	from html.parser import HTMLParser
+try: from urlparse import urljoin
+except ImportError: from urllib.parse import urljoin
+try: from urllib import quote
+except ImportError: from urllib.parse import quote
 
 from openscrapers.modules import source_utils
 from openscrapers.modules import cleantitle
@@ -86,8 +80,8 @@ class source:
 			titles.append(cleantitle.normalize(cleantitle.getsearch(localtitle)))
 
 			for title in titles:
-				url = urlparse.urljoin(self.base_link, self.search_link)
-				url = url % urllib.quote(str(title).replace(" ", "_"))
+				url = urljoin(self.base_link, self.search_link)
+				url = url % quote(str(title).replace(" ", "_"))
 
 				result = client.request(url)
 				result = client.parseDOM(result, 'div', attrs={'class': 'video-clip-wrapper'})
@@ -128,8 +122,8 @@ class source:
 			titles.append(cleantitle.normalize(cleantitle.getsearch(title2)))
 
 			for title in titles:
-				url = urlparse.urljoin(self.base_link, self.search_link_ep)
-				url = url % urllib.quote(str(title).replace(" ", "_"))
+				url = urljoin(self.base_link, self.search_link_ep)
+				url = url % quote(str(title).replace(" ", "_"))
 
 				result = client.request(url)
 				result = client.parseDOM(result, 'div', attrs={'class': 'video-clip-wrapper'})
@@ -161,7 +155,7 @@ class source:
 					if url is None:
 						return sources
 
-					url = urlparse.urljoin(self.base_link, url)
+					url = urljoin(self.base_link, url)
 					result = client.request(url)
 					title = client.parseDOM(result, 'span', attrs={'style': 'margin-right: 3px;'})[0]
 					lang, info = self.get_lang_by_type(title)
@@ -175,7 +169,7 @@ class source:
 							{'source': host, 'quality': '1080p', 'language': lang, 'url': url + "?wersja=1080p",
 							 'info': info, 'direct': False, 'debridonly': False})
 					if "?wersja=720p" in result:
-						sources.append({'source': host, 'quality': 'HD', 'language': lang, 'url': url + "?wersja=720p",
+						sources.append({'source': host, 'quality': '720p', 'language': lang, 'url': url + "?wersja=720p",
 						                'info': info, 'direct': False, 'debridonly': False})
 					if "?wersja=480p" in result:
 						sources.append({'source': host, 'quality': 'SD', 'language': lang, 'url': url + "?wersja=480p",

@@ -108,7 +108,7 @@
             <level>0</level>
             <showhigherlevels>true</showhigherlevels>
         </eventlog>
-        <systemtotaluptime>40872</systemtotaluptime>
+        <systemtotaluptime>112220</systemtotaluptime>
     </general>
     <input>
         <asknewcontrollers default="true">true</asknewcontrollers>
@@ -418,7 +418,7 @@
         <monitor default="true">Default</monitor>
         <noofbuffers default="true">2</noofbuffers>
         <preferedstereoscopicmode default="true">100</preferedstereoscopicmode>
-        <resolution>35</resolution>
+        <resolution>45</resolution>
         <screen default="true">0</screen>
         <screenmode>00128000720059.94006pstd</screenmode>
         <stereoscopicmode default="true">0</stereoscopicmode>
@@ -647,6 +647,6 @@
     </defaultaudiosettings>
     <audio>
         <mute>false</mute>
-        <fvolumelevel>1.000000</fvolumelevel>
+        <fvolumelevel>0.650000</fvolumelevel>
     </audio>
 </settings>

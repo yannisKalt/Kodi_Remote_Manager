@@ -1,28 +1,23 @@
-import sys, xbmc, json
+# -*- coding: utf-8 -*-
 
-try:
+import sys
+import xbmc
+
+try: #Py2
 	from urlparse import parse_qsl
-except:
+except ImportError: #Py3
 	from urllib.parse import parse_qsl
 
 
 if __name__ == '__main__':
 	item = sys.listitem
-	message = item.getLabel()
+	# message = item.getLabel()
 	path = item.getPath()
 	plugin = 'plugin://plugin.video.venom/'
 	args = path.split(plugin, 1)
-	# xbmc.log('args = %s' % args, 2)
 	params = dict(parse_qsl(args[1].replace('?', '')))
 
-	if 'meta' in params:
-		meta = json.loads(params['meta'])
-		imdb = meta.get('imdb', '')
-		action = 'tvshows' if 'tvshowtitle' in meta else 'movies'
+	imdb = params.get('imdb', '')
+	action = 'tvshows' if 'tvshowtitle' in params else 'movies'
 
-	else:
-		imdb = params.get('imdb', '')
-		action = 'tvshows' if 'tvshowtitle' in params else 'movies'
-
-	path = '%s?action=%s&url=https://api.trakt.tv/%s/%s/related,return)' % (plugin, action, 'shows' if 'tvshows' in action else 'movies', imdb)
-	xbmc.executebuiltin('ActivateWindow(Videos,%s)' % path)
+	xbmc.executebuiltin('ActivateWindow(Videos,plugin://plugin.video.venom/?action=%s&url=https://api.trakt.tv/%s/%s/related,return)' % (action, 'shows' if 'tvshows' in action else 'movies', imdb))

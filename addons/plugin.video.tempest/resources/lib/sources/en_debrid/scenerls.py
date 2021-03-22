@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re, urllib, urlparse
@@ -9,8 +10,10 @@ import traceback
 from resources.lib.modules import log_utils
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
-from resources.lib.modules import debrid, rd_check
-from resources.lib.modules import source_utils, control
+from resources.lib.modules import debrid
+from resources.lib.modules import rd_check
+from resources.lib.modules import source_utils
+from resources.lib.modules import control
 from resources.lib.sources import cfscrape
 
 
@@ -76,11 +79,11 @@ class source:
                 url = self.search_link % urllib.quote_plus(query)
                 url = urlparse.urljoin(self.base_link, url)
 
-                r = cfscrape.get(url).content
+                r = cfscrape.get(url, headers={'User-Agent': client.agent()}).content
 
                 posts = client.parseDOM(r, 'div', attrs={'class': 'post'})
 
-                items = []; dupes = []
+                items = []
 
                 for post in posts:
                     try:

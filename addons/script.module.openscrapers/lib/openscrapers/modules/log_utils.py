@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
 
-
-# Addon Name: OpenScrapers Module
-# Addon id: script.module.openscrapers
-
-import StringIO
 import cProfile
+from datetime import datetime
+import inspect
 import json
 import os
 import pstats
+try:
+	from StringIO import StringIO
+except ImportError:
+	from io import StringIO
 import time
-from datetime import datetime
 
 from openscrapers.modules import control
 
 try:
 	import xbmc
 	from xbmc import LOGDEBUG, LOGERROR, LOGNOTICE, LOGWARNING  # @UnusedImport
-
 	LOGPATH = xbmc.translatePath('special://logpath/')
 	name = control.addonInfo('name')
 except:
@@ -36,8 +35,8 @@ def log(msg, caller=None, level=LOGNOTICE):
 	debug_enabled = control.setting('debug.enabled')
 	debug_log = control.setting('debug.location')
 
-	print DEBUGPREFIX + ' Debug Enabled?: ' + str(debug_enabled)
-	print DEBUGPREFIX + ' Debug Log?: ' + str(debug_log)
+	print( DEBUGPREFIX + ' Debug Enabled?: ' + str(debug_enabled))
+	print( DEBUGPREFIX + ' Debug Log?: ' + str(debug_log))
 
 	if control.setting('debug.enabled') != 'true':
 		return
@@ -51,9 +50,11 @@ def log(msg, caller=None, level=LOGNOTICE):
 
 		if caller is not None and level == LOGERROR:
 			msg = 'From func name: %s.%s() Line # :%s\n                       msg : %s'%(caller[0], caller[1], caller[2], msg)
-
-		if isinstance(msg, unicode):
-			msg = '%s (ENCODED)' % (msg.encode('utf-8'))
+		try:
+			if isinstance(msg, unicode):
+				msg = '%s (ENCODED)' % (msg.encode('utf-8'))
+		except:
+			pass
 
 		if not control.setting('debug.location') == '0':
 			log_file = os.path.join(LOGPATH, 'openscrapers.log')
@@ -72,65 +73,34 @@ def log(msg, caller=None, level=LOGNOTICE):
 			pass
 
 
-# def error(message=None, exception=True):
-	# try:
-		# import sys
-		# if exception:
-			# type, value, traceback = sys.exc_info()
-			# errortype = type.__name__
-			# errormessage = value.message
-
-			# if errormessage == '':
-				# raise Exception()
-
-			# if message:
-				# message += ' -> '
-			# else:
-				# message = ''
-			# message += str(errortype) + ' -> ' + str(errormessage)
-
-		# else:
-			# caller = None
-
-		# log(msg=message, caller=__name__, level=LOGERROR)
-	# except:
-		# pass
-
-
 def error(message=None, exception=True):
 	try:
 		import sys
 		if exception:
 			type, value, traceback = sys.exc_info()
-
-			sysaddon = sys.argv[0].split('//')[1].replace('/', '.')
-
-			filename = (traceback.tb_frame.f_code.co_filename).replace('\\', '.').replace('.py', '')
-			filename = filename.split(sysaddon)[1].replace('\\', '.')
-
+			addon = 'script.module.openscrapers'
+			filename = (traceback.tb_frame.f_code.co_filename)
+			filename = filename.split(addon)[1]
 			name = traceback.tb_frame.f_code.co_name
-
 			linenumber = traceback.tb_lineno
-
 			errortype = type.__name__
-			errormessage = value.message
-
-			if errormessage == '':
-				raise Exception()
+			errormessage = value.message or value # sometime value.message is null while value is not
+			if str(errormessage) == '':
+				return
 			if message:
 				message += ' -> '
 			else:
 				message = ''
 			message += str(errortype) + ' -> ' + str(errormessage)
 			caller = [filename, name, linenumber]
-
 		else:
 			caller = None
-		log(msg=message, caller=caller, level = LOGERROR)
+		log(msg=message, caller=caller, level=LOGERROR)
+		del(type, value, traceback) # So we don't leave our local labels/objects dangling
 	except:
+		import traceback
+		traceback.print_exc()
 		pass
-
-
 
 
 class Profiler(object):
@@ -163,7 +133,7 @@ class Profiler(object):
 
 	def dump_stats(self):
 		if self._profiler is not None:
-			s = StringIO.StringIO()
+			s = StringIO()
 			params = (self.sort_by,) if isinstance(self.sort_by, basestring) else self.sort_by
 			ps = pstats.Stats(self._profiler, stream=s).sort_stats(*params)
 			ps.print_stats()
@@ -178,13 +148,13 @@ def trace(method):
 		result = method(*args, **kwargs)
 		end = time.time()
 		log('{name!r} time: {time:2.4f}s args: |{args!r}| kwargs: |{kwargs!r}|'.format(name=method.__name__,
-		                                                                               time=end - start, args=args,
-		                                                                               kwargs=kwargs), LOGDEBUG)
+																					   time=end - start, args=args,
+																					   kwargs=kwargs), LOGDEBUG)
 		return result
+
 
 	def method_trace_off(*args, **kwargs):
 		return method(*args, **kwargs)
-
 	if _is_debugging():
 		return method_trace_on
 	else:
@@ -193,7 +163,7 @@ def trace(method):
 
 def _is_debugging():
 	command = {'jsonrpc': '2.0', 'id': 1, 'method': 'Settings.getSettings',
-	           'params': {'filter': {'section': 'system', 'category': 'logging'}}}
+			   'params': {'filter': {'section': 'system', 'category': 'logging'}}}
 	js_data = execute_jsonrpc(command)
 	for item in js_data.get('result', {}).get('settings', {}):
 		if item['id'] == 'debug.showloginfo':

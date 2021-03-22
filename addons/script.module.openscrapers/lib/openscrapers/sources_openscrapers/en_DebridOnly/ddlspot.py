@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# modified by Venom for Openscrapers
 
 #  ..#######.########.#######.##....#..######..######.########....###...########.#######.########..######.
 #  .##.....#.##.....#.##......###...#.##....#.##....#.##.....#...##.##..##.....#.##......##.....#.##....##
@@ -25,8 +26,11 @@
 '''
 
 import re
-import urllib
-import urlparse
+
+try: from urlparse import parse_qs, urljoin
+except ImportError: from urllib.parse import parse_qs, urljoin
+try: from urllib import urlencode, quote_plus
+except ImportError: from urllib.parse import urlencode, quote_plus
 
 from openscrapers.modules import cleantitle
 from openscrapers.modules import client
@@ -36,7 +40,7 @@ from openscrapers.modules import source_utils
 
 class source:
 	def __init__(self):
-		self.priority = 1
+		self.priority = 25
 		self.language = ['en']
 		self.domains = ['www.ddlspot.com']
 		self.base_link = 'http://www.ddlspot.com/'
@@ -46,7 +50,7 @@ class source:
 	def movie(self, imdb, title, localtitle, aliases, year):
 		try:
 			url = {'imdb': imdb, 'title': title, 'year': year}
-			url = urllib.urlencode(url)
+			url = urlencode(url)
 			return url
 		except:
 			return
@@ -55,7 +59,7 @@ class source:
 	def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
 		try:
 			url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
-			url = urllib.urlencode(url)
+			url = urlencode(url)
 			return url
 		except:
 			return
@@ -65,10 +69,10 @@ class source:
 		try:
 			if url is None: return
 
-			url = urlparse.parse_qs(url)
+			url = parse_qs(url)
 			url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
 			url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
-			url = urllib.urlencode(url)
+			url = urlencode(url)
 			return url
 		except:
 			return
@@ -86,7 +90,7 @@ class source:
 
 			hostDict = hostprDict + hostDict
 
-			data = urlparse.parse_qs(url)
+			data = parse_qs(url)
 			data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
 
 			title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
@@ -97,8 +101,8 @@ class source:
 			query = '%s %s' % (title, hdlr)
 			query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', '', query)
 
-			url = self.search_link % urllib.quote_plus(query)
-			url = urlparse.urljoin(self.base_link, url).replace('-', '+')
+			url = self.search_link % quote_plus(query)
+			url = urljoin(self.base_link, url).replace('-', '+')
 			# log_utils.log('url = %s' % url, log_utils.LOGDEBUG)
 
 			r = client.request(url)
@@ -143,13 +147,10 @@ class source:
 								quality, info = source_utils.get_release_quality(name, url)
 
 								try:
-									size = link[1]
-									div = 1 if size.endswith(('GB', 'GiB', 'Gb')) else 1024
-									size = float(re.sub('[^0-9|/.|/,]', '', size.replace(',', ''))) / div
-									size = '%.2f GB' % size
-									info.insert(0, size)
+									dsize, isize = source_utils._size(link[1])
+									info.insert(0, isize)
 								except:
-									size = '0'
+									dsize = 0
 									pass
 
 								info = ' | '.join(info)
@@ -159,10 +160,13 @@ class source:
 									continue
 
 								host = client.replaceHTMLCodes(host)
-								host = host.encode('utf-8')
+								try:
+									host = host.encode('utf-8')
+								except:
+									pass
 
 								sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url,
-															'info': info, 'direct': False, 'debridonly': True})
+															'info': info, 'direct': False, 'debridonly': True, 'size': dsize})
 
 					except:
 						source_utils.scraper_error('DDLSPOT')

@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re, urllib, urlparse
 import traceback
-from resources.lib.modules import cleantitle, debrid, source_utils
-from resources.lib.modules import client, control
+
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import client
+from resources.lib.modules import control
 from resources.lib.modules import log_utils
 from resources.lib.modules import rd_check
 from resources.lib.sources import cfscrape
@@ -17,9 +21,10 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['www.ettv.to']
-        self.base_link = 'https://www.ettv.to'
+        self.domains = ['www.ettvcentral.com', 'www.ettvdl.com', 'www.ettv.to']
+        self.base_link = 'https://www.ettvcentral.com'
         self.search_link = '/torrents-search.php?search=%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -77,13 +82,13 @@ class source:
             url = urlparse.urljoin(self.base_link, url).replace('++', '+')
 
             try:
-                r = cfscrape.get(url).content
+                r = cfscrape.get(url, headers=self.headers).content
                 posts = client.parseDOM(r, 'tr')
                 for post in posts:
                     links = re.findall('<a title=".+?" href="(/torrent/.+?)">(.+?)<', post, re.DOTALL)
                     for link, data in links:
                         link = urlparse.urljoin(self.base_link, link)
-                        link = cfscrape.get(link).content
+                        link = cfscrape.get(link, headers=self.headers).content
                         link = re.findall('a href="(magnet:.+?)"><img', link, re.DOTALL)
                         try:
                             size = re.findall('((?:\d+\,\d+\.\d+|\d+\.\d+|\d+\,\d+|\d+)\s*(?:GiB|MiB|GB|MB))', post)[0]

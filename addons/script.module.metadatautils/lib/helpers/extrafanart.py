@@ -1,18 +1,18 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-'''
+"""
     script.module.metadatautils
     extrafanart.py
     Get extrafanart location for kodi media
-'''
+"""
 
 import os
 import xbmcvfs
 
 
 def get_extrafanart(file_path):
-    '''get extrafanart path on disk based on media path'''
+    """get extrafanart path on disk based on media path"""
     result = {}
     efa_path = ""
     if "plugin.video.emby" in file_path:
@@ -37,5 +37,8 @@ def get_extrafanart(file_path):
         result["art"] = {"extrafanart": efa_path}
         for count, file in enumerate(xbmcvfs.listdir(efa_path)[1]):
             if file.lower().endswith(".jpg"):
-                result["art"]["ExtraFanArt.%s" % count] = efa_path + file.decode("utf-8")
+                if sys.version_info.major == 3:
+                    result["art"]["ExtraFanArt.%s" % count] = efa_path + file
+                else:
+                    result["art"]["ExtraFanArt.%s" % count] = efa_path + file.decode("utf-8")
     return result

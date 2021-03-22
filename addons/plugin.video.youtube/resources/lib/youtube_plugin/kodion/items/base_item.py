@@ -10,10 +10,18 @@
 
 from six import python_2_unicode_compatible
 from six import string_types
-from six.moves import html_parser
 
 import hashlib
 import datetime
+
+try:
+    from six.moves import html_parser
+
+    unescape = html_parser.HTMLParser().unescape
+except AttributeError:
+    import html
+
+    unescape = html.unescape
 
 
 @python_2_unicode_compatible
@@ -25,8 +33,8 @@ class BaseItem(object):
         self._version = BaseItem.VERSION
 
         try:
-            self._name = html_parser.HTMLParser().unescape(name)
-        except html_parser.HTMLParseError as _:
+            self._name = unescape(name)
+        except:
             self._name = name
 
         self._uri = uri
@@ -38,6 +46,8 @@ class BaseItem(object):
         self._context_menu = None
         self._replace_context_menu = False
         self._date = None
+
+        self._next_page = False
 
     def __str__(self):
         name = self._name
@@ -111,3 +121,11 @@ class BaseItem(object):
 
     def get_date(self):
         return self._date
+
+    @property
+    def next_page(self):
+        return self._next_page
+
+    @next_page.setter
+    def next_page(self, value):
+        self._next_page = bool(value)

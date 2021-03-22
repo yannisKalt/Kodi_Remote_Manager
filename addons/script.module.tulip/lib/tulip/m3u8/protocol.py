@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # coding: utf-8
 # Copyright 2014 Globo.com Player authors. All rights reserved.
 # Use of this source code is governed by a MIT License
@@ -36,3 +34,6 @@ ext_x_rendition_report = '#EXT-X-RENDITION-REPORT'
 ext_x_skip = '#EXT-X-SKIP'
 ext_x_session_data = '#EXT-X-SESSION-DATA'
 ext_x_session_key = '#EXT-X-SESSION-KEY'
+ext_x_preload_hint = '#EXT-X-PRELOAD-HINT'
+ext_x_daterange = "#EXT-X-DATERANGE"
+ext_x_gap = "#EXT-X-GAP"

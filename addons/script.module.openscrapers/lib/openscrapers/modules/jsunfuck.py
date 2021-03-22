@@ -1,29 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-    OpenScrapers Module
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	OpenScrapers Module
 """
-
-# Addon Name: OpenScrapers Module
-# Addon id: script.module.openscrapers
-
 
 import re
 import string
 import sys
-import urllib
+try: from urllib import quote, unquote
+except ImportError: from urllib.parse import quote, unquote
 
 
 class JSUnfuck(object):
@@ -141,7 +125,7 @@ class JSUnfuck(object):
 			offset = self.js.find(key) + len(key)
 			if self.js[offset] == '(' and self.js[offset + 2] == ')':
 				c = self.js[offset + 1]
-				self.js = self.js.replace('%s(%s)' % (key, c), urllib.quote(c))
+				self.js = self.js.replace('%s(%s)' % (key, c), quote(c))
 
 			if start_js == self.js:
 				break
@@ -170,7 +154,7 @@ class JSUnfuck(object):
 				last_c = c
 
 			if not abort:
-				self.js = self.js.replace(key + extra, urllib.unquote(expr))
+				self.js = self.js.replace(key + extra, unquote(expr))
 
 				if start_js == self.js:
 					break
@@ -179,13 +163,13 @@ class JSUnfuck(object):
 
 	def __gen_numbers(self):
 		n = {'!+[]+!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![]': '9',
-		     '!+[]+!![]+!![]+!![]+!![]': '5', '!+[]+!![]+!![]+!![]': '4',
-		     '!+[]+!![]+!![]+!![]+!![]+!![]': '6', '!+[]+!![]': '2',
-		     '!+[]+!![]+!![]': '3', '(+![]+([]+[]))': '0', '(+[]+[])': '0', '+[]': '0',
-		     '(+!![]+[])': '1', '!+[]+!![]+!![]+!![]+!![]+!![]+!![]': '7',
-		     '!+[]+!![]+!![]+!![]+!![]+!![]+!![]+!![]': '8', '+!![]': '1',
-		     '[+[]]': '[0]', '!+[]+!+[]': '2', '[+!+[]]': '[1]', '(+20)': '20',
-		     '[+!![]]': '[1]', '[+!+[]+[+[]]]': '[10]', '+(1+1)': '11'}
+			 '!+[]+!![]+!![]+!![]+!![]': '5', '!+[]+!![]+!![]+!![]': '4',
+			 '!+[]+!![]+!![]+!![]+!![]+!![]': '6', '!+[]+!![]': '2',
+			 '!+[]+!![]+!![]': '3', '(+![]+([]+[]))': '0', '(+[]+[])': '0', '+[]': '0',
+			 '(+!![]+[])': '1', '!+[]+!![]+!![]+!![]+!![]+!![]+!![]': '7',
+			 '!+[]+!![]+!![]+!![]+!![]+!![]+!![]+!![]': '8', '+!![]': '1',
+			 '[+[]]': '[0]', '!+[]+!+[]': '2', '[+!+[]]': '[1]', '(+20)': '20',
+			 '[+!![]]': '[1]', '[+!+[]+[+[]]]': '[10]', '+(1+1)': '11'}
 
 		for i in xrange(2, 20):
 			key = '+!![]' * (i - 1)
@@ -236,13 +220,19 @@ def cfunfuck(fuckedup):
 	fuck = re.findall(r's,t,o,p,b,r,e,a,k,i,n,g,f,\s*(\w+=).*?:\+?\(?(.*?)\)?\}', fuckedup)
 	fucks = re.findall(r'(\w+)\.\w+([\+\-\*\/]=)\+?\(?(.*?)\)?;', fuckedup)
 	endunfuck = fuck[0][0].split('=')[0]
-	unfuck = JSUnfuck(fuck[0][1]).decode()
+	try:
+		unfuck = JSUnfuck(fuck[0][1]).decode()
+	except:
+		unfuck = JSUnfuck(fuck[0][1])
 	unfuck = re.sub(r'[\(\)]', '', unfuck)
 	unfuck = fuck[0][0] + unfuck
 	exec (unfuck)
 
 	for fucker in fucks:
-		unfucker = JSUnfuck(fucker[2]).decode()
+		try:
+			unfucker = JSUnfuck(fucker[2]).decode()
+		except:
+			unfucker = JSUnfuck(fucker[2])
 		unfucker = re.sub(r'[\(\)]', '', unfucker)
 		unfucker = fucker[0] + fucker[1] + unfucker
 		exec (unfucker)
@@ -254,7 +244,10 @@ def main():
 	with open(sys.argv[1]) as f:
 		start_js = f.read()
 
-	print JSUnfuck(start_js).decode()
+	try:
+		print JSUnfuck(start_js).decode()
+	except:
+		print JSUnfuck(start_js)
 
 
 if __name__ == '__main__':

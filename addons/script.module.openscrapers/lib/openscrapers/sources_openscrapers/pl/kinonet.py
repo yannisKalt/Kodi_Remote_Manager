@@ -27,22 +27,12 @@
 
 import json
 import re
-
 import requests
 
 try:
-	import urlparse
-except:
-	import urllib.parse as urlparse
-try:
-	import HTMLParser
 	from HTMLParser import HTMLParser
 except:
 	from html.parser import HTMLParser
-try:
-	import urllib2
-except:
-	import urllib.request as urllib2
 
 from openscrapers.modules import source_utils
 from openscrapers.modules import cleantitle
@@ -172,7 +162,7 @@ class source:
 					info = test[(2 + (3 * counter))]
 					info = self.get_lang_by_type(info)
 					quality = test[(1 + (3 * counter))]
-					quality = source_utils.check_sd_url(quality)
+					quality = source_utils.check_url(quality)
 					try:
 						id = re.findall("""ShowMovie\('(.*?)'\)""", item)[0]
 					except:

@@ -181,6 +181,15 @@ def parse(content, strict=False, custom_tags_parser=None):
         elif line.startswith(protocol.ext_x_session_key):
             _parse_session_key(line, data, state)
 
+        elif line.startswith(protocol.ext_x_preload_hint):
+            _parse_preload_hint(line, data, state)
+
+        elif line.startswith(protocol.ext_x_daterange):
+            _parse_daterange(line, data, state)
+
+        elif line.startswith(protocol.ext_x_gap):
+            state['gap'] = True
+
         # Comments and whitespace
         elif line.startswith('#'):
             if callable(custom_tags_parser):
@@ -257,6 +266,8 @@ def _parse_ts_chunk(line, data, state):
             data['keys'].append(None)
     if state.get('current_segment_map'):
         segment['init_section'] = state['current_segment_map']
+    segment['dateranges'] = state.pop('dateranges', None)
+    segment['gap_tag'] = state.pop('gap', None)
     data['segments'].append(segment)
 
 
@@ -320,7 +331,7 @@ def _parse_simple_parameter_raw_value(line, cast_to=str, normalize=False):
     param, value = line.split(':', 1)
     param = normalize_attribute(param.replace('#EXT-X-', ''))
     if normalize:
-        value = normalize_attribute(value)
+        value = value.strip().lower()
     return param, cast_to(value)
 
 
@@ -367,7 +378,7 @@ def _cueout_simple(line):
     # this needs to be called after _cueout_elemental
     # as it would capture those cues incompletely
     param, value = line.split(':', 1)
-    res = re.match('^(\d+(?:\.\d)?\d*)$', value)
+    res = re.match(r'^(\d+(?:\.\d)?\d*)$', value)
     if res:
         return (None, res.group(1))
 
@@ -426,6 +437,9 @@ def _parse_part(line, data, state):
         part['program_date_time'] = state['current_program_date_time']
         state['current_program_date_time'] += datetime.timedelta(seconds=part['duration'])
 
+    part['dateranges'] = state.pop('dateranges', None)
+    part['gap_tag'] = state.pop('gap', None)
+
     if 'segment' not in state:
         state['segment'] = {}
     segment = state['segment']
@@ -453,6 +467,35 @@ def _parse_session_key(line, data, state):
         name, value = param.split('=', 1)
         key[normalize_attribute(name)] = remove_quotes(value)
     data['session_keys'].append(key)
+
+def _parse_preload_hint(line, data, state):
+    attribute_parser = remove_quotes_parser('uri')
+    attribute_parser['type'] = str
+    attribute_parser['byterange_start'] = int
+    attribute_parser['byterange_length'] = int
+
+    data['preload_hint'] = _parse_attribute_list(
+        protocol.ext_x_preload_hint, line, attribute_parser
+    )
+
+def _parse_daterange(line, date, state):
+    attribute_parser = remove_quotes_parser('id', 'class', 'start_date', 'end_date')
+    attribute_parser['duration'] = float
+    attribute_parser['planned_duration'] = float
+    attribute_parser['end_on_next'] = str
+    attribute_parser['scte35_cmd'] = str
+    attribute_parser['scte35_out'] = str
+    attribute_parser['scte35_in'] = str
+
+    parsed = _parse_attribute_list(
+        protocol.ext_x_daterange, line, attribute_parser
+    )
+
+    if 'dateranges' not in state:
+        state['dateranges'] = []
+
+    state['dateranges'].append(parsed)
+
 
 def string_to_lines(string):
     return string.strip().splitlines()

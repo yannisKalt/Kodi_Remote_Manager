@@ -1,4 +1,7 @@
 <settings>
+    <setting id="ABCVideoResolver_enabled" value="true" />
+    <setting id="ABCVideoResolver_login" value="true" />
+    <setting id="ABCVideoResolver_priority" value="100" />
     <setting id="AdultSwimResolver_enabled" value="true" />
     <setting id="AdultSwimResolver_login" value="true" />
     <setting id="AdultSwimResolver_priority" value="100" />
@@ -14,12 +17,18 @@
     <setting id="AmazonCloudResolver_enabled" value="true" />
     <setting id="AmazonCloudResolver_login" value="true" />
     <setting id="AmazonCloudResolver_priority" value="100" />
+    <setting id="AnaVidsResolver_enabled" value="true" />
+    <setting id="AnaVidsResolver_login" value="true" />
+    <setting id="AnaVidsResolver_priority" value="100" />
     <setting id="AniStreamResolver_enabled" value="true" />
     <setting id="AniStreamResolver_login" value="true" />
     <setting id="AniStreamResolver_priority" value="100" />
     <setting id="AnyFilesResolver_enabled" value="true" />
     <setting id="AnyFilesResolver_login" value="true" />
     <setting id="AnyFilesResolver_priority" value="100" />
+    <setting id="AparatResolver_enabled" value="true" />
+    <setting id="AparatResolver_login" value="true" />
+    <setting id="AparatResolver_priority" value="100" />
     <setting id="BitchuteResolver_enabled" value="true" />
     <setting id="BitchuteResolver_login" value="true" />
     <setting id="BitchuteResolver_priority" value="100" />
@@ -44,12 +53,18 @@
     <setting id="ClipWatchingResolver_enabled" value="true" />
     <setting id="ClipWatchingResolver_login" value="true" />
     <setting id="ClipWatchingResolver_priority" value="100" />
+    <setting id="Cloud9Resolver_enabled" value="true" />
+    <setting id="Cloud9Resolver_login" value="true" />
+    <setting id="Cloud9Resolver_priority" value="100" />
     <setting id="CloudVideoResolver_enabled" value="true" />
     <setting id="CloudVideoResolver_login" value="true" />
     <setting id="CloudVideoResolver_priority" value="100" />
     <setting id="CloudbResolver_enabled" value="true" />
     <setting id="CloudbResolver_login" value="true" />
     <setting id="CloudbResolver_priority" value="100" />
+    <setting id="CocoScopeResolver_enabled" value="true" />
+    <setting id="CocoScopeResolver_login" value="true" />
+    <setting id="CocoScopeResolver_priority" value="100" />
     <setting id="DaclipsResolver_enabled" value="true" />
     <setting id="DaclipsResolver_login" value="true" />
     <setting id="DaclipsResolver_priority" value="100" />
@@ -62,21 +77,41 @@
     <setting id="DateMuleResolver_enabled" value="true" />
     <setting id="DateMuleResolver_login" value="true" />
     <setting id="DateMuleResolver_priority" value="100" />
+    <setting id="DaxabResolver_enabled" value="true" />
+    <setting id="DaxabResolver_login" value="true" />
+    <setting id="DaxabResolver_priority" value="100" />
+    <setting id="DebridLinkResolver_cached_only" value="false" />
+    <setting id="DebridLinkResolver_client_id" value="" />
     <setting id="DebridLinkResolver_enabled" value="true" />
     <setting id="DebridLinkResolver_login" value="false" />
     <setting id="DebridLinkResolver_password" value="" />
     <setting id="DebridLinkResolver_priority" value="100" />
+    <setting id="DebridLinkResolver_refresh" value="" />
+    <setting id="DebridLinkResolver_token" value="" />
+    <setting id="DebridLinkResolver_torrents" value="true" />
     <setting id="DebridLinkResolver_ts_offset" value="0" />
     <setting id="DebridLinkResolver_username" value="" />
+    <setting id="DoodStreamResolver_enabled" value="true" />
+    <setting id="DoodStreamResolver_login" value="true" />
+    <setting id="DoodStreamResolver_priority" value="100" />
     <setting id="DownaceResolver_enabled" value="true" />
     <setting id="DownaceResolver_login" value="true" />
     <setting id="DownaceResolver_priority" value="100" />
+    <setting id="EasyLoadResolver_enabled" value="true" />
+    <setting id="EasyLoadResolver_login" value="true" />
+    <setting id="EasyLoadResolver_priority" value="100" />
+    <setting id="ElUploadResolver_enabled" value="true" />
+    <setting id="ElUploadResolver_login" value="true" />
+    <setting id="ElUploadResolver_priority" value="100" />
     <setting id="EnterVideoResolver_enabled" value="true" />
     <setting id="EnterVideoResolver_login" value="true" />
     <setting id="EnterVideoResolver_priority" value="100" />
     <setting id="EstreamResolver_enabled" value="true" />
     <setting id="EstreamResolver_login" value="true" />
     <setting id="EstreamResolver_priority" value="100" />
+    <setting id="EvoLoadResolver_enabled" value="true" />
+    <setting id="EvoLoadResolver_login" value="true" />
+    <setting id="EvoLoadResolver_priority" value="100" />
     <setting id="FacebookResolver_enabled" value="true" />
     <setting id="FacebookResolver_login" value="true" />
     <setting id="FacebookResolver_priority" value="100" />
@@ -145,12 +180,24 @@
     <setting id="JetloadResolver_enabled" value="true" />
     <setting id="JetloadResolver_login" value="true" />
     <setting id="JetloadResolver_priority" value="100" />
+    <setting id="K2SResolver_enabled" value="true" />
+    <setting id="K2SResolver_login" value="true" />
+    <setting id="K2SResolver_priority" value="100" />
     <setting id="KhatriResolver_enabled" value="true" />
     <setting id="KhatriResolver_login" value="true" />
     <setting id="KhatriResolver_priority" value="100" />
+    <setting id="LbryResolver_enabled" value="true" />
+    <setting id="LbryResolver_login" value="true" />
+    <setting id="LbryResolver_priority" value="100" />
+    <setting id="LetsUploadResolver_enabled" value="true" />
+    <setting id="LetsUploadResolver_login" value="true" />
+    <setting id="LetsUploadResolver_priority" value="100" />
     <setting id="LewdHostResolver_enabled" value="true" />
     <setting id="LewdHostResolver_login" value="true" />
     <setting id="LewdHostResolver_priority" value="100" />
+    <setting id="LiiVideoResolver_enabled" value="true" />
+    <setting id="LiiVideoResolver_login" value="true" />
+    <setting id="LiiVideoResolver_priority" value="100" />
     <setting id="LinksnappyResolver_cached_files_only" value="false" />
     <setting id="LinksnappyResolver_cached_only" value="true" />
     <setting id="LinksnappyResolver_enabled" value="true" />
@@ -166,6 +213,9 @@
     <setting id="MailRuResolver_enabled" value="true" />
     <setting id="MailRuResolver_login" value="true" />
     <setting id="MailRuResolver_priority" value="100" />
+    <setting id="MeGoGoResolver_enabled" value="true" />
+    <setting id="MeGoGoResolver_login" value="true" />
+    <setting id="MeGoGoResolver_priority" value="100" />
     <setting id="MegaDebridResolver_enabled" value="true" />
     <setting id="MegaDebridResolver_login" value="false" />
     <setting id="MegaDebridResolver_password" value="" />
@@ -175,6 +225,9 @@
     <setting id="MegaMP4Resolver_enabled" value="true" />
     <setting id="MegaMP4Resolver_login" value="true" />
     <setting id="MegaMP4Resolver_priority" value="100" />
+    <setting id="MegaupNetResolver_enabled" value="true" />
+    <setting id="MegaupNetResolver_login" value="true" />
+    <setting id="MegaupNetResolver_priority" value="100" />
     <setting id="MehlizMoviesResolver_enabled" value="true" />
     <setting id="MehlizMoviesResolver_login" value="true" />
     <setting id="MehlizMoviesResolver_priority" value="100" />
@@ -202,6 +255,12 @@
     <setting id="MyviRuResolver_enabled" value="true" />
     <setting id="MyviRuResolver_login" value="true" />
     <setting id="MyviRuResolver_priority" value="100" />
+    <setting id="NewtubeResolver_enabled" value="true" />
+    <setting id="NewtubeResolver_login" value="true" />
+    <setting id="NewtubeResolver_priority" value="100" />
+    <setting id="NinjaStreamResolver_enabled" value="true" />
+    <setting id="NinjaStreamResolver_login" value="true" />
+    <setting id="NinjaStreamResolver_priority" value="100" />
     <setting id="NxloadResolver_enabled" value="true" />
     <setting id="NxloadResolver_login" value="true" />
     <setting id="NxloadResolver_priority" value="100" />
@@ -214,6 +273,9 @@
     <setting id="OnlyStreamResolver_enabled" value="true" />
     <setting id="OnlyStreamResolver_login" value="true" />
     <setting id="OnlyStreamResolver_priority" value="100" />
+    <setting id="OoglyResolver_enabled" value="true" />
+    <setting id="OoglyResolver_login" value="true" />
+    <setting id="OoglyResolver_priority" value="100" />
     <setting id="OpenLoadResolver_auto_update" value="true" />
     <setting id="OpenLoadResolver_enabled" value="true" />
     <setting id="OpenLoadResolver_etag" value="" />
@@ -221,9 +283,15 @@
     <setting id="OpenLoadResolver_login" value="true" />
     <setting id="OpenLoadResolver_priority" value="100" />
     <setting id="OpenLoadResolver_url" value="" />
+    <setting id="PKSpeedResolver_enabled" value="true" />
+    <setting id="PKSpeedResolver_login" value="true" />
+    <setting id="PKSpeedResolver_priority" value="100" />
     <setting id="PixelDrainResolver_enabled" value="true" />
     <setting id="PixelDrainResolver_login" value="true" />
     <setting id="PixelDrainResolver_priority" value="100" />
+    <setting id="PlayTubeResolver_enabled" value="true" />
+    <setting id="PlayTubeResolver_login" value="true" />
+    <setting id="PlayTubeResolver_priority" value="100" />
     <setting id="PlayWireResolver_enabled" value="true" />
     <setting id="PlayWireResolver_login" value="true" />
     <setting id="PlayWireResolver_priority" value="100" />
@@ -234,6 +302,7 @@
     <setting id="PowVideoResolver_login" value="true" />
     <setting id="PowVideoResolver_priority" value="100" />
     <setting id="PremiumizeMeResolver_cached_only" value="false" />
+    <setting id="PremiumizeMeResolver_clear_finished" value="false" />
     <setting id="PremiumizeMeResolver_enabled" value="true" />
     <setting id="PremiumizeMeResolver_login" value="true" />
     <setting id="PremiumizeMeResolver_priority" value="100" />
@@ -282,9 +351,15 @@
     <setting id="SapoResolver_enabled" value="true" />
     <setting id="SapoResolver_login" value="true" />
     <setting id="SapoResolver_priority" value="100" />
+    <setting id="SaruchResolver_enabled" value="true" />
+    <setting id="SaruchResolver_login" value="true" />
+    <setting id="SaruchResolver_priority" value="100" />
     <setting id="SendVidResolver_enabled" value="true" />
     <setting id="SendVidResolver_login" value="true" />
     <setting id="SendVidResolver_priority" value="100" />
+    <setting id="SibnetResolver_enabled" value="true" />
+    <setting id="SibnetResolver_login" value="true" />
+    <setting id="SibnetResolver_priority" value="100" />
     <setting id="SimplyDebridResolver_enabled" value="true" />
     <setting id="SimplyDebridResolver_login" value="false" />
     <setting id="SimplyDebridResolver_password" value="" />
@@ -296,6 +371,7 @@
     <setting id="SmoozedResolver_password" value="" />
     <setting id="SmoozedResolver_priority" value="100" />
     <setting id="SmoozedResolver_session_key" value="" />
+    <setting id="SmoozedResolver_username" value="" />
     <setting id="SpeedVidResolver_auto_update" value="true" />
     <setting id="SpeedVidResolver_enabled" value="true" />
     <setting id="SpeedVidResolver_etag" value='W/&quot;aabc9ec30ebd4170600db7b21c92e0ed29ee530468f89743311a6d78268f1045&quot;' />
@@ -307,12 +383,24 @@
     <setting id="SpeedWatchResolver_enabled" value="true" />
     <setting id="SpeedWatchResolver_login" value="true" />
     <setting id="SpeedWatchResolver_priority" value="100" />
+    <setting id="SpeedoStreamResolver_enabled" value="true" />
+    <setting id="SpeedoStreamResolver_login" value="true" />
+    <setting id="SpeedoStreamResolver_priority" value="100" />
     <setting id="SsfilesResolver_enabled" value="true" />
     <setting id="SsfilesResolver_login" value="true" />
     <setting id="SsfilesResolver_priority" value="100" />
     <setting id="StreamMoeResolver_enabled" value="true" />
     <setting id="StreamMoeResolver_login" value="true" />
     <setting id="StreamMoeResolver_priority" value="100" />
+    <setting id="StreamSBResolver_enabled" value="true" />
+    <setting id="StreamSBResolver_login" value="true" />
+    <setting id="StreamSBResolver_priority" value="100" />
+    <setting id="StreamTapeResolver_enabled" value="true" />
+    <setting id="StreamTapeResolver_login" value="true" />
+    <setting id="StreamTapeResolver_priority" value="100" />
+    <setting id="StreamWireResolver_enabled" value="true" />
+    <setting id="StreamWireResolver_login" value="true" />
+    <setting id="StreamWireResolver_priority" value="100" />
     <setting id="StreamableResolver_enabled" value="true" />
     <setting id="StreamableResolver_login" value="true" />
     <setting id="StreamableResolver_priority" value="100" />
@@ -430,15 +518,27 @@
     <setting id="VidBomResolver_enabled" value="true" />
     <setting id="VidBomResolver_login" value="true" />
     <setting id="VidBomResolver_priority" value="100" />
+    <setting id="VidCloud9Resolver_enabled" value="true" />
+    <setting id="VidCloud9Resolver_login" value="true" />
+    <setting id="VidCloud9Resolver_priority" value="100" />
     <setting id="VidCloudResolver_enabled" value="true" />
     <setting id="VidCloudResolver_login" value="true" />
     <setting id="VidCloudResolver_priority" value="100" />
+    <setting id="VidFastResolver_enabled" value="true" />
+    <setting id="VidFastResolver_login" value="true" />
+    <setting id="VidFastResolver_priority" value="100" />
     <setting id="VidFileResolver_enabled" value="true" />
     <setting id="VidFileResolver_login" value="true" />
     <setting id="VidFileResolver_priority" value="100" />
     <setting id="VidMadResolver_enabled" value="true" />
     <setting id="VidMadResolver_login" value="true" />
     <setting id="VidMadResolver_priority" value="100" />
+    <setting id="VidMojoResolver_enabled" value="true" />
+    <setting id="VidMojoResolver_login" value="true" />
+    <setting id="VidMojoResolver_priority" value="100" />
+    <setting id="VidMolyResolver_enabled" value="true" />
+    <setting id="VidMolyResolver_login" value="true" />
+    <setting id="VidMolyResolver_priority" value="100" />
     <setting id="VidStreamingResolver_enabled" value="true" />
     <setting id="VidStreamingResolver_login" value="true" />
     <setting id="VidStreamingResolver_priority" value="100" />
@@ -466,12 +566,21 @@
     <setting id="VideoHost2Resolver_enabled" value="true" />
     <setting id="VideoHost2Resolver_login" value="true" />
     <setting id="VideoHost2Resolver_priority" value="100" />
+    <setting id="VideoMegaResolver_enabled" value="true" />
+    <setting id="VideoMegaResolver_login" value="true" />
+    <setting id="VideoMegaResolver_priority" value="100" />
+    <setting id="VideoSeyredResolver_enabled" value="true" />
+    <setting id="VideoSeyredResolver_login" value="true" />
+    <setting id="VideoSeyredResolver_priority" value="100" />
     <setting id="VideoZooResolver_enabled" value="true" />
     <setting id="VideoZooResolver_login" value="true" />
     <setting id="VideoZooResolver_priority" value="100" />
     <setting id="VideobinResolver_enabled" value="true" />
     <setting id="VideobinResolver_login" value="true" />
     <setting id="VideobinResolver_priority" value="100" />
+    <setting id="VideosShResolver_enabled" value="true" />
+    <setting id="VideosShResolver_login" value="true" />
+    <setting id="VideosShResolver_priority" value="100" />
     <setting id="VideowoodResolver_enabled" value="true" />
     <setting id="VideowoodResolver_login" value="true" />
     <setting id="VideowoodResolver_priority" value="100" />
@@ -496,12 +605,18 @@
     <setting id="VidozaResolver_enabled" value="true" />
     <setting id="VidozaResolver_login" value="true" />
     <setting id="VidozaResolver_priority" value="100" />
+    <setting id="VidspaceResolve_enabled" value="true" />
+    <setting id="VidspaceResolve_login" value="true" />
+    <setting id="VidspaceResolve_priority" value="100" />
     <setting id="VidstoreResolver_enabled" value="true" />
     <setting id="VidstoreResolver_login" value="true" />
     <setting id="VidstoreResolver_priority" value="100" />
     <setting id="VidtoResolver_enabled" value="true" />
     <setting id="VidtoResolver_login" value="true" />
     <setting id="VidtoResolver_priority" value="100" />
+    <setting id="ViduPlayerResolver_enabled" value="true" />
+    <setting id="ViduPlayerResolver_login" value="true" />
+    <setting id="ViduPlayerResolver_priority" value="100" />
     <setting id="VidwatchResolver_enabled" value="true" />
     <setting id="VidwatchResolver_login" value="true" />
     <setting id="VidwatchResolver_priority" value="100" />
@@ -523,12 +638,18 @@
     <setting id="VlareTVResolver_enabled" value="true" />
     <setting id="VlareTVResolver_login" value="true" />
     <setting id="VlareTVResolver_priority" value="100" />
+    <setting id="VoeResolver_enabled" value="true" />
+    <setting id="VoeResolver_login" value="true" />
+    <setting id="VoeResolver_priority" value="100" />
     <setting id="VshareEuResolver_enabled" value="true" />
     <setting id="VshareEuResolver_login" value="true" />
     <setting id="VshareEuResolver_priority" value="100" />
     <setting id="VshareResolver_enabled" value="true" />
     <setting id="VshareResolver_login" value="true" />
     <setting id="VshareResolver_priority" value="100" />
+    <setting id="VudeoResolver_enabled" value="true" />
+    <setting id="VudeoResolver_login" value="true" />
+    <setting id="VudeoResolver_priority" value="100" />
     <setting id="VuptoResolver_enabled" value="true" />
     <setting id="VuptoResolver_login" value="true" />
     <setting id="VuptoResolver_priority" value="100" />
@@ -544,12 +665,18 @@
     <setting id="WeShareResolver_enabled" value="true" />
     <setting id="WeShareResolver_login" value="true" />
     <setting id="WeShareResolver_priority" value="100" />
+    <setting id="WstreamResolver_enabled" value="true" />
+    <setting id="WstreamResolver_login" value="true" />
+    <setting id="WstreamResolver_priority" value="100" />
     <setting id="XStreamCDNResolver_enabled" value="true" />
     <setting id="XStreamCDNResolver_login" value="true" />
     <setting id="XStreamCDNResolver_priority" value="100" />
     <setting id="YandexResolver_enabled" value="true" />
     <setting id="YandexResolver_login" value="true" />
     <setting id="YandexResolver_priority" value="100" />
+    <setting id="YouDBoxResolver_enabled" value="true" />
+    <setting id="YouDBoxResolver_login" value="true" />
+    <setting id="YouDBoxResolver_priority" value="100" />
     <setting id="YourUploadResolver_enabled" value="true" />
     <setting id="YourUploadResolver_login" value="true" />
     <setting id="YourUploadResolver_priority" value="100" />
@@ -565,8 +692,8 @@
     <setting id="allow_popups" value="true" />
     <setting id="allow_universal" value="true" />
     <setting id="auto_pick" value="true" />
-    <setting id="current_ua" value="Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0" />
-    <setting id="last_ua_create" value="1582822266" />
+    <setting id="current_ua" value="Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.1; Win64; x64; Trident/6.0)" />
+    <setting id="last_ua_create" value="1616399753" />
     <setting id="myUpload_enabled" value="true" />
     <setting id="myUpload_login" value="true" />
     <setting id="myUpload_priority" value="100" />

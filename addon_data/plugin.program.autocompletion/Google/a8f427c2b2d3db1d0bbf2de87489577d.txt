@@ -1,1 +1,1 @@
-["ht", ["html", "htb", "htv", "html tutorial", "htc", "htc vive", "htgawm", "htan ena mikro karavi", "html css", "html5"], [], {"google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]
+["ht", ["html", "html tutorial", "htb", "htv", "htgawm", "htc", "html css", "httyd", "httyd soundtrack", "html css javascript"], [], {"google:suggestsubtypes": [[433], [433, 131], [433], [433], [], [433], [], [], [], []], "google:suggesttype": ["QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY", "QUERY"]}]

@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import urllib,urlparse
 import traceback
+from resources.lib.sources import cfscrape
 from resources.lib.modules import log_utils
 from resources.lib.modules import client
-from resources.lib.modules import debrid, control
-from resources.lib.modules import source_utils, rd_check
+from resources.lib.modules import debrid
+from resources.lib.modules import control
+from resources.lib.modules import source_utils
+from resources.lib.modules import rd_check
 
 
 class source:
@@ -19,6 +23,7 @@ class source:
         self.domains = ['max-rls.com']
         self.base_link = 'http://max-rls.com'
         self.search_link = '/?s=%s&submit=Find'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -71,7 +76,7 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url).replace('%3A+', '+')
 
-            r = client.request(url)
+            r = cfscrape.get(url, headers=self.headers).content
 
             posts = client.parseDOM(r, "h2", attrs={"class": "postTitle"})
             hostDict = hostprDict + hostDict
@@ -88,7 +93,7 @@ class source:
             for item in items:
                 try:
                     i = str(item)
-                    r = client.request(i)
+                    r = cfscrape.get(i, headers=self.headers).content
                     u = client.parseDOM(r, "div", attrs={"class": "postContent"})
                     for t in u:
                         r = client.parseDOM(t, 'a', ret='href')
@@ -98,17 +103,18 @@ class source:
                             if 'SD' in quality: continue
                             info = ' | '.join(info)
                             valid, host = source_utils.is_host_valid(url, hostDict)
-                            if control.setting('deb.rd_check') == 'true':
-                                check = rd_check.rd_deb_check(url)
-                                if check:
-                                    info = 'RD Checked' + ' | ' + info
+                            if valid:
+                                if control.setting('deb.rd_check') == 'true':
+                                    check = rd_check.rd_deb_check(url)
+                                    if check:
+                                        info = 'RD Checked' + ' | ' + info
+                                        sources.append(
+                                            {'source': host, 'quality': quality, 'language': 'en', 'url': check,
+                                             'info': info, 'direct': False, 'debridonly': True})
+                                else:
                                     sources.append(
-                                        {'source': host, 'quality': quality, 'language': 'en', 'url': check,
+                                        {'source': host, 'quality': quality, 'language': 'en', 'url': url,
                                          'info': info, 'direct': False, 'debridonly': True})
-                            else:
-                                sources.append(
-                                    {'source': host, 'quality': quality, 'language': 'en', 'url': url,
-                                     'info': info, 'direct': False, 'debridonly': True})
                 except:
                     pass
             return sources

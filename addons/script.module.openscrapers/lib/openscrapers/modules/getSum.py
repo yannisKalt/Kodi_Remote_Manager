@@ -2,9 +2,13 @@
 # --[getSum v1.4]--|--[From JewBMX]--
 # Lazy Module to make life a little easier.
 
-import HTMLParser
 import re
+try:
+	from HTMLParser import HTMLParser
+except ImportError:
+	from html.parser import HTMLParser
 
+from openscrapers.modules.utils import byteify
 from openscrapers.modules import log_utils
 
 headers = {
@@ -51,7 +55,7 @@ class GetSum(object):
 				links = re.compile(self._magnet_regex).findall(text)
 				if links:
 					for link in links:
-						link = str(replaceHTMLCodes(link).encode('utf-8').split('&tr')[0])
+						link = str(byteify(replaceHTMLCodes(link)).split('&tr')[0])
 						link = "magnet:" + link if not link.startswith('magnet') else link
 						if link in self.links:
 							continue
@@ -174,13 +178,13 @@ def get_video(text):
 	match = re.compile(pattern).findall(text)
 	links = []
 	for url in match:
-		links.append(url.encode('utf-8'))
+		links.append(byteify(url))
 	return links
 
 
 def replaceHTMLCodes(text):
 	text = re.sub("(&#[0-9]+)([^;^0-9]+)", "\\1;\\2", text)
-	text = HTMLParser.HTMLParser().unescape(text)
+	text = HTMLParser().unescape(text)
 	text = text.replace("&quot;", "\"")
 	text = text.replace("&amp;", "&")
 	text = text.replace("%2B", "+")

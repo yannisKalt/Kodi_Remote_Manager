@@ -4,8 +4,13 @@
 
 import re,urllib,urlparse
 import traceback
-from resources.lib.modules import client,cleantitle,debrid,source_utils,workers,control
-from resources.lib.modules import log_utils, control
+from resources.lib.modules import client
+from resources.lib.modules import cleantitle
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import workers
+from resources.lib.modules import control
+from resources.lib.modules import log_utils
 from resources.lib.modules import rd_check
 from resources.lib.sources import cfscrape
 
@@ -14,9 +19,10 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['kickass2.cc']
-        self.base_link = 'https://thekat.nl/'
-        self.search = 'https://thekat.nl/usearch/{0}'
+        self.domains = ['thekat.app', 'thekat.nl', 'kickass2.cc']
+        self.base_link = 'https://thekat.app/'
+        self.search = 'https://thekat.app/usearch/{0}'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -83,8 +89,7 @@ class source:
 
     def _get_items(self, url):
         try:
-            headers = {'User-Agent': client.agent()}
-            r = cfscrape.get(url).content
+            r = cfscrape.get(url, headers=self.headers).content
             posts = client.parseDOM(r, 'tr', attrs={'id': 'torrent_latest_torrents'})
             for post in posts:
                 data = client.parseDOM(post, 'a', attrs={'title': 'Torrent magnet link'}, ret='href')[0]

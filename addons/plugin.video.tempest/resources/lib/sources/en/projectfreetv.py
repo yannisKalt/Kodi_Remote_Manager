@@ -1,33 +1,39 @@
 # -*- coding: utf-8 -*-
+# -Rewrote on 06-14-2020 by Tempest.
 
-
-import re
-
-from resources.lib.modules import cleantitle
+import re, urllib, urlparse
+import traceback
 from resources.lib.modules import client
+from resources.lib.modules import log_utils
+from resources.lib.modules import scrape_source
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['my-project-free.tv', 'project-free-tv.ag']
-        self.base_link = 'http://www1.projectfreetv.ag'
-        self.search_link = '/episode/%s-season-%s-episode-%s'
+        self.domains = ['projecfreetv.co']
+        self.base_link = 'https://projecfreetv.co'
+        self.search_link = '/episode/%s/'
+        self.headers = {'User-Agent': client.agent()}
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
-            clean_title = cleantitle.geturl(tvshowtitle)
-            url = clean_title
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year}
+            url = urllib.urlencode(url)
             return url
         except:
             return
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            if not url: return
-            tvshowtitle = url
-            url = self.base_link + self.search_link % (tvshowtitle, int(season), int(episode))
+            if url is None:
+                return
+
+            url = urlparse.parse_qs(url)
+            url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
+            url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
+            url = urllib.urlencode(url)
             return url
         except:
             return
@@ -35,23 +41,35 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            r = client.request(url)
+
+            if url is None:
+                return sources
+
+            data = urlparse.parse_qs(url)
+            data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
+
+            title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
+
+            hdlr = 's%02de%02d' % (int(data['season']), int(data['episode'])) if 'tvshowtitle' in data else data['year']
+
+            query = '%s-s%02de%02d' % (data['tvshowtitle'], int(data['season']), int(data['episode']))
+            query = re.sub('(\\\|/| -|:|;|\*|\?|"|\'|<|>|\|)', ' ', query)
+
+            url = self.search_link % urllib.quote_plus(query)
+            url = urlparse.urljoin(self.base_link, url).replace('+', '-')
+
+            r = client.request(url, headers=self.headers)
             try:
-                data = re.compile("callvalue\('.+?','.+?','(.+?)://(.+?)/(.+?)'\)", re.DOTALL).findall(r)
-                for http, host, url in data:
-                    url = '%s://%s/%s' % (http, host, url)
-                    sources.append({
-                        'source': host,
-                        'quality': 'SD',
-                        'language': 'en',
-                        'url': url,
-                        'direct': False,
-                        'debridonly': False
-                    })
+                data = re.compile('<a href="(.+?)" target="_blank" rel="nofollow" title.+?').findall(r)
+                for url in data:
+                    for source in scrape_source.getMore(url, hostDict):
+                        sources.append(source)
             except:
                 pass
             return sources
         except Exception:
+            failure = traceback.format_exc()
+            log_utils.log('---PROJECTFREETV Testing - Exception: \n' + str(failure))
             return sources
 
     def resolve(self, url):

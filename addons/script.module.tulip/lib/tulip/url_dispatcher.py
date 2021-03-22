@@ -1,26 +1,19 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
-    Url dispatcher module thanks to tknorris
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
 
 
 class URLDispatcher:
+
+    """
+    Based on tknorris URLDispatcher which works with 'modes'
+    """
 
     def __init__(self):
 
@@ -105,16 +98,17 @@ class URLDispatcher:
 
         from kodi_six import xbmc
 
-        for action in sorted(self.func_registry, key=lambda x: int(x)):
+        for action in self.func_registry:
 
             value = self.func_registry[action]
             args = self.args_registry[action]
             kwargs = self.kwargs_registry[action]
-            line = 'Action {0} Registered - {1} args: {2} kwargs: {3}'.format(str(action), str(value), str(args), str(kwargs))
+            line = 'Action {0} Registered - {1} args: {2} kwargs: {3}'.format(
+                str(action), str(value), str(args), str(kwargs)
+            )
             xbmc.log(line, xbmc.LOGNOTICE)
 
     # since all params are passed as strings, do any conversions necessary to get good types (e.g. boolean)
-
     def __coerce(self, arg):
 
         try:
@@ -132,3 +126,8 @@ class URLDispatcher:
 
         except:
             return arg
+
+
+urldispatcher = URLDispatcher()
+
+__all__ = ['urldispatcher']

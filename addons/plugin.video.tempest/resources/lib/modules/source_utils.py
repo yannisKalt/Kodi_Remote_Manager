@@ -46,6 +46,8 @@ def get_release_quality(release_name, release_link=None):
             quality = '1080p'
         elif '1080' in fmt:
             quality = '1080p'
+        elif '718p' in fmt:
+            quality = '720p'
         elif '720p' in fmt:
             quality = '720p'
         elif '720' in fmt:
@@ -86,6 +88,8 @@ def get_release_quality(release_name, release_link=None):
                     quality = '4K'
                 elif '1080' in release_link:
                     quality = '1080p'
+                elif '718p' in release_link:
+                    quality = '720p'
                 elif '720' in release_link:
                     quality = '720p'
                 elif '.hd' in release_link:
@@ -253,6 +257,10 @@ def check_url(url):
         elif 'HD' in url:
             quality = '720p'
         elif 'hdtv' in url:
+            quality = '720p'
+        elif 'HD 720' in url:
+            quality = '720p'
+        elif 'HD 720p' in url:
             quality = '720p'
         elif 'BluRay' in url:
             quality = '720p'

@@ -1,26 +1,18 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Tulip routine libraries, based on lambda's lamlib
+    Tulip library
     Author Twilight0
 
-        License summary below, for more details please read license.txt file
-
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 2 of the License, or
-        (at your option) any later version.
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-3.0-only
+    See LICENSES/GPL-3.0-only for more information.
 '''
+
 from __future__ import absolute_import, print_function
 
 import traceback, sys
-from tulip.compat import urlencode, quote_plus, iteritems, basestring, parse_qsl
+from tulip.compat import urlencode, quote_plus, iteritems, basestring, parse_qsl, py3_dec
+from tulip.utils import percent
 from tulip import control
 from kodi_six.xbmc import log
 
@@ -76,7 +68,7 @@ def add(
 
             if progress:
 
-                p = control.per_cent(c, len(items))
+                p = percent(c, len(items))
                 pd.update(p)
 
             try:
@@ -275,6 +267,10 @@ def add(
             raise Exception()
 
         url = '{0}?action={1}&url={2}'.format(sysaddon, i['nextaction'], quote_plus(i['next']))
+        if 'name' in i:
+            url += '&name={0}'.format(quote_plus(i['name'].encode('utf-8')))
+        if 'title' in i:
+            url += '&title={0}'.format(quote_plus(i['title'].encode('utf-8')))
         icon = i['nexticon'] if 'nexticon' in i else control.addonmedia('next.png')
         fanart = i['nextfanart'] if 'nextfanart' in i else sysfanart
 
@@ -409,7 +405,7 @@ def resolve(
     from tulip.init import syshandle
 
     # Fail gracefully instead of making Kodi complain.
-    if url is None:
+    if not url:
         from kodi_six.xbmc import log
         log('URL was not provided, failure to resolve stream')
         return
@@ -423,12 +419,12 @@ def resolve(
         elif isinstance(headers, dict):
             headers = urlencode(headers)
 
-    if not verify and 'verifypeer' not in headers:
+    if not verify:
 
-        if headers:
-            headers += '&verifypeer=False'
+        if headers and 'verifypeer' not in headers:
+            headers += '&verifypeer=false'
         else:
-            headers = 'verifypeer=False'
+            headers = 'verifypeer=false'
 
     if not dash and headers:
         url = '|'.join([url, headers])

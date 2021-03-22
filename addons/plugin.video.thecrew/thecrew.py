@@ -96,6 +96,46 @@ elif action == 'iptv':
     from resources.lib.indexers import lists
     lists.indexer().root_iptv()
 
+elif action == 'yss':
+    from resources.lib.indexers import lists
+    lists.indexer().root_yss()
+
+elif action == 'weak':
+    from resources.lib.indexers import lists
+    lists.indexer().root_weak()
+
+elif action == 'daddylive':
+    from resources.lib.indexers import lists
+    lists.indexer().root_daddylive()
+
+elif action == 'sportsbay':
+    from resources.lib.indexers import lists
+    lists.indexer().root_sportsbay()
+
+elif action == 'sports24':
+    from resources.lib.indexers import lists
+    lists.indexer().root_sports24()
+
+elif action == 'gratis':
+    from resources.lib.indexers import lists
+    lists.indexer().root_gratis()
+
+elif action == 'base':
+    from resources.lib.indexers import lists
+    lists.indexer().root_base()
+
+elif action == 'waste':
+    from resources.lib.indexers import lists
+    lists.indexer().root_waste()
+
+elif action == 'whitehat':
+    from resources.lib.indexers import lists
+    lists.indexer().root_whitehat()
+
+elif action == 'arconai':
+    from resources.lib.indexers import lists
+    lists.indexer().root_arconai()
+
 elif action == 'iptv_lodge':
     from resources.lib.indexers import lists
     lists.indexer().root_iptv_lodge()
@@ -103,6 +143,26 @@ elif action == 'iptv_lodge':
 elif action == 'stratus':
     from resources.lib.indexers import lists
     lists.indexer().root_stratus()
+
+elif action == 'distro':
+    from resources.lib.indexers import lists
+    lists.indexer().root_distro()
+
+elif action == 'xumo':
+    from resources.lib.indexers import lists
+    lists.indexer().root_xumo()
+
+elif action == 'bumble':
+    from resources.lib.indexers import lists
+    lists.indexer().root_bumble()
+
+elif action == 'pluto':
+    from resources.lib.indexers import lists
+    lists.indexer().root_pluto()
+
+elif action == 'tubi':
+    from resources.lib.indexers import lists
+    lists.indexer().root_tubi()
 
 elif action == 'spanish':
     from resources.lib.indexers import lists
@@ -839,3 +899,23 @@ elif action == 'halloweenNavigator':
 elif action == 'bugReports':
     from resources.lib.reports import bugreports
     bugreports.BugReporter()
+
+elif action == 'kidsgreyNavigator':
+    from resources.lib.indexers import navigator
+    navigator.navigator().kidsgrey()
+
+elif action == 'debridkids':
+    from resources.lib.indexers import lists
+    lists.indexer().root_debridkids()
+
+elif action == 'waltdisney':
+    from resources.lib.indexers import lists
+    lists.indexer().root_waltdisney()
+
+elif action == 'learning':
+    from resources.lib.indexers import lists
+    lists.indexer().root_learning()
+
+elif action == 'songs':
+    from resources.lib.indexers import lists
+    lists.indexer().root_songs()                    

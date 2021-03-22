@@ -5,17 +5,20 @@ import re, urllib, urlparse
 import traceback
 from resources.lib.modules import log_utils
 from resources.lib.modules import client
-from resources.lib.modules import debrid, control
-from resources.lib.modules import source_utils, rd_check
+from resources.lib.modules import debrid
+from resources.lib.modules import control
+from resources.lib.modules import source_utils
+from resources.lib.modules import rd_check
 
 
 class source:
     def __init__(self):
         self.priority = 1
         self.language = ['en']
-        self.domains = ['300mbfilms.co']
-        self.base_link = 'https://www.300mbfilms.io'
+        self.domains = ['300mbfilms.ws', '300mbfilms.co']
+        self.base_link = 'https://www.300mbfilms.ws'
         self.search_link = '/?s=%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -69,7 +72,7 @@ class source:
             url = self.search_link % urllib.quote_plus(query)
             url = urlparse.urljoin(self.base_link, url)
 
-            r = client.request(url)
+            r = client.request(url, headers=self.headers)
 
             posts = re.findall('<h2 class="title">(.+?)</h2>', r, re.IGNORECASE)
 
@@ -131,21 +134,21 @@ class source:
             if url is None:
                 return
             for url in url:
-                r = client.request(url)
+                r = client.request(url, headers=self.headers)
                 r = client.parseDOM(r, 'div', attrs={'class': 'entry'})
                 r = client.parseDOM(r, 'a', ret='href')
                 r1 = [i for i in r if 'money' in i][0]
-                r = client.request(r1)
+                r = client.request(r1, headers=self.headers)
                 r = client.parseDOM(r, 'div', attrs={'id': 'post-\d+'})[0]
 
                 if 'enter the password' in r:
                     plink= client.parseDOM(r, 'form', ret='action')[0]
 
                     post = {'post_password': '300mbfilms', 'Submit': 'Submit'}
-                    send_post = client.request(plink, post=post, output='cookie')
-                    link = client.request(r1, cookie=send_post)
+                    send_post = client.request(plink, post=post, output='cookie', headers=self.headers)
+                    link = client.request(r1, cookie=send_post, headers=self.headers)
                 else:
-                    link = client.request(r1)
+                    link = client.request(r1, headers=self.headers)
 
                 link = re.findall('<strong>Single(.+?)</tr', link, re.DOTALL)[0]
                 link = client.parseDOM(link, 'a', ret='href')

@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re, urllib, urlparse
 import traceback
-from resources.lib.modules import cleantitle, debrid, source_utils
-from resources.lib.modules import client, control, cfscrape
-from resources.lib.modules import log_utils, rd_check
+
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import client
+from resources.lib.modules import control
+from resources.lib.modules import log_utils
+from resources.lib.modules import rd_check
 from resources.lib.sources import cfscrape
 
 
@@ -17,9 +22,10 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['btdb.eu']
-        self.base_link = 'https://btdb.io'
+        self.base_link = 'https://btdb.eu'
         self.search_link = '/search/%s/'
         self.min_seeders = int(control.setting('torrent.min.seeders'))
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         if debrid.status() is False: return
@@ -77,7 +83,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url).replace('+', '%20')
 
             try:
-                r = cfscrape.get(url).content
+                r = cfscrape.get(url, headers=self.headers).content
                 posts = client.parseDOM(r, "div", attrs={"class": "media"})
                 for post in posts:
                     seeders = re.findall('Seeders : <strong class="text-success">(.+?)</strong>', post)[0]

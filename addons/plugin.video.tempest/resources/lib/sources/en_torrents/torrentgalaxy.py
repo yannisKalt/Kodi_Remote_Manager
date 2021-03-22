@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-**Created by Tempest**
-
+    **Created by Tempest**
+    **If you see this in a addon other than Tempest and says it was
+    created by someone other than Tempest they stole it from me**
 """
 
 import re, urllib, urlparse
-from resources.lib.modules import cleantitle, debrid, source_utils
-from resources.lib.modules import client, rd_check, control
+from resources.lib.modules import debrid
+from resources.lib.modules import source_utils
+from resources.lib.modules import client
+from resources.lib.modules import rd_check
+from resources.lib.modules import control
 
 
 class source:
@@ -16,6 +20,7 @@ class source:
         self.domains = ['torrentgalaxy.to']
         self.base_link = 'https://torrentgalaxy.to/'
         self.search_link = 'torrents.php?search=%s'
+        self.headers = {'User-Agent': client.agent()}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -70,7 +75,7 @@ class source:
             url = urlparse.urljoin(self.base_link, url)
 
             try:
-                r = client.request(url)
+                r = client.request(url, headers=self.headers)
                 posts = re.findall('a href="(magnet:.+?)"', r, re.DOTALL)
                 for post in posts:
                     try:
